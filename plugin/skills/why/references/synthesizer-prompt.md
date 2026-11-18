@@ -1,112 +1,52 @@
-# Synthesizer Prompt Template
+# Synthesizer prompt
 
 Fill in the placeholders.
 
 ---
 
-Answer a "why" question about code by synthesizing findings from investigators who each searched one historical source. Produce a confidence-weighted, cited narrative that says honestly what the evidence supports and what it doesn't. The user will act on it: leave open questions open rather than fill them with confident guesses.
+Answer a "why" question about code from the evidence below, which investigators gathered from one source each. The user will act on your answer, so leave open questions open instead of filling them with confident guesses. Code shows what it does, not why it exists.
 
-## The Question
+**Question:** {QUESTION}
 
-> {QUESTION}
+**Code:** {FILES_WITH_LINE_RANGES}, {SYMBOLS}
 
-## The Code Anchor
+**Findings:** {ALL_INVESTIGATOR_FINDINGS}
 
-**Target files:** {FILES_WITH_LINE_RANGES}
+**Sources not searched:** {SKIPPED_SOURCES_WITH_REASONS}
 
-**Key symbols:** {SYMBOLS}
+## Confidence tiers
 
-## Investigator Findings
+Every claim sits in exactly one tier. The tier decides the section the claim goes in and how it's worded.
 
-{ALL_INVESTIGATOR_FINDINGS}
+| Tier | Means | Wording |
+|---|---|---|
+| Direct | An author wrote why: a PR, ticket, comment, doc or chat message | "This exists because X", cited |
+| Supported | Several indirect pieces converge | "The evidence points strongly to X", each piece cited |
+| Inferred | Your reasoning, shown step by step | "Given A and B, C seems likely because D" |
+| Speculative | Thin evidence that alternatives fit equally well | "One possibility is X, but there's no direct evidence" |
+| Unknown | You looked and couldn't find out | Name exactly what was searched |
 
-## Sources That Weren't Searched
+- **Wording.** "Because", "was designed to", "fixes" and "the team decided" need an adjacent citation. Never use "obviously", "clearly" or "I think".
+- **Don't rationalize.** Don't retrofit a clean story onto messy history, don't assume the author did the right thing, and don't treat missing evidence as evidence of absence.
+- **Check the user's own hypothesis** ("I assume it's for performance?") independently. Don't confirm it by default.
+- **When sources contradict,** show both. The user decides.
+- **Spot-check citations** you doubt by reading the code or calling MCP tools. Write nothing and change nothing.
 
-{SKIPPED_SOURCES_WITH_REASONS}
+## Output
 
-## Epistemics Framework
+1. **The Question:** one or two sentences.
+2. **The Code in Question:** paths, line ranges, symbols.
+3. **What We Found:** `[Direct]` and `[Supported]` claims, each cited.
+4. **What We Can Reasonably Infer:** `[Inferred]` claims with their reasoning. Skip if there are none.
+5. **Competing Hypotheses:** each with the evidence for it and against it. Skip if there's one clear answer.
+6. **What We Don't Know:** specific gaps, such as "Searched the tracker for A, B, C; no issue discusses the threshold", plus who would likely know. An empty section is suspicious.
+7. **Sources Consulted:** one line per source with what was searched, including skipped sources and the reason.
+8. **Confidence Summary:** one or two sentences.
 
-You MUST read `references/epistemics.md` in full before writing and follow it: every claim sits in one tier (**Direct**, **Supported**, **Inferred**, **Speculative**, **Unknown**), which sets its section, phrasing, and citation.
+Before returning, check each of these and revise if it fails:
 
-## Instructions
-
-1. **Weigh all findings yourself**: investigators gathered evidence, not conclusions.
-2. **Merge overlaps**: one authoritative reference per PR, ticket, or doc.
-3. **Surface contradictions**: show both sides.
-4. **Calibrate each claim** to its tier: Direct stated plainly and cited, Inferred hedged with the chain shown, Speculative marked, no evidence goes to gaps.
-5. **Spot-check citations** you doubt by reading the codebase or calling MCP tools. Write no files, commit nothing, modify no external state.
-
-## Output Format
-
-Write for the user, in this exact structure:
-
----
-
-### The Question
-
-Restate the question in one or two sentences.
-
-### The Code in Question
-
-File paths, line ranges, key symbols: two or three lines for a cold reader.
-
-### What We Found
-
-Claims with textual evidence, quoted or paraphrased and cited precisely. `[Direct]`: single-source explicit evidence. `[Supported]`: several indirect items converging.
-
-- **[Direct]** {Claim}. Source: [PR #123](url) / ticket ID / file:line. {Brief quote or paraphrase.}
-- **[Supported]** {Claim}. Evidence: {list of items and what each contributes}.
-
-### What We Can Reasonably Infer
-
-Claims stated nowhere but well supported, each hedged and showing its chain ("Given A and B, it's likely that C"). Skip if none.
-
-- **[Inferred]** {Hedged claim}. Reasoning: {the specific evidence and the inference step}.
-
-### Competing Hypotheses
-
-When the evidence fits several stories, present each without forcing a winner. Skip if one clear answer.
-
-- **Hypothesis:** {one-sentence statement}
-- **Evidence for:** {specific items}
-- **Evidence against or missing:** {what would need to be true but isn't, or counter-signals}
-
-### What We Don't Know
-
-Specific gaps ("We searched the issue tracker for [query1], [query2], [query3] and found no issue discussing the rate-limit threshold", not "We don't know why"): unanswered questions, empty searches, unavailable sources and why (e.g. no real-time team chat MCP), people who would likely know but can't be asked.
-
-### Sources Consulted
-
-What was actually searched, so the user can judge coverage:
-
-- **Source control history**: {file paths}, {number of commits reviewed}, PRs #{numbers}, and code comments searched. Or "Not searched. This should not happen because git and `gh` are always expected."
-- **Issue / ticket tracker**: {ticket IDs and keyword searches}.
-- **Long-form documents**: {page titles and search queries}.
-- **Real-time team chat**: {channels searched, date ranges, queries}.
-- **Infrastructure observability**: {dashboards, monitors, metrics, logs, traces, or incidents searched}.
-- **Error / exception tracking**: {issues, events, or releases searched}.
-- **Product analytics warehouse**: {fully-qualified tables queried, time windows, and the numeric summaries (counts, percentiles, first/last-seen timestamps) that bore on the question}.
-
-Any non-git source not searched: "Not searched. No matching MCP available in this environment."
-
-### Confidence Summary
-
-One or two sentences, e.g.:
-
-> "The core rationale (A) is well-supported by direct PR and ticket evidence. The specific threshold value (100) is inferred from the surrounding context but not explicitly documented. The question of whether this was driven by a customer request could not be answered. No relevant issue tracker or long-form doc content surfaced, and real-time team chat search was unavailable."
-
----
-
-## Quality Check Before Returning
-
-Revise if any fails:
-
-1. Every "What We Found" claim cited, or moved to "Inferred" or "Hypotheses".
-2. Phrasing matches tier ("because" for Direct, never Inferred).
-3. Every noticed contradiction surfaced, not quietly resolved.
-4. "What We Don't Know" names specific gaps; empty is suspicious.
-5. Any embedded hypothesis checked, not rubber-stamped.
-6. No code cited as evidence of its own intent.
-7. Tone calibrated: confident on weak evidence is the failure this skill exists to prevent.
-
-Optimize for honesty, not authority: a reader taking this to the author, a lead, or a PM should know what's known, inferred, and missing.
+- Every claim is cited, or it's been moved to Inferred.
+- The wording matches the tier.
+- No code is cited as evidence of its own intent.
+- Every contradiction is shown.
+- Confidence on weak evidence is the failure this skill exists to prevent.
