@@ -2,6 +2,7 @@
 """Task outcomes with no skill, the skill at a baseline ref, and the skill at a candidate ref.
 
 Usage: python3 bench/tasks/run.py --model MODEL --base REF [--cand REF] [--runs 3] [--judge MODEL] [--out f.json]
+       python3 bench/tasks/run.py --model MODEL --refs REF1,REF2,... [...]   (one condition per ref, plus "none")
 
 Each run is a fresh agent. Skill conditions get the SKILL.md body the way a harness injects
 it after the skill fires, plus a read_file tool over that ref's plugin tree so the agent can
@@ -95,7 +96,8 @@ def judge(model, task, text):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
-    ap.add_argument("--base", required=True, help="git ref for the old skills")
+    ap.add_argument("--base", help="git ref for the old skills")
+    ap.add_argument("--refs", default="", help="comma-separated refs, each its own condition (replaces --base/--cand)")
     ap.add_argument("--cand", default=None, help="git ref for the new skills (default: working tree)")
     ap.add_argument("--judge", default="claude-opus-5-5")
     ap.add_argument("--runs", type=int, default=3)
@@ -104,11 +106,22 @@ def main():
     ap.add_argument("--out")
     a = ap.parse_args()
     tasks = [t for t in json.load(open(os.path.join(HERE, "tasks.json"))) if not a.only or t["id"] in a.only.split(",")]
-    conds = {"none": None, "old": tree_at(a.base), "new": tree_at(a.cand)}
+    if a.refs:
+        conds = {"none": None, **{r: tree_at(r) for r in a.refs.split(",")}}
+    else:
+        conds = {"none": None, "old": tree_at(a.base), "new": tree_at(a.cand)}
     jobs = [(t, c, r) for t in tasks for c in conds for r in range(a.runs)]
 
     def one(job):
         t, c, r = job
+        for attempt in range(2):  # one lost API call or bad judge reply shouldn't sink an hour-long run
+            try:
+                return score(t, c, r)
+            except Exception as e:
+                err = f"{type(e).__name__}: {e}"[:300]
+        return {"task": t["id"], "cond": c, "run": r, "error": err}
+
+    def score(t, c, r):
         text, usage, reads = run_agent(a.model, t, conds[c])
         checks = [check(x, text) for x in t["checks"]]
         judged = judge(a.judge, t, text)
@@ -118,7 +131,9 @@ def main():
 
     with cf.ThreadPoolExecutor(a.workers) as ex:
         rows = list(ex.map(one, jobs))
-    summary = {"model": a.model, "base": a.base, "cand": a.cand or "WORKTREE", "runs": a.runs, "judge": a.judge, "by_cond": {}, "by_task": {}}
+    errors = [r for r in rows if "error" in r]
+    rows = [r for r in rows if "error" not in r]
+    summary = {"model": a.model, "base": a.base, "cand": a.cand or "WORKTREE", "refs": list(conds)[1:], "runs": a.runs, "judge": a.judge, "errors": len(errors), "by_cond": {}, "by_task": {}}
     for c in conds:
         rs = [r for r in rows if r["cond"] == c]
         summary["by_cond"][c] = {"score": statistics.mean(r["score"] for r in rs),
@@ -128,10 +143,10 @@ def main():
                                  "out_tokens": statistics.mean(r["usage"]["out"] for r in rs),
                                  "file_reads": statistics.mean(len(r["reads"]) for r in rs)}
     for t in tasks:
-        summary["by_task"][t["id"]] = {c: round(statistics.mean(r["score"] for r in rows if r["task"] == t["id"] and r["cond"] == c), 3) for c in conds}
+        summary["by_task"][t["id"]] = {c: round(statistics.mean(s), 3) if (s := [r["score"] for r in rows if r["task"] == t["id"] and r["cond"] == c]) else None for c in conds}
     print(json.dumps(summary, indent=1))
     if a.out:
-        json.dump({"summary": summary, "rows": rows}, open(a.out, "w"), indent=1)
+        json.dump({"summary": summary, "rows": rows, "errors": errors}, open(a.out, "w"), indent=1)
 
 
 if __name__ == "__main__":
