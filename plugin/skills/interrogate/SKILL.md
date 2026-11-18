@@ -23,7 +23,7 @@ State the intent in one paragraph from the user's message, commit messages, PR d
 
 Launch all reviewers in one message, one per entry on the `interrogate reviewers` line in `~/.claude/rules/mstack-models.md` (else two on `claude-opus-5-5`), labeled Reviewer A, B, and so on. Each gets `subagent_type: "general-purpose"`, a brief that forbids edits, `effort: high`, and its entry as `model`; `auto` or `inherit-parent` means omit `model`. If the Agent tool rejects a model, run that reviewer on its family alias (`opus`, `fable`, `sonnet`, `haiku`) and say so.
 
-Fill `references/reviewer-prompt.md` identically for every reviewer with the intent, the diff or contents, `references/rubric.md`, and `references/code-quality-review.md`.
+Fill `references/reviewer-prompt.md` identically for every reviewer with the intent, the diff or contents, and `references/rubric.md`.
 
 ## Step 4, Synthesize
 

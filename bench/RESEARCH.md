@@ -66,6 +66,4 @@ The binary's schema has these fields; the docs list most of them.
   - Flattened the nested chain.
   - Deleted orphan files.
 - **Bodies.** No body is over 5,000 tokens, so none loses its tail at compaction.
-- **Listing.**
-  - Descriptions stay short, with triggers first.
-  - `write-swift` gets `paths: ["**/*.swift"]`, so it's only listed when Swift is in play.
+- **Listing.** Descriptions stay short, with triggers first. I didn't add `paths` to `write-swift`: it would hide the skill until a `.swift` file is touched, so "how should I structure this Swift actor" in a fresh session would never fire it.

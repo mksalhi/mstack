@@ -40,5 +40,4 @@ No implementation details: only user paths, stable handles, required state, comm
 
 ## Features
 
-- [Create a note](./create-note.md): browser and CLI creation, cancellation, persistence, cleanup.
 - [Search notes](./search.md): toolbar, keyboard, and CLI search with matching, empty, and clear states.
