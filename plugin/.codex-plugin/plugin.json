@@ -1,0 +1,38 @@
+{
+  "name": "mstack",
+  "version": "0.5.2",
+  "description": "Mohammed's personal agent stack: mstack-mode playbooks and skills for UI, principles, PRs, scoper, writing, debugging and verification, planning, parallel agents, session handoff, and code-rendered video.",
+  "author": {
+    "name": "Mohammed Al Salhi",
+    "url": "https://github.com/mksalhi"
+  },
+  "repository": "https://github.com/mksalhi/mstack",
+  "license": "MIT",
+  "keywords": [
+    "mstack",
+    "mstack-mode",
+    "workflow",
+    "principles",
+    "video"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "interface": {
+    "displayName": "mstack",
+    "shortDescription": "Mohammed's agent workflows",
+    "longDescription": "The same skills and hooks as the Claude Code plugin: mstack-mode playbooks, principles, review and parallel-work skills, scoper (lazy senior dev mode), UI review, and code-rendered films.",
+    "developerName": "Mohammed Al Salhi",
+    "category": "Coding",
+    "capabilities": [
+      "Instructions",
+      "Lifecycle hooks"
+    ],
+    "websiteURL": "https://github.com/mksalhi/mstack",
+    "defaultPrompt": [
+      "Use mstack-mode for this task.",
+      "Review this diff with mstack.",
+      "Prototype three versions of this screen."
+    ],
+    "brandColor": "#6E2F2C"
+  }
+}

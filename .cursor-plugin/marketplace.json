@@ -1,0 +1,19 @@
+{
+  "name": "mstack",
+  "displayName": "mstack",
+  "owner": {
+    "name": "Mohammed Al Salhi",
+    "email": "mks280800@gmail.com",
+    "url": "https://github.com/mksalhi"
+  },
+  "metadata": {
+    "description": "Mohammed's personal agent stack"
+  },
+  "plugins": [
+    {
+      "name": "mstack",
+      "source": "./plugin",
+      "category": "developer-tools"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+### Worktree and simulator cleanup
+
+**You own the disk and the safety gate.** Deletion is irreversible and no code review catches a slip, so these gates are the review.
+
+1. Snapshot and audit. Record `df -h /`, then run `scripts/worktree-audit.sh [-b <pr-base-ref>] [repo-path]` (Build the lever). Without `-b` it checks `MERGED` against `origin/HEAD`; pass `-b origin/<branch>` when PRs target another branch. It reads paths from `git worktree list`, never hand-typed ones, which miss trees like `.claude/worktrees/myrepo/x` (Encode lessons in structure). It reports size, age, merge state, uncommitted work, PR state, and the newest chat that touched each worktree, and suggests a bucket. Background it; the transcript scan is slow.
+2. Prove each candidate merged. Require a merged PR whose head is this branch or commit, or `HEAD` reachable from the remote default branch with zero unique commits. Age, naming, a closed or missing PR, and an ambiguous squash merge are not proof: keep those.
+3. The bucket is advice, not permission. Get the pinned and active chats from the user or sidebar and cross-check every candidate (Prove it works). The pinned set wins over a `safe` bucket.
+4. Verify usage before deleting. For every `verify-recent-chat` row, or any doubt, fan subagents out to read the transcripts and report whether the chat is pinned or ongoing and which worktrees it touches (Guard the context window). Arena and repro trees spawned by a pinned chat's background subagents are in use even when their names never hit the sidebar.
+5. Pause on irreversible loss. `wip:N` is N tracked uncommitted edits: show the diff and get a decision first. `scratch:N` is untracked throwaway, safe to drop, but name the files. A clean, merged, not-in-use worktree is recoverable from its branch, so it proceeds. `rm -rf` of leftover dirs, `wip`, and in-use worktrees pause per Autonomy.
+6. Prune the confirmed set. Per path, `git worktree remove --force <path>`. If the dir survives on ignored build artifacts, `rm -rf` it, then `git worktree prune`. Branch refs survive. Confirm with `df -h /` and re-list.
+7. Simulators and other reclaimers. `xcrun simctl --set testing delete all` (XCTestDevices clones), `xcrun simctl delete unavailable`, and `xcrun simctl runtime list` then `runtime delete <id>` for old runtimes. If needed: Xcode `DerivedData` and `iOS DeviceSupport`, package caches (pnpm, uv, brew, yarn). Clear only caches the user has not said to keep.
+
+**Reply:** `df -h /` before and after with space reclaimed, the worktrees pruned, and a one-line reason for each held back (in use by which chat, or uncommitted work).

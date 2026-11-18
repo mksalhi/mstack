@@ -1,0 +1,22 @@
+{
+  "name": "mstack",
+  "displayName": "mstack",
+  "version": "0.5.2",
+  "description": "Mohammed's personal agent stack: mstack-mode playbooks and skills for UI, principles, PRs, scoper, writing, debugging and verification, planning, parallel agents, session handoff, and code-rendered video.",
+  "author": {
+    "name": "Mohammed Al Salhi",
+    "url": "https://github.com/mksalhi"
+  },
+  "repository": "https://github.com/mksalhi/mstack",
+  "license": "MIT",
+  "keywords": [
+    "mstack",
+    "mstack-mode",
+    "workflow",
+    "principles",
+    "subagents"
+  ],
+  "skills": "./skills/",
+  "agents": "./agents/",
+  "hooks": "./hooks/cursor-hooks.json"
+}
