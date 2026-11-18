@@ -9,42 +9,45 @@ metadata:
 
 # Figure it out
 
-When no playbook fits, design one. The deliverable before any code is the workflow: phases that scale rigor to the task, run the scientific method, and leave a decision trail a human can audit later.
+When no playbook fits, design one. Before any code, the deliverable is the workflow: phases whose rigor fits the task, run as experiments, leaving a decision trail a human can audit.
 
-Open a todolist whose first item is reading the Principles section of `mstack-mode` (`<mstack>/skills/mstack-mode/SKILL.md`), then add the phases below.
+Open a todolist whose first item is reading `<mstack>/skills/principles/SKILL.md`, then add the phases below.
 
 ## Phase A: Frame
 
-Ground first. Don't start the run until you can state:
-- Definition of done as a falsifiable predicate (Prove it works, `principles`).
-- Scope, quantified: rough units and effort, plus blockers grounding surfaced.
-- Rigor level, biased high: more for one-way doors and high blast radius, less for reversible low-stakes steps. Rigor is gates and artifacts, not "try harder".
+Don't start until you can state:
 
-Present the framing and tradeoffs before committing. Reversible work proceeds (Never block on the human, `principles`), but a multi-hour run earns one checkpoint.
+- Done, as a predicate that can come out false (Prove it works, `principles`).
+- Scope in rough units and effort, plus blockers you found while grounding.
+- Rigor, biased high: more gates and artifacts for one-way doors and wide blast radius, fewer for reversible low-stakes steps.
+
+Show the framing and tradeoffs. Reversible work proceeds without waiting (Never block on the human, `principles`), but a multi-hour run gets one checkpoint.
 
 ## Phase B: Design the workflow
 
-Decompose into atomic, independently landable units, riskiest unknown first; scaffold and verification before features (Prove it works, `principles`, Delivery order).
-- Build the verification harness first, baseline captured from the pre-change state, so checks read "old value vs new value".
-- One-way-door design decisions: run `architect` (it runs `arena`). Skip for mechanical work whose shape is concrete; a second arena over a settled design is over-engineering (`scoper`).
-- Fan out only across seams, each worker in its own worktree or branch (Separate before serializing shared state, `principles`). Don't over-fan.
-- Write the phase list down; that is what the human reviews.
+Split into small units that land independently, riskiest unknown first, verification before features.
 
-Then add its steps to the todolist as concrete items between the Phase C and Phase D entries. Run each under the Phase C loop, logging a Phase D row as each step lands, not all at the end.
+- Build the verification harness first and capture a baseline from the pre-change state, so every check reads "old value vs new value".
+- Run `architect` for one-way-door design decisions. Skip it for mechanical work with a settled shape.
+- Fan out only across real seams, one worktree or branch per worker. Don't over-fan.
+- Write the phase list down; it is what the human reviews.
+
+Add the steps to the todolist between the Phase C and Phase D entries. Run each under Phase C, logging a Phase D row as each step lands.
 
 ## Phase C: Run the loop
 
-Each unit is an experiment: hypothesis, smallest change, measure against the predicate on the real artifact, keep if it advanced, else revert. Verify each unit before the next (Prove it works, `principles`, Per unit).
-- Verify by inspecting the artifact, never a self-report. Passing too easily? Suspect the observation method before the system.
-- Pair delegated work with a judge. A worker gaming the gate: reset and harden the contract. A wrong gate: fix it in its own change, never route around it.
-- Verdicts: VERIFIED, NOT VERIFIED, or INCONCLUSIVE. Inconclusive is not a pass. Don't hide a negative.
+Each unit is an experiment: hypothesis, smallest change, measure against the predicate on the real artifact, keep it if it moved the predicate, else revert. Verify each unit before starting the next.
+
+- Inspect the artifact, never a self-report. If a check passes too easily, suspect the check.
+- Pair delegated work with a judge. A worker gaming a check: reset it and harden the brief. A wrong check: fix it in its own change, never route around it.
+- Verdicts are VERIFIED, NOT VERIFIED or INCONCLUSIVE. Inconclusive is not a pass.
 
 ## Phase D: Keep the audit trail
 
-Log the run with `decision-log`. Usually commit the trail so the reviewer reads it in the PR; trail plus diff is what earns trust.
+Log the run with `decision-log`. Usually commit the trail so the reviewer reads it with the diff.
 
 ## Phase E: Verify and hand back
 
-Check the whole against the Phase A predicate on the real product, not just the harness. Encode any recurring correction as a gate, lint rule, check, or script (Encode lessons in structure, `principles`).
+Check the whole against the Phase A predicate on the real product, not just the harness. Turn any correction you made twice into a check, lint rule or script (Encode lessons in structure, `principles`).
 
-**Reply:** the playbook you designed, rigor level and why, decision-trail path, what's verified against the predicate, what's still open.
+**Reply:** the playbook you designed, the rigor level and why, the trail's path, what is verified against the predicate, and what is still open.

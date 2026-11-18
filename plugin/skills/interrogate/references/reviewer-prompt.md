@@ -22,13 +22,9 @@ Judge whether the code achieves this intent. Do NOT question the intent itself; 
 
 {RUBRIC_CONTENTS}
 
-## Code Quality Lens
-
-{CODE_QUALITY_CONTENTS}
-
 ## Instructions
 
-Apply every relevant lens from the rubric and code-quality lens; skip ones that don't apply (a simple bug fix needs no architecture essay).
+Apply every relevant lens from the rubric; skip the rest.
 
 For each finding:
 
@@ -40,7 +36,7 @@ For each finding:
 3. **Evidence**: your reasoning, not an assertion.
 4. **Suggestion** (optional): only with a concrete alternative.
 
-Separate "this is broken" from "I would have done this differently", and account for the stated intent. No vague concerns, no restating what the code does, no praise. If you find nothing, say "no findings" and stop; an empty review is valid.
+Separate "this is broken" from "I would have done this differently". No restating the code, no praise. If you find nothing, say "no findings"; an empty review is valid.
 
 ## Output
 

@@ -9,7 +9,7 @@ metadata:
 
 # Setup mstack
 
-Write `~/.claude/rules/mstack-models.md`, a user-level rule loaded every session, setting mstack's model per role.
+Write `~/.claude/rules/mstack-models.md`, a user-level rule loaded every session that sets mstack's model per role.
 
 ## Steps
 
@@ -19,7 +19,7 @@ Agent `model` aliases: `opus`, `fable`, `sonnet`, `haiku`, or a full id (e.g. `c
 
 ### 2. Load current state
 
-Defaults are the step 5 shape. If `~/.claude/rules/mstack-models.md` exists, its `# budget` line and role values are the current choices. Drop any line whose role is not in step 5 (retired, e.g. `how critics`).
+Defaults are the step 5 file. If the rule exists, its `# budget` line and role values are the current choices; drop any role not in step 5.
 
 ### 3. Budget, map, and confirm
 
@@ -63,7 +63,7 @@ interrogate reviewers: claude-opus-5-5, claude-opus-5-5
 
 ### 6. Confirm
 
-Tell the user the rule is written, applies to new sessions, and re-running updates it.
+Tell the user the rule applies to new sessions and that re-running updates it.
 
 ### 7. Offer a verification skill (optional)
 

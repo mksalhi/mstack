@@ -1,6 +1,6 @@
 ---
 name: ui
-description: "Use for any UI work or review: a screen, flow, PR or diff review; accessibility, keyboard, ARIA, hit targets; spacing, layout, RTL; UI copy; type scale and fonts; colors, contrast, dark mode; visual polish; web animation; React Native or Expo motion and gestures; web apps that must feel native on a phone; Sonner toasts; worst-case data ('break this', 'edge cases'); or several UI variants behind a picker ('prototype')."
+description: "Use for any UI work or review: a screen, flow or UI diff; accessibility; spacing, layout, RTL; UI copy; type; color, contrast, dark mode; polish; web, React Native or Expo animation; web apps that must feel native on a phone; Sonner toasts; worst-case data ('break this'); or UI variants behind a picker ('prototype')."
 metadata:
   harness: "claude codex"
   platform: "darwin linux"

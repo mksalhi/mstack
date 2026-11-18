@@ -9,20 +9,20 @@ metadata:
 
 # Decision log
 
-Keep one canonical log. Other skills route their audit trail here by name; don't restate the columns there.
+One log of decisions and their evidence, for a human reviewing long or autonomous work later. Other skills point here instead of restating the format.
 
 ## Format
 
-One TSV file, one row per decision, single-line cells, evidence as a pointer. Start from `references/decision-log-template.tsv` (header row). Columns:
+One TSV file, one row per decision, single-line cells. Columns, as in `references/decision-log-template.tsv`:
 
 - **ts.** ISO8601 timestamp.
 - **phase.** Phase or workstream.
 - **decision.** What was chosen or done, one line.
-- **why.** The reason in plain words; name a driving principle plainly, not as a jargon tag.
+- **why.** The reason in plain words.
 - **evidence.** Commit SHA, PR number, `file:line`, or artifact, trace, or screenshot path. Never a paragraph.
 - **result.** Outcome or predicate state: `tests green`, `reverted`, `pixel-diff 0`, `INCONCLUSIVE`, `open`.
 
-Write rows as you'd tell a teammate: plain words, concrete actions (the unslop pass applies).
+Write rows as you'd tell a teammate.
 
 ```
 ts	phase	decision	why	evidence	result
@@ -32,44 +32,44 @@ ts	phase	decision	why	evidence	result
 
 ## Log a row
 
-`scripts/log.sh <logfile> <phase> <decision> <why> <evidence> <result>` stamps `ts`, writes the header on first use, strips tabs and newlines, and prefixes cells starting with `=`, `+`, `-`, or `@` with a single quote. A bare `printf` works, but handle those bytes for generated or user-supplied cells.
+Run `scripts/log.sh <logfile> <phase> <decision> <why> <evidence> <result>`. It stamps `ts`, writes the header on first use, strips tabs and newlines, and quotes cells starting with `=`, `+`, `-` or `@` so spreadsheets don't run them.
 
-Log decision points and checkpoints, not every action: a fork chosen, a unit completed with its verification result, a pivot or revert with its trigger, a blocker surfaced, a gate fixed. Loop runs: one row per iteration.
+Log decision points, not every action: a fork chosen, a unit finished with its verification result, a pivot or revert and its trigger, a blocker, a gate fixed. In a loop, one row per iteration.
 
-A run is one agent conversation, including later turns and summaries of it; a pickup, replacement agent, or new chat is a new run. When a run adds to a log with existing rows, its first row has phase `start`, and so does its first row after another run's `start` row, so a run returning in a later turn first reads the log's last rows. A `start` row names the `ts` range of preceding rows this run did not write; its evidence names this run (e.g. agent id). Use `start` for nothing else.
+A run is one agent conversation; a pickup, replacement agent or new chat is a new run. When your run writes to a log that already has rows, or that another run wrote to since your last row, first read the last rows, then write a row with phase `start` whose decision names the `ts` range you didn't write and whose evidence names your run (e.g. agent id). Use `start` for nothing else.
 
 ## Where it lives
 
-Default: an uncommitted working artifact, out of git, at `decisions.tsv` in the work dir, or `.audit/<task-slug>.tsv` when several efforts run at once. Commit it only when a reviewer needs the trail to trust the result.
+Default: uncommitted, at `decisions.tsv` in the work dir, or `.audit/<task-slug>.tsv` when several efforts run at once. Commit it only when a reviewer needs the trail to trust the result.
 
 ## Rules
 
 - Append-only. Supersede a wrong call with a new row; never edit or delete history.
-- Prefer evidence from committed scripts over hand-made one-offs (Encode lessons in structure, `principles`).
+- Prefer evidence from committed scripts over one-off commands.
 
 ## Before handing back
 
 ### Audit the log against the transcript
 
-Read this run's transcript (per `<mstack>/skills/mstack-mode/references/transcripts.md`; never glob ~/.claude/projects/*/) and walk this run's rows. Each stretch starts at one of this run's `start` rows (or the first row if this run created the log) and ends at another run's next `start` row.
+Read this run's transcript (per `<mstack>/skills/mstack-mode/references/transcripts.md`; never glob `~/.claude/projects/*/`) against the rows this run wrote:
 
 - Every row maps to a real decision or action.
-- Each row's evidence resolves and shows what it claims.
-- An unlogged fork, pivot, or abandoned approach that shaped the work is a gap: add it.
+- Every evidence pointer resolves and shows what it claims.
+- An unlogged fork, pivot or abandoned approach that shaped the work is a gap: add it.
 
-Never edit or remove a row, even an invented one: add a superseding row with what happened and a resolving pointer. Rows outside this run's stretches are not audited, but supersede one if this run's work shows it wrong.
+Never edit or remove a row, even a wrong one: add a superseding row. Other runs' rows are not yours to audit, but supersede one if your work shows it wrong.
 
 ### Cross-model review of the trail
 
-Spawn a subagent on a different model family from the worker (self-review doesn't count). It reads the trail and transcript and flags, without redoing the work:
+Spawn a subagent on a different model family from yours. It reads the trail and transcript and flags, without redoing the work:
 
 - Decisions with weak or absent evidence.
 - Verification skipped or claimed without proof in the transcript.
 - Choices risky in hindsight (premature, scope-creeping, papering over a symptom).
 - Gaps a casual skim would miss.
 
-Every reply for a run with a trail ends with an "Attention" section: first line `reviewed by <model>`, then each flag pointing to rows or moments. "No flags" is valid; omitting the model is not.
+End every reply for a run with a trail with an "Attention" section: first line `reviewed by <model>`, then each flag with the rows it concerns, or "No flags".
 
 ## Reviewing the trail
 
-Read top to bottom, follow evidence pointers, spot-check. GitHub renders a committed TSV as a table; `column -s$'\t' -t decisions.tsv` renders it in a terminal.
+GitHub renders a committed TSV as a table; `column -s$'\t' -t decisions.tsv` renders it in a terminal.

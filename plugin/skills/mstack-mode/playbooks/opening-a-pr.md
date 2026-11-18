@@ -4,7 +4,7 @@
 
 **Commits.** Commit liberally, then rebase into small, ordered, landable commits (each a future PR) before opening PRs. Amend when the fix belongs in the last commit. If AGENTS.md forbids rewriting pushed commits, rebase only before the first push.
 
-**Text.** Deslop and cut comments (SKILL.md Non-negotiables). Write titles, bodies, and commit messages with `writing` (all layers except Diátaxis, plus STE vocabulary: one word per action, keep articles, plain verb over `-ing`), ending with its unslop pass.
+**Text.** Deslop and cut comments (SKILL.md Routing). Write titles, bodies, and commit messages with `writing` (all layers except Diátaxis, plus STE vocabulary: one word per action, keep articles, plain verb over `-ing`), ending with its unslop pass.
 - Title: Conventional Commits `type(scope): subject`, no trailing period. Types like `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `perf`; scope is the area (`mstack`, `mstack-mode`); imperative subject naming the real symbol, e.g. `fix(mstack): retarget opening-a-pr babysit trigger`.
 - Body: the `pr` skill (`<mstack>/skills/pr/SKILL.md`), with Summary visual, before and after Evidence, Merge Danger. Under about 40 lines (it becomes the squash commit). No full SHAs, lane recitals, or file checklists; link an artifact. A commit body does not restate its subject.
 

@@ -9,8 +9,6 @@ metadata:
 
 # PR
 
-Two jobs: write the PR body, or cut comments and workaround code before review ('cut comments', 'no comments').
-
 ## Write the body
 
 ```markdown
@@ -38,11 +36,11 @@ Two jobs: write the PR body, or cut comments and workaround code before review (
 <one or two lines>
 ```
 
-No preambles, brief prose, the user's domain language from `GLOSSARY.md`.
+No preamble, brief prose, and the domain words from `GLOSSARY.md` if the repo has one.
 
 ### Summary
 
-Pick the smallest view that makes the key point clear; usually one, sometimes several, never all:
+Pick the smallest view that makes the point, usually one:
 
 - Logic or algorithm: pseudocode.
 - Runtime control flow: call tree.
@@ -61,16 +59,16 @@ Pick the smallest view that makes the key point clear; usually one, sometimes se
 
 - Whole code block: when most of it is new, when omitted context would hide ownership or order, or when the user needs a copyable target shape.
 
-Place each visual next to the short text it supports. Keep only the calls, files, props, states, and boundaries the current question or discussion point needs.
+Put each visual next to the text it supports, showing only the calls, files and states that matter.
 
 ### Evidence
 
-Before and after proof the change works. Screenshots are S-tier when the change is visual and the environment allows. Execution evidence (test results, console output) is A-tier: show the exact test that now fails then passes, as pseudocode.
+Before and after proof the change works. For a visual change, screenshots beat everything else. Otherwise show test results or output: the exact test that failed before and passes now.
 
 ### Merge Danger
 
 - **Door:** two-way if cheap to roll back; one-way if destructive or hard to reverse.
-- **Blast Radius:** the scope of possible impact; consider everything (layout shift, consumer breakage, mobile responsiveness, ...).
+- **Blast Radius:** what the change could affect (layout shift, consumer breakage, mobile).
 
 ### Joke
 
@@ -80,17 +78,17 @@ Before and after proof the change works. Screenshots are S-tier when the change 
 
 ## Cut comments before review
 
-Comment Sicko audits; you defer to its fresh perspective and act on accepted findings. Scope: the caller's files or diff; otherwise the current diff against the base branch (default `main`), including the working tree.
+The `comment-sicko` agent audits and deletes; you check its work and fix what it flags. Scope: the caller's files or diff, else the current diff against the base branch (default `main`), working tree included.
 
-1. Spawn `Agent` with `subagent_type: "mstack:comment-sicko"`. Pass the scope; do not restate its rules.
-2. Audit its report and diff:
-   - Reject application-code edits, scope escapes, exception-protected deletions, misstated `MUST KILL` reasons, and flags calling kept intentional code guilty.
-   - Reshape flags on our-code surprises stay actionable; do not restore those comments. A keep survives only with proof it concerns something we cannot change.
-   - Audit missed scoped lint and TypeScript suppressions; correctness or safety suppressions stay actionable `MUST KILL`s.
-   - Restore a deletion only with an exact exception and scoped proof.
-   - Thin `IMPORTANT` / `do not remove` kills or keeps: run `/mstack:how` or `/mstack:why` on the symbol first. Ambiguous kill: do not restore. Refuted or still-ambiguous keep: delete.
-   - A rejected report: revert and rerun once, naming the failure. Second rejection: report it open and fail `/mstack:pr`.
-3. Fix trivial accepted flags directly (delete a dead path, drop a parameter, use the real API). If any fix needs a shape, run `/mstack:architect` once for the accepted set and surrounding code; stop at the sketch.
-4. Implement the smallest in-scope root-cause fix and remove every named workaround. Out-of-scope root cause: land the smallest in-scope fix, report the rest open. `debug` and Converge on target (`principles`) guide intent only; neither widens the fence. Never bolt on symptom guards.
-5. Constraint comments (`do not remove`, `do not change wording`, `talk to X before changing`): leave keeps about things we cannot change. Otherwise offer the cheapest in-scope type, runtime, test, or CI lint and wait for interactive approval (unattended and eval runs need caller pre-approval). Approved: encode, then delete. Not approved: delete, report the constraint open, sketch out-of-scope work.
-6. Report deletion count, restored comments, reruns, architect sketch, fixes, encoding offers, encodings, unenforced constraints, and other open work.
+1. Spawn `Agent` with `subagent_type: "mstack:comment-sicko"` and the scope. Don't restate its rules.
+2. Check its report and diff:
+   - Revert any edit to application code or outside the scope, and any deletion of a comment its keep list protects.
+   - Reject a `MUST KILL` flag whose reason is false or that calls intentional code a workaround.
+   - A flag on a surprise in our own code stays: fix the code, don't restore the comment. A kept comment needs proof it concerns something we can't change.
+   - Catch lint and TypeScript suppressions it missed in scope; one hiding a correctness or safety rule becomes a `MUST KILL`.
+   - For a thin `IMPORTANT` or `do not remove` call either way, run `how` or `why` on the symbol first. If still unclear, the comment goes.
+   - If the report fails these checks, revert and rerun once, naming the failure. A second failure: report it and stop.
+3. Fix trivial flags directly (delete a dead path, drop a parameter, use the real API). If a fix needs a new shape, run `architect` once for all of them and stop at the sketch.
+4. Remove every named workaround with the smallest in-scope root-cause fix. If the root cause is out of scope, fix what's in scope and report the rest. Never add symptom guards.
+5. Constraint comments (`do not remove`, `do not change wording`, `talk to X first`): keep those about things we can't change. For the rest, offer the cheapest type, runtime check, test or lint that enforces the constraint and wait for approval (unattended runs need it granted up front). Approved: encode it, then delete the comment. Not approved: delete it and report the constraint as unenforced.
+6. Report: deletions, restored comments, reruns, any architect sketch, fixes, enforcement offers and encodings, unenforced constraints, and open work.

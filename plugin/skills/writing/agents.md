@@ -1,71 +1,48 @@
 # Writing for agents
 
-For any document an agent consumes: a skill, an `AGENTS.md` / `CLAUDE.md`, a doc reached by a pointer. Packaging differs; the writing does not. The goal is predictability: the agent takes the same _process_ every run, not the same output.
+For any document an agent reads: a skill, `AGENTS.md` or `CLAUDE.md`, or a doc reached by a pointer. The goal is that the agent takes the same process every run.
 
-For a skill, also read [`SKILL-MECHANICS.md`](SKILL-MECHANICS.md) (invocation choice, router skills).
+## What is loaded when (Claude Code)
 
-## Context pointers
+- **Skill listing, every turn:** `description` plus `when_to_use`, capped at 1,536 characters per skill. The whole listing gets 1% of the context window (8,000 characters at 200k). Over budget, skills are ranked by recent use and the rest are listed by name only.
+- **`SKILL.md` body:** from the turn it fires to the end of the session. After compaction only its first 5,000 tokens survive.
+- **Any other file:** only when the agent decides to `Read` it. Nothing is preloaded.
 
-A **context pointer** is an in-context reference naming out-of-context material and the condition for reaching it: a skill description, or an `AGENTS.md` line naming a doc. The pointer's _wording_, not its target, decides when and how reliably the agent reaches it. A must-have target behind a weak pointer is a variance bug: sharpen the wording first; inline the material only if that fails.
+Codex lists skills up to 2% of context or 8,000 characters and reads `SKILL.md` through the shell. Details and sources: `bench/RESEARCH.md` in the mstack repo.
 
-A pointer states what the material is and lists the **branches** that trigger it (a branch is a distinct case the document handles). Always-loaded words cost every turn, so prune pointers harder than bodies:
-- **Front-load the leading word**; the pointer is where it triggers.
-- **One trigger per branch.** Synonyms renaming one branch collapse to one.
-- **Cut identity the body already carries.**
+## Pointers
 
-## The two loads
+A pointer is an always-loaded line naming material and when to reach it: a skill description, or an `AGENTS.md` line naming a doc. Its wording decides whether the agent reaches the material. If a must-have file is missed, sharpen the pointer first; inline the material only if that fails.
 
-- **Context load:** always-loaded material (an `AGENTS.md` line, a skill description) spends tokens and attention every turn, fired or not.
-- **Cognitive load:** the human as index, remembering which documents exist and when to use each. It is the price of human agency: spend it where human judgement matters, remove it elsewhere.
+- Lead with the trigger word. One trigger per branch (a distinct case the document handles); synonyms for one branch collapse to one.
+- Say when to use it, not how it works. An agent that reads a workflow summary in a description tends to follow the summary and skip the skill.
+- Name the near-miss when a neighbouring skill shares its words ("For what changed in this chat, use ketchup").
 
-Material behind a pointer costs only the pointer's line of context load; material with no pointer rides entirely on cognitive load.
+## Layout
 
-## Information hierarchy
+- Inline what every branch needs; put what only some branches need in a file that `SKILL.md` names with its condition ("Read `references/x.md` before Y"). Name scripts to run, not read.
+- Link every file from `SKILL.md` directly. Chains (`SKILL.md` to a.md to b.md) get partial reads.
+- Keep `SKILL.md` under about 5,000 tokens. Put a contents list at the top of a reference file over 300 lines.
+- Keep a concept's definition, rules and caveats under one heading. One authoritative place per meaning.
 
-Content is **steps** (ordered actions) and **reference** (definitions, rules, facts consulted on demand), mixed freely. Place each piece on the **information hierarchy**, ranked by how immediately the agent needs it:
+## Steps
 
-1. **In-file step:** what the agent does, in order.
-2. **In-file reference:** consulted on demand. A flat peer-set (every review rule on one rung) is fine.
-3. **Disclosed reference:** in a separate file behind a context pointer, loaded only when it fires; from a sibling file to fully external reference any document can point at.
+End every step on a completion criterion the agent can check. "Every modified model accounted for" forces work that "produce a change list" doesn't. If the agent rushes a step to reach the next ones, sharpen the criterion first; splitting the sequence only helps across a real context boundary (a subagent or a handoff).
 
-Push too little down and the top bloats; too much and you hide what the agent needs.
+## Words
 
-**Progressive disclosure** moves material down the ladder to keep the top legible; it protects the hierarchy more than it saves tokens. Test by branching: inline what every branch needs, disclose what only some reach. Undisclosed reference that buries steps makes attending to them a coin-flip, a variance lever.
-
-**Co-location:** keep a concept's definition, rules, and caveats under one heading so reading one part brings its neighbours. The document should read like documentation written for the agent. (Scattering fragments one meaning across places; duplication repeats it.)
-
-**Sprawl:** a document too long even when every line is live and unique; attention thins. Cure: disclose reference behind pointers, split by branch or sequence.
-
-## Steps and completion criteria
-
-Every step ends on a **completion criterion** telling the agent the work is done.
-
-- **Clarity:** can the agent tell done from not-done? A vague bound ("understanding reached") invites **premature completion**, pulled by the visible **post-completion steps**. Defend in order: **sharpen the bound first**; only if it is irreducibly fuzzy _and_ you observe the rush, hide later steps by splitting the sequence. Hiding works only across a real context boundary (hand-off or subagent dispatch; an inline call clears nothing).
-- **Demand:** how much it requires. "Every modified model accounted for" forces thoroughness that "produce a change list" doesn't. Demand drives **legwork** (digging latent in the wording, not written as a step) and binds reference too: "every rule applied" gives an all-reference document an exhaustiveness bar.
-
-The strongest criteria are checkable and exhaustive.
-
-## When to split
-
-Splitting spends one of the two loads; split only when the cut earns it:
-- **By sequence:** when post-completion steps tempt the agent to rush the current one; hiding them drives more legwork. Merging sequences does the reverse.
-- **By invocation**, skill-specific: see [`SKILL-MECHANICS.md`](SKILL-MECHANICS.md).
-
-## Leading words
-
-A **leading word** is a compact pretrained concept the agent thinks with (_lesson_, _fog of war_, _tracer bullets_). Repeated as a token, never as a sentence, it anchors a region of behaviour in the fewest tokens by recruiting existing priors. A coined word recruits none and must be paid for in definition tokens: reach for an existing word first.
-
-It anchors _execution_ in the body (same behaviour wherever the word appears; in flat reference, a class of thing to look for) and _invocation_ in a pointer (shared language across prompts, docs, and codebase makes reaching it more reliable).
-
-Hunt restatements to collapse into one token: a triad spelled out at three sites, a pointer spending a sentence on one idea.
-- "fast, deterministic, low-overhead" → _tight_ (a _tight_ loop).
-- "a loop you believe in" → _red_, a binary observable state (the loop goes _red_ on the bug, or doesn't).
-
-**Negation** backfires: a prohibition puts the forbidden behaviour in context and makes it _more_ available. Prompt the **positive** target ("write one-line comments"). Use a prohibition only as a hard guardrail you cannot phrase positively, and pair it with the positive target.
+- A leading word is an existing concept the agent already thinks with (_tight_ loop, _red_ test, _fog of war_). One word recruits a whole behaviour; a coined word recruits nothing and must be defined.
+- State the positive target ("write one-line comments"). A prohibition puts the forbidden behaviour in context; use one only as a hard guardrail, paired with the positive target.
 
 ## Pruning
 
-- **Single source of truth:** one authoritative place per meaning, so a behaviour change is a one-place edit. **Duplication** costs maintenance and tokens and inflates the meaning's rank. (A leading word repeats a token on purpose, never the meaning.)
-- The **environment** (`package.json` scripts, config files, directory layout, `--help` output) is a source of truth; restating it is a **cache**, worth its load only when the lookup is expensive. Cache what looking can't find: unwritten conventions, the reason behind a choice, gotchas no config confesses.
-- Check every line for **relevance**: lines lose it by never bearing on the task (exposition, or a branch to disclose) or by going stale. Without pruning, **sediment** settles: stale layers kept because adding feels safe and removing risky.
-- Hunt **no-ops** sentence by sentence: instructions the model already follows by default. The test (does it change behaviour versus the default?) is model-relative; settle disagreements by running the document. Delete the whole failing sentence, don't trim it. A leading word too weak to beat the default (_be thorough_) is a no-op; fix with a stronger word (_relentless_).
+- Delete no-ops: sentences the model follows by default. Delete the whole sentence. A word too weak to beat the default (_be thorough_) is a no-op; use a stronger one (_relentless_) or cut it.
+- Don't restate the environment (`package.json` scripts, config, `--help`). Write what looking can't find: unwritten conventions, the reason for a choice, gotchas.
+- Delete stale lines. Sediment builds because adding feels safe and removing feels risky.
+
+## Invocation (skills)
+
+- **Model-invoked** (default): keeps a description so the agent and other skills can fire it. Costs listing space every turn.
+- **User-invoked:** `disable-model-invocation: true`. Listed by name only, and no other skill can fire it. Use it when only a human should start it.
+- Split off a new model-invoked skill only when a distinct word you use in prompts should fire it alone, or another skill must reach it.
+- `context: fork` runs the skill as a subagent so its body never enters the main context. `paths` globs hide a skill until a matching file is touched.

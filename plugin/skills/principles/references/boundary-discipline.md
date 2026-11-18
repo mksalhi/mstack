@@ -2,9 +2,7 @@
 
 **Rule:** Guard at system boundaries, trust internal types.
 
-Validate, narrow types, and handle errors at system boundaries. Trust internal code unconditionally. Business logic lives in pure functions; the shell is thin and mechanical.
-
-**Why:** scattered validation is noisy and falsely reassuring; logic outside framework wiring tests without the framework.
+Business logic lives in pure functions; the shell is thin and mechanical.
 
 **Pattern:**
 - **At boundaries** (CLI args, config files, external APIs, network protocols): validate, return errors, handle defensively. Validate config at parse time; parse raw data into domain types.
