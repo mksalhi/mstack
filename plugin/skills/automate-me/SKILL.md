@@ -10,46 +10,32 @@ metadata:
 
 # Automate me
 
-Turn the user's working conventions into one `-mode` skill (e.g. `jay-mode`): mine their history, write it with the Authoring a skill playbook (`<mstack>/skills/mstack-mode/playbooks/authoring-a-skill.md`), then run the unslop pass (`<mstack>/skills/writing/unslop.md`).
+Create one -mode skill. Mine history with <mstack>/skills/mstack-mode/playbooks/authoring-a-skill.md, then run <mstack>/skills/writing/unslop.md>. Exception: for “how I write commit messages”, skip mining; use <mstack>/skills/writing/agents.md>.
 
-For one narrow workflow ("how I write commit messages"), skip mining and use the playbook with `<mstack>/skills/writing/agents.md`.
+0) Check for an existing skill
+- Search: .agents/skills/**/*-mode/SKILL.md, .claude/skills/**/*-mode/SKILL.md, ~/.agents/skills/*-mode/SKILL.md for the user’s handle.
+- If found, AskUserQuestion: update (default) or start fresh (unless they already said “update”).
+- To update: mine only since its last edit (`git log -1 --format=%cI <path>`), ask what changed, edit in place, add sections only for new rules.
 
-## 0. Check for an existing skill
+1) Mine their history
+- Read this project’s transcripts per <mstack>/skills/mstack-mode/references/transcripts.md>; never glob ~/.claude/projects/*/.
+- Fan out subagents over time slices (e.g., last 2–4 weeks).
+- Keep only patterns in 2+ slices; treat single or contradicted prefs as noise.
 
-Search `.agents/skills/**/*-mode/SKILL.md`, `.claude/skills/**/*-mode/SKILL.md` and `~/.agents/skills/*-mode/SKILL.md` for the user's handle. If one exists, ask with `AskUserQuestion` whether to update it (default) or start fresh, unless they already said "update". To update: mine only history since its last edit (`git log -1 --format=%cI <path>`), ask what changed, and edit in place, adding sections only for new rules.
+2) Ask the user
+- 1–2 AskUserQuestion rounds with 4–6 options each; allow_multiple: true. Then one free-form.
 
-## 1. Mine their history
+3) Cluster
+- Sections: Response style, Autonomy, Understand first, Subagents, Prose and code, Review and verify, Process, Skills. Only specific, non-default rules. Skip empty.
 
-Read this project's transcripts per `<mstack>/skills/mstack-mode/references/transcripts.md`; never glob `~/.claude/projects/*/`. Fan out subagents over slices (e.g. the last 2-4 weeks in 3 slices). Each returns patterns with evidence pointers for:
+4) Draft
+- Path: keep existing; else .agents/skills/<handle>-mode/SKILL.md (or handle folder), or ~/.agents/skills/<handle>-mode/ symlinked into .claude/skills.
+- description: triggers on their name, /<handle>-mode, “work in their style”. One quoted YAML scalar or >-.
+- disable-model-invocation: true unless wanted every turn.
+- Point to other skills by path. Say “the user”.
 
-- reply preferences (length, tone, format, "dumb it down" corrections);
-- delegation (subagents, models, parallelism);
-- what "done" means (tests, live repro, reviewers);
-- code and prose style, principles cited, lint and format tools;
-- process (worktrees, commits, PRs, review and merge tools);
-- meta habits (fixing skills mid-task).
+5) Iterate
+- Show draft, get feedback, cut hard.
 
-Keep patterns seen in 2+ slices. A preference stated once and contradicted elsewhere is noise.
-
-## 2. Ask the user
-
-One or two `AskUserQuestion` rounds with 4-6 options each (`allow_multiple: true` for categories), then one free-form question.
-
-## 3. Cluster
-
-Group findings into sections that hold a specific non-default rule: Response style, Autonomy, Understand first, Subagents, Prose and code, Review and verify, Process, Skills. Skip empty sections. "Communicate clearly" is not a rule; "Short paragraphs. Tables when comparing options." is.
-
-## 4. Draft
-
-- Path: keep an existing skill's location. New: `.agents/skills/<handle>-mode/SKILL.md` (or under `.agents/skills/<handle>/` if the repo has a folder for that handle), or `~/.agents/skills/<handle>-mode/` for a personal skill, symlinked into the matching `.claude/skills`.
-- `description`: triggers on their name, `/<handle>-mode` and "work in their style", not generic keywords. One YAML scalar; quote it or use `>-`.
-- `disable-model-invocation: true` unless the user wants it on every turn.
-- Point to other skills by path instead of restating them. Say "the user", not their name.
-
-## 5. Iterate
-
-Show the draft, take feedback, cut hard. Ask the user whether it reads like them and what it missed.
-
-## 6. Land it
-
-Worktree off main, commit, open a PR. Never push to main.
+6) Land
+- Worktree off main, commit, open a PR. Never push to main.

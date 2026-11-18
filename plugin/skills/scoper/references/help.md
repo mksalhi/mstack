@@ -1,51 +1,35 @@
 # Scoper help
 
-Show this card when asked. Do not change mode or write flag files.
+Do not change mode or write flag files.
 
-## Levels
+Levels
+- Lite — `/mstack:scoper lite`: build asked; name one lazier alternative.
+- Full — `/mstack:scoper full`: YAGNI→stdlib→native→one line→minimum. Default.
+- Ultra — `/mstack:scoper ultra`: delete before add; challenge requirements.
 
-| Level | Trigger | What change |
-|-------|---------|-------------|
-| **Lite** | `/mstack:scoper lite` | Build what's asked, name the lazier alternative in one line. |
-| **Full** | `/mstack:scoper full` | The ladder enforced: YAGNI → stdlib → native → one line → minimum. Default. |
-| **Ultra** | `/mstack:scoper ultra` | YAGNI extremist. Deletion before addition. Challenges requirements before building. |
+Level sticks until changed or session end. Bare `/mstack:scoper`: if on, report; if off, turn on default unless default is `off` (then name a level).
 
-Level sticks until changed or session end. Bare `/mstack:scoper` reports the current level when scoper is on. When it is off, bare `/mstack:scoper` turns on the default level, unless the default is `off`; then name a level.
+Modes
+- `/mstack:scoper`
+- `/mstack:scoper review`
+- `/mstack:scoper debt`
 
-## Modes
+Deactivate: "stop scoper", "normal mode", or `/mstack:scoper off`. Resume: `/mstack:scoper`.
 
-| Trigger | What it does |
-|---------|--------------|
-| `/mstack:scoper` | Lazy mode itself. Simplest solution that works. |
-| `/mstack:scoper review` | Over-engineering review of a diff, or the whole repo with no diff: `L42: yagni: factory, one product. Inline.` |
-| `/mstack:scoper debt` | Harvest `scoper:` shortcut comments into a tracked ledger. |
+Default `full`, auto-active. Change:
 
-## Deactivate
-
-"stop scoper", "normal mode", or `/mstack:scoper off`. Resume with `/mstack:scoper`.
-
-## Configure the default mode
-
-Default `full`, auto-active every session. Change it with:
-
-**Command** (writes the config file below; applies to new sessions):
+Command
 ```
 /mstack:scoper default lite|full|ultra|off
 ```
-
-**Environment variable** (highest priority):
+Environment variable
 ```bash
 export SCOPER_DEFAULT_MODE=ultra
 ```
-
-**Config file** (`~/.config/scoper/config.json`, Windows: `%APPDATA%\scoper\config.json`):
+Config file (`~/.config/scoper/config.json`, Windows: `%APPDATA%\scoper\config.json`):
 ```json
 { "defaultMode": "lite" }
 ```
+"off" disables auto-activation; activate with `/mstack:scoper`. Resolution: env var > config file > `full`.
 
-`"off"` disables auto-activation; activate with `/mstack:scoper`. Resolution: env var > config file > `full`.
-
-## Update
-
-Ships inside mstack: `/plugin marketplace update mstack`, then `/reload-plugins`.
-
+Update: `/plugin marketplace update mstack`, then `/reload-plugins`.

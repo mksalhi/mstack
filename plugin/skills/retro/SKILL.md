@@ -8,28 +8,24 @@ metadata:
   scope: universal
 ---
 
-Suggest improvements to the coding agent's **environment** for future runs.
+Suggest improvements to the coding agent's environment for future runs.
 
-## Steps
+Steps
+1) Read <mstack>/skills/writing/agents.md> for style.
+2) Read primary sources for the named session (search session logs on this machine if needed); default to the current one.
+3) Find candidates:
+- Navigation: if info took long due to hidden file dependencies, add a navigation pointer.
+- Automated checks: prefer existing repo checks first (package.json or build-tool lint/check scripts, CI workflow). Missing/broken guardrails (no pre-commit, no CI lint/type/test) are findings.
+- Coding standards: make mechanical rules deterministic (custom linter rule, pre-commit hook, or CI job; choose cheapest). Default to building the check. Reserve CODING_STANDARDS.md for judgement calls (cross-file consistency, matches surrounding style).
+- Global AGENTS.md: move steering into coding standards or automated checks when AGENTS.md (repo or global) is large.
+- Tool economy: streamline expensive tool calls; flag token-inefficient custom CLIs/MCPs.
+- No-ops: remove steering that doesn’t change behavior.
+- Information access: enable essentials (e.g., tee dev server logs, readonly third-party access).
+4) Present candidates by severity.
 
-1. Read `<mstack>/skills/writing/agents.md` for style.
-2. Read the primary sources for the session the user names (search session logs on this machine if needed); default to the current one.
-3. Find candidates in these categories:
-
-- **Navigation.** Hidden file dependencies, or a **navigation pointer** that would help. _Use when_ finding information took long.
-- **Automated checks.** Linting, typing, tests, filesystem linters that would catch the agent's errors. Read the repo's own check command first (`package.json` or build-tool `lint`/`check` scripts, CI workflow): an existing but unwired or silently broken check is the finding, not a reinvention. No **guardrail** (no pre-commit hook and no CI job running lint, typecheck, or test) is itself a finding. _Use when_ a check could have caught a mistake, or there is no guardrail.
-- **Coding standards.** Add, remove, or clarify a **reviewer agent** rule. A **mechanical** violation (syntactic pattern, banned API, import shape, file location) gets a deterministic check: a custom rule in the repo's linter, a pre-commit hook, or a CI job, whichever is cheapest. Default to building the check. Reserve `CODING_STANDARDS.md` for **judgement calls** (cross-file consistency, "matches the surrounding style"). _Use when_ the reviewer missed a mistake.
-- **Global AGENTS.md.** Steering instructions that belong in coding standards or automated checks. _Use when_ AGENTS.md (repo or global) is large.
-- **Tool economy.** Expensive tool calls to streamline; token-inefficient custom CLIs or MCPs. _Use when_ the agent made an expensive call.
-- **No-ops.** Steering instructions that don't change behavior. _Use when_ steering files are large.
-- **Information access.** E.g. teeing dev server logs, readonly third-party access. _Use when_ key information was unavailable.
-
-4. Present candidates by severity.
-
-## Reference
-
-- The reviewer (gets a diff, least **context pressure**) imposes coding standards, not the implementation agent (explores, writes, debugs; most pressure).
-- `CLAUDE.md`/`AGENTS.md`: loaded into every agent's context; use sparingly, mostly **navigation pointers**.
-- `CODING_STANDARDS.md`: read during review only; add **navigation pointers** to docs folders past 1,000 lines.
-- Docs: reference files pointed to by other files; check for existing docs first.
-- Skills: for docs (descriptions enter context) or user-invoked commands, per `<mstack>/skills/writing/agents.md`.
+Reference
+- Reviewer (diff, least context pressure) imposes coding standards; implementation agent does not.
+- CLAUDE.md/AGENTS.md load into every agent; use sparingly, mostly navigation pointers.
+- CODING_STANDARDS.md: read during review only; add navigation pointers to docs folders past 1,000 lines.
+- Docs: reference files already pointed to; check for existing docs first.
+- Skills: per <mstack>/skills/writing/agents.md>.

@@ -1,43 +1,34 @@
 # Search notes
 
-A user finds notes by title or body text, opens a match, and can tell no matches from an unavailable search.
-
-## Sub-features
-
-- `search-open` opens search from each browser entry point.
-- `search-match` returns title and body matches without changing note data.
-- `search-open-result` opens a result in the editor.
-- `search-empty` shows a complete empty state for a query with no matches.
-- `search-clear` removes the query and restores the recent-notes view.
-- `search-cli` returns the same matches from the terminal.
-
-## How to get to it (user POV)
-
-- Choose `Search` in the browser toolbar.
-- Press `/` in the browser with focus outside an editable field.
-- Run `notes search <query>`.
-
-## Driving it with control-notes
-
 Preconditions:
+- Notes healthy at http://127.0.0.1:4173; control-notes doctor reports expected URL and data directory.
+- Data directory contains “Quarterly plan” with body “Draft budget”.
 
-- Notes is healthy at `http://127.0.0.1:4173`; `control-notes doctor` reports the expected URL and data directory.
-- The data directory contains `Quarterly plan` with body text `Draft budget`.
+Open search:
+- Toolbar: control-notes browser click --role button --name "Search" (dialog opens focused).
+- Keyboard: control-notes browser press --key "/" (close dialog first).
 
-- **Toolbar entry.** Run `control-notes browser click --role button --name "Search"`. Dialog `Search notes` appears with focus in its searchbox.
-- **Keyboard entry.** Close the dialog, then run `control-notes browser press --key "/"`. The same dialog appears; no slash is inserted.
-- **Title match.** Run `control-notes browser fill --role searchbox --name "Search notes" --value "quarterly"`. `Search results` contains `Quarterly plan`, not `Grocery list`.
-- **Body match.** Fill the searchbox with `budget`. `Quarterly plan` remains with a body-match excerpt.
-- **Open result.** Run `control-notes browser click --role link --name "Quarterly plan"`. The dialog closes; the editor heading reads `Quarterly plan`.
-- **Empty state.** Reopen search and fill `volcano`. Status `No matching notes` appears after search completes.
-- **Clear query.** Run `control-notes browser click --role button --name "Clear search"`. The searchbox empties; `Recent notes` replaces the results.
-- **CLI match.** Run `control-notes cli -- notes search "quarterly" --format json`. Exit code `0`; stdout has one object titled `Quarterly plan`. With `"volcano"`, stdout is `[]`.
-- **Proof.** Run `control-notes browser snapshot --aria --path artifacts/search/results.aria.txt` and `control-notes browser screenshot --path artifacts/search/results.png`. Both identify Notes, the query, and `Quarterly plan`.
+Queries:
+- Title: control-notes browser fill --role searchbox --name "Search notes" --value "quarterly" → results contain “Quarterly plan”, not “Grocery list”.
+- Body: fill “budget” → “Quarterly plan” remains with a body-match excerpt.
+- Empty: query “volcano” → status “No matching notes” after results settle.
 
-## Gotchas
+Open result:
+- control-notes browser click --role link --name "Quarterly plan" → dialog closes; editor heading “Quarterly plan”.
 
-- Pressing `/` while the editor or searchbox has focus inserts text.
-- Results debounce; wait for the results list or empty status, not a fixed sleep.
-- Archived notes are excluded unless `Include archived` is on.
-- The CLI defaults to human-readable output; use `--format json` for stable assertions.
+Clear query:
+- control-notes browser click --role button --name "Clear search" → searchbox empties; “Recent notes” shows.
+
+CLI:
+- control-notes cli -- notes search "quarterly" --format json → exit 0; stdout one object titled “Quarterly plan”. With “volcano”, stdout is [].
+
+Proof:
+- control-notes browser snapshot --aria --path artifacts/search/results.aria.txt
+- control-notes browser screenshot --path artifacts/search/results.png
+
+Gotchas:
+- “/” inserts text if editor/searchbox is focused.
+- Results debounce; wait for list or empty status.
+- Archived notes excluded unless “Include archived” is on.
+- CLI is human-readable by default; use --format json.
 - Opening a result changes browser state; reopen search before proving another query.

@@ -9,34 +9,25 @@ metadata:
 
 # Interrogate
 
-One reviewer per configured model attacks a change; the signal comes from model diversity, not personas. Deliver one verdict and leave every change for the user to apply.
+- One reviewer per configured model; produce one verdict. Never edit files—leave all changes to the user.
 
 ## Step 1, Scope
-
-Use the files or diff the user points at; on a feature branch, `git diff main...HEAD` (or the right base); otherwise gather the files of the recent work they reference. Package the diff or contents with any context files reviewers need.
+- Use only files/diff the user names. On a feature branch, run `git diff main...HEAD` (or correct base). Package that diff or named file contents plus needed context files.
 
 ## Step 2, Intent
-
-State the intent in one paragraph from the user's message, commit messages, PR description, and code. If unsure, ask the user before proceeding.
+- State intent in one paragraph from user/commits/PR/code.
 
 ## Step 3, Spawn reviewers
-
-Launch all reviewers in one message, one per entry on the `interrogate reviewers` line in `~/.claude/rules/mstack-models.md` (else two on `claude-opus-5-5`), labeled Reviewer A, B, and so on. Each gets `subagent_type: "general-purpose"`, a brief that forbids edits, `effort: high`, and its entry as `model`; `auto` or `inherit-parent` means omit `model`. If the Agent tool rejects a model, run that reviewer on its family alias (`opus`, `fable`, `sonnet`, `haiku`) and say so.
-
-Fill `references/reviewer-prompt.md` identically for every reviewer with the intent, the diff or contents, and `references/rubric.md`.
+- Launch all reviewers in one message: one per “interrogate reviewers” in `~/.claude/rules/mstack-models.md`; else two on `claude-opus-5-5`.
+- For each: `subagent_type: "general-purpose"`, brief forbids edits, `effort: high`, `model` = its entry (omit if `auto` or `inherit-parent`).
+- If a model is rejected, use its family alias (`opus`, `fable`, `sonnet`, `haiku`) and note this.
+- Fill `references/reviewer-prompt.md` identically for every reviewer with the intent, the diff or contents, and `references/rubric.md`.
 
 ## Step 4, Synthesize
-
-Merge findings that describe the same issue, noting which models raised each. Independent findings from two or more models are the highest signal; weight a lone model's finding accordingly. Note disagreements, especially one model contradicting another.
+- Merge duplicates; attribute models; weight multi-model agreement; downweight lone findings; note contradictions.
 
 ## Step 5, Lead judgment
-
-You are the lead reviewer, a pragmatic senior engineer, not a neutral aggregator. Apply `references/lead-judgment.md` and bucket every finding with its model(s) and a one-line reason:
-
-- **Act on**: real correctness, security, or maintainability issues given the goals; would block a real PR.
-- **Consider**: legitimate, but unclear it outweighs the cost now.
-- **Noted**: valid but not actionable (context-dependent, premature optimization, low impact).
-- **Dismissed**: wrong, nitpicky, or missing context, with a brief reason.
+- Apply `references/lead-judgment.md`. Bucket each finding with model(s) and a one-line reason: Act on, Consider, Noted, Dismissed.
 
 ## Output format
 

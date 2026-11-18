@@ -1,17 +1,12 @@
-# Encode lessons in structure
+- Encode repeated corrections as a lint/check/script, not more text.
+- If the fix is structural, only implement the structural fix.
 
-**Rule:** When the same instruction or correction comes up twice, encode it as a lint, check or script instead of more text.
+Feedback loop:
+- Capture every correction; decide: one-off, recurring, or systemic.
+- Route: one-off -> ~/.claude/mstack/<slug>/ or AGENTS.md; recurring -> skill or lint rule; systemic -> principle.
+- Close the loop: apply now or create a concrete todo.
 
-If the lesson needs judgment and cannot be encoded, make the instruction more prominent and add an example of the failure mode.
-
-**Corollary:** if the fix is structural, use only the structural fix. The instruction is the symptom.
-
-**Feedback loop:**
-- **Capture every correction.** When the human intervenes or tests fail, decide: one-off or pattern.
-- **Route to the right layer.** One-off -> note in the mstack store (`~/.claude/mstack/<slug>/`) or repo `AGENTS.md`. Recurring -> skill or lint rule. Systemic -> principle.
-- **Close the loop.** Apply now or create a concrete todo.
-
-**Anti-patterns:**
-- Acknowledging without recording ("I'll keep that in mind" does not persist).
-- Recording without routing (a note that a lint rule should exist is wasted until the rule is built).
-- Fixing one instance while leaving the recurring pattern intact.
+Anti-patterns:
+- Acknowledge without recording.
+- Record without routing.
+- Fix one instance while leaving the recurring pattern.
