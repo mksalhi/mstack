@@ -61,7 +61,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 - [ ] Open the PR ready, never draft, with `origin pr create --status open --base <base-branch>` or `gh pr create --base <base-branch>`. A stack child targets its parent branch.
 - [ ] Run the repo's lint and typecheck once before the PR-facing push. Push with hooks on.
 - [ ] Deslop before each commit and cut comments before review, per the mstack-mode Routing table.
-- [ ] Triage every Bugbot and security-reviewer comment with the `pr` skill's bot-thread triage.
+- [ ] Triage every Bugbot and security-reviewer comment with the `pr` skill's bot-thread triage (`<mstack>/skills/pr/references/bot-threads.md`).
 - [ ] Rebase onto current trunk before the code-ready report and babysit, and keep that base in fix rounds. Rebase again only at merge prep, on a `git merge-tree` conflict with trunk, or on a CI failure caused by trunk.
 
 ### Verdict and merge, for every PR

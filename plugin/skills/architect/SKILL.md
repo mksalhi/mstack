@@ -19,10 +19,10 @@ Open a todolist: Ground, Sketch, Agree, Implement, Scrap.
 - Skip only for true greenfield.
 
 ## Phase B: Sketch
-- Run arena (<mstack>/skills/arena/SKILL.md) with the design-sketch task and Phase A artifacts, passing references/runner-prompt.md as each runner’s prompt.
+- Run arena (<mstack>/skills/arena/SKILL.md) with the design-sketch task and Phase A artifacts, passing [references/runner-prompt.md](references/runner-prompt.md) as each runner’s prompt.
 - Use the architect runners in ~/.claude/rules/mstack-models.md (not arena runners); else two on claude-opus-5-5.
 - Produce at least two structurally different candidates.
-- Screen each against references/design-red-flags.md; pick the survivor that hides the most complexity behind the smallest public surface.
+- Screen each against [references/design-red-flags.md](references/design-red-flags.md); pick the survivor that hides the most complexity behind the smallest public surface.
 
 ## Phase C: Agree (opt-in)
 - Show the sketch only if the user asks; then wait.
@@ -37,5 +37,5 @@ Open a todolist: Ground, Sketch, Agree, Implement, Scrap.
 - To scrap: re-run how (<mstack>/skills/how/SKILL.md), redesign with new constraints, make the new sketch smaller first (scoper), then redo Phase B.
 
 ## Outputs
-- Caller usage first, then the type sketch. Ship the rationale per references/rationale-template.md.
+- Caller usage first, then the type sketch. Ship the rationale per [references/rationale-template.md](references/rationale-template.md).
 - Small change: one file of types/signatures. Larger: module map plus types.

@@ -1,6 +1,6 @@
 ---
 name: interrogate
-description: "Use for adversarial multi-model review of a change. Triggers: 'interrogate', 'challenge this', 'tear this apart', 'find blind spots'."
+description: "Use for adversarial multi-model review of a change, one read-only pass. Triggers: 'interrogate', 'challenge this', 'tear this apart', 'find blind spots'. Rounds with fixes until models agree: `council`."
 metadata:
   harness: "claude codex"
   platform: "darwin linux"
