@@ -125,7 +125,8 @@ def analyze(ref=None, exact=False):
         for f in docs:
             for s in shingles(open(f).read()):
                 all_shingles[s].add(name)
-        desc = fm.get("description", "")
+        # a user-only skill is listed by name only
+        desc = "" if str(fm.get("disable-model-invocation", "")).lower() == "true" else fm.get("description", "")
         skills[name] = {
             "desc_chars": len(desc),
             "desc_tokens": len(desc) / 4,
