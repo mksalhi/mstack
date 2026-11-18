@@ -1,42 +1,42 @@
 {
  "summary": {
-  "ref": "c1b557a",
+  "ref": "a0ef016",
   "model": "gpt-6.2-sol",
   "runs": 3,
   "all": {
    "n": 116,
-   "accuracy": 0.5862068965517241,
-   "pass@0.5": 0.5948275862068966,
+   "accuracy": 0.6091954022988506,
+   "pass@0.5": 0.6206896551724138,
    "wrong_mstack_pick": 0.034482758620689655
   },
   "positives": {
    "n": 101,
-   "accuracy": 0.5676567656765676,
-   "pass@0.5": 0.5742574257425742,
+   "accuracy": 0.5973597359735974,
+   "pass@0.5": 0.6039603960396039,
    "wrong_mstack_pick": 0.0066006600660066
   },
   "negatives": {
    "n": 15,
-   "accuracy": 0.711111111111111,
+   "accuracy": 0.6888888888888889,
    "pass@0.5": 0.7333333333333333,
    "wrong_mstack_pick": 0.22222222222222224
   },
   "train": {
    "n": 74,
-   "accuracy": 0.6126126126126127,
-   "pass@0.5": 0.6216216216216216,
+   "accuracy": 0.6261261261261262,
+   "pass@0.5": 0.6351351351351351,
    "wrong_mstack_pick": 0.036036036036036036
   },
   "val": {
    "n": 42,
-   "accuracy": 0.5396825396825398,
-   "pass@0.5": 0.5476190476190477,
+   "accuracy": 0.5793650793650793,
+   "pass@0.5": 0.5952380952380952,
    "wrong_mstack_pick": 0.031746031746031744
   },
   "system_prompt_tokens_per_call": 2758.560344827586,
   "usage": {
    "in": 959979,
-   "out": 12765
+   "out": 12854
   }
  },
  "rows": [
@@ -46,13 +46,13 @@
     "architect"
    ],
    "picks": [
-    "NONE",
-    "NONE",
-    "NONE"
+    "architect",
+    "architect",
+    "architect"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.0,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
@@ -78,11 +78,11 @@
    "picks": [
     "NONE",
     "NONE",
-    "architect"
+    "NONE"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -138,8 +138,23 @@
    ],
    "picks": [
     "automate-me",
-    "NONE",
+    "automate-me",
     "automate-me"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "update my mode skill with the stuff I've been correcting you on this week",
+   "accept": [
+    "automate-me"
+   ],
+   "picks": [
+    "automate-me",
+    "automate-me",
+    "NONE"
    ],
    "split": "train",
    "positive": true,
@@ -147,7 +162,7 @@
    "false_mstack": 0.0
   },
   {
-   "q": "update my mode skill with the stuff I've been correcting you on this week",
+   "q": "can you make a skill that captures my coding style and review habits so other agents follow it",
    "accept": [
     "automate-me"
    ],
@@ -159,21 +174,6 @@
    "split": "train",
    "positive": true,
    "rate": 1.0,
-   "false_mstack": 0.0
-  },
-  {
-   "q": "can you make a skill that captures my coding style and review habits so other agents follow it",
-   "accept": [
-    "automate-me"
-   ],
-   "picks": [
-    "NONE",
-    "NONE",
-    "automate-me"
-   ],
-   "split": "train",
-   "positive": true,
-   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -243,12 +243,12 @@
    ],
    "picks": [
     "NONE",
-    "debug",
-    "debug"
+    "NONE",
+    "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -258,13 +258,13 @@
     "mstack-mode"
    ],
    "picks": [
+    "debug",
     "NONE",
-    "NONE",
-    "NONE"
+    "debug"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -442,12 +442,12 @@
    ],
    "picks": [
     "NONE",
-    "NONE",
+    "handoff",
     "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -517,8 +517,8 @@
    ],
    "picks": [
     "NONE",
-    "how",
-    "NONE"
+    "NONE",
+    "how"
    ],
    "split": "train",
    "positive": true,
@@ -576,13 +576,13 @@
     "interrogate"
    ],
    "picks": [
-    "interrogate",
     "NONE",
-    "interrogate"
+    "NONE",
+    "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -591,13 +591,13 @@
     "interrogate"
    ],
    "picks": [
-    "NONE",
-    "NONE",
+    "interrogate",
+    "interrogate",
     "NONE"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -834,13 +834,13 @@
     "writing"
    ],
    "picks": [
-    "NONE",
+    "pr",
     "NONE",
     "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -864,8 +864,8 @@
     "pr-comments"
    ],
    "picks": [
-    "NONE",
     "pr-comments",
+    "NONE",
     "pr-comments"
    ],
    "split": "val",
@@ -925,13 +925,13 @@
     "principles"
    ],
    "picks": [
-    "NONE",
+    "principles",
     "principles",
     "principles"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
@@ -941,12 +941,12 @@
    ],
    "picks": [
     "NONE",
-    "NONE",
-    "NONE"
+    "retro",
+    "retro"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -955,13 +955,13 @@
     "retro"
    ],
    "picks": [
-    "retro",
+    "NONE",
     "NONE",
     "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -1091,13 +1091,13 @@
     "swarm"
    ],
    "picks": [
-    "NONE",
     "swarm",
-    "NONE"
+    "NONE",
+    "swarm"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -1121,13 +1121,13 @@
     "swarm"
    ],
    "picks": [
-    "swarm",
-    "swarm",
+    "NONE",
+    "NONE",
     "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -1243,11 +1243,11 @@
    "picks": [
     "NONE",
     "NONE",
-    "verifier"
+    "NONE"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -1258,7 +1258,7 @@
    "picks": [
     "NONE",
     "NONE",
-    "skill-creator"
+    "NONE"
    ],
    "split": "train",
    "positive": true,
@@ -1301,13 +1301,13 @@
     "why"
    ],
    "picks": [
-    "why",
+    "NONE",
     "NONE",
     "why"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -1317,12 +1317,12 @@
    ],
    "picks": [
     "NONE",
-    "NONE",
+    "write-swift",
     "NONE"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -1393,12 +1393,12 @@
    ],
    "picks": [
     "writing",
-    "NONE",
-    "NONE"
+    "writing",
+    "writing"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
@@ -1425,11 +1425,11 @@
    "picks": [
     "NONE",
     "NONE",
-    "NONE"
+    "writing"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -1575,13 +1575,13 @@
     "pptx"
    ],
    "picks": [
-    "pptx",
+    "NONE",
     "pptx",
     "pptx"
    ],
    "split": "train",
    "positive": false,
-   "rate": 1.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -1735,8 +1735,8 @@
    ],
    "picks": [
     "how",
-    "how",
-    "NONE"
+    "NONE",
+    "how"
    ],
    "split": "train",
    "positive": true,

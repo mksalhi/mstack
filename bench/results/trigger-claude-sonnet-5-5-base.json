@@ -5,15 +5,15 @@
   "runs": 3,
   "all": {
    "n": 116,
-   "accuracy": 0.9942528735632183,
+   "accuracy": 1.0,
    "pass@0.5": 1.0,
-   "wrong_mstack_pick": 0.0028735632183908046
+   "wrong_mstack_pick": 0.0
   },
   "positives": {
    "n": 101,
-   "accuracy": 0.9933993399339933,
+   "accuracy": 1.0,
    "pass@0.5": 1.0,
-   "wrong_mstack_pick": 0.0033003300330033
+   "wrong_mstack_pick": 0.0
   },
   "negatives": {
    "n": 15,
@@ -29,14 +29,14 @@
   },
   "val": {
    "n": 42,
-   "accuracy": 0.9841269841269842,
+   "accuracy": 1.0,
    "pass@0.5": 1.0,
-   "wrong_mstack_pick": 0.007936507936507936
+   "wrong_mstack_pick": 0.0
   },
   "system_prompt_tokens_per_call": 3701.8275862068967,
   "usage": {
    "in": 1288236,
-   "out": 35312
+   "out": 34097
   }
  },
  "rows": [
@@ -1393,12 +1393,12 @@
    ],
    "picks": [
     "writing",
-    "NONE",
+    "writing",
     "writing"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
@@ -1657,12 +1657,12 @@
    "picks": [
     "writing",
     "writing",
-    "pr"
+    "writing"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.6666666666666666,
-   "false_mstack": 0.3333333333333333
+   "rate": 1.0,
+   "false_mstack": 0.0
   },
   {
    "q": "set up a SessionStart hook that installs deps",
@@ -1719,7 +1719,7 @@
    ],
    "picks": [
     "write-swift",
-    "NONE",
+    "write-swift",
     "NONE"
    ],
    "split": "train",
@@ -1750,7 +1750,7 @@
     "NONE"
    ],
    "picks": [
-    "NONE",
+    "loop",
     "loop",
     "loop"
    ],

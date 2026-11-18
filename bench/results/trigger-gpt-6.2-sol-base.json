@@ -5,38 +5,38 @@
   "runs": 3,
   "all": {
    "n": 116,
-   "accuracy": 0.6063218390804598,
-   "pass@0.5": 0.603448275862069,
-   "wrong_mstack_pick": 0.034482758620689655
+   "accuracy": 0.574712643678161,
+   "pass@0.5": 0.5431034482758621,
+   "wrong_mstack_pick": 0.03160919540229885
   },
   "positives": {
    "n": 101,
-   "accuracy": 0.5874587458745875,
-   "pass@0.5": 0.5841584158415841,
-   "wrong_mstack_pick": 0.009900990099009901
+   "accuracy": 0.5478547854785478,
+   "pass@0.5": 0.5148514851485149,
+   "wrong_mstack_pick": 0.0066006600660066
   },
   "negatives": {
    "n": 15,
-   "accuracy": 0.7333333333333333,
+   "accuracy": 0.7555555555555556,
    "pass@0.5": 0.7333333333333333,
    "wrong_mstack_pick": 0.2
   },
   "train": {
    "n": 74,
-   "accuracy": 0.6216216216216216,
-   "pass@0.5": 0.6216216216216216,
-   "wrong_mstack_pick": 0.04054054054054054
+   "accuracy": 0.581081081081081,
+   "pass@0.5": 0.5540540540540541,
+   "wrong_mstack_pick": 0.036036036036036036
   },
   "val": {
    "n": 42,
-   "accuracy": 0.5793650793650793,
-   "pass@0.5": 0.5714285714285714,
+   "accuracy": 0.5634920634920635,
+   "pass@0.5": 0.5238095238095238,
    "wrong_mstack_pick": 0.023809523809523808
   },
   "system_prompt_tokens_per_call": 2780.560344827586,
   "usage": {
    "in": 967635,
-   "out": 12712
+   "out": 12773
   }
  },
  "rows": [
@@ -46,13 +46,13 @@
     "architect"
    ],
    "picks": [
-    "architect",
-    "architect",
-    "architect"
+    "NONE",
+    "NONE",
+    "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 1.0,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -107,13 +107,13 @@
     "architect"
    ],
    "picks": [
-    "NONE",
     "arena",
-    "NONE"
+    "arena",
+    "arena"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
@@ -138,12 +138,12 @@
    ],
    "picks": [
     "NONE",
-    "automate-me",
+    "skill-creator",
     "automate-me"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -152,13 +152,13 @@
     "automate-me"
    ],
    "picks": [
-    "NONE",
-    "NONE",
+    "automate-me",
+    "automate-me",
     "automate-me"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
@@ -242,13 +242,13 @@
     "debug"
    ],
    "picks": [
-    "debug",
-    "debug",
+    "NONE",
+    "NONE",
     "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -260,11 +260,11 @@
    "picks": [
     "NONE",
     "NONE",
-    "NONE"
+    "debug"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -292,12 +292,12 @@
    ],
    "picks": [
     "decision-log",
-    "decision-log",
+    "NONE",
     "decision-log"
    ],
    "split": "train",
    "positive": true,
-   "rate": 1.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -442,12 +442,12 @@
    ],
    "picks": [
     "NONE",
-    "handoff",
+    "NONE",
     "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -486,13 +486,13 @@
     "how"
    ],
    "picks": [
+    "NONE",
     "how",
-    "how",
-    "how"
+    "NONE"
    ],
    "split": "val",
    "positive": true,
-   "rate": 1.0,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -501,13 +501,13 @@
     "how"
    ],
    "picks": [
-    "NONE",
     "how",
-    "how"
+    "NONE",
+    "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -516,13 +516,13 @@
     "how"
    ],
    "picks": [
+    "NONE",
     "how",
-    "how",
-    "how"
+    "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 1.0,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -591,8 +591,8 @@
     "interrogate"
    ],
    "picks": [
-    "NONE",
     "interrogate",
+    "NONE",
     "interrogate"
    ],
    "split": "val",
@@ -773,12 +773,12 @@
    ],
    "picks": [
     "playwright",
-    "NONE",
+    "playwright",
     "playwright"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
@@ -864,13 +864,13 @@
     "pr-comments"
    ],
    "picks": [
-    "NONE",
+    "pr-comments",
     "NONE",
     "NONE"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -926,12 +926,12 @@
    ],
    "picks": [
     "principles",
-    "principles",
+    "NONE",
     "principles"
    ],
    "split": "train",
    "positive": true,
-   "rate": 1.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -942,11 +942,11 @@
    "picks": [
     "NONE",
     "NONE",
-    "retro"
+    "NONE"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -970,9 +970,9 @@
     "retro"
    ],
    "picks": [
-    "NONE",
     "retro",
-    "retro"
+    "retro",
+    "NONE"
    ],
    "split": "val",
    "positive": true,
@@ -1092,8 +1092,8 @@
    ],
    "picks": [
     "NONE",
-    "NONE",
-    "swarm"
+    "swarm",
+    "NONE"
    ],
    "split": "train",
    "positive": true,
@@ -1122,12 +1122,12 @@
    ],
    "picks": [
     "swarm",
-    "swarm",
-    "swarm"
+    "NONE",
+    "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 1.0,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -1167,12 +1167,12 @@
    ],
    "picks": [
     "test-audit",
-    "NONE",
+    "test-audit",
     "test-audit"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
@@ -1271,13 +1271,13 @@
     "why"
    ],
    "picks": [
+    "NONE",
     "why",
-    "why",
-    "why"
+    "NONE"
    ],
    "split": "val",
    "positive": true,
-   "rate": 1.0,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -1317,12 +1317,12 @@
    ],
    "picks": [
     "NONE",
-    "write-swift",
+    "NONE",
     "write-swift"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -1362,12 +1362,12 @@
    ],
    "picks": [
     "NONE",
-    "writing",
+    "NONE",
     "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -1392,13 +1392,13 @@
     "writing"
    ],
    "picks": [
-    "writing",
+    "NONE",
     "writing",
     "writing"
    ],
    "split": "val",
    "positive": true,
-   "rate": 1.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -1425,11 +1425,11 @@
    "picks": [
     "NONE",
     "NONE",
-    "NONE"
+    "writing"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -1736,12 +1736,12 @@
    "picks": [
     "how",
     "how",
-    "how"
+    "ui"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.0,
-   "false_mstack": 1.0
+   "rate": 0.3333333333333333,
+   "false_mstack": 0.6666666666666666
   },
   {
    "q": "schedule this script to run every 5 minutes",
@@ -1766,12 +1766,12 @@
    ],
    "picks": [
     "NONE",
-    "NONE",
+    "standup",
     "NONE"
    ],
    "split": "val",
    "positive": false,
-   "rate": 0.0,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {

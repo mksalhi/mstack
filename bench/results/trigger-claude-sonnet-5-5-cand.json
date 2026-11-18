@@ -1,19 +1,19 @@
 {
  "summary": {
-  "ref": "c1b557a",
+  "ref": "a0ef016",
   "model": "claude-sonnet-5-5",
   "runs": 3,
   "all": {
    "n": 116,
-   "accuracy": 0.9913793103448276,
+   "accuracy": 0.9942528735632183,
    "pass@0.5": 0.9913793103448276,
-   "wrong_mstack_pick": 0.008620689655172414
+   "wrong_mstack_pick": 0.005747126436781609
   },
   "positives": {
    "n": 101,
-   "accuracy": 0.9900990099009901,
+   "accuracy": 0.9933993399339933,
    "pass@0.5": 0.9900990099009901,
-   "wrong_mstack_pick": 0.009900990099009901
+   "wrong_mstack_pick": 0.0066006600660066
   },
   "negatives": {
    "n": 15,
@@ -23,9 +23,9 @@
   },
   "train": {
    "n": 74,
-   "accuracy": 0.9864864864864865,
+   "accuracy": 0.990990990990991,
    "pass@0.5": 0.9864864864864865,
-   "wrong_mstack_pick": 0.013513513513513514
+   "wrong_mstack_pick": 0.009009009009009009
   },
   "val": {
    "n": 42,
@@ -36,7 +36,7 @@
   "system_prompt_tokens_per_call": 3661.8275862068967,
   "usage": {
    "in": 1274316,
-   "out": 32415
+   "out": 32132
   }
  },
  "rows": [
@@ -1227,13 +1227,13 @@
    ],
    "picks": [
     "debug",
-    "debug",
+    "ui",
     "debug"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.0,
-   "false_mstack": 1.0
+   "rate": 0.3333333333333333,
+   "false_mstack": 0.6666666666666666
   },
   {
    "q": "make a verify skill for this repo so agents can drive the app like a user",
@@ -1751,8 +1751,8 @@
    ],
    "picks": [
     "loop",
-    "loop",
-    "NONE"
+    "NONE",
+    "loop"
    ],
    "split": "val",
    "positive": false,
