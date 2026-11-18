@@ -67,7 +67,10 @@ def load_stack(name, spec):
             rel = os.path.relpath(os.path.dirname(p), root)
             if any(re.search(x, rel) for x in spec.get("exclude", [])):
                 continue
-            fm, body = frontmatter(open(p, errors="replace").read())
+            text = open(p, errors="replace").read()
+            fm, body = frontmatter(text)
+            if re.search(r"(?m)^disable-model-invocation:\s*true", text.split("\n---", 1)[0]):
+                continue  # user-only: Claude Code doesn't list it to the model
             n = fm.get("name") or os.path.basename(os.path.dirname(p))
             skills.setdefault(n, (rel, fm.get("description", ""), body))
     return root, skills
