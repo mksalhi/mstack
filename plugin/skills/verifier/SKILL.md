@@ -9,11 +9,11 @@ metadata:
 
 # Verification skill
 
-A `create` or `maintain` argument picks the mode. Otherwise pick **Create** when the project has no `.claude/skills/verify-*` skill and **Maintain** when one exists and the app has changed, and say which.
+A `create` or `maintain` argument picks the mode. Otherwise use **Create** when the project has no `.claude/skills/verify-*` skill and **Maintain** when it has one, and say which.
 
 ## Create
 
-Generate a project-local skill (`.claude/skills/verify-<app>/`) that launches the real app, drives a feature like a user, and captures evidence. Write for an agent reading it cold, mid-task, who has never seen the app.
+Generate `.claude/skills/verify-<app>/`: launch the real app, drive a feature like a user, capture evidence. Write for an agent who has never seen the app.
 
 ### 1. Interview the repo, not the user
 
@@ -46,13 +46,13 @@ Create `.claude/skills/verify-<app>/features/README.md` plus one file per user-f
 
 Run it end to end once: launch, doctor, drive ONE mapped feature, capture evidence, clean up. After cleanup, confirm the evidence still exists at the named location. Fix failures, running the generated cleanup after every failed iteration. A never-executed skill is a draft, not a deliverable.
 
-### 5. Offer the maintenance loop
+### 5. Hand over
 
-Point the user at `/mstack:verifier maintain`. Suggest a cadence only if asked.
+Point the user at `/mstack:verifier maintain`.
 
 ## Maintain
 
-Upkeep for a Create-mode skill or any project-local verification skill with a feature map. The unit of rigor is the feature: cover every feature file from source and exercise every feature live, without terminalising every bullet.
+Upkeep for a project-local verification skill with a feature map. Cover every feature file from source and drive every feature live at least once; not every bullet needs its own drive.
 
 ### Outcomes
 

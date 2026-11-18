@@ -1,0 +1,1808 @@
+{
+ "summary": {
+  "ref": "origin/main",
+  "model": "gpt-6.2-sol",
+  "runs": 3,
+  "all": {
+   "n": 116,
+   "accuracy": 0.6091954022988506,
+   "pass@0.5": 0.603448275862069,
+   "wrong_mstack_pick": 0.028735632183908046
+  },
+  "positives": {
+   "n": 101,
+   "accuracy": 0.594059405940594,
+   "pass@0.5": 0.5841584158415841,
+   "wrong_mstack_pick": 0.0033003300330033
+  },
+  "negatives": {
+   "n": 15,
+   "accuracy": 0.711111111111111,
+   "pass@0.5": 0.7333333333333333,
+   "wrong_mstack_pick": 0.2
+  },
+  "train": {
+   "n": 74,
+   "accuracy": 0.617117117117117,
+   "pass@0.5": 0.6216216216216216,
+   "wrong_mstack_pick": 0.031531531531531536
+  },
+  "val": {
+   "n": 42,
+   "accuracy": 0.5952380952380952,
+   "pass@0.5": 0.5714285714285714,
+   "wrong_mstack_pick": 0.023809523809523808
+  },
+  "system_prompt_tokens_per_call": 2780.560344827586,
+  "usage": {
+   "in": 967635,
+   "out": 13042
+  }
+ },
+ "rows": [
+  {
+   "q": "before you write any of this, sketch the types and function signatures for the new billing sync module so we can see the shape",
+   "accept": [
+    "architect"
+   ],
+   "picks": [
+    "architect",
+    "architect",
+    "architect"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "I need a new rate limiter that sits between the API gateway and three services. Not sure how to split it into modules yet, can you lay out the interfaces first with stub bodies?",
+   "accept": [
+    "architect"
+   ],
+   "picks": [
+    "architect",
+    "architect",
+    "architect"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "architect this: offline queue for the mobile app that replays mutations when the network comes back",
+   "accept": [
+    "architect"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "run 3 parallel attempts at the new caching layer and keep the best one, grafting good bits from the others",
+   "accept": [
+    "arena"
+   ],
+   "picks": [
+    "arena",
+    "arena",
+    "arena"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "I'm worried a single attempt will lock us into a bad schema for the event store. have several agents each propose one and pick the strongest",
+   "accept": [
+    "arena",
+    "architect"
+   ],
+   "picks": [
+    "arena",
+    "arena",
+    "arena"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "arena this refactor of the auth middleware",
+   "accept": [
+    "arena"
+   ],
+   "picks": [
+    "arena",
+    "arena",
+    "arena"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "turn the way I like to work into a reusable skill, mine my past sessions for my preferences",
+   "accept": [
+    "automate-me"
+   ],
+   "picks": [
+    "automate-me",
+    "automate-me",
+    "automate-me"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "update my mode skill with the stuff I've been correcting you on this week",
+   "accept": [
+    "automate-me"
+   ],
+   "picks": [
+    "automate-me",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.3333333333333333,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "can you make a skill that captures my coding style and review habits so other agents follow it",
+   "accept": [
+    "automate-me"
+   ],
+   "picks": [
+    "automate-me",
+    "automate-me",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.6666666666666666,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "this 12 line diff touches the session cache eviction. what else in the system could it break that grep wouldn't show?",
+   "accept": [
+    "blast-radius"
+   ],
+   "picks": [
+    "blast-radius",
+    "blast-radius",
+    "blast-radius"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "blast radius on PR 4412 please",
+   "accept": [
+    "blast-radius"
+   ],
+   "picks": [
+    "blast-radius",
+    "blast-radius",
+    "blast-radius"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "I don't trust this small change to the serializer. before we ship, figure out what downstream consumers might break",
+   "accept": [
+    "blast-radius"
+   ],
+   "picks": [
+    "blast-radius",
+    "blast-radius",
+    "blast-radius"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "the export job throws 'Cannot read properties of undefined (reading id)' about 1 in 20 runs, figure out why",
+   "accept": [
+    "debug"
+   ],
+   "picks": [
+    "debug",
+    "debug",
+    "debug"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "test_checkout_total started failing on main after yesterday's merge, can you diagnose",
+   "accept": [
+    "debug"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "debug"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.3333333333333333,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "page load went from 1.2s to 4s this week, find out what's slow",
+   "accept": [
+    "debug",
+    "mstack-mode"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "debug"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.3333333333333333,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "let's do this with TDD: write a failing regression test for the timezone bug first, then fix it",
+   "accept": [
+    "debug",
+    "test-audit"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "I'm going to bed, run the migration autonomously and keep a record of every call you make with evidence so I can audit it tomorrow",
+   "accept": [
+    "decision-log",
+    "mstack-mode",
+    "figure-it-out"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "decision-log"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.3333333333333333,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "keep a TSV log of each decision you make during this multi-phase cleanup, with commit SHAs as evidence",
+   "accept": [
+    "decision-log"
+   ],
+   "picks": [
+    "decision-log",
+    "decision-log",
+    "decision-log"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "we need to migrate 400 call sites from the old logger to the structured one across 9 packages. no playbook for this, design a plan we can audit",
+   "accept": [
+    "figure-it-out"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "ambitious one: move the whole app from REST to tRPC. figure it out, phase it, and make it verifiable",
+   "accept": [
+    "figure-it-out"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "prove that the retry logic in the payment worker can never double-charge, using a model checker",
+   "accept": [
+    "formal-verification"
+   ],
+   "picks": [
+    "formal-verification",
+    "formal-verification",
+    "formal-verification"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "write a TLA+ spec for the leader election and check the invariant that there's at most one leader",
+   "accept": [
+    "formal-verification"
+   ],
+   "picks": [
+    "formal-verification",
+    "formal-verification",
+    "formal-verification"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "the lock-free queue's TLA model was written 3 months ago and the code changed a lot since. is the model still true to the code?",
+   "accept": [
+    "formal-verification"
+   ],
+   "picks": [
+    "formal-verification",
+    "formal-verification",
+    "formal-verification"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "grill me on this plan to split the monolith into four services",
+   "accept": [
+    "grilling"
+   ],
+   "picks": [
+    "grilling",
+    "grilling",
+    "grilling"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "here's my design doc for the new onboarding flow. poke holes in it by interviewing me until we agree on every decision",
+   "accept": [
+    "grilling"
+   ],
+   "picks": [
+    "grilling",
+    "grilling",
+    "grilling"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "stress-test my decision to drop Postgres for DynamoDB by asking me hard questions",
+   "accept": [
+    "grilling"
+   ],
+   "picks": [
+    "NONE",
+    "grilling",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.3333333333333333,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "write a handoff so the next chat can pick this up without rereading everything",
+   "accept": [
+    "handoff"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "where did I leave off on the search indexing work last week?",
+   "accept": [
+    "handoff"
+   ],
+   "picks": [
+    "handoff",
+    "handoff",
+    "handoff"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "context is almost full, summarize the state for a fresh session",
+   "accept": [
+    "handoff"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "how does the websocket reconnection logic work in this repo? walk me through it",
+   "accept": [
+    "how"
+   ],
+   "picks": [
+    "how",
+    "how",
+    "how"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "I need to add a field to the order pipeline. where should this live and how does the pipeline fit together?",
+   "accept": [
+    "how"
+   ],
+   "picks": [
+    "NONE",
+    "how",
+    "how"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.6666666666666666,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "teach me how the query planner in this codebase picks indexes",
+   "accept": [
+    "how"
+   ],
+   "picks": [
+    "how",
+    "how",
+    "how"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "research from primary sources how HTTP/3 connection migration works and write it up in a markdown file",
+   "accept": [
+    "how"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "before you start, tell me in your own words what you think I'm trying to achieve here",
+   "accept": [
+    "in-your-own-words"
+   ],
+   "picks": [
+    "in-your-own-words",
+    "in-your-own-words",
+    "in-your-own-words"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "what do you think I actually want from this ticket?",
+   "accept": [
+    "in-your-own-words"
+   ],
+   "picks": [
+    "in-your-own-words",
+    "in-your-own-words",
+    "in-your-own-words"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "interrogate this diff with multiple models and find blind spots",
+   "accept": [
+    "interrogate"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "tear this PR apart, I want adversarial review from several reviewers before merge",
+   "accept": [
+    "interrogate"
+   ],
+   "picks": [
+    "NONE",
+    "interrogate",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.3333333333333333,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "challenge this change to the consensus code, get a few different models to try to break it",
+   "accept": [
+    "interrogate"
+   ],
+   "picks": [
+    "interrogate",
+    "interrogate",
+    "interrogate"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "ketchup",
+   "accept": [
+    "ketchup"
+   ],
+   "picks": [
+    "ketchup",
+    "ketchup",
+    "ketchup"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "back from lunch, what did I miss in here and what needs me?",
+   "accept": [
+    "ketchup"
+   ],
+   "picks": [
+    "ketchup",
+    "ketchup",
+    "ketchup"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "I stepped away for a couple hours. what changed in this chat and which decisions are waiting on me?",
+   "accept": [
+    "ketchup"
+   ],
+   "picks": [
+    "ketchup",
+    "ketchup",
+    "ketchup"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "make a 15 second vertical launch video for our new feature, rendered from code",
+   "accept": [
+    "motion-video"
+   ],
+   "picks": [
+    "motion-video",
+    "motion-video",
+    "motion-video"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "the product reel render is janky at 60fps, frames stutter during the zoom",
+   "accept": [
+    "motion-video"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "add a synthesized soundtrack synced to the beats of our explainer animation",
+   "accept": [
+    "motion-video"
+   ],
+   "picks": [
+    "motion-video",
+    "motion-video",
+    "motion-video"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "/mstack-mode the nightly cleanup job skips rows deleted exactly 72h ago. repro first, then fix and verify.",
+   "accept": [
+    "mstack-mode"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "work in the mstack style for this task: terse, verified, deliberate subagents",
+   "accept": [
+    "mstack-mode"
+   ],
+   "picks": [
+    "mstack-mode",
+    "mstack-mode",
+    "mstack-mode"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "babysit PR 5120 until it's green, address the bugbot comments",
+   "accept": [
+    "mstack-mode",
+    "pr-comments"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "open the staging site in a real browser, log in with the test account, and screenshot the dashboard",
+   "accept": [
+    "playwright"
+   ],
+   "picks": [
+    "playwright",
+    "playwright",
+    "playwright"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "scrape the pricing table from this page by driving a headless browser from the terminal",
+   "accept": [
+    "playwright"
+   ],
+   "picks": [
+    "playwright",
+    "playwright",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.6666666666666666,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "the signup form submit button does nothing in Chrome, drive the flow and see what's happening",
+   "accept": [
+    "playwright",
+    "debug"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "write the PR description for this branch",
+   "accept": [
+    "pr"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "cut the comments in this diff before I send it for review",
+   "accept": [
+    "pr"
+   ],
+   "picks": [
+    "pr",
+    "pr",
+    "pr"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "rewrite the body of PR 88, it's too long and has no before/after evidence",
+   "accept": [
+    "pr",
+    "writing"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "CodeRabbit left 14 comments on my PR, go through them, fix the real ones and reject the noise",
+   "accept": [
+    "pr-comments"
+   ],
+   "picks": [
+    "pr-comments",
+    "pr-comments",
+    "pr-comments"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "triage the Cursor bugbot threads on #902 and resolve the false positives with a reply",
+   "accept": [
+    "pr-comments"
+   ],
+   "picks": [
+    "NONE",
+    "pr-comments",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.3333333333333333,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "Copilot review flagged a bunch of stuff, which of these are actually valid?",
+   "accept": [
+    "pr-comments"
+   ],
+   "picks": [
+    "pr-comments",
+    "pr-comments",
+    "pr-comments"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "should this validation live at the API boundary or inside the domain functions? what's the principle",
+   "accept": [
+    "principles"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "I keep giving you the same correction about import order. what's the right way to stop this happening?",
+   "accept": [
+    "principles",
+    "retro"
+   ],
+   "picks": [
+    "principles",
+    "principles",
+    "principles"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "two background jobs might write the same cache key at once. how should I design around that?",
+   "accept": [
+    "principles"
+   ],
+   "picks": [
+    "principles",
+    "principles",
+    "principles"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "retro on this session: what went wrong and what should change in the environment",
+   "accept": [
+    "retro"
+   ],
+   "picks": [
+    "retro",
+    "NONE",
+    "retro"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.6666666666666666,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "that took way too long. look back at this session and suggest checks or docs that would've helped the agent",
+   "accept": [
+    "retro"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "lessons from this session?",
+   "accept": [
+    "retro"
+   ],
+   "picks": [
+    "retro",
+    "retro",
+    "retro"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "this feels over-engineered. what can we delete?",
+   "accept": [
+    "scoper",
+    "simplify"
+   ],
+   "picks": [
+    "scoper",
+    "scoper",
+    "scoper"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "be lazy about this, simplest thing that works",
+   "accept": [
+    "scoper"
+   ],
+   "picks": [
+    "scoper",
+    "scoper",
+    "scoper"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "list every scoper shortcut we deferred in this repo",
+   "accept": [
+    "scoper"
+   ],
+   "picks": [
+    "scoper",
+    "scoper",
+    "scoper"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "set up which models mstack uses for each role, I want a cheaper mix",
+   "accept": [
+    "setup-mstack"
+   ],
+   "picks": [
+    "setup-mstack",
+    "setup-mstack",
+    "setup-mstack"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "/setup-mstack",
+   "accept": [
+    "setup-mstack"
+   ],
+   "picks": [
+    "setup-mstack",
+    "setup-mstack",
+    "setup-mstack"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "show the PM what the user sees during checkout as a statechart, checked against the TLA+ model",
+   "accept": [
+    "statechart"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "the PM doesn't get why users see a double charge. draw the states the user sees and highlight the bug",
+   "accept": [
+    "statechart"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "swarm this: check all 40 API endpoints for missing auth in parallel and give me one report",
+   "accept": [
+    "swarm"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "swarm"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.3333333333333333,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "fan out workers to try the flaky test under 20 different seeds and merge the results",
+   "accept": [
+    "swarm"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "explore these 6 candidate libraries in parallel and give me one consolidated comparison",
+   "accept": [
+    "swarm"
+   ],
+   "picks": [
+    "swarm",
+    "swarm",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.6666666666666666,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "review the tests in this PR, half of them look like they'd pass no matter what",
+   "accept": [
+    "test-audit"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "add unit tests for the slugify util",
+   "accept": [
+    "test-audit"
+   ],
+   "picks": [
+    "test-audit",
+    "test-audit",
+    "test-audit"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "prune the low-value tests in packages/billing, there are 900 of them and most just check mocks were called",
+   "accept": [
+    "test-audit"
+   ],
+   "picks": [
+    "test-audit",
+    "test-audit",
+    "test-audit"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "review this settings screen for accessibility and keyboard navigation",
+   "accept": [
+    "ui"
+   ],
+   "picks": [
+    "ui",
+    "ui",
+    "ui"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "the toast shows up behind the modal and looks unstyled",
+   "accept": [
+    "ui"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "break this table with worst-case data: long names, empty states, RTL, emoji",
+   "accept": [
+    "ui"
+   ],
+   "picks": [
+    "ui",
+    "ui",
+    "ui"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "the bottom sheet animation in our Expo app drops frames on Android",
+   "accept": [
+    "ui"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "make a verify skill for this repo so agents can drive the app like a user",
+   "accept": [
+    "verifier"
+   ],
+   "picks": [
+    "NONE",
+    "verifier",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.3333333333333333,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "our verify-desktop skill is stale since the redesign, bring it back in line with the app",
+   "accept": [
+    "verifier"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "why does the scheduler retry exactly 7 times? dig through git history and PRs",
+   "accept": [
+    "why"
+   ],
+   "picks": [
+    "why",
+    "NONE",
+    "why"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.6666666666666666,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "postmortem: why did the cache invalidation regression ship, and what led to the code looking this way",
+   "accept": [
+    "why"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "what was the design rationale for storing sessions in Redis instead of the DB?",
+   "accept": [
+    "why"
+   ],
+   "picks": [
+    "why",
+    "why",
+    "why"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "I'm getting 'Sending value of non-Sendable type risks causing data races' in my Swift 6 app",
+   "accept": [
+    "write-swift"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "migrate this Swift package to Swift 6 strict concurrency",
+   "accept": [
+    "write-swift"
+   ],
+   "picks": [
+    "write-swift",
+    "write-swift",
+    "write-swift"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "review this SwiftUI view model, it uses @Published and DispatchQueue.global everywhere",
+   "accept": [
+    "write-swift"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "this README sounds like AI wrote it, unslop it",
+   "accept": [
+    "writing"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "write an RFC for moving our feature flags to a new provider",
+   "accept": [
+    "writing",
+    "documentation"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "explain that last message in plain English bro",
+   "accept": [
+    "writing"
+   ],
+   "picks": [
+    "writing",
+    "writing",
+    "writing"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "sharpen this prompt before I give it to the research agent",
+   "accept": [
+    "writing"
+   ],
+   "picks": [
+    "writing",
+    "writing",
+    "writing"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "edit the AGENTS.md so it's shorter and actually useful to agents",
+   "accept": [
+    "writing",
+    "documentation"
+   ],
+   "picks": [
+    "NONE",
+    "writing",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.3333333333333333,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "create a new skill that teaches agents our deploy process",
+   "accept": [
+    "mstack-mode",
+    "writing",
+    "skill-creator"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "rename the variable `tmp` to `retryCount` in utils.ts",
+   "accept": [
+    "NONE"
+   ],
+   "picks": [
+    "principles",
+    "principles",
+    "principles"
+   ],
+   "split": "val",
+   "positive": false,
+   "rate": 0.0,
+   "false_mstack": 1.0
+  },
+  {
+   "q": "what's the difference between a mutex and a semaphore?",
+   "accept": [
+    "NONE"
+   ],
+   "picks": [
+    "how",
+    "how",
+    "how"
+   ],
+   "split": "train",
+   "positive": false,
+   "rate": 0.0,
+   "false_mstack": 1.0
+  },
+  {
+   "q": "fix the typo in the footer: 'Copywright'",
+   "accept": [
+    "NONE"
+   ],
+   "picks": [
+    "ui",
+    "ui",
+    "ui"
+   ],
+   "split": "train",
+   "positive": false,
+   "rate": 0.0,
+   "false_mstack": 1.0
+  },
+  {
+   "q": "add lodash to package.json",
+   "accept": [
+    "NONE"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": false,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "run the test suite and tell me if it passes",
+   "accept": [
+    "NONE"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": false,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "convert this JSON file to YAML",
+   "accept": [
+    "NONE"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": false,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "make me a Word document with the quarterly results table",
+   "accept": [
+    "docx"
+   ],
+   "picks": [
+    "docx",
+    "docx",
+    "docx"
+   ],
+   "split": "val",
+   "positive": false,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "fill in the fields of this PDF tax form",
+   "accept": [
+    "pdf"
+   ],
+   "picks": [
+    "pdf",
+    "pdf",
+    "pdf"
+   ],
+   "split": "train",
+   "positive": false,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "build a slide deck for the board meeting from these notes",
+   "accept": [
+    "pptx"
+   ],
+   "picks": [
+    "pptx",
+    "NONE",
+    "pptx"
+   ],
+   "split": "train",
+   "positive": false,
+   "rate": 0.6666666666666666,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "do a security review of the pending changes on this branch",
+   "accept": [
+    "security-review",
+    "interrogate"
+   ],
+   "picks": [
+    "security-review",
+    "security-review",
+    "security-review"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "review this diff for N+1 queries and missing error handling",
+   "accept": [
+    "code-review",
+    "interrogate"
+   ],
+   "picks": [
+    "code-review",
+    "code-review",
+    "code-review"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "what button label should I use for the destructive confirm dialog?",
+   "accept": [
+    "ux-copy",
+    "ui"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "make a bar chart of signups per week from this CSV",
+   "accept": [
+    "dataviz",
+    "NONE"
+   ],
+   "picks": [
+    "dataviz",
+    "dataviz",
+    "dataviz"
+   ],
+   "split": "val",
+   "positive": false,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "write a commit message for the staged changes",
+   "accept": [
+    "writing",
+    "NONE"
+   ],
+   "picks": [
+    "writing",
+    "writing",
+    "writing"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "set up a SessionStart hook that installs deps",
+   "accept": [
+    "session-start-hook"
+   ],
+   "picks": [
+    "session-start-hook",
+    "session-start-hook",
+    "session-start-hook"
+   ],
+   "split": "train",
+   "positive": false,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "write an incident postmortem doc for yesterday's outage for the status page",
+   "accept": [
+    "incident-response",
+    "writing"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "create an architecture decision record comparing Kafka and SQS",
+   "accept": [
+    "architecture",
+    "writing"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "add a Swift Package dependency on Alamofire in Package.swift",
+   "accept": [
+    "NONE",
+    "write-swift"
+   ],
+   "picks": [
+    "write-swift",
+    "write-swift",
+    "write-swift"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "how do I center a div",
+   "accept": [
+    "NONE",
+    "ui"
+   ],
+   "picks": [
+    "how",
+    "NONE",
+    "NONE"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 0.6666666666666666,
+   "false_mstack": 0.3333333333333333
+  },
+  {
+   "q": "schedule this script to run every 5 minutes",
+   "accept": [
+    "loop",
+    "NONE"
+   ],
+   "picks": [
+    "loop",
+    "loop",
+    "loop"
+   ],
+   "split": "val",
+   "positive": false,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "give me a standup update from yesterday's commits",
+   "accept": [
+    "standup"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": false,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "make an animated GIF for Slack celebrating the launch",
+   "accept": [
+    "slack-gif-creator"
+   ],
+   "picks": [
+    "slack-gif-creator",
+    "slack-gif-creator",
+    "slack-gif-creator"
+   ],
+   "split": "val",
+   "positive": false,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "what's the price per token of Claude Sonnet?",
+   "accept": [
+    "claude-api"
+   ],
+   "picks": [
+    "claude-api",
+    "claude-api",
+    "claude-api"
+   ],
+   "split": "train",
+   "positive": false,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  }
+ ]
+}

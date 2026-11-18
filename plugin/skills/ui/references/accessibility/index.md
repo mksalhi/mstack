@@ -1,71 +1,81 @@
 # Accessibility
 
-Write every fix in the project's styling system, with the exact values below. Review with two walks: keyboard-only (every flow completes without a mouse), then screen-reader (every control announces name, role and state). When unsure, take the platform default over a custom rebuild, and remove ARIA rather than add it.
+Review in two passes: keyboard only, where every flow must finish without a mouse, then screen reader, where every control must announce its name, role and state. Use native elements before ARIA, and remove ARIA before adding more. Contrast numbers belong to [colors](../colors/index.md), text sizing and iOS input zoom to [typography](../typography/index.md), and RTL to [layout](../layout/index.md). This file lists only the rules agents get wrong.
 
-Contrast measurement and color fixes belong to the [colors area](../colors/index.md); text sizing and iOS input zoom to the [typography area](../typography/index.md); spatial RTL layout to the [layout area](../layout/index.md).
+## Semantics
 
-## Native elements first
+- Use `<a href>` for anything that navigates and `<button>` for actions. A `<div onClick>` is always a finding; the full polyfill is `role="button"`, `tabindex="0"`, and Enter and Space handlers.
+- `aria-label` on a role-less `div` or `span` is ignored by most screen readers.
+- `role="menu"` promises arrow-key app behavior. Site navigation is a `<nav>` holding a list.
+- An `aria-labelledby` or `aria-describedby` that points at a missing ID fails silently.
+- **Label in Name (2.5.3):** the accessible name contains the visible text. A "Send" button with `aria-label="Submit message"` breaks voice control.
+- Repeated landmarks need labels (`<nav aria-label="Breadcrumbs">`). A skipped heading level is not a WCAG failure on its own; report it only when it breaks navigation.
+- Never put `aria-hidden` or `role="presentation"` on a focusable element or any ancestor of one.
 
-Don't use ARIA when a native element exists: `<button>` for actions, `<a href>` for navigation, never `<div onClick>`. A real link supports Cmd/Ctrl/middle-click. No ARIA beats bad ARIA. Landmarks, button-vs-link and disabled states: [semantics-and-aria.md](semantics-and-aria.md).
+## Focus and keyboard
 
-## Visible focus rings
+- Style `:focus-visible`. Adding only `outline-offset` keeps the browser ring, which is the best ring. `outline: 2px solid` with no color renders `currentColor`, which isn't automatically visible, so check a custom ring against every color it crosses. In `forced-colors`, use system colors such as `Highlight`.
+- Use `tabindex` 0 or -1 only, never a positive value. Composite widgets (tabs, menus, toolbars, radio groups) take one Tab stop with a roving tabindex, and arrow keys move inside them.
+- Follow the ARIA APG keyboard model for every custom widget:
+  - Escape closes whatever opened last.
+  - A menu button opens on ArrowDown and focuses the first item; ArrowUp opens it on the last item.
+  - Home and End jump to the ends.
+  - In a `<textarea>`, Enter adds a newline and ⌘/Ctrl+Enter submits.
+- **Modals:** prefer `<dialog>.showModal()`. A custom overlay needs `aria-modal`, a name, and `inert` on everything behind it. Focus the first control on open, or the least destructive one in a destructive confirm. Return focus to the trigger on close. Add `overscroll-behavior: contain`.
+- **SPA route change:** update `document.title`, then move focus to the new `<h1 tabindex="-1">` or to `<main>`.
+- Put a skip link first when repeated navigation comes before `<main>`. Anchor targets under a sticky header need `scroll-margin-top`.
 
-Style `:focus-visible`, not bare `:focus`; prefer the browser's unmodified indicator. A custom ring needs a project focus token or explicit color, verified against every adjacent color it crosses (`currentColor` included), at least a `2px` solid perimeter or equivalent area. Never `outline: none` without a verified replacement; preserve system colors in forced-colors mode. Recipes: [focus-and-keyboard.md](focus-and-keyboard.md).
+## Hit areas
 
-## Full keyboard support
+- **The floor is 24×24 CSS px (WCAG 2.5.8 AA).** A smaller target passes if a 24px circle centered on it hits no other target. Aim for 44px on touch and 40px on desktop.
+- **To enlarge a target, use `::after` on the wrapping `<label>` or `<button>`, never on the `<input>`.** Replaced elements don't render pseudo-elements reliably. Expanded areas must not overlap.
+- **Decorative overlays (scrim, glow, full-bleed `::after`) swallow clicks.** Give them `pointer-events: none` and `aria-hidden`.
+- **Gate hover styles** behind `(hover: hover) and (pointer: fine)`; see [mobile-web](../mobile-web.md).
 
-Every pointer interaction needs a keyboard path. Follow ARIA APG: Escape closes overlays, arrows move within composite widgets, Tab moves between widgets, Enter and Space activate. Use only `tabindex="0"` (join tab order) and `tabindex="-1"` (programmatic focus), never positive. Composite widgets use roving tabindex: active item `0`, others `-1`.
+## Forms
 
-## Trap and restore focus
+- Every control needs a `<label for>` or a wrapping `<label>`. A placeholder is never a label.
+- Fields about the user need `autocomplete` (1.3.5): `name`, `email`, `tel`, `street-address`, `postal-code`, `cc-number`, `current-password` vs `new-password`, `one-time-code`. Add a section prefix where needed (`shipping street-address`).
+- Codes, PINs and card numbers use `type="text" inputmode="numeric"`, not `type="number"`. Money uses `inputmode="decimal"`. Add `spellcheck="false"` on emails, codes and usernames. Never block paste or filter keystrokes.
+- **Errors:**
+  - Mark the field `aria-invalid="true"` and point `aria-describedby` at an inline message that isn't just a red border.
+  - On submit, focus the first invalid field.
+  - Never disable submit until the form is valid. Disable it only while the request runs, with a spinner beside the original label.
+- **Disabled:** a tooltip on a natively `disabled` control never opens on keyboard or touch, so put the reason in visible text. Use `aria-disabled` only when the control must stay focusable, then block activation in code. Never set both.
 
-Modals set `inert` on the background, move focus inside on open, return it to the trigger on close, and add `overscroll-behavior: contain`.
+## Announcements
 
-## Minimum hit area
+Stop at the first rule that fits:
 
-WCAG 2.5.8 AA: 24×24 CSS px, or one of its spacing, equivalent-control, inline, user-agent and essential exceptions. Aim for 44×44px on touch and 40×40px on desktop where density permits; extend with a pseudo-element to keep the visible element smaller. Never let extended hit areas overlap; give decorative layers `pointer-events: none`. Gate hover styling with the mobile-web area's hover query so it doesn't stick after a tap. Details: [hit-areas.md](hit-areas.md).
+1. Focus moves to the change anyway: the focus move is the announcement.
+2. The update is tied to a control: use `aria-describedby`.
+3. Non-urgent: use `role="status"`, rendered empty before its text changes, or repeats aren't announced.
+4. Urgent and not tied to a control: use `role="alert"`. Dynamically inserted alerts behave differently across screen readers, so test them.
 
-## Label and type every control
+Never move focus to a toast. A toast holding an action or an error stays until dismissed; a timed one gets at least 5s and pauses on hover or focus.
 
-Every input gets a `<label for>` or wrapping `<label>`; a placeholder is never a label. Label and control share one hit target. Add `autocomplete` with a meaningful `name`, plus the `type` and `inputmode` for the right keyboard. Never block paste. See [forms.md](forms.md).
+**Hidden text:** `.sr-only` uses `1px` with `clip-path: inset(50%)`, not `0`, which some screen readers skip, and never `display: none`.
 
-## Errors that announce
+## Alt text and media
 
-Keep submit enabled until the request starts, then disable with a spinner and the original label. Validate on submit: mark failing fields `aria-invalid="true"`, point `aria-describedby` at the inline error, focus the first invalid field.
+- Decorative: `alt=""`, present but empty, because a missing `alt` gets the filename read aloud.
+- Functional: name the action (`alt="Search"`, not "magnifying glass").
+- Charts: a short `alt` plus the data nearby.
+- Decorative SVG: `aria-hidden="true" focusable="false"`.
+- Video needs captions. Anything moving for more than 5s needs a pause control (2.2.2), muted hero videos included.
 
-Use native `disabled` when a control is unavailable. Use `aria-disabled="true"` only when it must stay focusable, then block pointer, keyboard and form behavior in code and style the state explicitly. A tooltip on a natively `disabled` control never opens: use text beside it, or `aria-disabled`.
+## Motion and zoom
 
-## Accessible names everywhere
-
-Icon-only buttons need a descriptive `aria-label`. Visible label text must appear in the accessible name. Decorative elements get `aria-hidden="true"`, never on a focusable element.
-
-## Don't rely on color alone
-
-Status needs a redundant cue: icon, text or underline. Work out which WCAG contrast requirement applies, measure the rendered pair with the colors area, and on failure report the pair and the requirement; leave the colors alone unless asked.
-
-## Honor prefers-reduced-motion
-
-Wrap motion in `@media (prefers-reduced-motion: no-preference)` (the animate area's pattern). Under reduced motion, replace slides and scales with opacity crossfades; kill parallax and autoplay. Regardless of preference: autoplaying media needs a visible pause control, and toasts with an action or error stay until dismissed. See [motion-and-zoom.md](motion-and-zoom.md).
-
-## Announce dynamic content
-
-`aria-describedby` for field validation; polite `role="status"` for non-urgent untied updates (toasts, result counts); `role="alert"` for urgent untied errors only. Repeated polite announcements need a stable empty region rendered before its text updates. Test dynamically inserted alerts on target screen readers. See [screen-readers.md](screen-readers.md).
-
-## Alt text by purpose
-
-Decorative: `alt=""`. Informative: describe the meaning. Functional: describe the action (`alt="Search"`, not `alt="magnifying glass"`).
-
-## Structure is navigation
-
-Descriptive headings forming a coherent outline: one `<h1>`, no skipped levels. One visible primary `<main>`. When repeated navigation precedes it, a "Skip to content" link is the first focusable element. Anchored headings get `scroll-margin-top`.
-
-## Survive zoom and text resize
-
-Work at 200% zoom and reflow at 320px width without horizontal scrolling. Use `min-height`, not fixed `height`, on text containers. Prefer `rem` breakpoints where they fit the codebase; never let the viewport meta cap zoom.
+- Make motion opt-in with `@media (prefers-reduced-motion: no-preference)`. A global kill switch must use `0.01ms`, not `none`, so `transitionend` still fires.
+- Under reduced motion, swap slides and scales for crossfades and drop parallax and autoplay. Keep spinners and focus changes.
+- The page must work at 200% zoom and reflow at 320px width. Use `min-height` on text containers, and never cap zoom in the viewport meta.
 
 ## Reporting
 
-**Severity.** `HIGH` prevents a task, hides content from assistive technology, or is systemic. `MEDIUM` makes an interaction meaningfully harder. `LOW` is isolated polish.
+Severity:
 
-**Verification.** Without a browser: accessible names on every interactive element, keyboard handlers on non-native controls, focus styles, `prefers-reduced-motion` guards, labels bound to inputs. With one: tab the flow in order, read computed names and roles from the accessibility tree, confirm a visible focus indicator at every stop, run an automated audit.
+- **HIGH:** blocks a task, hides content from assistive tech, or is systemic.
+- **MEDIUM:** makes a task meaningfully harder.
+- **LOW:** isolated polish.
 
-**Format.** Use the standalone format in the review area's [review format](../review/review-format.md#standalone-domain-reports), with "No actionable accessibility findings" as the empty result.
+Verify by tabbing the flow, reading names and roles from the accessibility tree, and running an automated audit. Use the format in [review](../review/index.md#output).

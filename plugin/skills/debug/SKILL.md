@@ -9,37 +9,36 @@ metadata:
 
 # Diagnosing bugs
 
-Run the phases in order. Skip one only with explicit justification.
+Run the phases in order. Skip one only with a stated reason.
 
 ## Fix root causes
 
-- Reproduce first; ask "why" until you hit the root cause, and fix it there.
-- No silencing guards (a nil check that hides a crash is a symptom fix). A workaround that needs a paragraph-long comment means the code is wrong.
-- Fix the pattern: grep for every instance.
-- Stuck? Instrument (logging, the actual error); don't guess.
-- Read `GLOSSARY.md` (if it exists) and ADRs in the area you touch.
-- **Fails after restart:** suspect stale persistent state before code (config, caches, lock files, serialized state). If clearing a state file restores behavior, make state validation the fix.
+- Reproduce first, ask "why" until you reach the root cause, and fix it there.
+- No silencing guards: a nil check that hides a crash fixes a symptom. A workaround that needs a paragraph of comment means the code is wrong.
+- Grep for every instance of the pattern and fix them all.
+- Stuck? Instrument; don't guess.
+- Read `GLOSSARY.md` and ADRs in the area, if they exist.
+- **Fails after restart:** suspect stale persistent state (config, caches, lock files) before code. If clearing it fixes things, make state validation the fix.
 
 ### Two fixes failed: attack the premise
 
-When two or more fixes sharing one premise fail the same gate, suspect the premise.
+When two fixes sharing one premise fail the same check, suspect the premise.
 
-- **Write the premise down**: the one sentence every failed fix assumed.
-- **Take a census** of the imbalance per actor (which actors hold it, not how large) as a rerunnable script, per Build the lever (`principles`).
-- **Read the skew.** If the same few actors hold most of it every run, find what assigns them that role; that is the next "why".
-- **Remove the asymmetry instead of compensating.** Rotate, randomize, or move the role. Return paths, shared pools, batched hand-offs, or periodic rebalances leave the assignment in place.
+1. Write the premise down: the one sentence every failed fix assumed.
+2. Test it directly with a rerunnable script. For an imbalance (load, contention, leaks), count it per actor: which actors hold it, not how much.
+3. If the same few actors hold most of it every run, find what assigns them that role; that is the next "why". Remove the asymmetry (rotate, randomize, move the role) instead of compensating for it.
 
-Start the next fix only once the premise is written and the census exists. An even census means the premise is not the cause; look elsewhere and keep the census as evidence.
+Start the next fix only after steps 1 and 2. If the premise checks out fine, look elsewhere and keep the script as evidence.
 
 ## Redact
 
-Redact every secret as `<REDACTED>` in commands, outputs and artifacts you show. Build loops on env vars so credentials stay out of output. From captured artifacts (auth headers), quote only the signal lines. If redacted output is not enough, say so and ask the user.
+Show every secret as `<REDACTED>` in commands, output and artifacts. Read credentials from env vars so they stay out of output. From captured artifacts, quote only the lines that matter.
 
 ## Phase 1: Build a feedback loop
 
-This is the skill. Bisection, hypotheses and instrumentation all consume a **tight** pass/fail signal that goes red on _this_ bug. Spend disproportionate effort here.
+This is the skill. Everything after it needs a fast, deterministic pass/fail signal that goes red on _this_ bug. Spend most of your effort here.
 
-Ways to build one, roughly in this order:
+Ways to build one, roughly in order:
 
 1. **Failing test** at whatever seam reaches the bug.
 2. **Curl / HTTP script** against a running dev server.
@@ -52,11 +51,11 @@ Ways to build one, roughly in this order:
 9. **Differential loop**: same input through old vs new version (or two configs), diff outputs.
 10. **HITL bash script**, last resort: if a human must click, drive them with `scripts/hitl-loop.template.sh`.
 
-Tighten it: faster (cache setup, skip unrelated init, narrow scope), sharper (assert the specific symptom, not "didn't crash"), deterministic (pin time, seed RNG, isolate filesystem, freeze network). A 30-second flaky loop is barely better than none.
+Make it faster (cache setup, narrow scope), sharper (assert the exact symptom, not "didn't crash") and deterministic (pin time, seed RNG, isolate the filesystem and network). A 30-second flaky loop is barely better than none.
 
-**Non-deterministic bugs:** aim for a higher reproduction rate, not a clean repro. Loop the trigger 100×, parallelise, add stress, narrow timing windows, inject sleeps. 50% is debuggable, 1% is not; keep raising it.
+**Non-deterministic bugs:** raise the reproduction rate: loop the trigger 100 times, parallelize, add stress, narrow timing windows, inject sleeps. 50% is debuggable, 1% is not.
 
-**No loop possible:** stop and say so; list what you tried. Ask the user for (a) access to an environment that reproduces it, (b) a redacted artifact (HAR, log dump, core dump, timestamped recording), or (c) permission for temporary production instrumentation. Do not hypothesise without a loop.
+**No loop possible:** stop and list what you tried. Ask the user for an environment that reproduces it, a redacted artifact (HAR, logs, core dump, recording), or permission for temporary production instrumentation. Don't hypothesize without a loop.
 
 **Done when** you name one command (script, test invocation, curl) you have already run, with its invocation and redacted output, that is:
 
@@ -65,13 +64,13 @@ Tighten it: faster (cache setup, skip unrelated init, narrow scope), sharper (as
 - [ ] **Fast**: seconds, not minutes.
 - [ ] **Agent-runnable**: unattended; a human only via `scripts/hitl-loop.template.sh`.
 
-Reading code to build a theory before this command exists is the failure this skill prevents. No red-capable command, no Phase 2.
+No red-capable command, no Phase 2. Building a theory from code before it exists is the failure this skill prevents.
 
 ## Phase 2: Reproduce and minimise
 
-Run the loop. Confirm it produces the failure the **user** described (not a nearby one), reproduces across runs (or at a debuggable rate), and captures the exact symptom (error, wrong output, timing) to verify the fix against.
+Run the loop. Confirm it shows the failure the **user** described, not a nearby one, at a debuggable rate.
 
-Then shrink to the smallest scenario that still goes red: cut inputs, callers, config, data and steps one at a time, re-running after each. Done when every remaining element is load-bearing (removing any one turns it green). Do not proceed until reproduced **and** minimised.
+Then shrink it: cut inputs, callers, config, data and steps one at a time, rerunning after each. Done when removing any remaining element turns it green.
 
 ## Phase 3: Hypothesise
 
@@ -79,22 +78,17 @@ Generate **3–5 ranked, falsifiable hypotheses** before testing any:
 
 > "If <X> is the cause, then <changing Y> will make the bug disappear / <changing Z> will make it worse."
 
-No statable prediction: discard or sharpen it. Show the ranked list to the user before testing; don't block on it if they're AFK.
+Discard or sharpen any hypothesis without a prediction. Show the ranked list to the user before testing, without waiting for a reply.
 
 ## Phase 4: Instrument
 
-Each probe maps to one Phase 3 prediction. Change one variable at a time.
+Each probe tests one Phase 3 prediction; change one variable at a time. Prefer a debugger or REPL, then targeted logs at the boundaries that tell hypotheses apart, never "log everything and grep". Tag debug logs with a unique prefix such as `[DEBUG-a4f2]` so cleanup is one grep.
 
-1. **Debugger / REPL** if available.
-2. **Targeted logs** at boundaries that distinguish hypotheses. Never "log everything and grep".
-
-Tag every debug log with a unique prefix, e.g. `[DEBUG-a4f2]`, so cleanup is one grep.
-
-**Perf regressions:** skip logs. Establish a baseline (timing harness, `performance.now()`, profiler, query plan), then bisect. Measure first, fix second.
+**Perf regressions:** skip logs. Take a baseline (timing harness, profiler, query plan), then bisect.
 
 ## Phase 5: Fix and regression test
 
-Write the regression test **before the fix**, and only at a **correct seam**: one that exercises the real bug pattern as it occurs at the call site. A too-shallow seam (single caller when the bug needs several, a unit test that can't replicate the chain) gives false confidence. No correct seam is itself a finding: note and flag it.
+Write the regression test **before the fix**, at a seam that exercises the bug as it happens at the call site. A seam too shallow to replay the real chain gives false confidence; if there is no correct seam, say so.
 
 With a correct seam:
 
@@ -104,21 +98,20 @@ With a correct seam:
 4. Watch it pass.
 5. Re-run the Phase 1 loop against the original (un-minimised) scenario.
 
-Prefer no test over a bad one (tests mocks, encodes the implementation, depends on timing or global state, needs expensive infra for a small fix, or would be deleted after proving the fix). Without a good seam, the Phase 1 loop is the regression check.
+No test beats a bad one: one that tests mocks, encodes the implementation, depends on timing or global state, or needs expensive infrastructure for a small fix. Without a good seam, the Phase 1 loop is the regression check.
 
-- Never change a test to match a wrong implementation; never weaken an assertion unless expected behavior really changed.
-- Keep the test on this bug; consider sibling coverage after, if the bug exposes a class.
-- Flaky bug: make the test deterministic and name the signal it locks down.
+- Never change a test to match a wrong implementation, or weaken an assertion unless the expected behavior changed.
+- For a flaky bug, make the test deterministic.
 
-Plain TDD on a simple bug: Phases 1–2 shrink to "write the failing test and watch it fail for the intended reason".
+For plain TDD on a simple bug, Phases 1-2 shrink to "write the failing test and watch it fail for the intended reason".
 
 ## Phase 6: Cleanup
 
-Required before declaring done:
+Before declaring done:
 
-- [ ] Original repro no longer reproduces (re-run the Phase 1 loop)
-- [ ] Regression test passes (or absence of seam is documented)
-- [ ] All `[DEBUG-...]` instrumentation removed (`grep` the prefix)
-- [ ] Throwaway prototypes deleted (or moved to a clearly-marked debug location)
-- [ ] The report names the failing-before check and its failure, and the passing-after run (or why failing-before could not be shown)
-- [ ] The correct hypothesis is stated in the commit / PR message
+- [ ] The Phase 1 loop no longer reproduces the bug.
+- [ ] The regression test passes, or the missing seam is documented.
+- [ ] `[DEBUG-...]` instrumentation is gone (grep the prefix).
+- [ ] Throwaway prototypes are deleted.
+- [ ] The report shows the check failing before and passing after, or why failing-before couldn't be shown.
+- [ ] The commit or PR message states the confirmed hypothesis.

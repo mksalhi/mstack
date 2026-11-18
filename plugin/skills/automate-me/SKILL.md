@@ -9,57 +9,45 @@ metadata:
 
 # Automate me
 
-Turn the user's working conventions into one `-mode` skill (e.g. `jay-mode`): mine history inline, author with the Authoring a skill playbook (`<mstack>/skills/mstack-mode/playbooks/authoring-a-skill.md`), then apply the unslop pass (`<mstack>/skills/writing/unslop.md`).
+Turn the user's working conventions into one `-mode` skill (e.g. `jay-mode`): mine their history, write it with the Authoring a skill playbook (`<mstack>/skills/mstack-mode/playbooks/authoring-a-skill.md`), then run the unslop pass (`<mstack>/skills/writing/unslop.md`).
 
-For a task-specific skill or one narrow workflow (e.g. "how I write commit messages"), skip mining: use the Authoring a skill playbook with `<mstack>/skills/writing/agents.md` and `<mstack>/skills/writing/SKILL-MECHANICS.md`.
+For one narrow workflow ("how I write commit messages"), skip mining and use the playbook with `<mstack>/skills/writing/agents.md`.
 
 ## 0. Check for an existing skill
 
-Search recursively `.agents/skills/**/*-mode/SKILL.md`, `.claude/skills/**/*-mode/SKILL.md`, `~/.agents/skills/*-mode/SKILL.md` for the user's handle (it may sit in a category dir like `.agents/skills/<handle>/`). If found, confirm with `AskUserQuestion` unless they already said "update my skill": update (default) or start fresh (rare; ask why).
-
-Update mode:
-- Step 1 mines only history since the last edit (`git log -1 --format=%cI <path>`).
-- Step 2 asks what changed or is missing.
-- Step 4 edits in place: keep uncontradicted sections, revise ones with new evidence, add sections only for new rules.
+Search `.agents/skills/**/*-mode/SKILL.md`, `.claude/skills/**/*-mode/SKILL.md` and `~/.agents/skills/*-mode/SKILL.md` for the user's handle. If one exists, ask with `AskUserQuestion` whether to update it (default) or start fresh, unless they already said "update". To update: mine only history since its last edit (`git log -1 --format=%cI <path>`), ask what changed, and edit in place, adding sections only for new rules.
 
 ## 1. Mine their history
 
-Read this project's transcripts per `<mstack>/skills/mstack-mode/references/transcripts.md`. Never glob ~/.claude/projects/*/.
+Read this project's transcripts per `<mstack>/skills/mstack-mode/references/transcripts.md`; never glob `~/.claude/projects/*/`. Fan out subagents over slices (e.g. the last 2-4 weeks in 3 slices). Each returns patterns with evidence pointers for:
 
-Fan out parallel subagents over slices of history (e.g. last 2-4 weeks in 3 slices). Each reads from the workspace-scoped path the parent provides and returns a short list of patterns with evidence pointers. Signals:
+- reply preferences (length, tone, format, "dumb it down" corrections);
+- delegation (subagents, models, parallelism);
+- what "done" means (tests, live repro, reviewers);
+- code and prose style, principles cited, lint and format tools;
+- process (worktrees, commits, PRs, review and merge tools);
+- meta habits (fixing skills mid-task).
 
-- Response preferences (length, tone, format, "dumb it down" corrections)
-- Delegation habits (subagents, models, workflows, parallelism)
-- Verification posture (what "done" means, unit tests vs live repro, reviewers)
-- Code and prose discipline (style, principles cited, lint and format tools)
-- Process conventions (worktrees, commits, PRs, review and merge tooling)
-- Meta preferences (fixing skills mid-task, proposing new ones)
+Keep patterns seen in 2+ slices. A preference stated once and contradicted elsewhere is noise.
 
-Keep patterns seen in 2+ slices; drop lone signals. A preference stated once and contradicted elsewhere is noise.
+## 2. Ask the user
 
-## 2. Ask the user directly
+One or two `AskUserQuestion` rounds with 4-6 options each (`allow_multiple: true` for categories), then one free-form question.
 
-Use `AskUserQuestion`: one or two questions, 4-6 options each, `allow_multiple: true` for category questions. Start broad ("Which areas matter most?"), follow up on selected areas, then one free-form chat question. No 20-question dumps.
+## 3. Cluster
 
-## 3. Cluster findings
+Group findings into sections that hold a specific non-default rule: Response style, Autonomy, Understand first, Subagents, Prose and code, Review and verify, Process, Skills. Skip empty sections. "Communicate clearly" is not a rule; "Short paragraphs. Tables when comparing options." is.
 
-Group into sections, only those with a specific non-default rule: **Response style**, **Autonomy** (asking, MCP use), **Understand first** (skills for scoping and investigating), **Subagents** (default, parallelism, model-to-task, workflows), **Prose / code discipline**, **Review and verify**, **Process** (worktrees, commits, PRs), **Skills** (authoring habits, fix-the-skill-first). Skip empty sections; "Communicate clearly" is not a section, "Short paragraphs. Tables when comparing options." is.
+## 4. Draft
 
-Read `mstack-mode` for granularity only; don't copy its content.
-
-## 4. Draft the skill
-
-Author with the Authoring a skill playbook.
-
-- Path: keep an existing mode skill's location. New: `.agents/skills/<handle>/<handle>-mode/SKILL.md` if the repo has a personal category for that handle, else `.agents/skills/<handle>-mode/SKILL.md` (`.claude/skills` symlinked to `.agents/skills`), or `~/.agents/skills/<handle>-mode/` symlinked into `~/.claude/skills` for a personal skill.
-- Handle: first name or chosen identifier.
-- `description`: trigger on their name + `/<handle>-mode` + "work in their style", not generic keywords. One YAML scalar per `<mstack>/skills/writing/SKILL-MECHANICS.md`; quote it or use `description: >-` when needed.
+- Path: keep an existing skill's location. New: `.agents/skills/<handle>-mode/SKILL.md` (or under `.agents/skills/<handle>/` if the repo has a folder for that handle), or `~/.agents/skills/<handle>-mode/` for a personal skill, symlinked into the matching `.claude/skills`.
+- `description`: triggers on their name, `/<handle>-mode` and "work in their style", not generic keywords. One YAML scalar; quote it or use `>-`.
 - `disable-model-invocation: true` unless the user wants it on every turn.
-- Operational prose only: reference other skills and principle docs by path, don't inline or restate them. Say "the user", not the author's name.
+- Point to other skills by path instead of restating them. Say "the user", not their name.
 
-## 5. Iterate on prose
+## 5. Iterate
 
-Apply the unslop pass and `<mstack>/skills/writing/agents.md` to every line. Show the draft, take feedback, iterate, cut hard. No benchmark loop: vibe-check with the user (reads like them? missed anything?). Run a description-optimization loop only if trigger accuracy is a real problem.
+Show the draft, take feedback, cut hard. Ask the user whether it reads like them and what it missed.
 
 ## 6. Land it
 

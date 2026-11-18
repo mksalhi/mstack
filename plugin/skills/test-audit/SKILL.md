@@ -9,11 +9,11 @@ metadata:
 
 # Test audit
 
-Read the repo's root and scoped `AGENTS.md` files first; they win over this skill. Three modes, one value bar:
+Read the repo's `AGENTS.md` files first; they win over this skill. Three modes, one bar:
 
 - **Authoring**: gate every new or changed test at write time.
-- **Audit**: focused sweeps for tests that re-assert source, duplicate stronger proof, couple to implementation, or keep test-only production seams alive. Continue broad audits as separate coherent follow-up PRs; optimize for confidence, not deletion count.
-- **Campaign**: prune one whole subsystem's test surface (every test file a workspace or subsystem owns). Read [CAMPAIGN.md](CAMPAIGN.md) first.
+- **Audit**: sweeps for tests that restate source, duplicate stronger tests, couple to implementation, or keep test-only production hooks alive. Split a broad audit into separate PRs; aim for confidence, not deletion count.
+- **Campaign**: prune every test a workspace or subsystem owns. Read [CAMPAIGN.md](CAMPAIGN.md) first.
 
 ## Authoring gate
 
@@ -36,15 +36,14 @@ Then answer four questions; add the test only when all four have answers:
 
 Then check every [junk pattern](#junk-patterns); a match fails unless the [retention bar](#retention-bar) names the contract it independently guards. A test that breaks under behavior-preserving refactoring asserts implementation: rewrite it at the owning boundary.
 
-Before landing, break the production branch it names, watch it go red, then restore the source byte for byte.
+Before landing, break the production code it guards, watch the test go red, then restore the source exactly.
 
 Bug regression tests must fail on pre-fix code for the intended reason and pass after the owner-boundary repair. One regression at the owner boundary covers the bug; don't replay it at every layer.
 
 ## Junk patterns
 
-Authoring rejects new tests matching these; audits hunt existing ones.
+Beyond the five shapes above. Authoring rejects new tests matching these; audits hunt existing ones.
 
-- assertion-free coverage probes;
 - self-comparisons and identity copiers;
 - copied fixtures, inventories, manifests, or export lists;
 - exact source, import, or string greps;
@@ -53,13 +52,11 @@ Authoring rejects new tests matching these; audits hunt existing ones.
 - per-implementation replays of shared helpers;
 - tests whose only purpose is preserving test-only exports, globals, or wrappers;
 - dead production code whose only callers are tests;
-- expected values produced by the helper or renderer under test;
 - mocks that implement the asserted behavior, or one identical mock standing in for different APIs;
 - fixtures that supply the receipt, admission, or callback ordering the owner should produce, or persistence asserted against a store the path never writes;
 - capability tests that restate declared flags instead of exercising the delivery or acknowledgement the flag promises;
 - negative controls that pass for an unrelated reason (a denial from a different guard, a rejection production never reaches);
 - names or fixtures that promise more than the input exercises (a "retires the window" test asserting the window was not cleared);
-- tests restating constants, enum or model fields, catalog flags, or prompt wording (prompt bytes excepted per the retention bar);
 - tests of framework or library behavior (serializer renames, schema validation, 422s, ORM defaults) our code adds no logic to;
 - assertions that only check a mock was called when the outcome is observable at the boundary (request bodies, rows, emitted events);
 - parametrize rows that reach the same branch as another row;
@@ -105,10 +102,9 @@ Never edit source or tests while a test watcher runs in the checkout. Run DB-bac
 
 1. Run the smallest owner and sibling tests with a name filter, then the touched suite.
 2. For removed source greps or plan assertions, run the script or dry-run that owns the real contract.
-3. Run the repo's formatter, then `git diff --check`.
-4. Run lint and typecheck, including downstream packages consuming changed shared types.
-5. Inspect `git diff --numstat`; report production/tooling separately from tests and test support.
-6. After final edits, run mstack-mode's before-commit and before-review gates.
+3. Lint and typecheck, including downstream packages consuming changed shared types.
+4. Inspect `git diff --numstat`; report production/tooling separately from tests and test support.
+5. After final edits, run mstack-mode's before-commit and before-review gates.
 
 ## Landing
 
