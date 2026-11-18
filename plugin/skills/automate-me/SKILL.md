@@ -11,7 +11,7 @@ metadata:
 
 Turn the user's working conventions into one `-mode` skill (e.g. `jay-mode`): mine their history, write it with the Authoring a skill playbook (`<mstack>/skills/mstack-mode/playbooks/authoring-a-skill.md`), then run the unslop pass (`<mstack>/skills/writing/unslop.md`).
 
-For one narrow workflow ("how I write commit messages"), skip mining and use the playbook with `<mstack>/skills/writing/agents.md` and `<mstack>/skills/writing/SKILL-MECHANICS.md`.
+For one narrow workflow ("how I write commit messages"), skip mining and use the playbook with `<mstack>/skills/writing/agents.md`.
 
 ## 0. Check for an existing skill
 

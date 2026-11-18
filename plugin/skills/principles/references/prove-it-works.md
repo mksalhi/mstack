@@ -2,9 +2,7 @@
 
 **Rule:** Verify against the real artifact, not a proxy.
 
-Verify every output by checking the real thing directly, not proxies, self-reports, or "it compiles."
-
-**Why:** proxies (mtimes, output freshness, agent self-reports, cached screenshots) feel cheap; acting on a wrong inference costs more.
+Proxies (mtimes, output freshness, agent self-reports, cached screenshots, "it compiles") are not verification.
 
 - Check process liveness directly, not through derived state.
 - Read the actual value, not a cached or derived representation.

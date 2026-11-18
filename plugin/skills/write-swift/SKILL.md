@@ -24,10 +24,8 @@ Start with the simplest, most static, single-threaded thing that works. Move dow
 
 ## 1. Value types
 
-- `class` only for identity, shared mutable state, inheritance, or resource lifetime. `let` unless you mutate.
 - A struct holding a mutable class property is neither value nor reference: copies share mutations. Keep the class immutable, forward through computed properties, or make it `private` behind copy-on-write.
 - Copy-on-write: wrap a final class in a struct; check `isKnownUniquelyReferenced(&storage)` before mutating, copy if false.
-- Replace piles of optional flags with one `enum State` so invalid combinations are unrepresentable and state changes are atomic.
 
 ```swift
 struct Material {
@@ -47,11 +45,7 @@ struct Material {
 
 ## 2. Errors and optionals
 
-- Recoverable → `throw`. Programmer mistake → `precondition`/`fatalError`.
-- Error types: enums with associated values carrying context (`case duplicateFriend(String)`).
-- `guard` for error conditions; `if let` for ordinary unwraps.
 - Typed throws (`throws(MyError)`) for internal code, error-forwarding generics, and constrained environments. Public API: untyped `throws`. `throws` = `throws(any Error)`; non-throwing = `throws(Never)`.
-- Force-unwrap only with a statable invariant; prefer `#require`/`precondition` with a message.
 
 ## 3. Concurrency: single-threaded until profiling says otherwise
 
@@ -146,7 +140,6 @@ Start concrete. Concrete types → repeated code → protocol → generic code. 
 - A protocol where every conformer uses the default is wasted: use a constrained extension. No type zoology.
 - Has-a over is-a: if only some operations fit, wrap in a generic struct (`GeometricVector<Storage: SIMD>`, not `GeometricVector: SIMD`). Composition over class inheritance.
 - Requirements are dynamically dispatched customization points; extension-only methods are static, so a conformer's version shadows and `any P` calls the extension's. Customizable → make it a requirement.
-- A forced downcast is a smell.
 
 ### `some` vs `any`
 
@@ -155,20 +148,11 @@ Start concrete. Concrete types → repeated code → protocol → generic code. 
 - Constrained opaque/existential types: `some Collection<Element>`. Declare primary associated types (`protocol Container<Item>`) for what callers supply, not `Iterator`.
 - Pin cross-protocol relationships with same-type `where` clauses (`where Self.CropType.FeedType == Self`).
 
-## 8. API design: clarity at the point of use
-
-- No type prefixes in Swift-only APIs (keep for ObjC mirrors); avoid overly general names.
-- Drop leading `get`: `persistentPosts`.
-- Explicit access control at boundaries (`private`, `internal`, `package`, `public`).
-- Illegal states unspellable: private setters + validating mutating method, enums, typed `UUID` over `String`.
-- Property wrappers for access policies; with `@dynamicMemberLookup` to project through (`$binding.title`). Result builders for DSLs; macros for compiler-derivable boilerplate.
-
-## 9. Testing: Swift Testing
+## 8. Testing: Swift Testing
 
 XCTest only for UI automation (`XCUIApplication`), `XCTMetric`, and Objective-C tests/exceptions.
 
-- `@Test` on any function (async, throws, actor-isolated). `#expect(a == b)` with plain expressions.
-- `try #require(...)` stops the test and unwraps optionals.
+- `#expect(a == b)` with plain expressions; `try #require(...)` stops the test and unwraps.
 - Suites are `struct`s (fresh instance per test, `init` for setup); `class`/`actor` only for `deinit` teardown.
 - `@Test(arguments: [...])` instead of loops/copy-paste. Two collections = cross product; `zip()` for pairs.
 - Traits: `.enabled(if:)`, `.disabled("reason")` (never comment tests out), `.bug(url)`, `.tags(...)`, `.timeLimit`, `.serialized`. `@available` over runtime `#available`.
@@ -177,7 +161,7 @@ XCTest only for UI automation (`XCUIApplication`), `XCTMetric`, and Objective-C 
 - Exit tests: `#expect(processExitsWith: .failure) { ... }` for `precondition`/`fatalError` (macOS, Linux, FreeBSD, Windows).
 - Migration: frameworks coexist in one target; migrate incrementally, new tests in Swift Testing. Interop (ST-0021; check Xcode availability) lets `XCTFail` helpers run from Swift Testing and vice versa: mode **complete** or **strict**, never **limited** or **none**, so issues stay errors and point to `Issue.record`.
 
-## 10. Modern syntax
+## 9. Modern syntax
 
 | Instead of                                                            | Write                                                                                                    | Since |
 | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ----- |
