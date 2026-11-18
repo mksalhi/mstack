@@ -8,7 +8,8 @@
    "Lists several distinct hypotheses (at least three), each phrased so a specific change or observation would confirm or rule it out.",
    "Identifies the res.end() on the source stream's 'end' event racing the csv transform's flush as a leading hypothesis.",
    "Plans to write a regression test that fails before the fix and passes after it."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "diff-impact",
@@ -19,7 +20,8 @@
    "Calls out the strict Codable decoding in the iOS app as likely to fail decoding entirely, not just miss a field.",
    "Mentions the analytics export as a consumer grep in this repo would not show.",
    "Proposes a concrete cheap check or repro (e.g., a request against the endpoint and decoding with the iOS struct, or a contract test) rather than only listing risks."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "test-audit",
@@ -30,7 +32,8 @@
    "Flags 'max tools limit' as a constant pin that restates a value, recommending deletion or testing the mechanism that reads the limit.",
    "Flags 'notify sends' as asserting only that a mock was called, and recommends asserting the payload (recipient, body) or deleting it.",
    "Keeps 'slugify lowercases and dashes', 'parsePrice handles cents' and 'parsePrice rejects garbage' as fine (does not recommend deleting any of them)."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "pr-comments",
@@ -42,7 +45,8 @@
    "Thread 4 is classified as already fixed or stale, citing the new guard.",
    "Thread 2 is treated as a suggestion and not implemented as a fix in this PR, or is left for the user's judgment; it is not treated as a required regression fix.",
    "Proposed replies are short and factual (one to three sentences each)."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "tighten-types",
@@ -70,7 +74,8 @@
   "judge": [
    "Each variant carries only the fields valid for it (url only when done, error only when failed).",
    "Explains that the original type admits impossible states such as done without a url."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "ui-a11y-review",
@@ -98,7 +103,8 @@
   "judge": [
    "Flags the 16px targets as too small and gives a concrete minimum (24 CSS px per WCAG 2.5.8, or 44px for touch).",
    "Restores a visible focus indicator, preferably via :focus-visible, instead of only deleting outline:none."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "ui-copy",
@@ -119,7 +125,8 @@
    "The confirm button starts with a verb and names the consequence (for example 'Delete project'), not 'Yes'.",
    "The title or body names what will be deleted instead of only 'Are you sure?'.",
    "The error says what failed and how to recover, in a calm tone without blame or 'we'."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "plain-readme",
@@ -154,7 +161,8 @@
   "judge": [
    "The rewrite states concretely what goes wrong when two watchers run on the same directory, or at least does not hide it behind a vague phrase like 'potential issues'.",
    "The rewrite is shorter than the original and reads like a plain technical README, not marketing."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "why-timeout",
@@ -165,7 +173,8 @@
    "Traces past the latest commit to the earlier 30s/LB-idle-timeout constraint and notes 47s must stay under the 60s load-balancer idle timeout.",
    "Separates what the sources state from what it infers.",
    "Notes the missing chat and ticket sources as a gap."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "shared-file-writers",
@@ -175,7 +184,8 @@
    "Recommends removing the sharing first (e.g. each job writes its own file or key, merged on read) before reaching for a lock.",
    "Gives a concrete design rather than only naming a principle.",
    "Mentions making the write safe to retry or atomic (temp file plus rename, or idempotent output)."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "add-refund-state",
@@ -185,7 +195,8 @@
    "Proposes modeling order state as one status type or state machine so illegal combinations (shipped but unpaid, refunded but unpaid) can't be represented.",
    "Gives a concrete migration path for the ~30 existing call sites rather than leaving them to break or to hand-editing without a plan.",
    "Suggests a mechanical way (codemod, type errors or a script) to find and migrate the ~30 call sites."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "handoff-write",
@@ -216,7 +227,8 @@
    "Ends with a specific next step the next chat can act on immediately.",
    "Does not spend words on the abandoned cart-level approach beyond at most one line.",
    "Is compact: terse bullets or labeled fields, not narrative paragraphs."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "swift-modernize",
@@ -243,7 +255,8 @@
    "Moves the parse work off the main actor with @concurrent (or a nonisolated async function) rather than leaving heavy parsing on the main actor.",
    "Removes the try! or explains replacing it with error handling.",
    "Does not add @MainActor annotations that main-actor-by-default makes redundant, or explains why one is needed."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "add-cache",
@@ -263,7 +276,8 @@
   "judge": [
    "Uses an existing standard-library or already-installed caching mechanism instead of writing a cache class.",
    "Mentions the staleness tradeoff (TTL or invalidation) and when it would matter."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "retro-session",
@@ -274,7 +288,8 @@
    "Flags that the existing lint script isn't wired into CI as a finding.",
    "Proposes a navigation pointer to the flag registry.",
    "Addresses the expensive e2e reruns (tool economy) and the oversized AGENTS.md, and orders findings by severity."
-  ]
+  ],
+  "origin": "adapted from mstack's own tasks"
  },
  {
   "id": "review-admin-flag",
@@ -285,7 +300,8 @@
    "Flags that .unscoped() drops the default scope so password hashes are returned.",
    "Gives a concrete fix for each (an admin check; re-applying the attribute exclusion or a dedicated scope).",
    "Does not bury the two real issues under style nits."
-  ]
+  ],
+  "origin": "fresh"
  },
  {
   "id": "poke-holes",
@@ -296,7 +312,8 @@
    "Raises the job payload format (Sidekiq's JSON envelope, Ruby-specific args, retries and dead set semantics) the Go side must handle.",
    "Raises idempotency or double-execution risk during cutover and a per-job-type rollback path.",
    "Prioritizes the risks or says which to settle first rather than listing them flat."
-  ]
+  ],
+  "origin": "fresh"
  },
  {
   "id": "tdd-duration",
@@ -320,7 +337,8 @@
    "Tests cover invalid inputs (empty string, unknown unit, garbage, negative or missing number) not just happy paths.",
    "The implementation would pass its own tests (e.g. handles '1h30m' as 5400 and rejects 'abc').",
    "Covers an edge like repeated units ('1h1h') or whitespace with a stated decision."
-  ]
+  ],
+  "origin": "fresh"
  },
  {
   "id": "plan-csv-export",
@@ -331,7 +349,8 @@
    "Handles the 2M-row scale (streaming or a background job, not loading everything into memory).",
    "Names concrete files, endpoints or functions rather than only generic phases.",
    "Covers authorization (admins only) and CSV injection or escaping."
-  ]
+  ],
+  "origin": "fresh"
  },
  {
   "id": "security-review",
@@ -342,7 +361,8 @@
    "Finds the path traversal via req.query.name and fixes it (resolve and check the prefix, or an allowlist).",
    "Notes the missing authentication/authorization: the caller picks any uid and the user lookup isn't used to restrict files.",
    "Ranks the findings by severity."
-  ]
+  ],
+  "origin": "fresh"
  },
  {
   "id": "explain-keepalive",
@@ -363,6 +383,7 @@
    "States the concrete mechanism: the TCP connection stays open after a response and later requests reuse it.",
    "Mentions an idle timeout or connection limit that closes reused connections.",
    "Uses plain spoken sentences without metaphors standing in for the mechanism."
-  ]
+  ],
+  "origin": "fresh"
  }
 ]

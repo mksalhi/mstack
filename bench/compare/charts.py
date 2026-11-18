@@ -80,6 +80,18 @@ for s in stacks:
         b = res[m]["summary"]["by_stack"][s]
         cells.append(f"{b['score']:.1%} ± {b['score_sd_over_runs']:.1%} | {b['all_pass_rate']:.1%} | {b['in_tokens']:.0f} | {b['load_rate']:.0%}")
     md.append(f"| {s} | {first['stacks'][s]['skills']} | " + " | ".join(cells) + " |")
+origin = {t["id"]: t.get("origin", "") for t in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tasks.json")))}
+groups = sorted(set(origin.values()))
+md += ["", "### By task origin", "", "Tasks adapted from mstack's own benchmark can favor mstack, so the split matters.", "",
+       "| Stack | " + " | ".join(f"{m} {g} (n={sum(v == g for v in origin.values())})" for m in models for g in groups) + " |",
+       "|---|" + "---|" * (len(models) * len(groups))]
+for s in stacks:
+    cells = []
+    for m in models:
+        for g in groups:
+            sc = [r["score"] for r in res[m]["rows"] if r["stack"] == s and origin.get(r["task"]) == g]
+            cells.append(f"{sum(sc) / len(sc):.1%}" if sc else "n/a")
+    md.append(f"| {s} | " + " | ".join(cells) + " |")
 md += ["", "Dropped jobs (API or judge failure after a retry): " + ", ".join(f"{m} {res[m]['summary']['errors']}" for m in models) + ".", ""]
 open(os.path.join(d, "COMPARE.md"), "w").write("\n".join(md))
 print("\n".join(md))
