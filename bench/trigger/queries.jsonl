@@ -31,29 +31,29 @@
 {"q": "I need to add a field to the order pipeline. where should this live and how does the pipeline fit together?", "accept": ["how"]}
 {"q": "teach me how the query planner in this codebase picks indexes", "accept": ["how"]}
 {"q": "research from primary sources how HTTP/3 connection migration works and write it up in a markdown file", "accept": ["how"]}
-{"q": "before you start, tell me in your own words what you think I'm trying to achieve here", "accept": ["grilling"]}
-{"q": "what do you think I actually want from this ticket?", "accept": ["grilling"]}
+{"q": "before you start, tell me in your own words what you think I'm trying to achieve here", "accept": ["in-your-own-words"]}
+{"q": "what do you think I actually want from this ticket?", "accept": ["in-your-own-words"]}
 {"q": "interrogate this diff with multiple models and find blind spots", "accept": ["interrogate"]}
 {"q": "tear this PR apart, I want adversarial review from several reviewers before merge", "accept": ["interrogate"]}
 {"q": "challenge this change to the consensus code, get a few different models to try to break it", "accept": ["interrogate"]}
-{"q": "ketchup", "accept": ["handoff"]}
-{"q": "back from lunch, what did I miss in here and what needs me?", "accept": ["handoff"]}
-{"q": "I stepped away for a couple hours. what changed in this chat and which decisions are waiting on me?", "accept": ["handoff"]}
+{"q": "ketchup", "accept": ["ketchup"]}
+{"q": "back from lunch, what did I miss in here and what needs me?", "accept": ["ketchup"]}
+{"q": "I stepped away for a couple hours. what changed in this chat and which decisions are waiting on me?", "accept": ["ketchup"]}
 {"q": "make a 15 second vertical launch video for our new feature, rendered from code", "accept": ["motion-video"]}
 {"q": "the product reel render is janky at 60fps, frames stutter during the zoom", "accept": ["motion-video"]}
 {"q": "add a synthesized soundtrack synced to the beats of our explainer animation", "accept": ["motion-video"]}
 {"q": "/mstack-mode the nightly cleanup job skips rows deleted exactly 72h ago. repro first, then fix and verify.", "accept": ["mstack-mode"]}
 {"q": "work in the mstack style for this task: terse, verified, deliberate subagents", "accept": ["mstack-mode"]}
-{"q": "babysit PR 5120 until it's green, address the bugbot comments", "accept": ["mstack-mode", "pr"]}
+{"q": "babysit PR 5120 until it's green, address the bugbot comments", "accept": ["mstack-mode", "pr-comments"]}
 {"q": "open the staging site in a real browser, log in with the test account, and screenshot the dashboard", "accept": ["playwright"]}
 {"q": "scrape the pricing table from this page by driving a headless browser from the terminal", "accept": ["playwright"]}
 {"q": "the signup form submit button does nothing in Chrome, drive the flow and see what's happening", "accept": ["playwright", "debug"]}
 {"q": "write the PR description for this branch", "accept": ["pr"]}
 {"q": "cut the comments in this diff before I send it for review", "accept": ["pr"]}
 {"q": "rewrite the body of PR 88, it's too long and has no before/after evidence", "accept": ["pr", "writing"]}
-{"q": "CodeRabbit left 14 comments on my PR, go through them, fix the real ones and reject the noise", "accept": ["pr"]}
-{"q": "triage the Cursor bugbot threads on #902 and resolve the false positives with a reply", "accept": ["pr"]}
-{"q": "Copilot review flagged a bunch of stuff, which of these are actually valid?", "accept": ["pr"]}
+{"q": "CodeRabbit left 14 comments on my PR, go through them, fix the real ones and reject the noise", "accept": ["pr-comments"]}
+{"q": "triage the Cursor bugbot threads on #902 and resolve the false positives with a reply", "accept": ["pr-comments"]}
+{"q": "Copilot review flagged a bunch of stuff, which of these are actually valid?", "accept": ["pr-comments"]}
 {"q": "should this validation live at the API boundary or inside the domain functions? what's the principle", "accept": ["principles"]}
 {"q": "I keep giving you the same correction about import order. what's the right way to stop this happening?", "accept": ["principles", "retro"]}
 {"q": "two background jobs might write the same cache key at once. how should I design around that?", "accept": ["principles"]}
@@ -67,9 +67,9 @@
 {"q": "/setup-mstack", "accept": ["setup-mstack"]}
 {"q": "show the PM what the user sees during checkout as a statechart, checked against the TLA+ model", "accept": ["statechart"]}
 {"q": "the PM doesn't get why users see a double charge. draw the states the user sees and highlight the bug", "accept": ["statechart"]}
-{"q": "swarm this: check all 40 API endpoints for missing auth in parallel and give me one report", "accept": ["arena"]}
-{"q": "fan out workers to try the flaky test under 20 different seeds and merge the results", "accept": ["arena"]}
-{"q": "explore these 6 candidate libraries in parallel and give me one consolidated comparison", "accept": ["arena"]}
+{"q": "swarm this: check all 40 API endpoints for missing auth in parallel and give me one report", "accept": ["swarm"]}
+{"q": "fan out workers to try the flaky test under 20 different seeds and merge the results", "accept": ["swarm"]}
+{"q": "explore these 6 candidate libraries in parallel and give me one consolidated comparison", "accept": ["swarm"]}
 {"q": "review the tests in this PR, half of them look like they'd pass no matter what", "accept": ["test-audit"]}
 {"q": "add unit tests for the slugify util", "accept": ["test-audit"]}
 {"q": "prune the low-value tests in packages/billing, there are 900 of them and most just check mocks were called", "accept": ["test-audit"]}

@@ -12,7 +12,7 @@ that never sees which condition produced it.
 import argparse, concurrent.futures as cf, json, os, re, statistics, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import llm
-from static import tree_at, frontmatter
+from static import tree_at, frontmatter, skill_at
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SYSTEM = ("You are a coding agent helping a user in a chat. You cannot run commands or see their repository; "
@@ -35,6 +35,7 @@ def run_agent(model, task, plugin, max_turns=8):
     user = task["prompt"]
     tools, reads = (), []
     if plugin:
+        task = {**task, "skill": skill_at(os.listdir(os.path.join(plugin, "skills")), task["skill"])}
         body = frontmatter(open(os.path.join(plugin, "skills", task["skill"], "SKILL.md")).read())[1]
         user += (f"\n\n<skill name=\"{task['skill']}\">\nBase directory for this skill: /plugin/skills/{task['skill']} "
                  f"(`<mstack>` is /plugin). Follow it for this request.\n\n{body}\n</skill>")

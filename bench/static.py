@@ -11,6 +11,14 @@ import json, os, re, subprocess, sys, tempfile, collections, urllib.request
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 
 
+# Skills merged into another. A ref that lacks the old skill is scored against its new home.
+MERGED = {"in-your-own-words": "grilling", "ketchup": "handoff", "pr-comments": "pr", "swarm": "arena"}
+
+
+def skill_at(names, name):
+    return name if name in names else MERGED.get(name, name)
+
+
 def tree_at(ref):
     if ref in (None, "WORKTREE"):
         return os.path.join(ROOT, "plugin")

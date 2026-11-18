@@ -12,7 +12,7 @@ The first action decides the pick; no tool call means NONE.
 import argparse, concurrent.futures as cf, hashlib, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import llm
-from static import tree_at, frontmatter
+from static import tree_at, frontmatter, skill_at
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 AGENT = ("You are a coding agent working in the user's git repository. Use the tools when they help; "
@@ -90,7 +90,7 @@ def main():
             usage["in"] += u["in"]; usage["out"] += u["out"]
     rows = []
     for i, q in enumerate(qs):
-        acc = set(q["accept"])
+        acc = {skill_at(mstack, n) for n in q["accept"]}
         positive = bool(acc & mstack)
         correct = [p in acc for p in picks[i]]
         rows.append({"q": q["q"], "accept": q["accept"], "picks": picks[i], "split": split(q["q"]),
