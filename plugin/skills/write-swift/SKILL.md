@@ -27,20 +27,6 @@ Start with the simplest, most static, single-threaded thing that works. Move dow
 - A struct holding a mutable class property is neither value nor reference: copies share mutations. Keep the class immutable, forward through computed properties, or make it `private` behind copy-on-write.
 - Copy-on-write: wrap a final class in a struct; check `isKnownUniquelyReferenced(&storage)` before mutating, copy if false.
 
-```swift
-struct Material {
-  var roughness: Double
-  private var _texture: Texture         // a class
-  var color: Color {
-    get { _texture.color }
-    set {
-      if !isKnownUniquelyReferenced(&_texture) { _texture = Texture(copying: _texture) }
-      _texture.color = newValue
-    }
-  }
-}
-```
-
 **Noncopyable types** (`~Copyable`) for unique ownership (file descriptor, transfer): double use becomes a compile error and struct `deinit` works. Mark the finishing method `consuming`. Parameter ownership: `borrowing` (default, read-only), `consuming`, `inout`/`mutating`.
 
 ## 2. Errors and optionals
@@ -181,8 +167,3 @@ Read the matching file before working on:
 - writing or migrating tests (Swift Testing, XCTest interop): [references/testing.md](references/testing.md);
 - moving a target to Swift 6 language mode: [references/migrating-to-swift-6.md](references/migrating-to-swift-6.md).
 
-## Not
-
-- `DispatchSemaphore`/`NSCondition` across `await` (restructure).
-- `Task.detached` or `DispatchQueue.global()` to offload (use `@concurrent`).
-- Making a UI callback `async` (put a `Task { }` inside it).
