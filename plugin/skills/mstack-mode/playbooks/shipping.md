@@ -1,19 +1,12 @@
 ### Shipping
 
-Own what lands. Verify each PR independently; land only the contiguous verified run from the root; keep hands off while it lands.
+**You own what lands. Verify each PR independently, land only the verified run from the root, then keep your hands off the stack.**
 
-- Verification: One non-author verifier per PR posts PASS, PASS+NOTES, or FAIL. Green CI/bot approvals are not verdicts.
+1. **Resolve the forge, then verify each PR.** Forge per `playbooks/opening-a-pr.md`. One verifier per PR (`mstack:mstack-agent`, `isolation: "worktree"`) runs the change as a user would (project `verify-*` skill, `playwright`, or Bash), parent against head, and posts `PASS`, `PASS+NOTES`, or `FAIL` on the PR. Only a non-author's verdict counts. Green CI and bot approvals are not verdicts.
+2. **Land only the contiguous verified run from the bottom.** Walk up from the lowest unmerged PR to the first without `PASS`/`PASS+NOTES`; below it is the run, its top the ceiling. A verified PR above a gap waits, unless it neither holds nor needs that code: then it may move onto trunk and land after a fresh verdict.
+3. **Re-check verdicts against the code.** Before trusting an older verdict, compare `git patch-id` at the verdict SHA and the head. If patches differ only in tests, docs, or lint config, a lane stands when its target builds the same at both SHAs apart from noise (differences also seen between two builds of the verdict SHA, or embedded SHAs); report each noise kind with its files. The changed part still gets fresh checks and review. Rerun lanes with no build output (dev server) and re-verify anything else that drifted.
+4. **Land bottom-up, one PR at a time.** Merge the lowest unmerged PR: `origin pr merge <pr>` (also merges everything below it) or `gh pr merge <pr> --squash` (a PR still based on its parent merges into that branch). Confirm with `origin pr view <pr>` or `gh pr view <pr> --json state,mergedAt,baseRefName`: landed means merged with trunk as base; queued or auto-merge requested is not. Arm `--auto` only when the verdict covers the current head. Then retarget the next PR to trunk (`origin pr edit <pr> --base <trunk>` or `gh pr edit <pr> --base <trunk>`), move its patch onto the merge result, push `--force-with-lease` (or follow the Commits rule in `playbooks/opening-a-pr.md`), apply step 3, and merge once checks pass and the verdict survives.
+5. **Leave the stack alone while it lands.** Step 4's move is the only allowed branch or base change. GitHub: `scripts/watch-pr/watch-pr --queued-stack --stack-prs <bottom-to-top>` under `/loop` until `COMPLETE` at the ceiling. Origin: `origin pr view <pr> --checks` each time `origin pr checks <pr> --watch` returns, until the ceiling reads merged. A base moving to trunk after its parent merges is expected. If a merge stalls, diagnose before changing anything.
+6. **Stop at the ceiling.** Extending the run is a new pass from step 1.
 
-- Pick the run: From the lowest unmerged PR, include contiguous PASS/PASS+NOTES until the first gap; its top is the ceiling.
-
-- Re-check verdicts: Compare `git patch-id` at verdict SHA vs head. If only tests/docs/lint changed and target builds identically except noise (report kinds with files), the lane stands. Fresh checks/review for changed parts; rerun lanes with no build output (dev server); re-verify anything else that drifted.
-
-- Land bottom-up, one PR at a time:
-  - Merge the lowest: `gh pr merge <pr> --squash`. Confirm with `gh pr view <pr> --json state,mergedAt,baseRefName`; landed means merged to trunk (queued/auto-merge ≠ landed). Use `--auto` only when the verdict covers the current head.
-  - Retarget next PR to trunk: `gh pr edit <pr> --base <trunk>`; move its patch onto the merge result, push `--force-with-lease`, re-apply re-checks, then merge.
-
-- Hands off while it lands: Only the move above. `scripts/watch-pr/watch-pr --queued-stack --stack-prs <bottom-to-top>` under `/loop` until `COMPLETE`. If a merge stalls, diagnose before changing anything.
-
-- Stop at the ceiling; extending the run restarts at forge.
-
-Reply: run and ceiling; each verdict+producer; what landed+how confirmed; what the next gap needs.
+**Reply:** the run and ceiling, each verdict and its producer, what landed and how you confirmed it, what the next gap needs.

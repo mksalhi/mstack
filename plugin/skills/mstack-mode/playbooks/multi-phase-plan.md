@@ -1,15 +1,21 @@
-- One or two files with an obvious approach: skip the plan, say so, stop.
-- Settle open questions by prototype (playbooks/prototype.md) before writing. Keep each branch, SHA, and screenshots for Appendix A. Ask the operator only a product or preference call no run can settle, with options (Never block on the human).
-- Copy the skeleton below into the plan file (default the mstack store's docs/) and fill every placeholder. Keep every heading and sub-block in order. One section per PR, one PR per change with its own evidence (Prove it works). Name the execution playbook in How to read this: playbooks/autopilot-full.md or playbooks/autopilot-stack.md per the rule at the end of playbooks/autopilot-stack.md, or playbooks/orchestrate.md for a standing program.
-- Run `node <mstack>/skills/mstack-mode/scripts/check-plan.mjs <plan.md>` and fix every line it prints (Encode lessons in structure).
-- Post the plan path and the script output, then stop. Execution starts on the operator's explicit go, under the named execution playbook.
+### Multi-phase or multi-PR plan
 
-Verification rules
+**You own the plan, not the code.** The plan is the deliverable, a checklist an owner runs box by box and the operator audits from the evidence. Do not implement.
 
-- Every verification block opens with the rule sentence in the template. The live block is mandatory: ten lanes at the PR head per the arena skill's swarm mode on the swarm workers model (default `claude-opus-5-5`), each one box with scenario, saved screenshot, and pass predicate.
+1. One or two files with an obvious approach: skip the plan, say so, stop.
+2. Settle open questions by prototype (`playbooks/prototype.md`) before writing. Keep each branch, SHA, and screenshots for Appendix A. Ask the operator only a product or preference call no run can settle, with options (Never block on the human).
+3. Explore in subagents per the Subagents section (Guard the context window). Each returns file pointers, conventions, test commands, and entry points, no inlined dumps.
+4. Copy the skeleton below into the plan file (default the mstack store's `docs/`) and fill every placeholder. Keep every heading and sub-block in order. One section per PR, one PR per change with its own evidence (Prove it works). Name the execution playbook in **How to read this**: `playbooks/autopilot-full.md` or `playbooks/autopilot-stack.md` per the rule at the end of `playbooks/autopilot-stack.md`, or `playbooks/orchestrate.md` for a standing program.
+5. Write under `writing` in full, ending with its unslop pass. Body is Diátaxis how-to; appendices hold explanation and reference. Each heading states the task or finding. No long dashes, no mid-sentence colons.
+6. Run `node <mstack>/skills/mstack-mode/scripts/check-plan.mjs <plan.md>` and fix every line it prints (Encode lessons in structure).
+7. Post the plan path and the script output, then stop. Execution starts on the operator's explicit go, under the named execution playbook.
+
+**Verification rules** (the template encodes them):
+
+- Every verification block opens with the rule sentence in the template. The live block is mandatory: ten lanes at the PR head per the `arena` skill's swarm mode on the `swarm workers` model (default `claude-opus-5-5`), each one box with scenario, saved screenshot, and pass predicate.
 - Lane 1 and perf compare trunk with head. Never invent a trunk result, and never claim a ratio between unlike scenarios.
 - A PR that changes an interaction is review-gated (operator reviews screenshots and a video in chat before merge). Otherwise write `**Review gate.** None. <PR id> is not review-gated.` with no boxes.
-- Control skill by surface: web, browser, and Electron use a project verify-* skill or `playwright`; CLIs and TUIs a verify-* skill or Bash; native mobile the repo's simulator-driving skill. Two surfaces get lanes on both. A surface with no control skill is an Appendix C risk, and its live block still says how each lane drives it.
+- **Control skill** by surface: web, browser, and Electron use a project verify-* skill or `playwright`; CLIs and TUIs a verify-* skill or Bash; native mobile the repo's simulator-driving skill. Two surfaces get lanes on both. A surface with no control skill is an Appendix C risk, and its live block still says how each lane drives it.
 
 ````markdown
 # <Program> plan
@@ -142,3 +148,5 @@ Each live lane runs in its own worktree at the PR head. Drive through the contro
 
 <Docs to read before editing. Which PRs get `<mstack>/skills/how/SKILL.md` and `<mstack>/skills/interrogate/SKILL.md`. The trail per `<mstack>/skills/decision-log/SKILL.md`.>
 ````
+
+**Reply:** plan path, the PR ids with their dependencies and the review-gated set, what the prototypes proved and what stays unproven, and the check script's output.

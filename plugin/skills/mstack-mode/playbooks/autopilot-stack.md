@@ -1,10 +1,12 @@
 ### Autopilot-stack
 
-You own the stack, not landing. Hand one linear base-chained stack. Playbooks reload each tick from <mstack>/skills/mstack-mode/playbooks/>; this one wins on conflict.
+**You own the stack, never the landing. Hand the operator one linear stack of base-chained PRs to review and land.** **Autopilot-full** applies except for how verified work leaves. Each tick re-reads both playbooks under `<mstack>/skills/mstack-mode/playbooks/`; this one wins on conflict.
 
-- Owners: report STACK-READY; never rebase onto another branch (incl. trunk), retarget, merge, close, or arm auto-merge.
-- Only you write topology/rebase/retarget. Owners push only their branches and report tip+intended parent. Append clean PRs in dependency order (`origin pr edit <pr> --base <parent-branch>` or `gh pr edit <pr> --base <parent-branch>`); never require `gt`.
-- Until landing, absorb drift at root: run Autopilot-full step 5 test per link; rebase bottom-up if needed (unless `playbooks/opening-a-pr.md` Commits rule forbids), then apply patch-id.
-- Deliver, then hands off: once landing starts, nobody writes except the post-merge retarget in `playbooks/shipping.md`. Mid-landing problems go through you to the operator; fixes wait for the operator’s go.
+1. **Run Autopilot-full's owners, minus landing.** Owners report STACK-READY instead of merge-ready, and never rebase onto another branch (trunk included), retarget, merge, close a PR, or arm auto-merge. A dependent item branches from its dependency's branch.
+2. **One topology writer: you.** Owners push only their own branches and report tip and intended parent. Only you rebase or retarget. Append clean PRs in dependency order, based on the parent branch (`origin pr edit <pr> --base <parent-branch>` or `gh pr edit <pr> --base <parent-branch>`); never require `gt`. Owners take your push as new base and lease, and resolve their own slice on conflict for you to push.
+3. **Absorb drift at the root.** Until landing starts, apply Autopilot-full step 5's test per link and rebase bottom-up where needed (unless the Commits rule in `playbooks/opening-a-pr.md` forbids it), then the patch-id rule link by link.
+4. **Deliver, then hands off.** Each link carries its verdict in its PR. Once landing starts, nobody writes to the chain except the post-merge retarget in `playbooks/shipping.md`. Mid-landing problems go through you to the operator; fixes wait for the operator's go.
 
-Reply per `handoff` catch-up: links to root and tip, one-line verdicts, and any parked/excluded with reason.
+**Which autopilot.** Full: independent PRs and landing authority granted. Stack: operator wants review first, work is sequenced or coupled, or merge authority is withheld.
+
+**Reply:** per the `handoff` skill's catch-up mode, with links to stack root and tip, a one-line verdict per link, and anything parked or excluded with the reason.
