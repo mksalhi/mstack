@@ -126,7 +126,8 @@ def analyze(ref=None, exact=False):
             for s in shingles(open(f).read()):
                 all_shingles[s].add(name)
         # a user-only skill is listed by name only
-        desc = "" if str(fm.get("disable-model-invocation", "")).lower() == "true" else fm.get("description", "")
+        full_desc = fm.get("description", "")
+        desc = "" if str(fm.get("disable-model-invocation", "")).lower() == "true" else full_desc
         skills[name] = {
             "desc_chars": len(desc),
             "desc_tokens": len(desc) / 4,
@@ -142,8 +143,8 @@ def analyze(ref=None, exact=False):
             "long_no_toc": long_no_toc,
             "lint": [m for m, bad in [
                 ("name!=dir", fm.get("name") != name),
-                ("desc>1024", len(desc) > 1024),
-                ("desc empty", not desc),
+                ("desc>1024", len(full_desc) > 1024),
+                ("desc empty", not full_desc),
                 ("skill>500 lines", body.count("\n") > 500),
                 ("skill>5000 tokens", len(body) / 4 > 5000),
             ] if bad],

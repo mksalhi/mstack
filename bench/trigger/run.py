@@ -103,7 +103,7 @@ def main():
         acc = {skill_at(mstack, n) for n in q["accept"]}
         positive = bool(acc & mstack)
         correct = [p in acc for p in picks[i]]
-        rows.append({"q": q["q"], "accept": q["accept"], "picks": picks[i], "split": split(q["q"]),
+        rows.append({"q": q["q"], "accept": sorted(acc), "picks": picks[i], "split": split(q["q"]),
                      "positive": positive, "rate": sum(correct) / len(correct),
                      "false_mstack": sum(p in mstack and p not in acc for p in picks[i]) / len(correct)})
 
