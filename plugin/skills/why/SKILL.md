@@ -9,65 +9,42 @@ metadata:
 
 # Why
 
-Find the forces that gave code its shape (`how` covers what it does). Separate what you know from what you infer; the confidence framework is in `references/epistemics.md`, and the synthesizer must follow it.
+Find the forces that gave code its shape; `how` covers what it does. Keep what you know separate from what you infer.
 
-Every spawn is `subagent_type: "general-purpose"`. **Never swap in a narrower type like `Explore` or `Plan`**: a missing tool, MCP above all, disables MCP-backed investigators and the synthesizer's citation spot-checks. Investigators write nothing.
+- **Agent type.** Every spawn is `subagent_type: "general-purpose"`. Never use `Explore` or `Plan`, which lack MCP tools, and investigators and the synthesizer need them.
+- **Model.** Use the role's line in `~/.claude/rules/mstack-models.md`, falling back to `claude-opus-5-5`. `auto` or `inherit-parent` means omit `model`. If the tool rejects the model, use the default and say so.
+- **Effort.** `xhigh`.
+- **Investigators write nothing.**
 
-Model per spawn: its role line in `~/.claude/rules/mstack-models.md`, else `claude-opus-5-5`; `auto` or `inherit-parent` means omit `model`. If the Agent tool rejects a model, use `claude-opus-5-5` and say so. Spawn with `effort: xhigh`.
+## 1. Anchor
 
-## 1. Understand the target and the question
+If the target is vague, guess it from context (open files, recent edits), state your reading, and proceed. Then build the seed context that every agent gets:
 
-- **Target:** usually code, a pattern, a feature, or a named design decision. **Question:** usually design rationale, a tradeoff, a motivating edge case, an external constraint, dead code, or a broad history sweep.
-- Vague target: guess from context (open files, recent edits, the discussion), state your reading, and proceed.
+- **Files, line ranges and key symbols.**
+- **Commits:** `git blame -L a,b <file>`, `git log --follow -p -- <file>`, and `git log --oneline -20 -- <file>`.
+- **PRs:** the `(#1234)` numbers from merge subjects, each read with `gh pr view <n> --json title,body,comments,reviews,closingIssuesReferences`.
+- **Linked ticket IDs.**
 
-## 2. Establish the code anchor
+Trace back past the latest commit. Today's shape built up over many decisions, so the most recent one isn't the authority.
 
-Build the seed context inline before spawning; it goes to every investigator and the synthesizer: file paths and line ranges, key symbols, recent commits touching the target, PR numbers (`(#1234)` in merge subjects), linked ticket IDs.
+## 2. Investigate in parallel
 
-- `git blame -L <start>,<end> <file>`: last-touch commits.
-- `git log --follow -p -- <file>`: full history with patches through renames.
-- `git log --oneline -20 -- <file>`: recent commits with PR numbers.
-- `git log -1 --format=%B <commit>`: extract PR numbers.
-- For each substantive commit: `gh pr view <number> --json title,body,author,createdAt,mergedAt,labels,closingIssuesReferences,comments,reviews`.
+Map every available MCP server (deferred ones included) to one category below, then spawn one investigator per category, all in one message, on the `why investigators` model. Each gets [references/investigator-prompt.md](references/investigator-prompt.md) filled in, plus its source playbook, adapted for whichever MCP the user actually has:
 
-Trace back past the latest commit: the current shape accretes many earlier decisions, so recency is not authority.
+| Category | Best at | Playbook |
+|---|---|---|
+| Source control (git, `gh`, comments, tests): always spawn | Rationale captured in review | [code-archaeology](references/sources/code-archaeology.md) |
+| Tickets (Linear, Jira, GitHub Issues) | The product or business reason | [linear](references/sources/linear.md) |
+| Docs (Notion, Confluence, Google Docs) | Design rationale written before the code | [notion](references/sources/notion.md) |
+| Chat (Slack, Teams, Discord) | Discussion that never reached a doc | [slack](references/sources/slack.md) |
+| Observability (Datadog, Grafana, Honeycomb) | Runtime reality behind timeouts and limits | [datadog](references/sources/datadog.md) |
+| Errors (Sentry, Rollbar) | The exceptions behind defensive code | [sentry](references/sources/sentry.md) |
+| Warehouse (Databricks, Snowflake, BigQuery) | Usage, experiments, where a number came from | [databricks](references/sources/databricks.md) |
 
-## 3. Spawn parallel investigators
+**Defensive targets** (null checks, retries, timeouts, rate limits, flags, OOM handlers) also get [incident-postmortem](references/sources/incident-postmortem.md).
 
-Default to the full parallel investigation. An empty result is a finding; never skip the search.
+**Skip a category only with a written reason:** either no MCP exists for it (a gap) or it's provably irrelevant (for example, a build script with no runtime path, so error tracking can't apply). An empty result is still a finding. Answer inline only for a trivial single-commit target whose PR fully answers the question, and only after confirming the other searches would add nothing.
 
-List available MCP servers (the `mcp__<server>__<tool>` names in your tool list, deferred included, or `claude mcp list`). Map each to one roster category below by name, server instructions, tool names, and resource descriptors; a multi-fit MCP goes to its primary evidence, recorded as ambiguous in the coverage map.
+## 3. Synthesize and present
 
-Spawn one investigator per category with a matching MCP, all in one message, each owning exactly one tool or MCP, on the `why investigators` model. Each prompt is `references/investigator-prompt.md` filled in, plus:
-- the category playbook `references/sources/<source>.md` for the selected MCP, adapted from the examples in `references/source-playbook.md`
-- `references/sources/incident-postmortem.md` **if the target looks defensive** (null checks, retries, timeouts, rate limiting, feature flags, egress guards, OOM handlers)
-- the code anchor and the user's original question
-
-Roster, one investigator per available category. "Best at" sets expectations, names the gap when a category returns empty, and justifies a skip only when provably irrelevant.
-
-1. **Source control** (git, `gh` PRs, code comments, tests). Always available; always spawn. Best at *implementation-time rationale captured in review*.
-2. **Issue / ticket tracker** (Linear, Jira, GitHub Issues, Plane, Shortcut). Best at *the product or business forcing function*.
-3. **Long-form documents** (Notion, Confluence, Google Docs, Coda). Best at *design rationale written before the code*.
-4. **Real-time team chat** (Slack, Discord, Teams, Mattermost). Best at *deliberation that never reached a doc*; key when the paper trail is thin.
-5. **Infrastructure observability** (Datadog, New Relic, Honeycomb, Grafana, Splunk). Best at *runtime reality*: timeouts, retries, rate limits, circuit breakers.
-6. **Error / exception tracking** (Sentry, Rollbar, Bugsnag, Airbrake). Best at *exceptions behind defensive code*: catch blocks, null guards, type checks, retries.
-7. **Product analytics warehouse** (Databricks, Snowflake, BigQuery, ClickHouse, dbt, Redshift). Best at *product and data reality*: flag-gated code, experiments, data migrations, "where did this number come from".
-
-Skip an investigator only with an **explicit written justification** in Sources Consulted, for one of two reasons:
-
-- **No MCP for the category**: a gap, not a choice. "Real-time team chat skipped. No matching MCP available, so the conversational record was not searchable."
-- **Provably irrelevant**, not "probably": "Error / exception tracking skipped. Target is a build-time script with no runtime code path."
-
-A trivial single-commit target whose PR description holds the complete answer may be answered inline **only after** confirming every available category search would be redundant; say so. Rare.
-
-## 4. Synthesize
-
-Spawn one synthesizer on the `why synthesizer` model with: investigator findings (including nulls and justified skips), the code anchor, the user's question, `references/epistemics.md`, and `references/synthesizer-prompt.md`.
-
-## 5. Present
-
-Present the synthesizer's output with light edits only. **Never rewrite the confidence language.**
-
-Its sections, per `references/synthesizer-prompt.md`: The Question, The Code in Question, What We Found, What We Can Reasonably Infer, Competing Hypotheses, What We Don't Know, Sources Consulted, Confidence Summary. Adapt freely but keep the confidence separation, and Sources Consulted as one line per investigator, including empty or skipped ones with the reason.
-
-If the `why` question precedes changing this code, add after Sources Consulted a Preserve / Change / Avoid / Risk constraint set for planning the change.
+Spawn one synthesizer on the `why synthesizer` model with the findings (nulls and skips included), the anchor, the question and [references/synthesizer-prompt.md](references/synthesizer-prompt.md). Present its output with light edits only, and **never rewrite its confidence language**. If the question comes before changing the code, add Preserve, Change, Avoid and Risk constraints after Sources Consulted.

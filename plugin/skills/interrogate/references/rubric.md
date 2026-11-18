@@ -1,69 +1,42 @@
-# Review Rubric
+# Review rubric
 
-Use only the lenses relevant to the change.
+Use only the lenses the change touches. Every finding needs evidence: the call chain that triggers a bug, the input path for a security issue. "This could be nil" is not a finding.
 
 ## Correctness
 
-Does the code do what the intent says?
+- Edge cases, swallowed errors, races, stale closures, both happy and sad paths.
+- Idempotency: safe to run twice, or after a crash halfway? "Depends on leftover state" means a reconciliation step is missing.
+- Shared mutable state (files, branches, rows) serialized by structure (locks, phases, exclusive ownership), not by convention.
 
-- Edge cases: empty, nil/undefined, boundary values, concurrent access
-- Errors caught, propagated, or silently swallowed?
-- Off-by-one, type coercion, integer overflow, string encoding
-- State: race conditions, stale closures, dangling references
-- Happy and sad paths both work?
-- Idempotency: safe to run twice or after a halfway crash? "Depends on leftover state" means a reconciliation step is missing.
-- Concurrency: shared mutable state (files, branches, data) serialized structurally (locks, sequential phases, exclusive ownership), or by conventions that won't hold?
+## Root cause or symptom
 
-For a potential bug, show the call chain that triggers it, not "this could be nil".
+Read beyond the diff (callers, callees, types, sibling modules) to judge whether the fix is at the right layer. Flag guards masking a broken invariant, retries hiding a broken contract, casts silencing a modeling error, a fix in A that belongs in B's contract, and a "don't do X" comment that could be a type, lint or runtime check.
 
-## Root Causes vs. Symptoms
+## Structure and simplicity
 
-Fix or symptom patch? Read beyond the diff (callers, callees, types, sibling modules) with Read, Grep, Glob to judge whether the change hits the right layer.
+Rank deletions and smaller diffs above restructurings. Hunt for code judo: a behavior-preserving reframing that deletes whole branches, helpers, modes or layers by using the existing architecture better.
 
-- Guard clauses masking a deeper invariant violation
-- Retry logic hiding a broken contract
-- Type casts silencing a modeling error
-- Workarounds: why needed, what would the proper fix be?
-- A fix in module A that belongs in module B's contract
-- A "don't do X" comment or convention that could be a type constraint, lint rule, or runtime check
+Presumptive blockers unless justified:
 
-## Structural Integrity
+- complexity a code-judo move would delete;
+- a file pushed from under 1,000 lines to over;
+- ad-hoc branches or feature checks scattered through a shared flow (move them to a helper, state machine or module);
+- a thin wrapper, one-call-site abstraction, config for cases that don't exist, or a cast-heavy contract;
+- a helper duplicating an existing utility, or logic in the wrong layer when a canonical home exists;
+- a new API with the old one kept alive when nothing external uses it;
+- validation scattered through business logic instead of once at the boundary;
+- needless optionality, `any`, `unknown` or casts where a typed model fits.
 
-- Boundary discipline: validate once where data enters, trust it internally, not scattered through business logic.
-- Abstraction level: high-level orchestration mixed with low-level detail?
-- Coupling that makes future changes harder?
-- Data structures match access patterns?
-- Bolted-on vs. integrated: would the code look like this if the requirement were known from the start?
-- Legacy dual-paths: new API with the old one kept alive? With no external consumers, migrate callers and delete the old path in the same wave.
-
-Don't penalize simple code for lacking abstraction; premature abstraction is worse than duplication.
+Don't penalize simple code for lacking abstraction. Propose an extraction only when it removes code or branches.
 
 ## Verification
 
-- Tests present? Testing behavior or implementation details?
-- Assertions/invariants that catch regressions?
-- Bug fix: a test for the bug?
-- Integration boundary: full path tested?
-- Checks the real thing, not a proxy (file mtime or cached state instead of the actual value is a gap).
-- Delegated or async work: verifies output artifacts, or trusts self-reports?
-
-## Complexity Budget
-
-Simpler is better unless simpler is wrong. Flag:
-
-- Code simpler without losing correctness or clarity
-- Abstractions serving one call site
-- Configuration for cases that don't exist
-- Dead code, unused imports, vestigial parameters
-- "Just in case" paths with no callers
-- Compatibility scaffolding after the migration is done
-- Features, controls, or options that don't earn their UX cost; half-finished features are worse than missing ones
+Tests check behavior, not implementation; a bug fix has a test that fails without it; checks read the real value, not a proxy (mtime, cache, a delegate's self-report).
 
 ## Security
 
-Trace and show the input path for each finding.
+User input reaching SQL, shell, eval or `innerHTML`; authn and authz gaps on new endpoints; secrets in code, logs or errors; TOCTOU in security paths.
 
-- User input reaching dangerous sinks (SQL, shell, eval, innerHTML) unsanitized
-- Authn/authz gaps in new endpoints
-- Secrets in code, logs, or error messages
-- TOCTOU in security-critical paths
+## Tone
+
+Direct and demanding. Don't soften a structural problem into "maybe rename this".
