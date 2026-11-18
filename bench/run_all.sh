@@ -7,6 +7,7 @@ base=${1:?base ref}; cand=${2:-HEAD}
 cd "$(git rev-parse --show-toplevel)"
 out=bench/results; mkdir -p "$out"
 claude=${BENCH_CLAUDE:-claude-sonnet-5-5}; gpt=${BENCH_GPT:-gpt-5}; runs=${BENCH_RUNS:-3}
+export OPENAI_REASONING_EFFORT=${OPENAI_REASONING_EFFORT:-low}
 exact=""; [ -n "${ANTHROPIC_API_KEY:-}" ] && exact=--exact
 python3 bench/static.py "$base" $exact --json "$out/static-base.json"
 python3 bench/static.py "$cand" $exact --json "$out/static-cand.json"

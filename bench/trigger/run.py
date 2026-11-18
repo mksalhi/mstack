@@ -79,7 +79,7 @@ def main():
 
     def one(job):
         i, _ = job
-        resp = llm.chat(a.model, system, [{"role": "user", "content": qs[i]["q"]}], tools, max_tokens=1024)
+        resp = llm.chat(a.model, system, [{"role": "user", "content": qs[i]["q"]}], tools, max_tokens=4000)
         return i, pick(resp, skills), resp["usage"]
 
     picks = {i: [] for i in range(len(qs))}

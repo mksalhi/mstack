@@ -154,11 +154,17 @@ def analyze(ref=None, exact=False):
     for n in skills:
         skills[n]["shared_8grams"] = dup[n]
         del skills[n]["_desc"], skills[n]["_body"]
-    hook = os.path.join(plugin, "hooks")
+    hook = os.path.join(plugin, "hooks", "scoper-instructions.js")
+    scoper_hook = 0
+    if os.path.exists(hook):
+        txt = subprocess.run(["node", "-e", f"process.stdout.write(require({json.dumps(hook)}).getScoperInstructions('full'))"],
+                             capture_output=True, text=True).stdout
+        scoper_hook = len(txt) / 4
     tot = lambda k: sum(s[k] for s in skills.values())
     summary = {
         "ref": ref or "WORKTREE",
         "skills": len(skills),
+        "scoper_hook_tokens": scoper_hook,
         "listing_chars": sum(len(n) + 4 + s["desc_chars"] for n, s in skills.items()),
         "desc_tokens": tot("desc_tokens"),
         "skill_tokens_total": tot("skill_tokens"),
