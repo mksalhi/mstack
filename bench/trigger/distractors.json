@@ -1,0 +1,20 @@
+{
+ "docx": "Create, read, edit, or manipulate Word documents (.docx files). Use whenever the user wants a Word doc, report, memo, or letter as a .docx.",
+ "pdf": "Use whenever the user wants to do anything with PDF files: read or extract text and tables, combine or split PDFs, fill PDF forms, add watermarks, OCR.",
+ "pptx": "Use whenever a .pptx file is involved: creating slide decks, pitch decks, or presentations, reading or editing existing slides.",
+ "skill-creator": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, or optimize a skill's description for better triggering accuracy.",
+ "security-review": "Complete a security review of the pending changes on the current branch.",
+ "code-review": "Review the current diff, or a PR number/branch/path target, for correctness bugs (plus reuse/simplification/efficiency cleanups) at a given effort level.",
+ "ux-copy": "Write or review UX copy: microcopy, error messages, empty states, CTAs. Trigger with 'write copy for', 'what should this button say?', 'review this error message'.",
+ "dataviz": "Use whenever you are about to create ANY chart, graph, plot, dashboard, or data visualization, in ANY output medium.",
+ "session-start-hook": "Creating and developing startup hooks for Claude Code cloud sessions. Use only when the user asks for a SessionStart hook committed to their repository.",
+ "incident-response": "Run an incident response workflow: triage, communicate, and write postmortem. Trigger with 'we have an incident', 'production is down', or when writing a blameless postmortem after resolution.",
+ "architecture": "Create or evaluate an architecture decision record (ADR). Use when choosing between technologies (e.g., Kafka vs SQS), documenting a design decision with trade-offs and consequences.",
+ "loop": "Run a prompt or slash command on a recurring interval (e.g. /loop 5m /foo). When the user wants to set up a recurring task, poll for status, or run something repeatedly on an interval.",
+ "standup": "Generate a standup update from recent activity. Use when preparing for daily standup, summarizing yesterday's commits and PRs and ticket moves.",
+ "slack-gif-creator": "Create animated GIFs optimized for Slack, with validators for Slack's size constraints.",
+ "claude-api": "Reference for the Claude API / Anthropic SDK: model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting.",
+ "documentation": "Write and maintain technical documentation. Trigger with 'write docs for', 'document this', 'create a README', 'write a runbook'.",
+ "simplify": "Review the changed code for reuse, simplification, efficiency, and altitude cleanups, then apply the fixes. Quality only, it does not hunt for bugs.",
+ "design-critique": "Get structured design feedback on usability, hierarchy, and consistency. Trigger with 'review this design', 'critique this mockup'."
+}
