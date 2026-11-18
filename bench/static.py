@@ -11,6 +11,14 @@ import json, os, re, subprocess, sys, tempfile, collections, urllib.request
 ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
 
 
+# Skills merged into another. A ref that lacks the old skill is scored against its new home.
+MERGED = {"in-your-own-words": "grilling", "ketchup": "handoff", "pr-comments": "pr", "swarm": "arena"}
+
+
+def skill_at(names, name):
+    return name if name in names else MERGED.get(name, name)
+
+
 def tree_at(ref):
     if ref in (None, "WORKTREE"):
         return os.path.join(ROOT, "plugin")
@@ -117,7 +125,9 @@ def analyze(ref=None, exact=False):
         for f in docs:
             for s in shingles(open(f).read()):
                 all_shingles[s].add(name)
-        desc = fm.get("description", "")
+        # a user-only skill is listed by name only
+        full_desc = fm.get("description", "")
+        desc = "" if str(fm.get("disable-model-invocation", "")).lower() == "true" else full_desc
         skills[name] = {
             "desc_chars": len(desc),
             "desc_tokens": len(desc) / 4,
@@ -133,8 +143,8 @@ def analyze(ref=None, exact=False):
             "long_no_toc": long_no_toc,
             "lint": [m for m, bad in [
                 ("name!=dir", fm.get("name") != name),
-                ("desc>1024", len(desc) > 1024),
-                ("desc empty", not desc),
+                ("desc>1024", len(full_desc) > 1024),
+                ("desc empty", not full_desc),
                 ("skill>500 lines", body.count("\n") > 500),
                 ("skill>5000 tokens", len(body) / 4 > 5000),
             ] if bad],

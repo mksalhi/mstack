@@ -1,5 +1,6 @@
 ---
 name: setup-mstack
+disable-model-invocation: true
 description: "Use to choose which Claude model mstack uses per role. Triggers: /setup-mstack, 'mstack models', 'mstack budget'."
 metadata:
   harness: "claude codex"

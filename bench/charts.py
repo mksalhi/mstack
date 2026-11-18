@@ -156,5 +156,23 @@ if st:
     md += [f"| {k} | " + " | ".join(f"{st[l][k]:.0f}" for l in st) + " |" for k in ks]
     md.append("")
 
+# Score against total skill text, one point per version: where cutting starts to cost score.
+if st and tasks:
+    fig, ax = plt.subplots(figsize=(7.5, 4.2))
+    for m in models:
+        pts = [((st[l]["skill_tokens_total"] + st[l]["ref_tokens_total"]) / 1000, stats[m, c]["score"]) for c, l in zip(refs, labels) if l in st]
+        ax.errorbar([p[0] for p in pts], [p[1][0] * 100 for p in pts], yerr=[p[1][1] * 100 for p in pts], color=color[m], marker="o",
+                    capsize=4, ls="none", label=m)
+        ax.axhline(stats[m, "none"]["score"][0] * 100, color=color[m], ls="--", lw=1.2, alpha=.7)
+    for k, (c, l) in enumerate(zip(refs, labels)):
+        if l in st:
+            ax.annotate(l, ((st[l]["skill_tokens_total"] + st[l]["ref_tokens_total"]) / 1000, max(stats[m, c]["score"][0] for m in models) * 100),
+                        textcoords="offset points", xytext=(0, 8 if k % 2 == 0 else -22), ha="center", fontsize=8, color=MUTED)
+    ax.set_ylim(0, 102); ax.invert_xaxis(); ax.set_xlabel("thousand tokens of skill text (SKILL.md plus references), fewer to the right")
+    ax.set_ylabel("assertion pass rate, %"); ax.legend(loc="lower left")
+    ax.set_title("Score against skill size (dashed: no skill)", loc="left")
+    md += ["## Score against size", ""]
+    save(fig, "score_vs_size.png", "Score against skill size")
+
 open(os.path.join(d, "VERSIONS.md"), "w").write("\n".join(md))
 print("\n".join(md))

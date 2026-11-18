@@ -12,7 +12,7 @@
 
 **Verification rules** (the template encodes them):
 
-- Every verification block opens with the rule sentence in the template. The live block is mandatory: ten lanes at the PR head per the `swarm` skill on the `swarm workers` model (default `claude-opus-5-5`), each one box with scenario, saved screenshot, and pass predicate.
+- Every verification block opens with the rule sentence in the template. The live block is mandatory: ten lanes at the PR head per the `arena` skill's swarm mode on the `swarm workers` model (default `claude-opus-5-5`), each one box with scenario, saved screenshot, and pass predicate.
 - Lane 1 and perf compare trunk with head. Never invent a trunk result, and never claim a ratio between unlike scenarios.
 - A PR that changes an interaction is review-gated (operator reviews screenshots and a video in chat before merge). Otherwise write `**Review gate.** None. <PR id> is not review-gated.` with no boxes.
 - **Control skill** by surface: web, browser, and Electron use a project verify-* skill or `playwright`; CLIs and TUIs a verify-* skill or Bash; native mobile the repo's simulator-driving skill. Two surfaces get lanes on both. A surface with no control skill is an Appendix C risk, and its live block still says how each lane drives it.
@@ -38,7 +38,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 - [ ] On the operator's go, arm a `/goal` with this exact text. "<The plan path, the PR ids in order, the verification rule, who merges, and the done condition.>"
 - [ ] Read these from trunk at start and at every tick.
   - [ ] `cat <mstack>/skills/mstack-mode/playbooks/<execution playbook>.md`
-  - [ ] `cat <mstack>/skills/swarm/SKILL.md`
+  - [ ] `cat <mstack>/skills/arena/SKILL.md`
   - [ ] `cat <control skill path>`
   - [ ] `cat <mstack>/skills/mstack-mode/playbooks/opening-a-pr.md`
   - [ ] `cat <mstack>/skills/<name>/SKILL.md` for each other skill the program uses
@@ -61,12 +61,12 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 - [ ] Open the PR ready, never draft, with `origin pr create --status open --base <base-branch>` or `gh pr create --base <base-branch>`. A stack child targets its parent branch.
 - [ ] Run the repo's lint and typecheck once before the PR-facing push. Push with hooks on.
 - [ ] Deslop before each commit and cut comments before review, per the mstack-mode Routing table.
-- [ ] Triage every Bugbot and security-reviewer comment with the `pr-comments` skill.
+- [ ] Triage every Bugbot and security-reviewer comment with the `pr` skill's bot-thread triage.
 - [ ] Rebase onto current trunk before the code-ready report and babysit, and keep that base in fix rounds. Rebase again only at merge prep, on a `git merge-tree` conflict with trunk, or on a CI failure caused by trunk.
 
 ### Verdict and merge, for every PR
 
-- [ ] Run a full swarm per `<mstack>/skills/swarm/SKILL.md` once, at the code-ready head, and again only for new behavior, a redesign, or a large new diff. A rebase, conflict resolution, or minor fix gets a single verifier at the new head. Lanes are one gates lane, the ten **Verify, live** lanes, the **Verify, perf** lane, and two or more audit lanes with distinct focus that read the diff and receipts and distrust the PR body. The root audits the merge-ready report's receipts before the verdict.
+- [ ] Run a full swarm per `<mstack>/skills/arena/SKILL.md` (swarm mode) once, at the code-ready head, and again only for new behavior, a redesign, or a large new diff. A rebase, conflict resolution, or minor fix gets a single verifier at the new head. Lanes are one gates lane, the ten **Verify, live** lanes, the **Verify, perf** lane, and two or more audit lanes with distinct focus that read the diff and receipts and distrust the PR body. The root audits the merge-ready report's receipts before the verdict.
 - [ ] Clean only when every lane is `PASS`. Findings, including a defect filed as a note, go back to the owner. A new head gets a fresh verdict, except results still valid under the patch-id rule in `playbooks/shipping.md`.
 - [ ] <The merge or append rule from the execution playbook, with the patch-id rule from `playbooks/shipping.md`.>
 

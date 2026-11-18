@@ -1,5 +1,6 @@
 ---
 name: retro
+disable-model-invocation: true
 description: "Use for a retrospective on the current coding session. Triggers: 'retro', 'what went wrong', 'lessons from this session'."
 metadata:
   harness: "claude codex"

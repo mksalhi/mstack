@@ -1,33 +1,22 @@
-# Linear Tickets
+# Linear tickets
 
-## What this source contains
+The product and business layer ("customer X asked", "the Q3 compliance initiative"): issues, comments, parent and sub-issues, project docs (PRDs, specs), labels, linked PRs.
 
-The product/business layer ("customer X asked", "the Q3 compliance initiative"): issues and their motivation, attached project docs (PRDs, specs), parent/sub-issue trees, comments (clarifications, scope changes, rationale), labels (`compliance`, `customer-request`, `perf`), status updates, attachments, linked GitHub PRs.
+## Searching (Linear MCP)
 
-## How to search it
+1. **Linked tickets first:** IDs in seed commits or PRs (`ENG-1234`) via `get_issue`, then `list_comments`.
+2. **Keywords:** `list_issues` with the feature name, a key symbol or the business term; try several phrasings.
+3. **Parents:** from a sub-issue fetch its parent; parents often carry the why.
+4. **Project docs:** `get_project` and its documents, where specs and rationale usually live.
+5. **Labels and milestones** (`customer-request`, `incident-followup`, `compliance`, a deadline) hint at the motivation.
 
-Use the Linear MCP.
+## Pitfalls
 
-1. **Linked tickets first:** IDs in seed commits or PRs (e.g. `ENG-1234`, `[BUG-567]`) via `get_issue`; read the full issue and comments.
-2. **Keyword search:** `list_issues` text search for the feature name, key symbol, or business term; try several phrasings.
-3. **Walk the tree:** from a sub-issue fetch its parent; parents often carry the why.
-4. **Project docs:** `get_project` and its attached docs, where specs and rationale most often live.
-5. **Labels and milestones:** labels hint at the motivation type (customer-request, incident-followup, compliance); milestone deadlines often reveal motivation.
+- Scope changes on reopen; read the whole history.
+- A boilerplate "Why" ("improve user experience") isn't an answer.
+- Compare ticket dates with the ship date; follow duplicate-of links to the canonical ticket.
+- No access is a gap, never a guess.
 
-## What good evidence looks like here
+## Return
 
-- A description stating the business problem: "Customer Acme needs X because of their SOC2 audit".
-- A comment recording a decision and its reason.
-- An initiative-style parent ("Q3 Enterprise Readiness"), an attached PRD or spec, labels like `customer:acme`, `incident-followup`, `perf-regression`.
-
-## Common pitfalls
-
-- **Scope drift:** tickets closed and reopened with new scope; read the whole history.
-- **Boilerplate "Why" sections** ("improve user experience") aren't answers.
-- **Stale tickets:** compare dates with the code's ship date.
-- **Duplicate chains:** follow duplicate-of links to the canonical ticket.
-- **No access:** record a gap, never guess.
-
-## What to return
-
-Per relevant ticket: ID and title; the motivation quoted verbatim (the synthesizer cites exact text); labels, parent, project; author, created and closed dates; link.
+Per ticket: ID and title, the motivation quoted verbatim, labels, parent and project, author, created and closed dates, link.

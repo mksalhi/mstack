@@ -1,6 +1,6 @@
 ---
 name: grilling
-description: "Use to stress-test the user's plan, decision or idea by interviewing them relentlessly. Triggers: 'grill me', 'grill this'."
+description: "Use to stress-test the user's plan, decision or idea by interviewing them relentlessly, or to play back their goal before work starts. Triggers: 'grill me', 'grill this', 'in your own words', 'what do you think I want'."
 metadata:
   harness: "claude codex"
   platform: "darwin linux"
@@ -26,3 +26,7 @@ Work in **rounds**. The **frontier** is every decision whose prerequisites are s
 Facts are your job, never the user's: when a question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent; never ask for what you could look up. Don't block on it: only questions downstream of a running exploration wait; ask the rest now. Decisions are the user's: put each to them and wait.
 
 Done when the frontier is empty: every branch visited, nothing silently assumed. Do not act until the user confirms shared understanding.
+
+## Play back only
+
+For 'in your own words' or 'what do you think I want', skip the interview: restate in your own words the user's goals and the problem behind them, then stop.

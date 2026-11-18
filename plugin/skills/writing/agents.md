@@ -16,7 +16,7 @@ A pointer is an always-loaded line naming material and when to reach it: a skill
 
 - Lead with the trigger word. One trigger per branch (a distinct case the document handles); synonyms for one branch collapse to one.
 - Say when to use it, not how it works. An agent that reads a workflow summary in a description tends to follow the summary and skip the skill.
-- Name the near-miss when a neighbouring skill shares its words ("For what changed in this chat, use ketchup").
+- Name the near-miss when a neighbouring skill shares its words ("For what changed in this chat, use handoff's catch-up mode").
 
 ## Layout
 

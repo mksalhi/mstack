@@ -12,7 +12,7 @@ The first action decides the pick; no tool call means NONE.
 import argparse, concurrent.futures as cf, hashlib, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import llm
-from static import tree_at, frontmatter
+from static import tree_at, frontmatter, skill_at
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 AGENT = ("You are a coding agent working in the user's git repository. Use the tools when they help; "
@@ -21,13 +21,17 @@ AGENT = ("You are a coding agent working in the user's git repository. Use the t
 
 def listing(ref):
     sk = os.path.join(tree_at(ref), "skills")
-    skills = {}
+    skills, user_only = {}, set()
     for n in sorted(os.listdir(sk)):
         p = os.path.join(sk, n, "SKILL.md")
         if os.path.isfile(p):
-            skills[n] = frontmatter(open(p).read())[0].get("description", "")
+            fm = frontmatter(open(p).read())[0]
+            if str(fm.get("disable-model-invocation", "")).lower() == "true":
+                user_only.add(n)  # the harness never lets the model pick these
+            else:
+                skills[n] = fm.get("description", "")
     skills.update(json.load(open(os.path.join(HERE, "distractors.json"))))
-    return skills
+    return skills, user_only
 
 
 def setup(model, skills):
@@ -71,10 +75,16 @@ def main():
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--out")
     a = ap.parse_args()
-    skills = listing(a.ref)
+    skills, user_only = listing(a.ref)
     mstack = set(skills) - set(json.load(open(os.path.join(HERE, "distractors.json"))))
     system, tools = setup(a.model, skills)
-    qs = [json.loads(l) for l in open(os.path.join(HERE, "queries.jsonl"))]
+    qs = []
+    for l in open(os.path.join(HERE, "queries.jsonl")):
+        q = json.loads(l)
+        acc = [n for n in q["accept"] if skill_at(mstack | user_only, n) not in user_only]
+        if q["accept"] and not acc:
+            continue  # only a user-only skill answers it: the user types the command
+        qs.append({**q, "accept": acc})
     jobs = [(i, r) for i, q in enumerate(qs) for r in range(a.runs)]
 
     def one(job):
@@ -90,10 +100,10 @@ def main():
             usage["in"] += u["in"]; usage["out"] += u["out"]
     rows = []
     for i, q in enumerate(qs):
-        acc = set(q["accept"])
+        acc = {skill_at(mstack, n) for n in q["accept"]}
         positive = bool(acc & mstack)
         correct = [p in acc for p in picks[i]]
-        rows.append({"q": q["q"], "accept": q["accept"], "picks": picks[i], "split": split(q["q"]),
+        rows.append({"q": q["q"], "accept": sorted(acc), "picks": picks[i], "split": split(q["q"]),
                      "positive": positive, "rate": sum(correct) / len(correct),
                      "false_mstack": sum(p in mstack and p not in acc for p in picks[i]) / len(correct)})
 
