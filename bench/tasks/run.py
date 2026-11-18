@@ -81,11 +81,13 @@ def judge(model, task, text):
         r = llm.chat(model, "You are a strict, fair grader.", [{"role": "user", "content": prompt}], max_tokens=2000)
         m = re.search(r"\{.*\}", r["text"], re.S)
         try:
-            res = json.loads(m.group(0))["results"]
-            return [bool(x["pass"]) for x in sorted(res, key=lambda x: x["n"])][:len(task["judge"])]
+            got = {x["n"]: x["pass"] for x in json.loads(m.group(0))["results"]}
+            want = range(1, len(task["judge"]) + 1)
+            if set(got) == set(want) and all(isinstance(got[n], bool) for n in want):
+                return [got[n] for n in want]
         except Exception:
-            continue
-    raise RuntimeError("judge returned no parseable JSON")
+            pass
+    raise RuntimeError("judge returned no valid result for every assertion")
 
 
 def main():
