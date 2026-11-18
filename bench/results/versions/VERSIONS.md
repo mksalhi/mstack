@@ -57,3 +57,7 @@ Share of runs where the model, given only the skill listing, picked an accepted 
 | scoper_hook_tokens | 1132 | 897 | 897 | 897 |
 | broken_links | 1 | 1 | 0 | 0 |
 | lint_failures | 2 | 1 | 1 | 0 |
+
+## Score against size
+
+![Score against skill size](score_vs_size.png)

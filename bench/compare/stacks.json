@@ -1,0 +1,7 @@
+{
+ "mstack": {"git_ref": "39cac0f", "skills": ["plugin/skills/*/SKILL.md"]},
+ "gstack": {"repo": "https://github.com/garrytan/gstack.git", "sha": "bbf48aa7ef195459afcf7d7840af7073cd050734", "skills": ["*/SKILL.md"]},
+ "mattpocock-skills": {"repo": "https://github.com/mattpocock/skills.git", "sha": "5863806dd4e15c63174bee4e7515a4256792ecfa", "skills": ["skills/*/*/SKILL.md"], "exclude": ["^skills/(deprecated|in-progress)/"]},
+ "superpowers": {"repo": "https://github.com/obra/superpowers.git", "sha": "22f0b463e7a5e579904dd6211a520321035526f7", "skills": ["skills/*/SKILL.md"]},
+ "anthropic-skills": {"repo": "https://github.com/anthropics/skills.git", "sha": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba", "skills": ["skills/*/SKILL.md"]}
+}

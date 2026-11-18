@@ -1,0 +1,368 @@
+[
+ {
+  "id": "debug-flaky",
+  "prompt": "The CSV export endpoint sometimes returns a file missing the last row. Maybe 1 in 20 requests. Here's the handler:\n\n```js\napp.get('/export', async (req, res) => {\n  const stream = db.query('SELECT * FROM orders').stream()\n  stream.pipe(csv()).pipe(res)\n  stream.on('end', () => res.end())\n})\n```\n\nYou can't run anything here; tell me exactly how you'd debug it, in order.",
+  "checks": [],
+  "judge": [
+   "Before theorizing about the cause, the plan builds a repeatable reproduction loop (a script, test or curl loop that runs the request many times and checks the last row) and treats it as the first step.",
+   "Lists several distinct hypotheses (at least three), each phrased so a specific change or observation would confirm or rule it out.",
+   "Identifies the res.end() on the source stream's 'end' event racing the csv transform's flush as a leading hypothesis.",
+   "Plans to write a regression test that fails before the fix and passes after it."
+  ]
+ },
+ {
+  "id": "diff-impact",
+  "prompt": "What could this break outside the diff?\n\n```diff\n--- a/api/serializers/user.py\n+++ b/api/serializers/user.py\n-    created = serializers.DateTimeField()\n+    created_at = serializers.DateTimeField(source='created')\n```\n\nFacts you can rely on: the iOS app (separate repo) decodes `created` with a strict Codable struct; the web client reads `user.created` in two components; the nightly analytics export reads the same JSON from the API's /users endpoint.",
+  "checks": [],
+  "judge": [
+   "States that the field rename is a wire-format break for every consumer reading 'created'.",
+   "Calls out the strict Codable decoding in the iOS app as likely to fail decoding entirely, not just miss a field.",
+   "Mentions the analytics export as a consumer grep in this repo would not show.",
+   "Proposes a concrete cheap check or repro (e.g., a request against the endpoint and decoding with the iOS struct, or a contract test) rather than only listing risks."
+  ]
+ },
+ {
+  "id": "test-audit",
+  "prompt": "Review these tests before I merge. Which ones should be deleted or rewritten, and which are fine? Be specific per test.\n\n```ts\nimport { slugify, LIMITS, notify, parsePrice } from './util'\nimport { mailer } from './mailer'\n\ntest('slugify exists', () => { expect(slugify).toBeDefined() })\ntest('slugify lowercases and dashes', () => { expect(slugify('Hello, World!')).toBe('hello-world') })\ntest('max tools limit', () => { expect(LIMITS.maxTools).toBe(8) })\ntest('notify sends', () => { vi.spyOn(mailer, 'send'); notify('a@b.c', 'hi'); expect(mailer.send).toHaveBeenCalled() })\ntest('parsePrice handles cents', () => { expect(parsePrice('$1.05')).toEqual({ cents: 105, currency: 'USD' }) })\ntest('parsePrice rejects garbage', () => { expect(() => parsePrice('abc')).toThrow(/invalid price/) })\n```",
+  "checks": [],
+  "judge": [
+   "Flags 'slugify exists' as worthless (passes for any defined export) and recommends deleting it.",
+   "Flags 'max tools limit' as a constant pin that restates a value, recommending deletion or testing the mechanism that reads the limit.",
+   "Flags 'notify sends' as asserting only that a mock was called, and recommends asserting the payload (recipient, body) or deleting it.",
+   "Keeps 'slugify lowercases and dashes', 'parsePrice handles cents' and 'parsePrice rejects garbage' as fine (does not recommend deleting any of them)."
+  ]
+ },
+ {
+  "id": "pr-comments",
+  "prompt": "Triage these AI review threads on my PR. For each, say whether it's valid, what you'd do, and the reply you'd post. Don't push anything.\n\nPR diff (base is main):\n```diff\n+export function retryFetch(url: string, tries = 3) {\n+  for (let i = 0; i < tries; i++) {\n+    try { return await fetch(url) } catch (e) { if (i === tries - 1) throw e }\n+  }\n+}\n```\n(`fetchUser` in users.ts, unchanged by this PR, already lacks a timeout.)\n\nThreads:\n1. Copilot on retryFetch: \"`await` is used inside a non-async function; this will not compile.\"\n2. CodeRabbit on retryFetch: \"Consider adding exponential backoff between retries.\"\n3. Cursor Bugbot on users.ts:40: \"fetchUser has no timeout and can hang forever.\"\n4. Codex on retryFetch: \"If tries is 0 the function returns undefined silently.\" (The author pushed a commit 10 minutes ago adding `if (tries < 1) throw new RangeError('tries must be >= 1')`.)",
+  "checks": [],
+  "judge": [
+   "Thread 1 is classified as a real regression introduced by the PR and fixed (make retryFetch async).",
+   "Thread 3 is classified as pre-existing (not introduced by this PR) and not fixed in this PR.",
+   "Thread 4 is classified as already fixed or stale, citing the new guard.",
+   "Thread 2 is treated as a suggestion and not implemented as a fix in this PR, or is left for the user's judgment; it is not treated as a required regression fix.",
+   "Proposed replies are short and factual (one to three sentences each)."
+  ]
+ },
+ {
+  "id": "tighten-types",
+  "prompt": "Tighten this TypeScript type and the function that uses it:\n\n```ts\ntype Upload = {\n  status: 'pending' | 'done' | 'failed';\n  url?: string;\n  error?: string;\n  progress?: number;\n};\n\nfunction label(u: Upload): string {\n  if (u.status === 'done') return u.url!;\n  if (u.status === 'failed') return u.error as string;\n  return `${u.progress ?? 0}%`;\n}\n```",
+  "checks": [
+   {
+    "type": "present",
+    "pattern": "\\|\\s*\\{\\s*(kind|status|type)\\s*:",
+    "scope": "code",
+    "name": "discriminated union"
+   },
+   {
+    "type": "absent",
+    "pattern": "!;|\\bas string\\b",
+    "scope": "code",
+    "name": "no non-null or as casts"
+   },
+   {
+    "type": "present",
+    "pattern": "never",
+    "scope": "code",
+    "name": "exhaustiveness check"
+   }
+  ],
+  "judge": [
+   "Each variant carries only the fields valid for it (url only when done, error only when failed).",
+   "Explains that the original type admits impossible states such as done without a url."
+  ]
+ },
+ {
+  "id": "ui-a11y-review",
+  "prompt": "Review this React component for accessibility and fix it:\n\n```tsx\nexport function IconToolbar({ onDelete, onShare }) {\n  return (\n    <div className=\"toolbar\">\n      <div className=\"icon-btn\" onClick={onDelete} style={{ width: 16, height: 16 }}>\n        <TrashIcon />\n      </div>\n      <div className=\"icon-btn\" onClick={onShare} style={{ width: 16, height: 16 }}>\n        <ShareIcon />\n      </div>\n    </div>\n  );\n}\n```\n\n```css\n.icon-btn:focus { outline: none; }\n```",
+  "checks": [
+   {
+    "type": "present",
+    "pattern": "<button",
+    "scope": "code",
+    "name": "uses real buttons"
+   },
+   {
+    "type": "present",
+    "pattern": "aria-label",
+    "scope": "code",
+    "name": "labels icon buttons"
+   },
+   {
+    "type": "absent",
+    "pattern": "outline:\\s*none",
+    "scope": "code",
+    "name": "no removed focus ring in fixed code"
+   }
+  ],
+  "judge": [
+   "Flags the 16px targets as too small and gives a concrete minimum (24 CSS px per WCAG 2.5.8, or 44px for touch).",
+   "Restores a visible focus indicator, preferably via :focus-visible, instead of only deleting outline:none."
+  ]
+ },
+ {
+  "id": "ui-copy",
+  "prompt": "Rewrite the copy in this delete dialog and its error toast:\n\nTitle: \"Are you sure?\"\nBody: \"This can't be undone!\"\nButtons: \"Yes\" / \"No\"\nError toast after a failed delete: \"Oops! We messed up. Try again later!!\"",
+  "checks": [
+   {
+    "type": "absent",
+    "pattern": "(?i)\\boops\\b",
+    "name": "no oops"
+   },
+   {
+    "type": "absent",
+    "pattern": "!!",
+    "name": "no double exclamation"
+   }
+  ],
+  "judge": [
+   "The confirm button starts with a verb and names the consequence (for example 'Delete project'), not 'Yes'.",
+   "The title or body names what will be deleted instead of only 'Are you sure?'.",
+   "The error says what failed and how to recover, in a calm tone without blame or 'we'."
+  ]
+ },
+ {
+  "id": "plain-readme",
+  "prompt": "Rewrite this README paragraph so it reads like plain technical docs. Keep every fact.\n\n> In today's fast-paced development landscape, it's important to note that our cutting-edge sync engine — which seamlessly leverages a robust, battle-tested queue — empowers teams to effortlessly keep data in sync. Simply run `sync --watch` and the magic happens! The engine retries failed jobs up to 5 times, with backoff, and if all retries fail, it writes the job to `dead_letter.jsonl`. It's worth noting that you should never run two watchers on the same directory, as this can lead to potential issues.",
+  "checks": [
+   {
+    "type": "absent",
+    "pattern": "—|–",
+    "name": "no long dashes"
+   },
+   {
+    "type": "absent",
+    "pattern": "(?i)\\b(seamless|leverag|robust|cutting-edge|empower|effortless|landscape|magic|simply|it's important to note|worth noting|battle-tested)",
+    "name": "no slop words"
+   },
+   {
+    "type": "present",
+    "pattern": "sync --watch",
+    "name": "keeps command"
+   },
+   {
+    "type": "present",
+    "pattern": "dead_letter\\.jsonl",
+    "name": "keeps dead letter file"
+   },
+   {
+    "type": "present",
+    "pattern": "\\b5\\b|five",
+    "name": "keeps retry count"
+   }
+  ],
+  "judge": [
+   "The rewrite states concretely what goes wrong when two watchers run on the same directory, or at least does not hide it behind a vague phrase like 'potential issues'.",
+   "The rewrite is shorter than the original and reads like a plain technical README, not marketing."
+  ]
+ },
+ {
+  "id": "why-timeout",
+  "prompt": "Why is the HTTP client timeout 47 seconds?\n\n- `git blame` on `TIMEOUT = 47` -> commit 9f1e 'bump timeout' (2025-03) by dana, PR #812.\n- PR #812 body: 'Raising from 30s per incident INC-221.'\n- INC-221 postmortem: 'Partner ACME's export API took up to 45s under load; our 30s timeout caused retries that tripled their load.'\n- Earlier commit 2b7c (2023) set it to 30s with message 'match LB idle timeout (60s) minus buffer'.\n- No Slack or ticket tools are connected. You can't spawn agents or run commands here, so do what you can in this reply.",
+  "checks": [],
+  "judge": [
+   "Explains the 47s as ACME's 45s worst case plus margin, citing INC-221 and PR #812.",
+   "Traces past the latest commit to the earlier 30s/LB-idle-timeout constraint and notes 47s must stay under the 60s load-balancer idle timeout.",
+   "Separates what the sources state from what it infers.",
+   "Notes the missing chat and ticket sources as a gap."
+  ]
+ },
+ {
+  "id": "shared-file-writers",
+  "prompt": "Two cron jobs, `sync-prices` and `sync-stock`, both rewrite `catalog.json` on the same box and we sometimes lose updates. I'm thinking of adding a file lock around both writers. Good idea?",
+  "checks": [],
+  "judge": [
+   "Recommends removing the sharing first (e.g. each job writes its own file or key, merged on read) before reaching for a lock.",
+   "Gives a concrete design rather than only naming a principle.",
+   "Mentions making the write safe to retry or atomic (temp file plus rename, or idempotent output)."
+  ]
+ },
+ {
+  "id": "add-refund-state",
+  "prompt": "Our `Order` has `isPaid: boolean` and `isShipped: boolean`, checked in ~30 places. Product now wants refunds. Plan: add `isRefunded: boolean` and an adapter so old callers keep working. Thoughts?",
+  "checks": [],
+  "judge": [
+   "Proposes modeling order state as one status type or state machine so illegal combinations (shipped but unpaid, refunded but unpaid) can't be represented.",
+   "Gives a concrete migration path for the ~30 existing call sites rather than leaving them to break or to hand-editing without a plan.",
+   "Suggests a mechanical way (codemod, type errors or a script) to find and migrate the ~30 call sites."
+  ]
+ },
+ {
+  "id": "handoff-write",
+  "prompt": "Write a handoff for the next chat. Session notes so far:\n- Repo ~/code/shop, branch fix/tax-rounding, PR #482 open, last commit 9f3c2e1 'round tax per line item'.\n- Goal: tax totals off by a cent on multi-item carts.\n- Fixed rounding in src/tax.ts; added test 'rounds per line item'.\n- `pnpm test` passes except 'invoice snapshot' which now differs by one cent; unsure whether to update the snapshot.\n- Two files uncommitted: src/invoice.ts, CHANGELOG.md.\n- Earlier we tried rounding at the cart level; abandoned.",
+  "checks": [
+   {
+    "type": "present",
+    "pattern": "fix/tax-rounding",
+    "name": "branch named"
+   },
+   {
+    "type": "present",
+    "pattern": "#?482",
+    "name": "PR named"
+   },
+   {
+    "type": "present",
+    "pattern": "(?i)invoice snapshot",
+    "name": "open snapshot question"
+   },
+   {
+    "type": "present",
+    "pattern": "(?i)uncommitted|dirty|not committed",
+    "name": "flags uncommitted work"
+   }
+  ],
+  "judge": [
+   "Ends with a specific next step the next chat can act on immediately.",
+   "Does not spend words on the abandoned cart-level approach beyond at most one line.",
+   "Is compact: terse bullets or labeled fields, not narrative paragraphs."
+  ]
+ },
+ {
+  "id": "swift-modernize",
+  "prompt": "Modernize this for Swift 6.2 in an app target with main-actor-by-default:\n\n```swift\nfinal class FeedModel: ObservableObject {\n  @Published var items: [Item] = []\n  @Published var isLoading = false\n  func load() {\n    isLoading = true\n    DispatchQueue.global().async {\n      let parsed = Parser.parse(try! Data(contentsOf: feedURL))\n      DispatchQueue.main.async { self.items = parsed; self.isLoading = false }\n    }\n  }\n}\n```",
+  "checks": [
+   {
+    "type": "present",
+    "pattern": "@Observable",
+    "name": "uses @Observable"
+   },
+   {
+    "type": "absent",
+    "pattern": "DispatchQueue\\.global|Task\\.detached",
+    "scope": "code",
+    "name": "no GCD or detached offload in code"
+   },
+   {
+    "type": "present",
+    "pattern": "@concurrent|async",
+    "name": "uses async or @concurrent"
+   }
+  ],
+  "judge": [
+   "Moves the parse work off the main actor with @concurrent (or a nonisolated async function) rather than leaving heavy parsing on the main actor.",
+   "Removes the try! or explains replacing it with error handling.",
+   "Does not add @MainActor annotations that main-actor-by-default makes redundant, or explains why one is needed."
+  ]
+ },
+ {
+  "id": "add-cache",
+  "prompt": "Add a cache for these API responses:\n\n```python\nimport requests\n\ndef fetch_user(user_id: int) -> dict:\n    return requests.get(f'https://api.example.com/users/{user_id}').json()\n```",
+  "checks": [
+   {
+    "type": "present",
+    "pattern": "lru_cache|functools\\.cache|@cache\\b",
+    "name": "uses stdlib cache"
+   },
+   {
+    "type": "absent",
+    "pattern": "class \\w*Cache",
+    "name": "no custom cache class"
+   }
+  ],
+  "judge": [
+   "Uses an existing standard-library or already-installed caching mechanism instead of writing a cache class.",
+   "Mentions the staleness tradeoff (TTL or invalidation) and when it would matter."
+  ]
+ },
+ {
+  "id": "retro-session",
+  "prompt": "Retro on this session. What happened: the agent spent 20 minutes finding where feature flags are defined (src/config/flags/registry.ts, not mentioned anywhere). It imported from 'lodash' twice although CODING_STANDARDS.md bans lodash; the reviewer agent caught one, missed one. It ran the full 9-minute e2e suite 6 times to check a one-line CSS change. package.json has a `lint` script, but CI only runs `test`. AGENTS.md is 1,400 lines.",
+  "checks": [],
+  "judge": [
+   "Proposes a deterministic check (lint rule or pre-commit/CI check) for the lodash ban rather than more prose in standards.",
+   "Flags that the existing lint script isn't wired into CI as a finding.",
+   "Proposes a navigation pointer to the flag registry.",
+   "Addresses the expensive e2e reruns (tool economy) and the oversized AGENTS.md, and orders findings by severity."
+  ]
+ },
+ {
+  "id": "review-admin-flag",
+  "prompt": "Review this change before merge. Intent: add a `?include=deleted` flag so admins can list soft-deleted users.\n\n```diff\n app.get('/users', requireLogin, async (req, res) => {\n+  if (req.query.include === 'deleted') {\n+    return res.json(await db.users.unscoped().findAll({ paranoid: false }))\n+  }\n   res.json(await db.users.findAll())\n })\n```\n\n(The `users` model's default scope excludes `passwordHash`.)",
+  "checks": [],
+  "judge": [
+   "Flags that any logged-in user, not only admins, can use the flag (missing authorization).",
+   "Flags that .unscoped() drops the default scope so password hashes are returned.",
+   "Gives a concrete fix for each (an admin check; re-applying the attribute exclusion or a dedicated scope).",
+   "Does not bury the two real issues under style nits."
+  ]
+ },
+ {
+  "id": "poke-holes",
+  "prompt": "Poke holes in this plan before we start: we'll move our Rails monolith's background jobs from Sidekiq to a new Go worker service reading the same Redis, rolling out job type by job type over 6 weeks.",
+  "checks": [],
+  "judge": [
+   "Raises that Sidekiq and the Go workers must never both consume the same job type at once (queue separation or a routing switch per type).",
+   "Raises the job payload format (Sidekiq's JSON envelope, Ruby-specific args, retries and dead set semantics) the Go side must handle.",
+   "Raises idempotency or double-execution risk during cutover and a per-job-type rollback path.",
+   "Prioritizes the risks or says which to settle first rather than listing them flat."
+  ]
+ },
+ {
+  "id": "tdd-duration",
+  "prompt": "Implement `parseDuration(s: string): number` in TypeScript that turns strings like '1h30m', '45s', '2h' into seconds and throws on invalid input. Work test-first and show the tests and the implementation.",
+  "checks": [
+   {
+    "type": "present",
+    "pattern": "(?i)\\b(test|it|expect)\\(",
+    "scope": "code",
+    "name": "has tests"
+   },
+   {
+    "type": "present",
+    "pattern": "throw",
+    "scope": "code",
+    "name": "throws on invalid"
+   }
+  ],
+  "judge": [
+   "Shows tests written before the implementation, or explicitly walks a red-then-green order.",
+   "Tests cover invalid inputs (empty string, unknown unit, garbage, negative or missing number) not just happy paths.",
+   "The implementation would pass its own tests (e.g. handles '1h30m' as 5400 and rejects 'abc').",
+   "Covers an edge like repeated units ('1h1h') or whitespace with a stated decision."
+  ]
+ },
+ {
+  "id": "plan-csv-export",
+  "prompt": "Write an implementation plan for adding CSV export to our admin dashboard's Orders table (Next.js app, Prisma, ~2M orders, admins filter by date and status). Someone else will implement it from your plan.",
+  "checks": [],
+  "judge": [
+   "Breaks the work into small, ordered steps that each end in something verifiable (a test or a check).",
+   "Handles the 2M-row scale (streaming or a background job, not loading everything into memory).",
+   "Names concrete files, endpoints or functions rather than only generic phases.",
+   "Covers authorization (admins only) and CSV injection or escaping."
+  ]
+ },
+ {
+  "id": "security-review",
+  "prompt": "Security review this Express handler:\n\n```js\napp.get('/files', async (req, res) => {\n  const user = await db.query(`SELECT * FROM users WHERE id = ${req.query.uid}`)\n  const p = path.join('/srv/uploads', req.query.name)\n  res.sendFile(p)\n})\n```",
+  "checks": [],
+  "judge": [
+   "Finds the SQL injection via string-interpolated uid and fixes it with a parameterized query.",
+   "Finds the path traversal via req.query.name and fixes it (resolve and check the prefix, or an allowlist).",
+   "Notes the missing authentication/authorization: the caller picks any uid and the user lookup isn't used to restrict files.",
+   "Ranks the findings by severity."
+  ]
+ },
+ {
+  "id": "explain-keepalive",
+  "prompt": "How does HTTP keep-alive work? Explain it to me as a backend engineer who has only ever seen one request per connection in logs.",
+  "checks": [
+   {
+    "type": "absent",
+    "pattern": "—",
+    "name": "no long dashes"
+   },
+   {
+    "type": "absent",
+    "pattern": "(?i)\\b(key insight|at its core|tl;dr|in a nutshell)\\b",
+    "name": "no framing labels"
+   }
+  ],
+  "judge": [
+   "States the concrete mechanism: the TCP connection stays open after a response and later requests reuse it.",
+   "Mentions an idle timeout or connection limit that closes reused connections.",
+   "Uses plain spoken sentences without metaphors standing in for the mechanism."
+  ]
+ }
+]
