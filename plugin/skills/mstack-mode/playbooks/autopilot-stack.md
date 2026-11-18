@@ -9,4 +9,4 @@
 
 **Which autopilot.** Full: independent PRs and landing authority granted. Stack: operator wants review first, work is sequenced or coupled, or merge authority is withheld.
 
-**Reply:** per the `ketchup` skill, with links to stack root and tip, a one-line verdict per link, and anything parked or excluded with the reason.
+**Reply:** per the `handoff` skill's catch-up mode, with links to stack root and tip, a one-line verdict per link, and anything parked or excluded with the reason.

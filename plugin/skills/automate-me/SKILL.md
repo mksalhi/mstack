@@ -1,5 +1,6 @@
 ---
 name: automate-me
+disable-model-invocation: true
 description: "Use to capture the user's working style or preferences as a personal -mode skill. Triggers: 'automate me', 'update my mode skill'."
 metadata:
   harness: "claude codex"

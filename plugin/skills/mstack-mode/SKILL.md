@@ -22,7 +22,7 @@ In your reply, name each principle that changed a decision, and cite only princi
 | About to ask "which approach?" | If running something would answer it, prototype (`playbooks/prototype.md`). Ask only for a product or preference call. Under full autonomy, apply a default and say what the user could tell you instead. |
 | Any code | Name the data shape first (Model the domain) |
 | Code that crosses a function boundary | `architect` first |
-| Parallel work | `swarm` for coverage, races and exploration; `arena` to pick the best of several designs |
+| Parallel work | `arena` in swarm mode for coverage, races and exploration; `arena` to pick the best of several designs |
 | Contested design | `interrogate` before shipping |
 | Nontrivial multi-step work | Write the throughput checkpoint (Feature step 3) |
 | Any prose, your reply included | The unslop pass (`<mstack>/skills/writing/unslop.md`). Docs, PR text and agent docs go through `writing`. |
@@ -32,7 +32,7 @@ In your reply, name each principle that changed a decision, and cite only princi
 | Shipping UI, IDE or CLI work | Drive the real surface: a project `verify-*` skill (see `verifier`), `playwright`, or Bash. Reproduce bugs on that surface yourself. |
 | Any PR-status request ("babysit", "get it green", "address the bugbot comments") | The Babysit playbook, declaring its mode first. Opening a PR doesn't trigger it. Never use `drive` inside a phase agent. |
 | Landing a green stack | The Shipping playbook. Green is not safe: arm nothing before an independent per-PR verdict. |
-| Bot review comments | `pr-comments` |
+| Bot review comments | `pr` |
 | A broken skill mid-task | Fix it in its own PR; don't silently work around it |
 | Long, autonomous or multi-phase work, or "going to bed" | Keep a trail with `decision-log` |
 
@@ -42,7 +42,7 @@ Reversible work and external actions (team chat, tickets, starting evals) procee
 
 ## Subagents
 
-- **Type.** Every subagent inside a playbook step is `subagent_type: "mstack:mstack-agent"`. This chat runs the playbook itself; never spawn an agent to run it. Routed skills (`how`, `why`, `interrogate`, `swarm`) choose their own types.
+- **Type.** Every subagent inside a playbook step is `subagent_type: "mstack:mstack-agent"`. This chat runs the playbook itself; never spawn an agent to run it. Routed skills (`how`, `why`, `interrogate`, `arena`) choose their own types.
 - **Every Agent call** runs in the background and gets file pointers, not pasted context.
 - **Model.** Use the role's line in `~/.claude/rules/mstack-models.md`, falling back to `claude-opus-5-5`; `auto` or `inherit-parent` means omit `model`.
   - Code playbooks read their own line.
