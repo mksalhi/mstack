@@ -15,8 +15,8 @@ refs=$(IFS=,; echo "$*")
 for m in "$claude" "$gpt"; do
   (for r in "$@"; do  # triggers run one ref at a time, alongside the task run
     python3 bench/trigger/run.py --ref "$r" --model "$m" --runs "$runs" --out "$out/trigger-$m-$(label "$r").json" > /dev/null
-  done) &
+  done) & trig=$!
   python3 bench/tasks/run.py --model "$m" --refs "$refs" --runs "$runs" --workers "${BENCH_WORKERS:-12}" --out "$out/tasks-$m.json" > /dev/null
-  wait
+  wait "$trig"  # fail the run if any trigger pass failed
 done
 python3 bench/charts.py "$out" "$@"

@@ -136,8 +136,10 @@ def main():
     summary = {"model": a.model, "base": a.base, "cand": a.cand or "WORKTREE", "refs": list(conds)[1:], "runs": a.runs, "judge": a.judge, "errors": len(errors), "by_cond": {}, "by_task": {}}
     for c in conds:
         rs = [r for r in rows if r["cond"] == c]
+        if not rs:
+            continue
         summary["by_cond"][c] = {"score": statistics.mean(r["score"] for r in rs),
-                                 "score_sd_over_runs": statistics.pstdev([statistics.mean(r["score"] for r in rs if r["run"] == k) for k in range(a.runs)]),
+                                 "score_sd_over_runs": statistics.pstdev([statistics.mean(g) for k in range(a.runs) if (g := [r["score"] for r in rs if r["run"] == k])]),
                                  "all_pass_rate": statistics.mean(r["all_pass"] for r in rs),
                                  "in_tokens": statistics.mean(r["usage"]["in"] for r in rs),
                                  "out_tokens": statistics.mean(r["usage"]["out"] for r in rs),

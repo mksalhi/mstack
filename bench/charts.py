@@ -53,11 +53,11 @@ if tasks:
            f"graded by regex checks plus judge `{next(iter(tasks.values()))['summary']['judge']}`.", ""]
     for key, title, fname in [("score", "Assertion pass rate", "task_score.png"), ("all", "Tasks with every assertion passed", "task_all_pass.png")]:
         fig, ax = plt.subplots(figsize=(7.5, 4.2))
-        for m in models:
+        for i, m in enumerate(models):
             ys = [stats[m, c][key] for c in refs]
             ax.errorbar(labels, [y[0] * 100 for y in ys], yerr=[y[1] * 100 for y in ys], color=color[m], marker="o", capsize=4, label=m)
             ax.axhline(stats[m, "none"][key][0] * 100, color=color[m], ls="--", lw=1.2, alpha=.7)
-            ax.annotate(f"{m} no skill", (len(refs) - 1, stats[m, "none"][key][0] * 100), textcoords="offset points", xytext=(0, -12),
+            ax.annotate(f"{m} no skill", (len(refs) - 1, stats[m, "none"][key][0] * 100), textcoords="offset points", xytext=(0, 4 if i % 2 else -12),
                         ha="right", fontsize=8, color=MUTED)
         ax.set_ylim(0, 102); ax.set_ylabel("%"); ax.set_title(title, loc="left")
         ax.legend(loc="lower left")
