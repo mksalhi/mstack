@@ -1,21 +1,14 @@
 # Prove it works
 
-**Rule:** Verify against the real artifact, not a proxy.
+Verify against the real artifact, not a proxy.
+- Check process liveness directly.
+- Read actual values, not cached/derived.
+- On failure, suspect the observation before the system.
 
-Proxies (mtimes, output freshness, agent self-reports, cached screenshots, "it compiles") are not verification.
+Make rerunnable checks as a lever per [Build the lever](build-the-lever.md).
 
-- Check process liveness directly, not through derived state.
-- Read the actual value, not a cached or derived representation.
-- When verification fails, suspect the observation method before the system.
+Per unit: bracket each change—known-good, one change, run the check. Advance only on green; failures localize to that unit.
 
-To make the check rerunnable, build it as a lever per [Build the lever](build-the-lever.md).
+Start from trunk. Rebase only unpushed; merge trunk into pushed/long-lived. Run per-unit checks even when automated.
 
-## Per unit
-
-Split multi-step work (sweep, migration, run of similar edits) into small units, each a bracket: known-good state, one change, run the check. Advance only on green; a break is cheap to localize at its unit, buried after a batch.
-
-Start from current trunk. Rebase only unpushed work; merge trunk into pushed or long-lived branches. Run the per-unit check even when a lever does the edits.
-
-## Delivery order
-
-Stack commits and PRs in the order that proves the work, red then green: failing test first, fix on top. Scaffold first: anything later phases use (CI, linting, test infrastructure, shared types) lands before the features. Subtraction before reshape; baseline capture before treatment. Each commit small, single-purpose, landable alone, so the sequence reads as an argument.
+Delivery order: red then green; scaffold first; subtraction before reshape; baseline before treatment; small, single-purpose commits.

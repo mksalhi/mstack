@@ -9,40 +9,33 @@ metadata:
 
 # Test audit
 
-Read the repo's `AGENTS.md` files first; they win over this skill. Three modes, one bar:
-
-- **Authoring**: gate every new or changed test at write time.
-- **Audit**: sweeps for tests that restate source, duplicate stronger tests, couple to implementation, or keep test-only production hooks alive. Split a broad audit into separate PRs; aim for confidence, not deletion count.
-- **Campaign**: prune every test a workspace or subsystem owns. Read [CAMPAIGN.md](CAMPAIGN.md) first.
+Read the repo’s AGENTS.md files first; they win over this skill. Three modes, one bar:
+- Authoring: gate every new or changed test at write time.
+- Audit: sweep for restatement, duplication, coupling, or test-only hooks. Split broad audits; aim for confidence.
+- Campaign: prune every test a workspace or subsystem owns. Read [CAMPAIGN.md](CAMPAIGN.md) first.
 
 ## Authoring gate
 
-**The `undefined` check:** if the test would still pass with every imported function returning `undefined`, it cannot fail for a defect. Five shapes:
+Undefined check: if the test passes with every import returning undefined, it cannot fail for a defect. Reject:
+- weak or no assertion (defined/truthy/instance/greater-than-zero/None);
+- mock/absence-only (called/uncalled/undefined/empty/length/not-toBe wrongValue);
+- self-referential (expected from the subject itself);
+- constant pins (restated limits/defaults/strings/tables/prompts);
+- fixture asserts fixture (subject never runs in body).
 
-- **Weak or no assertion**: none, or only `toBeDefined`, `toBeTruthy`, `not.toThrow`, `toBeInstanceOf`, `toBeGreaterThan(0)`, `assert x is not None`.
-- **Mock or absence only**: only `toHaveBeenCalled`, `not.toHaveBeenCalled`, `toBeUndefined`, `toEqual([])`, `toHaveLength(0)`, `not.toBe(wrongValue)`.
-- **Self-referential**: expected value comes from the code under test: `expect(parsed.url).toBe(buildUrl(...))`.
-- **Constant pin**: restates a hand-maintained constant, default, table row, or prompt string: `expect(LIMITS.maxTools).toBe(8)`.
-- **Fixture asserts fixture**: asserts data built in setup; the subject never runs in the body.
+Fix: call the subject with one concrete input and assert the literal output or observable effect; for absence, also assert presence with the other input; for constants, test the reader; for mocks, assert payload/state. If none fits, delete. Cross-row table relations and *.test-d.ts compile-time checks pass.
 
-Fix: call the subject in the body with one concrete input and assert the literal output or observable effect, `expect(slugify("Hello, World!")).toBe("hello-world")`. For an absence check, also assert presence on the other input in the same test. For a constant, test the mechanism that reads it. For a mock, assert the payload received or the state after. If no such assertion exists, delete the test. Cross-row table relations (a key in two tables, a parent that exists) and `*.test-d.ts` compile-time checks pass.
+Before adding, answer:
+1) What observable behavior, invariant, or independent contract does it protect?
+2) What credible regression makes it fail?
+3) Why doesn’t existing coverage catch it? One primary owner test per contract at the strongest boundary; another layer needs a distinct risk.
+4) Does it need a seam no production caller needs? Then test at the real boundary instead.
 
-Then answer four questions; add the test only when all four have answers:
+A test that breaks under behavior-preserving refactoring asserts implementation; rewrite it at the owning boundary.
 
-1. What observable behavior, invariant, or independent contract does it protect?
-2. What credible regression makes it fail?
-3. Why doesn't existing coverage catch it? Each contract has one primary owner test at the strongest boundary; another layer needs its own distinct risk (e.g. a transport or lifecycle failure the owner cannot reach). Prefer extending a table-driven case or shared fixture over a near-duplicate; consolidate duplicated setup in the same change.
-4. Does it need a production seam (export, flag, wrapper, injection hook) no production caller needs? Then test at the real boundary instead.
-
-Then check every [junk pattern](#junk-patterns); a match fails unless the [retention bar](#retention-bar) names the contract it independently guards. A test that breaks under behavior-preserving refactoring asserts implementation: rewrite it at the owning boundary.
-
-Before landing, break the production code it guards, watch the test go red, then restore the source exactly.
-
-Bug regression tests must fail on pre-fix code for the intended reason and pass after the owner-boundary repair. One regression at the owner boundary covers the bug; don't replay it at every layer.
+Before landing a new test, break the guarded code to watch it go red, then restore exactly. Bug regressions must fail on pre-fix code for the intended reason and pass after the owner-boundary repair; one owner-boundary regression suffices.
 
 ## Junk patterns
-
-Beyond the five shapes above. Authoring rejects new tests matching these; audits hunt existing ones.
 
 - self-comparisons and identity copiers;
 - copied fixtures, inventories, manifests, or export lists;
@@ -52,72 +45,52 @@ Beyond the five shapes above. Authoring rejects new tests matching these; audits
 - per-implementation replays of shared helpers;
 - tests whose only purpose is preserving test-only exports, globals, or wrappers;
 - dead production code whose only callers are tests;
-- mocks that implement the asserted behavior, or one identical mock standing in for different APIs;
+- mocks that implement the asserted behavior, or one identical mock for different APIs;
 - fixtures that supply the receipt, admission, or callback ordering the owner should produce, or persistence asserted against a store the path never writes;
-- capability tests that restate declared flags instead of exercising the delivery or acknowledgement the flag promises;
-- negative controls that pass for an unrelated reason (a denial from a different guard, a rejection production never reaches);
-- names or fixtures that promise more than the input exercises (a "retires the window" test asserting the window was not cleared);
-- tests of framework or library behavior (serializer renames, schema validation, 422s, ORM defaults) our code adds no logic to;
-- assertions that only check a mock was called when the outcome is observable at the boundary (request bodies, rows, emitted events);
-- parametrize rows that reach the same branch as another row;
-- global request or event counts in async code (racy); assert the specific effect;
-- DB-backed tests pointed at a developer's database; run only against a disposable server the harness creates.
+- capability tests that restate declared flags instead of exercising delivery/acknowledgement;
+- negative controls that pass for an unrelated reason;
+- names/fixtures that promise more than inputs exercise;
+- tests of framework/library behavior our code adds no logic to;
+- assertions that only check a mock was called when the outcome is observable at the boundary;
+- parametrize rows that reach the same branch;
+- global request/event counts in async code (racy);
+- DB-backed tests pointed at a developer’s database.
 
 ## Discovery
 
-Read-only; report evidence before editing. Hunt the [junk patterns](#junk-patterns). For broad scope, run parallel lanes (one per workspace or subsystem plus a cross-cutting pattern sweep). Outside campaign mode, prefer a few high-confidence candidates over a speculative inventory.
-
-In an audit, an existing test that must change for behavior-preserving reorganization is suspect, not automatically deletable. Before judging a candidate, read the complete test and production owner, entry point, callers, callees, sibling implementations, overlapping tests, the config that selects it (vitest include globs, pytest markers), and relevant history. For claimed dependency-backed behavior, inspect the dependency source or types.
+Read-only; report evidence before editing. Prefer high-confidence candidates. Read the complete test and production owner, entry/exit, siblings, overlapping tests, config selecting it, and relevant history. For dependency-backed behavior, inspect the dependency source or types.
 
 ## Retention bar
 
-Keep a test that independently enforces a public API, protocol, config, storage, security, or architecture contract: API router contracts, DB migrations and access policies, third-party payloads, and prompt bytes only when they are an external contract (provider protocol, cache key, persisted format). Also keep:
-
+Keep tests that independently enforce a public API, protocol, config, storage, security, or architecture contract (API router contracts, DB migrations/access policies, third-party payloads, prompt bytes only when an external contract). Also keep:
 - call ordering when order is observable;
 - regressions with a credible failure mode;
-- source inspection when it is the cheapest independent guard: fails when the contract (user-facing key, byte, path) changes, survives an identifier-only refactor;
-- a retained test failing on baseline: treat as a possible product bug, reproduce, repair the owner.
+- cheapest independent source inspection guard (fails on contract changes, survives identifier-only refactors);
+- retained tests failing on baseline: treat as a possible product bug; reproduce and repair the owner.
 
-Static or slow is not a deletion reason. Prove a test that resembles implementation is not the independent contract before removing it.
+Static or slow is not a deletion reason. Prove a test is not the independent contract before removing it.
 
 ## Candidate evidence
 
-Record every field before editing; a candidate with a missing field is not ready for deletion:
-
-- exact test name and location;
-- what failure it can actually detect;
-- non-test callers of the covered production or support seam;
-- stronger remaining owner-boundary proof, or why none is needed;
-- relevant history and why the test or seam exists;
-- production or test-support deletion unlocked;
-- risk and the focused validation command.
+Record: exact test name/location; what failure it can actually detect; non-test callers of the covered production/seam; stronger remaining owner-boundary proof (or why none is needed); relevant history/why it exists; production/test-support deletion unlocked; risk and the focused validation command.
 
 ## Edit shape
 
-One coherent owner-boundary batch. Delete obsolete test-only exports, globals, wrappers, and dead production paths (no aliases). Move retained regressions to canonical owners. Consolidate repeated package or dependency assertions into one generic contract. Update vitest include globs or pytest markers if suites move. Prefer net-negative production LOC. No replacement tests restating the same implementation; don't turn uncertain candidates into cleanup.
+One coherent owner-boundary batch. Delete test-only exports/globals/wrappers and dead production paths. Move retained regressions to canonical owners. Consolidate repeated package/dependency assertions into one generic contract. Update vitest include globs or pytest markers. Prefer net-negative production LOC. No replacement tests restating the same implementation.
 
 ## Validation
 
-Never edit source or tests while a test watcher runs in the checkout. Run DB-backed and e2e suites only where the repo's AGENTS.md allows (an isolated worktree stack, never the human's primary checkout).
-
-1. Run the smallest owner and sibling tests with a name filter, then the touched suite.
-2. For removed source greps or plan assertions, run the script or dry-run that owns the real contract.
-3. Lint and typecheck, including downstream packages consuming changed shared types.
-4. Inspect `git diff --numstat`; report production/tooling separately from tests and test support.
-5. After final edits, run mstack-mode's before-commit and before-review gates.
+Never edit source or tests while a watcher runs. Run DB-backed and e2e suites only where AGENTS.md allows.
+1) Run smallest owner and sibling tests with a name filter, then the touched suite.
+2) For removed greps/plan assertions, run the script or dry-run that owns the real contract.
+3) Lint and typecheck, including downstream consumers of changed shared types.
+4) Inspect git diff --numstat; report production/tooling separately from tests and test support.
+5) Run mstack-mode’s before-commit and before-review gates.
 
 ## Landing
 
-Commit, push, open a PR, or land only when authorized. Read `<mstack>/skills/pr/SKILL.md` for the PR body and follow the mstack-mode Shipping playbook (`<mstack>/skills/mstack-mode/playbooks/shipping.md`) to land. One coherent PR at a time; after landing, refresh from current `main` and rerun read-only discovery for the next batch.
+Commit/push/PR only when authorized. Read <mstack>/skills/pr/SKILL.md and follow <mstack>/skills/mstack-mode/playbooks/shipping.md. One coherent PR at a time; after landing, refresh from current main and rerun read-only discovery.
 
 ## Handoff
 
-Report:
-
-- root cause and removed low-value categories;
-- production owner simplifications;
-- retained false positives and why they remain valuable;
-- focused and full proof actually run;
-- production versus test LOC;
-- PR and merge state;
-- named follow-ups.
+Report: root cause and removed low-value categories; production owner simplifications; retained false positives and why; focused and full proof actually run; production vs test LOC; PR and merge state; named follow-ups.

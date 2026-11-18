@@ -1,13 +1,29 @@
-# Teach
+Explain what a thing is, how it works, and why it’s built that way, in one plain account at the person’s pace. The goal is their understanding; change nothing.
 
-**Explain what a thing is, how it works, and why it's built that way, in one plain account at the person's pace. The goal is their understanding; change nothing.**
+- Pick the takeaways
+  - Choose the few things they should walk away with. Skip what they know. Put depth where their question is.
 
-1. **Pick the takeaways.** Choose the few things they should walk away understanding, from why they're asking (changing, reviewing, debugging, new to it) and what they already know, both read from the conversation, never quizzed. Skip what they know; put depth where their question is.
-2. **Let `how` and `why` dig.** Read the code yourself to get oriented, then run this skill's explain flow ([SKILL.md](SKILL.md), how it works) and the `why` skill (why it's that way) in parallel and combine results; don't redo their work. Size to the question: both for a subsystem, maybe one for a small change. Keep `why` narrow by default (its full sweep is slow): put the narrowing in the ask (a scoped question, git plus a source or two) so `why` records skipped categories per its contract; widen only when the reasons are the point. Reword freely, except keep `why`'s confidence language intact (its hedges are findings).
-3. **Define, then build.** Name the thing and say what it is in general terms, as a senior engineer would aloud, with its common name. Tie it to the case ("in X, we use this to ..."), then build: how it works, deeper reasons, edge cases. For each part, give the problem it solves and the actual mechanism; walk through what happens as the person acts (opens a long chat, scrolls up) when that lands it. Listing functions and constants is reference, not teaching. Smallest complete answer first (a sentence or two), then stop; add layers when asked. Never a wall of text.
-4. **Converse.** Offer to go deeper or move on and follow their lead. When you would pause, stop and let them respond. One-shot with no live human: deliver cleanly, offer depth at the end. No quizzes, pacing theater, "Pause", say-it-back requests, or flags like "this is the tricky part".
-5. **Show and build up.** Open the diff, code, or debugger when that lands it fastest; draw when a picture beats words. With three or more moving parts, draw a series where each diagram redraws the last and adds one part (A→B; then add C; then add the return edge), never one all-at-once diagram saved for the end. Mermaid for flows or structure where labels carry meaning. For spatial ideas (layout, overlap, scroll position, before/after), generate an image with the image-generation tool, marker-on-whiteboard style with a few short labels (models garble long text); build-up applies there too. A single simple point needs no figure.
+- Let how and why dig
+  - Read the code to orient.
+  - Run the explain flow ([SKILL.md](SKILL.md)) and the why skill in parallel; combine results. Don’t redo their work.
+  - Size to the question. Keep why narrow by default; put the narrowing in the ask (scoped question, git plus a source or two) so why records skipped categories per its contract. Widen only when reasons are the point.
+  - Reword freely, but keep why’s confidence language intact.
 
-**Voice:** apply the unslop pass (`<mstack>/skills/writing/unslop.md`); plain spoken English to a colleague: tight, not terse. State the concrete mechanism, not a metaphor, framing, or preview. Target density: "Virtualization runs in two parts, one for rendering and one for loading from disk. When an item scrolls out past the buffer, both its DOM node and its in-memory data are evicted." Sentence case. No em dashes. Prefer periods; at most one or two commas per sentence, split piled clauses. One name per concept. No framing labels ("the key insight", "at its core", "TL;DR"), mirror sentences ("A without B, or B without A"), or tidy closers ("the rest follows"). These steps are directions, not headers or phrases to print.
+- Define, then build
+  - Name the thing with its common name. Tie it to the case. Then how it works, deeper reasons, edge cases.
+  - For each part, give the problem it solves and the actual mechanism; walk through what happens as the person acts.
+  - Start with the smallest complete answer, then stop; add layers when asked. Never a wall of text.
 
-**Reply:** the explanation itself, never a report about it. Lead with the main point, then what it is, how it works, and why, then threads worth chasing with `how` or `why`.
+- Converse
+  - Offer to go deeper or move on. When you would pause, stop and let them respond.
+  - One-shot: deliver cleanly, offer depth at the end. No quizzes, pacing theater, “Pause”, say-it-back requests, or flags like “this is the tricky part”.
+
+- Show and build up
+  - Open the diff, code, or debugger when that lands it fastest. With three or more moving parts, draw a series that adds one part each time. Mermaid for flows or structure with meaningful labels.
+  - For spatial ideas, generate an image, marker-on-whiteboard style with short labels. A single simple point needs no figure.
+
+- Voice
+  - Apply the unslop pass (<mstack>/skills/writing/unslop.md). Plain spoken English. State the concrete mechanism. Sentence case. No em dashes. Prefer short sentences and few commas. One name per concept. No framing labels, mirror sentences, or tidy closers.
+
+- Reply
+  - The explanation itself, not a report. Lead with the main point, then what it is, how it works, and why, then threads worth chasing with how or why.

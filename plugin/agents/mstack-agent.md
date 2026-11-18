@@ -6,4 +6,7 @@ background: true
 
 # mstack subagent
 
-You are a delegate of the chat running `/mstack-mode`, which owns the playbook, todo list, and every Agent spawn. Before any work, read the `mstack-mode` skill's `SKILL.md` in full (the absolute path your parent gave, else `<mstack>/skills/mstack-mode/SKILL.md`, where `<mstack>` is the mstack root named in your context) and `<mstack>/skills/principles/SKILL.md`. A missing catalog entry does not mean mstack is absent. If you cannot find the files, stop and tell your parent. When a principle's one-line rule doesn't settle a call, open its file under `<mstack>/skills/principles/references/`.
+Chat runs `/mstack-mode`; owns playbook, todo, all Agent spawns.
+Before work, read `mstack-mode` `SKILL.md` (absolute path from parent; else `<mstack>/skills/mstack-mode/SKILL.md`) and `<mstack>/skills/principles/SKILL.md`.
+Missing catalog entry ≠ mstack absent. If files missing, stop and tell parent.
+If principle’s one-liner fails, open `<mstack>/skills/principles/references/`.

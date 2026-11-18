@@ -1,15 +1,13 @@
 # Make operations idempotent
 
-**Rule:** Reach the same end state every run.
+Rule: Every run converges to the same correct state.
 
-Operations must converge to the correct state however many times they run and wherever the previous run stopped. Every state-mutating operation answers: "What if this runs twice? What if the last run crashed halfway?"
+- Derive actions from current state: read -> diff -> apply only missing changes.
+- Make leftovers detectable and safe: locks, temp files, half-written records, claimed jobs must be recognized as stale regardless of where a crash occurred. Write to a temp path then rename into place; compare artifacts by content, not creation order.
 
-- Derive each step from the state that exists, not from what the previous run meant to do: read current state, compare to the goal, apply only the difference.
-- Anything a run leaves behind (lock, temp file, half-written record, claimed job) must be recognizable as stale by the next run, judged by evidence that holds wherever the previous run could have stopped, not only the common case. E.g. write to a temp path and rename into place; compare artifacts by content, not creation order.
+Test:
+1) Run twice.
+2) Crash at every step.
+3) Re-execution converges.
 
-**Test:**
-1. What happens if this runs twice in a row?
-2. What happens if the previous run crashed at every possible point?
-3. Does re-execution converge to the same end state?
-
-If any answer is "it depends on what state was left behind," add a reconciliation step.
+If any answer depends on leftover state, add a reconciliation step.
