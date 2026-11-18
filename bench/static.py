@@ -146,6 +146,8 @@ def analyze(ref=None, exact=False):
         dt = count_tokens_api([skills[n]["_desc"] for n in names])
         for n, b, d in zip(names, bt, dt):
             skills[n]["skill_tokens"], skills[n]["desc_tokens"] = b, d
+            lint = [m for m in skills[n]["lint"] if m != "skill>5000 tokens"]
+            skills[n]["lint"] = lint + (["skill>5000 tokens"] if b > 5000 else [])
     dup = collections.Counter()
     for s, owners in all_shingles.items():
         if len(owners) > 1:

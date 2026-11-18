@@ -59,7 +59,7 @@
  "prompt": "Modernize this for Swift 6.2 in an app target with main-actor-by-default:\n\n```swift\nfinal class FeedModel: ObservableObject {\n  @Published var items: [Item] = []\n  @Published var isLoading = false\n  func load() {\n    isLoading = true\n    DispatchQueue.global().async {\n      let parsed = Parser.parse(try! Data(contentsOf: feedURL))\n      DispatchQueue.main.async { self.items = parsed; self.isLoading = false }\n    }\n  }\n}\n```",
  "checks": [
   {"type": "present", "pattern": "@Observable", "name": "uses @Observable"},
-  {"type": "absent", "pattern": "DispatchQueue\\.global|Task\\.detached", "name": "no GCD or detached offload"},
+  {"type": "absent", "pattern": "DispatchQueue\\.global|Task\\.detached", "scope": "code", "name": "no GCD or detached offload in code"},
   {"type": "present", "pattern": "@concurrent|async", "name": "uses async or @concurrent"}],
  "judge": ["Moves the parse work off the main actor with @concurrent (or a nonisolated async function) rather than leaving heavy parsing on the main actor.", "Removes the try! or explains replacing it with error handling.", "Does not add @MainActor annotations that main-actor-by-default makes redundant, or explains why one is needed."]},
 {"id": "ketchup", "skill": "ketchup",

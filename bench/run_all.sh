@@ -6,6 +6,7 @@ set -euo pipefail
 base=${1:?base ref}; cand=${2:-HEAD}
 cd "$(git rev-parse --show-toplevel)"
 out=bench/results; mkdir -p "$out"
+rm -f "$out"/trigger-*.json "$out"/tasks-*.json  # never mix in another run's refs or models
 claude=${BENCH_CLAUDE:-claude-sonnet-5-5}; gpt=${BENCH_GPT:-gpt-5}; runs=${BENCH_RUNS:-3}
 export OPENAI_REASONING_EFFORT=${OPENAI_REASONING_EFFORT:-low}
 [ -z "${ANTHROPIC_API_KEY:-}" ] && [ -n "${ANT_API_KEY:-}" ] && export ANTHROPIC_API_KEY=$ANT_API_KEY

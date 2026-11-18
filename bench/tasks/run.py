@@ -56,6 +56,8 @@ def run_agent(model, task, plugin, max_turns=8):
 
 
 def check(c, text):
+    if c.get("scope") == "code":
+        text = "\n".join(re.findall(r"```[^\n]*\n(.*?)```", text, re.S))
     if c["type"] == "present":
         return bool(re.search(c["pattern"], text))
     if c["type"] == "absent":
