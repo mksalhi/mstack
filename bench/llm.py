@@ -1,9 +1,13 @@
 """Minimal Anthropic and OpenAI clients over urllib: one chat turn with tools, plus usage.
 
 No SDK dependency so the benchmark runs anywhere Python 3.9+ does.
-Keys come from ANTHROPIC_API_KEY and OPENAI_API_KEY.
+Keys come from ANTHROPIC_API_KEY (or ANT_API_KEY) and OPENAI_API_KEY.
 """
 import json, os, random, time, urllib.error, urllib.request
+
+# Some hosts strip ANTHROPIC_API_KEY from the environment; accept ANT_API_KEY instead.
+if not os.environ.get("ANTHROPIC_API_KEY") and os.environ.get("ANT_API_KEY"):
+    os.environ["ANTHROPIC_API_KEY"] = os.environ["ANT_API_KEY"]
 
 
 def _post(url, headers, body, tries=6):

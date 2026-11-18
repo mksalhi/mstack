@@ -69,7 +69,7 @@ def pointers(path, text, plugin):
 
 
 def count_tokens_api(texts):
-    key = os.environ.get("ANTHROPIC_API_KEY")
+    key = os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANT_API_KEY")
     out = []
     for t in texts:
         req = urllib.request.Request(
