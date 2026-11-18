@@ -17,7 +17,7 @@ def _post(url, headers, body, tries=6):
                 time.sleep(2 ** i + random.random())
                 continue
             raise RuntimeError(f"{e.code} {msg}") from None
-        except (urllib.error.URLError, TimeoutError):
+        except OSError:  # URLError, timeouts, connection resets
             if i < tries - 1:
                 time.sleep(2 ** i)
                 continue
