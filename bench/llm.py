@@ -45,25 +45,27 @@ def chat(model, system, messages, tools=(), max_tokens=2000):
         return {"text": text, "tool_calls": calls,
                 "usage": {"in": u["input_tokens"] + u.get("cache_read_input_tokens", 0) + u.get("cache_creation_input_tokens", 0),
                           "out": u["output_tokens"]}}
-    msgs = [{"role": "system", "content": system}]
+    items = []
     for m in messages:
         if m["role"] == "tool":
-            msgs += [{"role": "tool", "tool_call_id": r["id"], "content": r["content"]} for r in m["results"]]
+            items += [{"type": "function_call_output", "call_id": r["id"], "output": r["content"]} for r in m["results"]]
         else:
-            msgs.append(_to_openai(m))
-    body = {"model": model, "messages": msgs, "max_completion_tokens": max_tokens}
+            items += _to_openai(m)
+    body = {"model": model, "instructions": system, "input": items, "max_output_tokens": max_tokens, "store": False}
     if os.environ.get("OPENAI_REASONING_EFFORT"):
-        body["reasoning_effort"] = os.environ["OPENAI_REASONING_EFFORT"]
+        body["reasoning"] = {"effort": os.environ["OPENAI_REASONING_EFFORT"]}
     if tools:
-        body["tools"] = [{"type": "function", "function": {"name": t["name"], "description": t["description"],
-                                                            "parameters": t["schema"]}} for t in tools]
-    r = _post("https://api.openai.com/v1/chat/completions",
+        body["tools"] = [{"type": "function", "name": t["name"], "description": t["description"],
+                          "parameters": t["schema"]} for t in tools]
+    r = _post("https://api.openai.com/v1/responses",
               {"authorization": "Bearer " + os.environ["OPENAI_API_KEY"], "content-type": "application/json"}, body)
-    m = r["choices"][0]["message"]
-    calls = [{"id": c["id"], "name": c["function"]["name"], "input": json.loads(c["function"]["arguments"] or "{}")}
-             for c in m.get("tool_calls") or []]
-    return {"text": m.get("content") or "", "tool_calls": calls,
-            "usage": {"in": r["usage"]["prompt_tokens"], "out": r["usage"]["completion_tokens"]}}
+    out = r.get("output", [])
+    text = "".join(c.get("text", "") for o in out if o["type"] == "message" for c in o.get("content", [])
+                   if c.get("type") == "output_text")
+    calls = [{"id": o["call_id"], "name": o["name"], "input": json.loads(o.get("arguments") or "{}")}
+             for o in out if o["type"] == "function_call"]
+    return {"text": text, "tool_calls": calls,
+            "usage": {"in": r["usage"]["input_tokens"], "out": r["usage"]["output_tokens"]}}
 
 
 def _to_anthropic(m):
@@ -79,10 +81,7 @@ def _to_anthropic(m):
 
 def _to_openai(m):
     if m["role"] == "user":
-        return {"role": "user", "content": m["content"]}
-    if m["role"] == "assistant":
-        out = {"role": "assistant", "content": m.get("text") or None}
-        if m.get("tool_calls"):
-            out["tool_calls"] = [{"id": c["id"], "type": "function",
-                                  "function": {"name": c["name"], "arguments": json.dumps(c["input"])}} for c in m["tool_calls"]]
-        return out
+        return [{"role": "user", "content": m["content"]}]
+    out = [{"role": "assistant", "content": m["text"]}] if m.get("text") else []
+    return out + [{"type": "function_call", "call_id": c["id"], "name": c["name"], "arguments": json.dumps(c["input"])}
+                  for c in m.get("tool_calls", [])]
