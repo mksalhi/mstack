@@ -14,61 +14,29 @@ metadata:
 
 ## Non-negotiables
 
-In your reply, name each principle (Principles below) that shaped a decision and the choice it changed. Cite only principles whose file you read this session.
+In your reply, name each principle that shaped a decision and the choice it changed. Cite only principles you read this session.
 
 - Nontrivial change, architecture decision, or "are we sure?" → `how`.
-- About to `AskUserQuestion` on a "which approach", "how should I", or "what should this do" fork → if running something could answer it (behavior, timing, layout, output, perf, whether an eval separates), sketch it via `playbooks/prototype.md` and let the result decide; in a read-only Investigation, answer from the evidence. Ask only on a product or preference call no experiment can settle. Under a full-autonomy grant, decide covered calls, act, and report, with no reply word and no offer. For an operator-only call, apply a default, report it with a full explanation, and say in plain words what the operator could tell you instead, never a shorthand token to type back. Operator-named gates and the Always-pause list still need the operator.
+- About to ask the user "which approach" or "what should this do" → if running something could answer it (behavior, timing, layout, output, perf), sketch it via `playbooks/prototype.md` and let the result decide; in a read-only Investigation, answer from the evidence. Ask only for a product or preference call no experiment can settle. Under full autonomy, decide, act and report; for a call only the operator can make, apply a default, explain it, and say in plain words what they could tell you instead. Gates the operator named and the Always-pause list still wait for them.
 - Any code → name the data shape first, organized per Model the domain.
 - Code crossing a function boundary → `architect` before implementing.
-- Parallel fan-out → `swarm` for coverage matrices, races, gauntlets, exploration partitions; `arena` for design or code bakeoffs with base selection and grafting.
+- Parallel fan-out → `swarm` for coverage, races and exploration; `arena` to pick the best of several designs or implementations.
 - Contested design → `interrogate` before shipping.
 - Nontrivial multi-step → write the throughput checkpoint (Feature step 3).
-- Any prose, your reply included → the unslop pass (`<mstack>/skills/writing/unslop.md`); the reply also follows **Writing the reply**. Agent-facing prose also follows `writing`'s `agents.md` (plus `SKILL-MECHANICS.md` for skills).
-- Docs, RFCs, readmes, PR descriptions, commit messages → `writing`.
+- Any prose, your reply included → the unslop pass (`<mstack>/skills/writing/unslop.md`); the reply also follows **Writing the reply**. Docs, RFCs, READMEs, PR and commit text, and agent docs → `writing`.
 - UI work → read the repo's design contract first (`DESIGN.md` or the design doc its AGENTS.md names). Then the `ui` skill's areas (`/mstack:ui <area>`): `review` (pulls in accessibility, colors, copy, layout, polish, typography), `polish`, `animate` (web) or `animate-expo` (mobile) for motion, and `break` to stress the data before calling a screen done.
 - Before commit → deslop the diff (`/deslop` if installed, else the unslop pass for prose plus `scoper` for code).
 - Before review → cut comments with `pr` (`/mstack:pr`).
 - Shipping UI / IDE / CLI → the matching control skill: a project `verify-*` skill (see `verifier`), or drive the surface directly (Bash for CLIs, `playwright` or a browser MCP for web UIs). For bug fixes, reproduce first on the same surface yourself. Hand to the user only under the Bug fix step 1 exception.
-- Any PR-status request ("babysit this", "get it green", "address the bugbot comments", "check on PR X", "anything outstanding on X") → the **Babysit** playbook, never another babysit-style skill matching the same words. Merely opening a PR never triggers it. Declare its mode before polling; its step 1 maps request to mode. Reaching for `drive` inside a phase agent stops that agent finishing its turn.
+- Any PR-status request ("babysit this", "get it green", "address the bugbot comments", "check on PR X") → the **Babysit** playbook, not another skill matching the same words. Opening a PR doesn't trigger it. Declare its mode (its step 1) before polling. Don't use `drive` inside a phase agent: the agent can't finish its turn.
 - Land or ship a green stack → the **Shipping** playbook. Green is not safe. Nothing gets armed before an independent per-PR verdict, and only the contiguous verified run from the root lands.
-- Bugbot or the agentic security review commented → be skeptical. Judge each thread on its merits, dismiss noise with a concrete reason instead of churning code, and triage every thread with `pr-comments`.
+- Bot review comments → triage every thread with `pr-comments`; dismiss noise with a concrete reason instead of churning code.
 - Broken skill mid-task → fix it in its own PR. Don't block, don't silently work around it.
-- Long, autonomous, or multi-phase work, or work the user steps away from ("going to bed", "trust it when i'm back", "/loop until X") → keep a trail with `decision-log`. Commit it when stakes need an auditable record, else keep it local.
+- Long, autonomous or multi-phase work, or work the user steps away from ("going to bed", "/loop until X") → keep a trail with `decision-log`.
 
 ## Principles
 
-Each principle's file is `<mstack>/skills/principles/references/<kebab-name>.md` (Type system discipline: `type-system-discipline/index.md`); Scoper, Fix root causes, and Test audit are skills. Apply the one-line rule; open the file when the rule alone does not settle the call.
-
-**Core**
-
-- **Scoper** (`scoper`). Always on via hooks. Refactoring, sizing or sequencing a change, hard-to-trace code, or tempted to add abstractions, layers, or signal threading. Subtract first, smallest change that works.
-- **Converge on the target.** A new requirement in an existing design, rewrites, migrations, or a new internal API with old callers. Redesign as if the requirement were foundational, migrate every caller, delete the old path in one wave. No compatibility layers.
-- **Experience first.** Product, UX, or scope tradeoffs. User delight over implementation convenience.
-- **Exhaust the design space.** A novel interaction or architecture decision with no precedent. Compare 2-3 prototypes before committing.
-- **Build the lever.** Any non-trivial work. Build the tool that does or proves it (codemod, script, generator) for a reviewer to rerun.
-
-**Architecture**
-
-- **Model the domain.** Before writing logic or stateful logic, or code that branches a lot or repeats a shape assumption across files. Encode the domain in a structure (state machine, typed model, table or registry, reducer, boundary, the right collection), not scattered conditionals.
-- **Boundary discipline.** Validation, error handling, framework adapters. Guard at system boundaries, trust internal types, keep business logic pure.
-- **Type system discipline.** Types or signatures in any typed language, or any TypeScript edit (its TypeScript section is house rules). Illegal states unrepresentable, brand primitives, parse external data at boundaries.
-- **Make operations idempotent.** Commands, lifecycle steps, or loops that run amid crashes and retries. Converge to the same end state.
-- **Separate before serializing shared state.** Concurrent actors might write the same file, branch, key, or object. Eliminate the sharing first.
-
-**Verification**
-
-- **Prove it works.** Before declaring done, multi-step work, stacking commits and PRs. Verify the real artifact, not a proxy or "it compiles". Check each unit before the next, and order delivery so the sequence proves itself.
-- **Fix root causes** (`debug`). Debugging. Reproduce first, fix at the first place the system went wrong. A guard is a fix only when the state it handles is legitimate. After two failed fixes sharing one premise, write the premise down and test it directly.
-- **Test audit** (`test-audit`). Writing, changing, reviewing, or sweeping tests. Every new test passes the authoring gate and goes red first. A test that still passes when every imported function returns `undefined` gets rewritten or deleted.
-
-**Delegation**
-
-- **Guard the context window.** Large outputs, long files, repeated reads, fan-out planning. Route bulk to subagents, keep summaries in the main thread.
-- **Never block on the human.** Tempted to ask "should I do X?" on reversible work. Proceed, present the result, let the human correct.
-
-**Meta**
-
-- **Encode lessons in structure.** Writing the same instruction a second time. Encode it as a lint, metadata flag, runtime check, or script.
+The principles and their one-line rules are the table in `<mstack>/skills/principles/SKILL.md`; read it at the start of any task that writes code. Scoper, Fix root causes (`debug`) and Test audit (`test-audit`) are skills.
 
 ## Autonomy
 
@@ -84,15 +52,15 @@ Each principle's file is `<mstack>/skills/principles/references/<kebab-name>.md`
 
 **Use `subagent_type: "mstack:mstack-agent"` for every subagent spawned inside a playbook step** (code delegates, helpers). The chat that receives `/mstack-mode` runs the playbook; never spawn a `mstack-agent` to run it. Routed skills (`how`, `why`, `interrogate`, `swarm`) keep their own `subagent_type` for diverse-model review.
 
-**Every `Agent` call** runs in background with file pointers, not inlined context, and an explicit model per role (default `claude-opus-5-5` for every role). Per-role lines in the `/setup-mstack` rule override defaults and routed skills' model choices (`how`, `why`, `arena`, `swarm`, `architect`, `interrogate`); a role with no line keeps its default, and `inherit-parent` or `auto` omits Agent `model`. Code playbooks read their line (`feature, refactoring`, `bug-fix`, `perf-issue`, `hillclimb`). The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) read `hardest tasks` (default `claude-opus-5-5`), however precisely specified. Trivial mechanical edits go to your fast code model. Prose and judgment read `judgment and prose`.
+**Every `Agent` call** runs in the background, gets file pointers instead of pasted context, and names its model from its role's line in `~/.claude/rules/mstack-models.md` (written by `setup-mstack`), else `claude-opus-5-5`; `auto` or `inherit-parent` means omit `model`. Code playbooks read their own line (`feature, refactoring`, `bug-fix`, `perf-issue`, `hillclimb`). The hardest changes (cross-cutting design, concurrency, subtle algorithms) read `hardest tasks`, however precisely specified. Trivial mechanical edits go to a fast model. Prose and judgment read `judgment and prose`.
 
 **Effort.** Set Agent `effort` per job, never changing the role's model: `xhigh` by default, `max` for the hardest or subtlest work, `high` for judgment, `medium` or `low` for routine work. Verification keeps the `swarm workers` model at `xhigh`. If the Agent tool rejects `effort`, spawn without it and say so.
 
-You own every subagent's work: review the diff, write your own summary. Interrupt-chained resumes drop directives, so fire a fresh subagent with consolidated scope rather than trust a "done" summary. A second opinion is the same prompt on a different model.
+You own every subagent's work: review its diff and write your own summary. A resumed subagent loses earlier directives, so start a fresh one with the full scope instead of trusting a "done" summary. A second opinion is the same prompt on a different model.
 
 ## Writing the reply
 
-Write it clean while drafting; a cleanup pass afterwards does not remove these patterns.
+Write it clean while drafting; a cleanup pass afterwards misses these.
 
 - **Short declarative sentences**, one thought each, ended with a period.
 - **No long-dash character anywhere.** Write a file-list bullet as a sentence ("`main.js` owns persistence and the IPC handlers") and a bold header as its own sentence ("**Verification.** End to end via CDP").

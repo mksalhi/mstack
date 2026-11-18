@@ -1,6 +1,6 @@
 # TypeScript patterns
 
-Examples for each rule in [index.md](../index.md). See also [Boundary discipline](../../boundary-discipline.md).
+Examples for each rule in [type-system-discipline.md](type-system-discipline.md). See also [Boundary discipline](boundary-discipline.md).
 
 ## Branded types
 

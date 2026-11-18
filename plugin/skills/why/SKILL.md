@@ -9,16 +9,16 @@ metadata:
 
 # Why
 
-Investigate the motivation behind code: what forces led to its shape (`how` covers what it does). Work as a **careful, cautious, precise investigator**: separate what you know from what you infer. The confidence framework and phrasing are in `references/epistemics.md`; the synthesizer must follow it.
+Find the forces that gave code its shape (`how` covers what it does). Separate what you know from what you infer; the confidence framework is in `references/epistemics.md`, and the synthesizer must follow it.
 
 Every spawn is `subagent_type: "general-purpose"`. **Never swap in a narrower type like `Explore` or `Plan`**: a missing tool, MCP above all, disables MCP-backed investigators and the synthesizer's citation spot-checks. Investigators write nothing.
 
-Model per spawn: its role line in `~/.claude/rules/mstack-models.md`, else the default; leave `model` unset for `auto` or `inherit-parent`. Agent rejects a slug: use the default and say so; rejects the default: use the closest valid same-family slug from its error. Set `effort` per the **Effort** rule in `mstack-mode`'s Subagents section.
+Model per spawn: its role line in `~/.claude/rules/mstack-models.md`, else `claude-opus-5-5`; `auto` or `inherit-parent` means omit `model`. If the Agent tool rejects a model, use `claude-opus-5-5` and say so. Spawn with `effort: xhigh`.
 
 ## 1. Understand the target and the question
 
 - **Target:** usually code, a pattern, a feature, or a named design decision. **Question:** usually design rationale, a tradeoff, a motivating edge case, an external constraint, dead code, or a broad history sweep.
-- Vague target: best-guess from context (open files, recent edits, cursor, recent discussion), state your interpretation briefly, proceed.
+- Vague target: guess from context (open files, recent edits, the discussion), state your reading, and proceed.
 
 ## 2. Establish the code anchor
 
@@ -34,11 +34,11 @@ Trace back past the latest commit: the current shape accretes many earlier decis
 
 ## 3. Spawn parallel investigators
 
-**Default to the full parallel investigation**: a complete coverage map. Document the null; never skip the search.
+Default to the full parallel investigation. An empty result is a finding; never skip the search.
 
 List available MCP servers (the `mcp__<server>__<tool>` names in your tool list, deferred included, or `claude mcp list`). Map each to one roster category below by name, server instructions, tool names, and resource descriptors; a multi-fit MCP goes to its primary evidence, recorded as ambiguous in the coverage map.
 
-Spawn one investigator per category with a matching MCP, all in one message, each owning exactly one tool or MCP. `model`: the `why investigators` line, default `claude-opus-5-5`. Each prompt is `references/investigator-prompt.md` filled in, plus:
+Spawn one investigator per category with a matching MCP, all in one message, each owning exactly one tool or MCP, on the `why investigators` model. Each prompt is `references/investigator-prompt.md` filled in, plus:
 - the category playbook `references/sources/<source>.md` for the selected MCP, adapted from the examples in `references/source-playbook.md`
 - `references/sources/incident-postmortem.md` **if the target looks defensive** (null checks, retries, timeouts, rate limiting, feature flags, egress guards, OOM handlers)
 - the code anchor and the user's original question
@@ -62,11 +62,11 @@ A trivial single-commit target whose PR description holds the complete answer ma
 
 ## 4. Synthesize
 
-Spawn one synthesizer (`model`: the `why synthesizer` line, default `claude-opus-5-5`) with: investigator findings (including nulls and justified skips), the code anchor, the user's question, `references/epistemics.md`, and `references/synthesizer-prompt.md`.
+Spawn one synthesizer on the `why synthesizer` model with: investigator findings (including nulls and justified skips), the code anchor, the user's question, `references/epistemics.md`, and `references/synthesizer-prompt.md`.
 
 ## 5. Present
 
-Present the synthesizer's output; light edits for clarity or conversation context only. **Never rewrite the confidence language.**
+Present the synthesizer's output with light edits only. **Never rewrite the confidence language.**
 
 Its sections, per `references/synthesizer-prompt.md`: The Question, The Code in Question, What We Found, What We Can Reasonably Infer, Competing Hypotheses, What We Don't Know, Sources Consulted, Confidence Summary. Adapt freely but keep the confidence separation, and Sources Consulted as one line per investigator, including empty or skipped ones with the reason.
 

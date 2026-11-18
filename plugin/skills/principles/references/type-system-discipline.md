@@ -9,10 +9,10 @@ Make the compiler reject impossible states, mismatched primitives, and unhandled
 - **Make illegal states unrepresentable.** Model variants as sum types (TS discriminated unions, Rust/Swift/Kotlin enums with payloads, Scala sealed classes, Haskell/OCaml ADTs), not optional-field bags. `{ completed: boolean; completedAt?: Date }` admits `completed: true; completedAt: undefined`; derive the boolean (`completedAt !== null`) or use `{ kind: 'open' } | { kind: 'done'; at: Date }`. A bug that makes you ask "can this combination happen?" means the type is too loose.
 - **Types are constructions, not restrictions.** Build the type from the values you want instead of carving a looser type with checks. Non-empty list = head plus rest; valid range = start plus duration. No representation is privileged: pick the shape that cannot build the illegal value and expose the interface callers need on top.
 - **Brand semantic primitives.** `UserId` and `OrderId` must not be interchangeable: branded intersection (TS) or newtype. Validate once at creation, trust downstream. Same primitive, different meaning: brand.
-- **External data is untyped until parsed.** RPC payloads, JSON, IPC, CLI args, config, env vars, DB rows: a parse function at every boundary into the typed model. See [Boundary discipline](../boundary-discipline.md).
+- **External data is untyped until parsed.** RPC payloads, JSON, IPC, CLI args, config, env vars, DB rows: a parse function at every boundary into the typed model. See [Boundary discipline](boundary-discipline.md).
 - **Don't lie to the type system.** Casts, unsafe coercions, and compiler-bypassing assertion functions are latent crashes. Prove the fact (validate, narrow, refine) or accept the cast as a hazard.
 - **Exhaustive matching is the compiler's job.** Adding a variant must fail compilation where unhandled: `never` binding (TS), unannotated `match` (Rust), `-Wincomplete-patterns` (Haskell), sealed-class exhaustiveness (Kotlin).
-- **Derive types from authoritative schemas.** Protobuf, OpenAPI, GraphQL, DB migration, design-token file, or any file owning a shape: derive, don't hand-roll. See [Encode lessons in structure](../encode-lessons-in-structure.md).
+- **Derive types from authoritative schemas.** Protobuf, OpenAPI, GraphQL, DB migration, design-token file, or any file owning a shape: derive, don't hand-roll. See [Encode lessons in structure](encode-lessons-in-structure.md).
 - **Strengthen a type only where partiality appears.** An assertion, null check, or "should never happen" throw marks a too-weak type: push the check into the type, then stop. Types track the cases each use site must handle, not maximal precision. Prefer total functions: `sum` takes a plain list (empty = 0); `head` demands non-empty.
 
 **Tests:**
@@ -39,8 +39,8 @@ Apply when reading or editing `.ts` or `.tsx`.
 | Type guards | Must verify the claim; a lying guard is worse than `as`. Name them `isX` or `hasX`. |
 | Exhaustiveness | Inline `const _exhaustive: never = x;` in default arms so the compiler errors when a new variant is added. |
 | `satisfies` over `as` | Validates the value without widening literal types. |
-| Boundary validation | Parse where data crosses in, into a named domain type. `Record<string, unknown>` (however spelled) stops at that parse. Trust types inside. See [Boundary discipline](../boundary-discipline.md). |
+| Boundary validation | Parse where data crosses in, into a named domain type. `Record<string, unknown>` (however spelled) stops at that parse. Trust types inside. See [Boundary discipline](boundary-discipline.md). |
 | Schema-derived types | Reach for `Pick`/`Omit`/`Parameters`/`ReturnType`/`Awaited`/`typeof` before declaring a new interface. |
 | Object args | Pass objects, not positional, so argument order is self-documenting. Skip on hot paths (per-frame render, tokenizers, parsers). |
 
-Examples: [references/patterns.md](references/patterns.md).
+Examples: [type-system-patterns.md](type-system-patterns.md).

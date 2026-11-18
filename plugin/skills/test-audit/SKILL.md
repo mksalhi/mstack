@@ -9,11 +9,11 @@ metadata:
 
 # Test audit
 
-Read the repo's root and scoped `AGENTS.md` files first; they win over this skill. Three modes, one value bar:
+Read the repo's `AGENTS.md` files first; they win over this skill. Three modes, one bar:
 
 - **Authoring**: gate every new or changed test at write time.
-- **Audit**: focused sweeps for tests that re-assert source, duplicate stronger proof, couple to implementation, or keep test-only production seams alive. Continue broad audits as separate coherent follow-up PRs; optimize for confidence, not deletion count.
-- **Campaign**: prune one whole subsystem's test surface (every test file a workspace or subsystem owns). Read [CAMPAIGN.md](CAMPAIGN.md) first.
+- **Audit**: sweeps for tests that restate source, duplicate stronger tests, couple to implementation, or keep test-only production hooks alive. Split a broad audit into separate PRs; aim for confidence, not deletion count.
+- **Campaign**: prune every test a workspace or subsystem owns. Read [CAMPAIGN.md](CAMPAIGN.md) first.
 
 ## Authoring gate
 
@@ -36,7 +36,7 @@ Then answer four questions; add the test only when all four have answers:
 
 Then check every [junk pattern](#junk-patterns); a match fails unless the [retention bar](#retention-bar) names the contract it independently guards. A test that breaks under behavior-preserving refactoring asserts implementation: rewrite it at the owning boundary.
 
-Before landing, break the production branch it names, watch it go red, then restore the source byte for byte.
+Before landing, break the production code it guards, watch the test go red, then restore the source exactly.
 
 Bug regression tests must fail on pre-fix code for the intended reason and pass after the owner-boundary repair. One regression at the owner boundary covers the bug; don't replay it at every layer.
 

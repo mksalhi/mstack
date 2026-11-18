@@ -9,20 +9,20 @@ metadata:
 
 # Swarm
 
-Open a todolist with one entry per phase (Frame, Fan out, Aggregate, Report) before launching anything.
+Open a todolist: Frame, Fan out, Aggregate, Report.
 
 ## Phase A: Frame
 
 1. State the done predicate and the artifact or report to return.
 2. Shape: partition into slices, race N workers on identical briefs, or mix. For a race or mix, declare `first pass`, `rank all`, or `best-of` before spawning.
-3. Worker model: the `swarm workers` line in `~/.claude/rules/mstack-models.md` (missing: `claude-opus-5-5`; `auto`/`inherit-parent`: omit `model`). If the Agent tool rejects a slug, use the default and say so; if it rejects the default, use the closest valid same-family slug from the error. A model race names each arm's model up front. Set each spawn's `effort` per the **Effort** rule in `mstack-mode`'s Subagents section.
+3. Worker model: the `swarm workers` line in `~/.claude/rules/mstack-models.md`, else `claude-opus-5-5`; `auto` or `inherit-parent` means omit `model`. If the Agent tool rejects a model, use `claude-opus-5-5` and say so. A model race names each arm's model up front. Spawn workers with `effort: xhigh`.
 4. Each writing worker gets its own writable output. Briefs that verify or measure commits name the exact SHAs; measurement briefs also name the method (sample count, what one sample is, order). Workers record both.
 
 ## Phase B: Fan out
 
 Spawn all N in one message with `subagent_type: general-purpose`, `isolation: "worktree"` for writers (omit for read-only), and the step 3 model. A worker starting from a non-default pushed branch gets it named in the brief and checks it out in its worktree first.
 
-Every brief stands alone: goal, scope, exact slice or race arm, how to verify, what to report. Reports use `PASS`, `ISSUES`, or `BLOCKED` with evidence; `ISSUES` lists every provable issue, not only the first. A dropout: proceed with N-1 and note it.
+Every brief stands alone: goal, scope, exact slice or race arm, how to verify, what to report. Reports use `PASS`, `ISSUES` or `BLOCKED` with evidence; `ISSUES` lists every provable issue, not only the first. If a worker drops out, continue with N-1 and note it.
 
 ## Phase C: Aggregate
 

@@ -9,15 +9,7 @@ metadata:
 
 # Write Swift
 
-## Initial response
-
-When first invoked without a specific question, respond only with:
-
-> I'm ready to help you write modern Swift, the way the language wants to be written.
-
-Say nothing else until the user asks a question.
-
-**Baseline: Swift 6.3** (current as of August 2026). ⚠ marks unreleased Swift 6.4 features: accepted and in main, unsafe to write today; check the toolchain and use the older form on 6.3 or earlier. Concurrency rules assume the Swift 6.2 model; on 6.1 or earlier the `async`/`@concurrent` rules in §3 do not apply.
+**Baseline: Swift 6.3.** ⚠ marks Swift 6.4 features: check the toolchain and use the older form on 6.3 or earlier. Concurrency rules assume the Swift 6.2 model; on 6.1 or earlier the `async`/`@concurrent` rules in §3 do not apply.
 
 Start with the simplest, most static, single-threaded thing that works. Move down a row only with a reason you can state:
 
@@ -169,40 +161,9 @@ Start concrete. Concrete types → repeated code → protocol → generic code. 
 - Drop leading `get`: `persistentPosts`.
 - Explicit access control at boundaries (`private`, `internal`, `package`, `public`).
 - Illegal states unspellable: private setters + validating mutating method, enums, typed `UUID` over `String`.
-- Property wrappers for access policies; with `@dynamicMemberLookup` to project through (`$binding.title`). Result builders for DSLs; macros for compiler-derivable boilerplate (§12).
+- Property wrappers for access policies; with `@dynamicMemberLookup` to project through (`$binding.title`). Result builders for DSLs; macros for compiler-derivable boilerplate.
 
-## 9. Performance: measure, then choose
-
-Four costs: calls (copies, dispatch, blocked optimization), layout (inline vs out-of-line), allocation (global free, stack cheap, heap expensive), copies (retain/release).
-
-Algorithms first:
-
-- `remove(at:)` in a loop is O(n²); `removeAll(where:)` is O(n). Re-slicing `Data` per byte is O(n²); `popFirst()` is O(1).
-- Chained `map`/`filter` allocate per stage; in hot loops size output once and write into it.
-- Profile a *test* in Instruments (secondary-click its run button → Profile). `platform_memmove` = copying; many transient allocations = intermediate arrays; `swift_beginAccess` = exclusivity checks; `swift_retain`/`swift_release` = refcount traffic.
-
-Levers:
-
-- `final` on non-subclassed classes; whole-module optimization enables specialization.
-- Large structs with reference fields cost one retain per field per copy; use copy-on-write if copied a lot.
-- `any P` has a 3-word inline buffer; bigger values heap-allocate per copy (fix with indirect COW storage).
-- `[MyModel]` over `[any Model]`. `T: AnyObject` gives a known representation.
-- `InlineArray<N, T>` (6.2): inline fixed-size storage, no heap/refcount/uniqueness checks. Bad if copied or shared.
-- `Span` / `RawSpan` / `OutputSpan` (6.2): non-escapable, replaces `withUnsafeBufferPointer`.
-- Moving stored properties from a nested class into the parent struct removes exclusivity checks.
-- 6.3, when measured: `@inline(always)` (with `final`), `@specialized(where T == ...)` (SE-0460).
-- ⚠ 6.4: `borrow`/`mutate` accessors, `UniqueArray`/`UniqueBox`, `Ref`/`MutableRef` to hoist lookups.
-- Don't make functions `async` with nothing to await. Batch main-actor hops (pass arrays instead of hopping per iteration).
-
-## 10. ARC and lifetime
-
-- Lifetime ends at last use, not the closing brace; code depending on `deinit` timing is a bug.
-- `weak`/`unowned` only break cycles. Reading `weak` after the owner's last use may give `nil`; optional binding there hides the bug worse than a crash.
-- Prefer no cycle: factor shared data into a third type (tree). Next: redesign so the object is only strongly reachable. `withExtendedLifetime` is a patch.
-- Keep `deinit` side effects local; use `defer` at the call site.
-- **Optimize Object Lifetimes** build setting surfaces these bugs.
-
-## 11. Testing: Swift Testing
+## 9. Testing: Swift Testing
 
 XCTest only for UI automation (`XCUIApplication`), `XCTMetric`, and Objective-C tests/exceptions.
 
@@ -216,30 +177,7 @@ XCTest only for UI automation (`XCUIApplication`), `XCTMetric`, and Objective-C 
 - Exit tests: `#expect(processExitsWith: .failure) { ... }` for `precondition`/`fatalError` (macOS, Linux, FreeBSD, Windows).
 - Migration: frameworks coexist in one target; migrate incrementally, new tests in Swift Testing. Interop (ST-0021; check Xcode availability) lets `XCTFail` helpers run from Swift Testing and vice versa: mode **complete** or **strict**, never **limited** or **none**, so issues stay errors and point to `Issue.record`.
 
-## 12. Macros
-
-Only for code the compiler could derive.
-
-- Freestanding `#foo`; attached `@Foo` roles: member, peer, accessor, member-attribute, conformance (composable).
-- Test with `assertMacroExpansion`; breakpoint in `expansion` and `po` the node.
-- When it doesn't apply, throw or `context.addDiagnostic` (warnings, fix-its). Never silently emit uncompilable code.
-
-## 13. Logging and debugging
-
-- `Logger` from `os`, one per subsystem/category, never `print`.
-- Non-numeric interpolations are redacted; `privacy: .public` only for non-personal data; `.private(mask: .hash)` to correlate.
-- Levels: `debug` (not persisted, optimized away), `info`, `notice` (default), `error`, `fault`. Bug-report material at `error`/`fault`.
-- Log a correlation ID; `log collect --device --start ...`, filter by subsystem in Console. Use `format:`/`align:`.
-- LLDB: steps across `await`; `swift task info`; name tasks for the debugger and Instruments.
-
-## 14. Unsafe code and interop
-
-- Unsafe = precondition violations are undefined behavior. Safe traps are fine.
-- `Span` over `Unsafe*Pointer`; raw pointers only for C interop. Then: smallest region, buffer pointers, never escape the closure, run **Address Sanitizer**.
-- **Strict memory safety** in security-critical modules (⚠ 6.4 `@diagnose` per function).
-- Interop is incremental: C/ObjC/C++ map in (C++ move-only → `~Copyable`); 6.3 `@c` exposes Swift to C (`@implementation` for existing headers). Adopt file by file; don't rewrite.
-
-## 15. Modern syntax
+## 10. Modern syntax
 
 | Instead of                                                            | Write                                                                                                    | Since |
 | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ----- |
@@ -263,16 +201,13 @@ Only for code the compiler could derive.
 
 Regex: compose Foundation parsers (`.date(...)`, `.currency(...)`), never hand-roll; explicit locale; `NegativeLookahead` or `Local` to stop backtracking.
 
-## 16. Migrating to Swift 6
+## More
 
-Enable Approachable Concurrency and (app modules) main-actor-by-default first; use Xcode's migration tooling (swift.org/migration).
+Read the matching file before working on:
 
-1. Build with the new compiler in Swift 5 mode.
-2. Per target, enable complete concurrency checking, UI/app layer first.
-3. Fix warnings cheapest first (`var` globals → `let`, functions → `@MainActor`, public struct → `: Sendable`).
-4. Flip the target to Swift 6 mode.
-5. Next target, repeat.
-6. Refactor afterwards, separately; never combine with enabling data-race safety.
+- performance, allocation, copies, ARC, `deinit` or retain cycles: [references/performance.md](references/performance.md);
+- macros, `Logger` and LLDB, `Unsafe*` pointers or C/C++ interop: [references/macros-logging-unsafe.md](references/macros-logging-unsafe.md);
+- moving a target to Swift 6 language mode: [references/migrating-to-swift-6.md](references/migrating-to-swift-6.md).
 
 ## Not
 

@@ -9,7 +9,7 @@ metadata:
 
 # Interrogate
 
-One reviewer per configured model adversarially reviews a change; the signal comes from model diversity, not personas. Deliver a synthesized verdict and leave every change for the user to apply.
+One reviewer per configured model attacks a change; the signal comes from model diversity, not personas. Deliver one verdict and leave every change for the user to apply.
 
 ## Step 1, Scope
 
@@ -21,17 +21,7 @@ State the intent in one paragraph from the user's message, commit messages, PR d
 
 ## Step 3, Spawn reviewers
 
-Launch all reviewers in one message, one per entry on the `interrogate reviewers` line in `~/.claude/rules/mstack-models.md`, labeled Reviewer A, B, and so on. Missing rule or line: the table defaults. Set each spawn's `effort` per the **Effort** rule in `mstack-mode`'s Subagents section.
-
-| Subagent | Default model |
-|----------|---------------|
-| Reviewer A | `claude-opus-5-5` |
-| Reviewer B | `claude-opus-5-5` |
-
-Each gets `subagent_type: "general-purpose"`, a brief that forbids edits, and `model` set to its entry or table default; omit `model` for `auto`/`inherit-parent` (parent model). Never treat an alias as a rejected slug or apply the fallbacks below to it.
-
-- Agent tool rejects a configured entry: run that reviewer on its family's table default (`opus`, `fable`, `sonnet`, `haiku`, or full `claude-*` ids; no match: Reviewer A's default) and say so.
-- Rejects a table default: use the closest valid slug from the error (same family, most capable), open a separate PR updating the table, and don't block the review.
+Launch all reviewers in one message, one per entry on the `interrogate reviewers` line in `~/.claude/rules/mstack-models.md` (else two on `claude-opus-5-5`), labeled Reviewer A, B, and so on. Each gets `subagent_type: "general-purpose"`, a brief that forbids edits, `effort: high`, and its entry as `model`; `auto` or `inherit-parent` means omit `model`. If the Agent tool rejects a model, run that reviewer on its family alias (`opus`, `fable`, `sonnet`, `haiku`) and say so.
 
 Fill `references/reviewer-prompt.md` identically for every reviewer with the intent, the diff or contents, `references/rubric.md`, and `references/code-quality-review.md`.
 
@@ -41,7 +31,7 @@ Merge findings that describe the same issue, noting which models raised each. In
 
 ## Step 5, Lead judgment
 
-You are the lead reviewer, a pragmatic senior engineer, not a neutral aggregator. Apply `references/lead-judgment.md`. Bucket every finding with its model(s) and a one-line rationale:
+You are the lead reviewer, a pragmatic senior engineer, not a neutral aggregator. Apply `references/lead-judgment.md` and bucket every finding with its model(s) and a one-line reason:
 
 - **Act on**: real correctness, security, or maintainability issues given the goals; would block a real PR.
 - **Consider**: legitimate, but unclear it outweighs the cost now.

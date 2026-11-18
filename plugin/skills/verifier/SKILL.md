@@ -9,7 +9,7 @@ metadata:
 
 # Verification skill
 
-A `create` or `maintain` argument picks the mode. Otherwise pick **Create** when the project has no `.claude/skills/verify-*` skill and **Maintain** when one exists and the app has changed, and say which.
+A `create` or `maintain` argument picks the mode. Otherwise use **Create** when the project has no `.claude/skills/verify-*` skill and **Maintain** when it has one, and say which.
 
 ## Create
 
@@ -52,7 +52,7 @@ Point the user at `/mstack:verifier maintain`. Suggest a cadence only if asked.
 
 ## Maintain
 
-Upkeep for a Create-mode skill or any project-local verification skill with a feature map. The unit of rigor is the feature: cover every feature file from source and exercise every feature live, without terminalising every bullet.
+Upkeep for a project-local verification skill with a feature map. Cover every feature file from source and drive every feature live at least once; not every bullet needs its own drive.
 
 ### Outcomes
 

@@ -18,3 +18,17 @@ Split off a model-invoked skill when a distinct leading word you actually use in
 ## Router skills
 
 When user-invoked skills pile up past memory, add a **router skill**: one user-invoked skill naming the others and when to use each, so the human remembers one. It can only hint, never fire them.
+
+## Description
+
+- Front-load the leading word and the main trigger. Harnesses cut descriptions when the skill listing overflows its budget (Claude Code: 1% of the context window, entries capped at 1,536 characters; Codex: 2% or 8,000 characters), and the cut falls on the end.
+- Say when to use it, not how it works: an agent that reads a workflow summary in the description tends to follow the summary instead of loading the skill.
+- Name the near-miss when a neighbouring skill shares its words ("For what changed in this chat, use ketchup").
+
+## Size and layout
+
+- Keep `SKILL.md` under 500 lines and about 5,000 tokens: it stays in context for the rest of the session once loaded.
+- Everything every branch needs goes inline; what only some branches need goes in a file the body points to with its condition ("Read `references/x.md` before Y"). Name scripts the agent should run, not read.
+- Point to files from `SKILL.md` directly, one hop. A chain (`SKILL.md` → a.md → b.md) gets partial reads.
+- Put a contents list at the top of a reference file over 300 lines.
+- Sources: platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices, agentskills.io/specification, code.claude.com/docs/en/skills, learn.chatgpt.com/docs/build-skills, and obra/superpowers `writing-skills` for the workflow-summary finding (2026-11-18).

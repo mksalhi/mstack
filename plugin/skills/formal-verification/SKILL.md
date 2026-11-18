@@ -12,10 +12,10 @@ metadata:
 
 Two modes, picked by whether a verify skill already covers the area:
 
-- **Create**: find where exhaustive checking (every step order in a model, every input up to a bound, or every input) matters most, verify one property there, and leave a project-local skill that rechecks it.
-- **Maintain**: bring an existing verification back in line with code that changed without it (merges, edits made without the skill, drift across many commits). A check left behind can keep passing on code that no longer exists, and that pass looks like a proof.
+- **Create**: find where exhaustive checking matters most, verify one property there, and leave a project-local skill that rechecks it.
+- **Maintain**: bring an existing verification back in line with code that changed without it. A stale check can keep passing on code that no longer exists, and that pass looks like a proof.
 
-Driving the running app like a user is `/mstack:verifier`'s job. Write for an agent reading cold, mid-change; the user must be able to trust and act on the result without learning the verification language.
+Driving the running app like a user is `verifier`'s job. The user must be able to trust and act on the result without learning the verification language.
 
 ## Rules for both modes
 
@@ -31,7 +31,7 @@ Driving the running app like a user is `/mstack:verifier`'s job. Write for an ag
 
 ### Choose the target from the code
 
-Ask the user only what you cannot observe in the codebase. Start from any area or bug the user named. Pick the strongest promise the code makes where a break harms users and tests rarely reach the breaking case, not the easiest to verify.
+Start from any area or bug the user named, and ask only what the code can't tell you. Pick the strongest promise the code makes where a break harms users and tests rarely reach the breaking case, not the easiest one to verify.
 
 ### Let the question choose the tool
 
@@ -41,11 +41,11 @@ Pick the cheapest tool that answers the question:
 - Code behaving for every input (memory safety, overflow, data-structure invariants) → a verifier that runs on the code. None for this language: say so, and test the real code with generated inputs, not a hand model.
 - Must hold at every size, beyond a bound → may need a proof assistant.
 
-Prefer tools the repo's developers can install and run; tell the user why you chose it.
+Prefer tools the repo's developers can install and run, and say why you chose it.
 
 ### Generate the verify skill
 
-Write `.claude/skills/<name>/SKILL.md` with frontmatter naming the area and when to use it (without frontmatter it never registers). From the skill alone, the next agent must be able to: tell whether a change touches verified code, run the check, tell a real bug from a modeling error, and update the verification for intended changes. Include the coverage record and sync commit, and tell the next agent to advance the sync commit only after confirming the verification describes the code at the new commit. Use the repo's real commands, paths, and nouns; no placeholders.
+Write `.claude/skills/<name>/SKILL.md` with frontmatter naming the area and when to use it (without frontmatter it never registers). From the skill alone, the next agent must be able to tell whether a change touches verified code, run the check, tell a real bug from a modeling error, and update the verification for intended changes. Include the coverage record and sync commit, and say to advance the sync commit only after confirming the verification describes the code at the new commit. Use the repo's real commands, paths and names.
 
 ### Prove it before you hand off
 

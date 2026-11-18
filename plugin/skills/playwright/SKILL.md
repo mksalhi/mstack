@@ -10,23 +10,9 @@ metadata:
 
 # Playwright CLI
 
-Drive a real browser with `playwright-cli` through the bundled wrapper. Stay CLI-first: no `@playwright/test` specs unless the user explicitly asks for test files.
+Drive a real browser with `playwright-cli` through the bundled wrapper. Stay CLI-first: write `@playwright/test` specs only when the user asks for test files.
 
-## Prerequisite check (required)
-
-Before proposing commands, run `command -v npx >/dev/null 2>&1`. If missing, pause and ask the user to install Node.js/npm, giving these steps verbatim:
-
-```bash
-# Verify Node/npm are installed
-node --version
-npm --version
-
-# If missing, install Node.js/npm, then:
-npm install -g @playwright/cli@latest
-playwright-cli --help
-```
-
-Prefer the wrapper (it runs `npx --package @playwright/cli playwright-cli`) over a global install unless the repo standardizes on one. Set it once:
+The wrapper needs `npx`. If `command -v npx` fails, stop and ask the user to install Node.js. Set the wrapper once:
 
 ```bash
 export PWCLI="${CLAUDE_SKILL_DIR}/scripts/playwright_cli.sh"
@@ -54,8 +40,6 @@ Open only what you need: the command list in `references/cli.md`, workflows and 
 
 ## Guardrails
 
-- Always snapshot before referencing ids like `e12`.
+- Snapshot before using a ref like `e12`; never bypass refs with `run-code`.
 - Prefer explicit commands over `eval` and `run-code`.
-- Without a fresh snapshot, use placeholder refs like `eX` and say why; don't bypass refs with `run-code`.
-- Use `--headed` when a visual check helps.
-- Save artifacts under the mstack store or the repo's existing artifact dir; no new top-level folder.
+- Save artifacts under the mstack store or the repo's existing artifact folder, not a new top-level folder.

@@ -13,15 +13,15 @@ Run the mode named by the `write` or `resume` argument; otherwise infer it and s
 
 ## Write
 
-Leave a compact summary another session can continue from without rereading the thread. Operational truth over narrative.
+Leave a summary another session can continue from without rereading the thread: state, not story.
 
-1. Anchor on the newest user intent.
-2. With a workspace, check `git status --short --branch`, the current branch and recent commits when relevant, and PR URLs and status if known or requested.
-3. Include only durable facts: workspace path, branch, PR, latest commit; goal and constraints; completed changes; validation run and results; blockers, risks, pending decisions; the exact next step or commands.
-4. Flag warnings: dirty worktree or unpushed commits, branch mismatch, migrations needed, tests not run, external auth or tooling blockers.
-5. End with "Good next step" so the next chat can act immediately.
+1. Anchor on the user's newest intent.
+2. In a workspace, check `git status --short --branch`, recent commits and PR status.
+3. Include only durable facts: workspace, branch, PR, latest commit; goal and constraints; what's done; what was validated and how; blockers, risks and pending decisions; the exact next step.
+4. Flag dirty or unpushed work, branch mismatches, pending migrations, tests not run, and auth or tooling blockers.
+5. End with "Good next step".
 
-When the user wants something to paste, output a fenced `text` block. Omit empty sections; terse concrete bullets.
+When the user wants something to paste, output a fenced `text` block. Omit empty sections; use terse bullets.
 
 ```text
 Workspace:
@@ -44,16 +44,14 @@ Known issues / blockers:
 Good next step:
 ```
 
-- Exact filenames, branches, PR numbers, commands, counts when known.
-- Separate user intent from inferred next steps.
-- No private chain-of-thought, speculation, stale abandoned tasks, or explaining why the handoff exists.
-- If a skill or reusable workflow was created or updated, mention it separately from the handoff text.
+- Give exact filenames, branches, PR numbers, commands and counts.
+- Keep the user's intent apart from inferred next steps.
+- Leave out speculation, abandoned tasks, and why the handoff exists.
+- Mention a skill or workflow you created or changed outside the handoff text.
 
 ## Resume
 
-Rebuild the user's recent working context and return a tight capsule of where things stand and what to do next. Read only what the in-scope threads need, then stop.
-
-Context lives in two records: your chat history, and the shared record (source control, issue tracker, chat and issue channels, long-form docs, error tracking) that the `why` skill searches, which holds user-reported symptoms, reverted fixes, and live prod errors. Don't reconstruct from transcripts alone.
+Rebuild the user's recent working context and return a short capsule of where things stand and what to do next. Context lives in two places: chat history, and the shared record the `why` skill searches (source control, issue tracker, team chat, docs, error tracking), which holds user-reported symptoms, reverted fixes and live errors. Don't rebuild from transcripts alone.
 
 Read this project's transcripts per `<mstack>/skills/mstack-mode/references/transcripts.md`. Never glob ~/.claude/projects/*/.
 

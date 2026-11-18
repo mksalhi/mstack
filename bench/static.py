@@ -174,10 +174,14 @@ def analyze(ref=None, exact=False):
 
 
 if __name__ == "__main__":
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    out = analyze(args[0] if args else None, exact="--exact" in sys.argv)
-    if "--json" in sys.argv:
-        json.dump(out, open(sys.argv[sys.argv.index("--json") + 1], "w"), indent=1)
-    s = out["summary"]
-    for k, v in s.items():
-        print(f"{k:22} {round(v) if isinstance(v, float) else v}")
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("ref", nargs="?")
+    ap.add_argument("--json")
+    ap.add_argument("--exact", action="store_true")
+    a = ap.parse_args()
+    out = analyze(a.ref, exact=a.exact)
+    if a.json:
+        json.dump(out, open(a.json, "w"), indent=1)
+    for k, v in out["summary"].items():
+        print(f"{k:24} {round(v) if isinstance(v, float) else v}")
