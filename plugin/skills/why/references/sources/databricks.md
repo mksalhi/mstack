@@ -1,52 +1,34 @@
-# Databricks Analytics & System Tables
+# Databricks analytics and system tables
 
-## What this source contains
+The product view (Datadog is the runtime view): what users did, which experiments ran, where a threshold came from.
 
-The product/data view (Datadog is infra/runtime): what users did, which experiments ran, how usage evolved, where a threshold came from.
+## Tables
 
-- **Product analytics events:** `your_warehouse.events.analytics_track_event` (raw) and typed, deduplicated per-event dbt models in `<your_analytics_db>.<schema>.<table>`: feature invocations, clicks, accepts/rejects, submissions, client errors.
-- **Usage & billing events:** `your_warehouse.events.usage_event` / `<your_analytics_db>.<schema>.stg_usage_events`, `your_warehouse.events.raw_model_event` / `<your_analytics_db>.<schema>.stg_raw_model_events`, for cost- or volume-driven decisions.
-- **Experiment / feature-flag tables:** **company-specific schema**; probe with `SHOW TABLES` first.
-- **System tables:** `system.query.history`, `system.compute.warehouses`, `system.billing.*`, `system.access.audit` ("was this query expensive?", "how often was it run?", "when did load spike?").
-- **dbt lineage:** models in `<your_analytics_db>.<schema>` show what depends on a table or field; upstream changes often motivate consumer code.
-- **Notebooks:** **not queryable via the SQL MCP**; if the rationale likely lives in one, return a gap.
+- **Product events:** raw `your_warehouse.events.analytics_track_event`, or the typed, deduplicated dbt models `<your_analytics_db>.<schema>.stg_<source>_<event_name>` (`<source>` is `app`, `backend`, `website` or `cli`). Typed models carry `_timestamp`, `_id`, `_auth_id`, `_request_id`, `event_name`, `properties_<name>` and `context_*` columns. Prefer them; use raw only when no model exists or within the dbt refresh lag (dedupe raw by `_id`).
+- **Usage and billing:** `events.usage_event` / `stg_usage_events`, `events.raw_model_event` / `stg_raw_model_events`.
+- **Experiments and flags:** company-specific; find them with `SHOW TABLES ... LIKE '*experiment*'`.
+- **System tables:** `system.query.history`, `system.compute.warehouses`, `system.billing.*`, `system.access.audit`.
+- **Notebooks** aren't queryable through the SQL MCP; if the answer likely lives in one, report a gap.
 
-## How to search it
+## Querying
 
-Use the Databricks SQL MCP: `execute_sql_read_only`; if it returns a `statement_id`, poll with `poll_sql_result` instead of re-running.
+Use `execute_sql_read_only`; if it returns a `statement_id`, poll with `poll_sql_result` rather than rerunning. Confirm every table with `SHOW TABLES` / `DESCRIBE TABLE` before reporting from it. Bound every query to about 30 days either side of the ship date (`_timestamp`, or `start_time` for query history); unbounded scans time out.
 
-- **Orient first:** schemas are company-specific; never report from a table you didn't confirm.
+## Patterns that pay off
 
-  ```sql
-  SHOW TABLES IN <your_analytics_db>.<schema> LIKE '*<keyword>*';
-  DESCRIBE TABLE <your_analytics_db>.<schema>.stg_<event>;
-  ```
+1. **Usage trajectory:** daily counts ±30 days around the merge. Zero to steady in a day or two means the PR launched it; decay to zero means deprecation.
+2. **Threshold origin:** median, p99 and max of the relevant `properties_<name>` in the 14 days before the PR. A p99 matching the constant suggests a data-chosen number.
+3. **Experiment:** exposure counts by variant for the flag key near the PR date.
+4. **Migrations and perf rewrites:** `system.query.history` with `statement_text ILIKE '%<table>%'`, sorted by `total_duration_ms` or summed `read_bytes`.
+5. **dbt lineage:** if the target reads or writes a model, hand that model's git history to the git investigator.
 
-- **Time-bound every query** (unbounded scans time out): `_timestamp` (events) or `start_time` (`system.query.history`), ~30 days either side of the ship date, wider only with strong reason.
-- **Prefer typed dbt models** (deduplicated, typed, liquid-clustered) over the raw table (duplicates, untyped `properties_json`). Name pattern `stg_<source>_<event_name_with_underscores>`, `<source>` ∈ `app`, `backend`, `website`, `cli`; confirm with `SHOW TABLES`. Use raw only when no model exists or for events inside the refresh lag.
-- **Typed model columns:** `_timestamp`, `_id`, `_auth_id`, `_request_id`, `event_name` on every model; `properties_<name>` (typed event properties, e.g. `properties_entrypoint`, `properties_size_bytes`); `context_team_id`, `context_client_version`, `context_country`, `context_client_os`.
+## Pitfalls
 
-### Investigation patterns that tend to pay off
+- An event correlating with the ship date isn't causation; pair it with a PR citation.
+- A volume step may be a new event, not new behavior; look for instrumentation PRs in the window.
+- Older data may hold a field only in raw `properties_json`.
+- A window before retention or model creation is a gap, not zero activity. Say so.
 
-1. **Usage trajectory:** daily counts on the `stg_*` model over ±30d around the merge. Zero to steady within a day or two suggests the PR launched it; decay to zero suggests deprecation.
-2. **Guard-rail origin:** median / p99 / max of the relevant `properties_<name>` in the 14 days *before* the PR. A p99 matching the threshold constant suggests a data-chosen number.
-3. **Experiment / flag:** `SHOW TABLES ... LIKE '*experiment*'`, then exposure counts by variant for the flag key near the PR date.
-4. **Migrations, backfills, perf rewrites:** `system.query.history` with `statement_text ILIKE '%<table_or_symbol>%'` and a tight `start_time` window; sort by `total_duration_ms` or aggregate `SUM(read_bytes)`, `COUNT(*)`.
-5. **dbt lineage:** if the target reads or writes a model, the model's git history holds the rationale; hand that lead to the git investigator.
+## Return
 
-## What good evidence looks like here
-
-- An error-classifying event dropping to near zero after a defensive-code PR.
-- An exposure table naming the target's flag key with a "shipped" / "concluded" decision near the ship date.
-
-## Common pitfalls
-
-- **Instrumented ≠ caused:** pair with a PR/commit citation from the git investigator before claiming causation.
-- **Silent instrumentation changes:** a volume step may be a new event, not new behavior; check for instrumentation PRs in the window.
-- **Schema drift:** a typed column may postdate the target; older data may hold it only in raw `properties_json`.
-- **dbt refresh lag** (hourly/daily): for the last few hours use `your_warehouse.events.*`, deduplicated by `_id`.
-- **Retention cliff:** a window before retention or model creation is a *gap*, not a null; name it so "no results" isn't read as "no activity".
-
-## What to return
-
-Per finding: type (product event / experiment exposure / usage or billing event / system-table row / dbt model); fully-qualified table and the exact query; time window; compact numeric summary (counts, percentiles, first/last-seen), **never raw rows**; correlation with the ship date (e.g. "first row 2024-08-15, PR #49074 merged 2024-08-14"); relevance and strength (direct / circumstantial / weak).
+Per finding: type, fully qualified table, the exact query, the window, a numeric summary (counts, percentiles, first and last seen; never raw rows), the correlation with the ship date ("first row 2024-08-15, PR #49074 merged 2024-08-14"), and strength (direct, circumstantial, weak).
