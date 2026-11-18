@@ -1,53 +1,22 @@
 # Layout
 
-Build structure, then stress-test it: resize, translate, mirror for RTL. Write every fix in the project's styling system. The numbers below are starting points for interfaces with no established density system; where one exists, use it as written. Keep deliberate platform chrome, compact professional tools and project tokens where they pass the stress tests.
+These numbers are defaults for projects with no density system. If the project has one, use it. Hit areas and focus belong to [accessibility](../accessibility/index.md), radius and shadows to [polish](../polish/index.md), and measure and text spacing to [typography](../typography/index.md).
 
-Hit areas and focus belong to the [accessibility area](../accessibility/index.md); radius and shadows to the [polish area](../polish/index.md); animation to the [animate area](../animate/index.md); line length and text spacing to the [typography area](../typography/index.md).
+- **Group with space before lines.** Use background shapes for units such as selectable rows, and separator lines only in dense data. The gap between groups is at least twice the gap inside one (8px inside, 16px or more between). Lines added to a gap that already separates are a finding.
+- **Controls look like controls.** A control needs a fill, a border, an underline, or a fixed zone such as a toolbar. A static badge must not be shaped like the buttons beside it.
+- **Shared edges.** Use few alignment edges and one spacing step per nesting level. An icon 2px off the text edge is a finding. In tables, numbers align to the trailing edge and text to the leading edge.
+- **Logical properties.** Use `margin-inline-start` and `inset-inline-end` (Tailwind `ms-4 pe-6 text-start`). Use physical sides only for physical geometry, such as a notch or a gesture direction. Progressions (steps, ratings, progress bars) mirror in RTL, but hand-positioned elements don't mirror on their own.
+- **Importance order.** The number the user came for goes at the top and leading edge. In a row, the identifying content leads and metadata and actions trail. Have one primary action per view, and put secondary actions in a menu once there are more than two or three.
+- **Hidden content needs a cue.** Let the next item peek 16 to 32px past a scroll edge, create the peek with container padding, and keep snap points on the content edge. Label disclosure with what it hides: "Show 12 more results", not "More".
+- **Spacing between controls.** Leave 12px between bordered or filled controls and 24px around borderless text or icon buttons. Compact tools can go tighter if hit areas don't overlap.
+- **Content bleeds, controls float.** Backgrounds and media run to the edges. Text and controls stay inside the layout margins and `env(safe-area-inset-*)`. Full-width buttons sit inside the margins (about 16px on mobile) with a radius; edge-to-edge is only for platform chrome that handles safe areas.
+- **Breakpoints come from the content.** Break where the layout stops fitting, not at a device preset. Collapse late. Prefer container queries for components, and test the smallest and largest sizes first.
+- **Growth.** Never use fixed widths or heights on text containers; translations grow. Size buttons from their label. Test with pseudo-localization. A primary action must never be clippable: not at the bottom of a resizable pane, and not under a keyboard. In a scrolling modal, the action row doesn't scroll.
 
-## Group with space, not lines
+**Severity:**
 
-Space first, background shapes second, separator lines last. The gap between groups is at least 2× the gap within one (`8px` intra-group to `16px`+ inter-group). Edges and ordering: [grouping-and-alignment.md](grouping-and-alignment.md).
+- **HIGH:** content or an action is blocked at a supported viewport.
+- **MEDIUM:** hierarchy, reading order or adaptability suffers.
+- **LOW:** isolated alignment.
 
-## Keep controls distinct from content
-
-Every interactive element gets a background shape, a border, or a consistent placement zone.
-
-## Align to shared edges
-
-Pick alignment edges and stick to them. One project spacing step per level of subordination (`16px` default). Use logical properties (`padding-inline-start`, `margin-inline-end`) for direction-dependent layout; physical left/right only for genuinely physical geometry.
-
-## Order by importance
-
-Most important content near the top and the leading edge; reading order flows top-to-bottom, leading-to-trailing.
-
-## Hint at hidden content
-
-Progressive disclosure needs a visible affordance: the project's established cue, the next item peeking `16–32px` past the scroll edge, or a disclosure control.
-
-## Breathing room between targets
-
-Without a density system, start with `12px` between adjacent bordered or filled controls and `24px` around borderless text- and icon-only ones. Compact layouts may use less if accessibility-area hit areas don't overlap and controls stay distinct. Margins and breakpoints: [spacing-and-adaptivity.md](spacing-and-adaptivity.md).
-
-## Inset buttons from the edges
-
-In content layouts, keep full-width buttons inside the layout margins with a visible radius, near `16px` inline on mobile. Edge-to-edge actions are fine when they follow platform chrome, account for safe areas and stay distinct from system UI.
-
-## Content bleeds, controls float
-
-Backgrounds and media extend to the viewport edges. Controls and text stay inside layout margins and safe areas (`env(safe-area-inset-*)`). Sticky chrome floats above content rather than blocking it.
-
-## Hold structure until it breaks
-
-Breakpoints come from the content, not device presets. Keep the expanded layout while it fits; collapse late. Prefer container queries for components; test the smallest and largest sizes first.
-
-## Plan for growth and clipping
-
-Translated strings grow, short ones proportionally most. No fixed width or height on text containers; let rows wrap. Test with pseudo-localization and one representative locale. Never park a critical action where resizing or scrolling clips it; keep it in flow or in stable chrome.
-
-## Reporting
-
-**Severity.** `HIGH` blocks content or an action at a supported viewport. `MEDIUM` harms hierarchy, reading order or adaptability. `LOW` is isolated alignment or spacing polish.
-
-**Verification.** Without a browser: logical properties in place of physical ones, container and media queries against the supported viewport list, DOM order against intended reading order. With one: every supported width, 200% zoom and the RTL mirror.
-
-**Format.** Use the standalone format in the review area's [review format](../review/review-format.md#standalone-domain-reports), with "No actionable layout findings" as the empty result.
+Verify at every supported width, at 200% zoom and in RTL. Use the format in [review](../review/index.md#output).
