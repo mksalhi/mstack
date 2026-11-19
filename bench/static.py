@@ -58,7 +58,7 @@ def pointers(path, text, plugin):
         raw = m.group(1) or m.group(2)
         if raw.startswith(("http", "mailto:", "~", "$", "/")):
             continue
-        raw = raw.replace("${CLAUDE_SKILL_DIR}", skill_root)
+        raw = raw.replace("${CLAUDE_SKILL_DIR}", skill_root).replace("<this skill's directory>", skill_root)
         cands = []
         if raw.startswith("<mstack>/"):
             cands = [os.path.join(plugin, raw[len("<mstack>/"):])]
@@ -71,10 +71,18 @@ def pointers(path, text, plugin):
                 found |= {os.path.normpath(g) for g in glob.glob(re.sub(r"<[^>]+>|\*+", "*", c))}
             continue
         hit = next((os.path.normpath(c) for c in cands if os.path.exists(c)), None)
-        if hit:
+        if hit and os.path.isdir(hit):
+            # a directory pointer (cp -R kit/.) reaches every file under it
+            found |= {os.path.normpath(os.path.join(dp, f)) for dp, _, fs in os.walk(hit) for f in fs}
+        elif hit:
             found.add(hit)
         elif m.group(1) or raw.startswith("<mstack>/"):
             broken.add(raw)
+    # skill-dir paths in shell snippets, such as cp -R <this skill's directory>/kit/. .
+    for m in re.finditer(r"(?:<this skill's directory>|\$\{CLAUDE_SKILL_DIR\})/([\w./-]+)", text):
+        d = os.path.normpath(os.path.join(skill_root, m.group(1)))
+        if os.path.isdir(d):
+            found |= {os.path.normpath(os.path.join(dp, f)) for dp, _, fs in os.walk(d) for f in fs}
     return found, broken
 
 
@@ -199,8 +207,14 @@ if __name__ == "__main__":
     ap.add_argument("ref", nargs="?")
     ap.add_argument("--json")
     ap.add_argument("--exact", action="store_true")
+    ap.add_argument("--check", action="store_true", help="exit 1 on unreachable .md files, broken links or lint failures")
     a = ap.parse_args()
     out = analyze(a.ref, exact=a.exact)
+    if a.check:
+        bad = [f"{n}: {k} {v}" for n, s in out["skills"].items()
+               for k in ("orphans", "broken_links", "lint") for v in s[k]]
+        print("\n".join(bad) or "ok: every skill file is reachable from its SKILL.md, no broken links, no lint failures")
+        raise SystemExit(1 if bad else 0)
     if a.json:
         json.dump(out, open(a.json, "w"), indent=1)
     for k, v in out["summary"].items():

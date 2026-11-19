@@ -1,6 +1,6 @@
 # Resume
 
-Rebuild the user's recent working context and return a short capsule of where things stand and what to do next. Context lives in chat history and the shared record the `why` skill searches. Read this project's transcripts per `<mstack>/skills/mstack-mode/references/transcripts.md`. Never glob ~/.claude/projects/*/.
+Rebuild the user's recent working context and return a short capsule of where things stand and what to do next. Context lives in chat history and the shared record the `why` skill searches. Read this project's transcripts at `~/.claude/projects/<slug>/<session-uuid>.jsonl`, where the slug is the working directory with `/` and `.` turned into `-`. Never glob `~/.claude/projects/*/`.
 
 1) Route and lock scope per `SKILL.md` Resume. Also route "turning habits into a skill" to `automate-me` and "summary for the next session" to Write mode. Scope also takes a topic if named.
 

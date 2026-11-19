@@ -16,8 +16,8 @@ metadata:
 - **Experience first.** User delight over implementation convenience. Ship fewer, polished features; every option serves the core loop or goes.
 - **Guard the context window.** Send bulk reads and large payloads to subagents; keep summaries in the main thread. Cap each phase's files and turns.
 - **Make operations idempotent.** Read state, diff, apply only what is missing. Write to temp then rename; make leftovers detectably stale. Test by running twice and crashing at each step.
-- **Model the domain.** Pick the data shape before the logic so invalid states can't exist. Growing if/else chains or booleans that must stay in sync mean you skipped this. Open `references/model-the-domain.md` when choosing structures for core state.
+- **Model the domain.** Pick the data shape before the logic so invalid states can't exist. Growing if/else chains or booleans that must stay in sync mean you skipped this. Open [references/model-the-domain.md](references/model-the-domain.md) when choosing structures for core state.
 - **Never block on the human.** Reversible work: proceed, then present what you did and why. Pause only for irreversible actions and the Always-pause list in `mstack-mode`.
 - **Prove it works.** Verify the real artifact, not a proxy or "it compiles"; on failure suspect the observation first. One change per unit, run its check, advance only on green. Order commits red then green, subtraction before reshape.
 - **Separate before serializing shared state.** Give each writer its own file, key or branch and merge at read time. Lock or single-writer only when one shared target is a real invariant.
-- **Type system discipline.** Illegal states unrepresentable, external data `unknown` until parsed at the boundary, no `as` casts. Open `references/type-system-discipline.md` when writing TypeScript types, guards or schemas.
+- **Type system discipline.** Illegal states unrepresentable, external data `unknown` until parsed at the boundary, no `as` casts. Open [references/type-system-discipline.md](references/type-system-discipline.md) when writing TypeScript types, guards or schemas.
