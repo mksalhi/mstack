@@ -15,4 +15,4 @@ bench/run_all.sh origin/main HEAD    # writes bench/results/ and REPORT.md
 bench/versions.sh origin/main c1b557a HEAD   # every version on the same tasks; charts and VERSIONS.md in bench/results/versions/
 ```
 
-Set `BENCH_CLAUDE`, `BENCH_GPT` and `BENCH_RUNS` to change models or repeats.
+Runs on GPT only by default, with a GPT judge. Set `BENCH_MODELS` (space-separated), `BENCH_JUDGE` and `BENCH_RUNS` to change models, judge or repeats.
