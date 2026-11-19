@@ -10,7 +10,7 @@ rm -f "$out"/trigger-*.json "$out"/tasks-*.json  # never mix in another run's re
 models=${BENCH_MODELS:-gpt-6.2-sol}; judge=${BENCH_JUDGE:-gpt-6.2-sol}; runs=${BENCH_RUNS:-3}
 export OPENAI_REASONING_EFFORT=${OPENAI_REASONING_EFFORT:-low}
 [ -z "${ANTHROPIC_API_KEY:-}" ] && [ -n "${ANT_API_KEY:-}" ] && export ANTHROPIC_API_KEY=$ANT_API_KEY
-exact=""; [ -n "${ANTHROPIC_API_KEY:-}" ] && exact=--exact
+exact=""; [ -n "${BENCH_EXACT:-}" ] && exact=--exact  # Anthropic token counter, opt-in
 python3 bench/static.py "$base" $exact --json "$out/static-base.json"
 python3 bench/static.py "$cand" $exact --json "$out/static-cand.json"
 for m in $models; do
