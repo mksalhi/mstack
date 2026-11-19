@@ -36,10 +36,12 @@ export PWCLI="${CLAUDE_SKILL_DIR}/scripts/playwright_cli.sh"
 "$PWCLI" tab-new https://example.com; "$PWCLI" tab-list; "$PWCLI" tab-select 0
 ```
 
-Open only what you need: the command list in `references/cli.md`, workflows and troubleshooting in `references/workflows.md`.
+Open `references/cli.md` when you need a command not shown here (keyboard, mouse, dialogs, uploads, pdf, console, network) or a `playwright-cli.json` config.
 
 ## Guardrails
 
 - Snapshot before using a ref like `e12`; never bypass refs with `run-code`.
 - Prefer explicit commands over `eval` and `run-code`.
+- When debugging a flow, reproduce it, then capture `console warning` and `network`; wrap the suspicious steps in `tracing-start` and `tracing-stop`, then screenshot.
+- If a ref fails, snapshot again and retry. If the page looks wrong, reopen with `--headed` and `resize`. If the flow depends on prior state or another project, use a named `--session`.
 - Save artifacts under the mstack store or the repo's existing artifact folder, not a new top-level folder.

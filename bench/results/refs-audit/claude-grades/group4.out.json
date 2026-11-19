@@ -1,0 +1,578 @@
+{
+ "ambition-scope-00": [
+  {
+   "pass": true,
+   "why": "All three formats ship: CSV and exceljs XLSX downloads, and PDF builds a dedicated print window with the full table and calls printWindow.print() for Save as PDF; nothing is deferred."
+  },
+  {
+   "pass": true,
+   "why": "XLSX uses `await import(\"exceljs\")` and `new Workbook()` with `xlsx.writeBuffer()`, with no new dependency."
+  },
+  {
+   "pass": true,
+   "why": "One component with plain per-format functions/buttons; no exporter interface, registry or factory."
+  }
+ ],
+ "ambition-scope-01": [
+  {
+   "pass": true,
+   "why": "All three formats ship: CSV and exceljs XLSX downloads, and 'Save as PDF' button calls window.print() with print CSS hiding controls; nothing is deferred."
+  },
+  {
+   "pass": true,
+   "why": "XLSX uses `await import(\"exceljs\")` and `new Workbook()` with `xlsx.writeBuffer()`, with no new dependency."
+  },
+  {
+   "pass": true,
+   "why": "One component with plain per-format functions/buttons; no exporter interface, registry or factory."
+  }
+ ],
+ "ambition-scope-02": [
+  {
+   "pass": true,
+   "why": "All three formats ship: CSV and exceljs XLSX downloads, and 'Save as PDF' button calls window.print() with @media print rules; nothing is deferred."
+  },
+  {
+   "pass": true,
+   "why": "XLSX uses `await import(\"exceljs\")` and `new Workbook()` with `xlsx.writeBuffer()`, with no new dependency."
+  },
+  {
+   "pass": true,
+   "why": "One component with plain per-format functions/buttons; no exporter interface, registry or factory."
+  }
+ ],
+ "ambition-scope-03": [
+  {
+   "pass": true,
+   "why": "All three formats ship: CSV and exceljs XLSX downloads, and 'Export PDF' button calls window.print() with print CSS that un-clips the table scroll container; nothing is deferred."
+  },
+  {
+   "pass": true,
+   "why": "XLSX uses `await import(\"exceljs\")` and `new Workbook()` with `xlsx.writeBuffer()`, with no new dependency."
+  },
+  {
+   "pass": true,
+   "why": "One component with plain per-format functions/buttons; no exporter interface, registry or factory."
+  }
+ ],
+ "ambition-scope-04": [
+  {
+   "pass": true,
+   "why": "All three formats ship: CSV and exceljs XLSX downloads, and 'Save as PDF' button calls window.print() with print CSS for the table; nothing is deferred."
+  },
+  {
+   "pass": true,
+   "why": "XLSX uses `await import(\"exceljs\")` and `new Workbook()` with `xlsx.writeBuffer()`, with no new dependency."
+  },
+  {
+   "pass": true,
+   "why": "One component with plain per-format functions/buttons; no exporter interface, registry or factory."
+  }
+ ],
+ "ambition-scope-05": [
+  {
+   "pass": true,
+   "why": "All three formats ship: CSV and exceljs XLSX downloads, and 'Export PDF\u2026' calls window.print() and adds a print-only full table of all reportRows; nothing is deferred."
+  },
+  {
+   "pass": true,
+   "why": "XLSX uses `await import(\"exceljs\")` and `new Workbook()` with `xlsx.writeBuffer()`, with no new dependency."
+  },
+  {
+   "pass": true,
+   "why": "One component with plain per-format functions/buttons; no exporter interface, registry or factory."
+  }
+ ],
+ "debug-flaky-00": [
+  {
+   "pass": true,
+   "why": "Phase 1 'is the gate': seed fixtures, call /export in 'a bounded loop', compare IDs, before any hypotheses"
+  },
+  {
+   "pass": true,
+   "why": "Table of 4 ranked hypotheses each with a 'Prediction' column (res.end early, DB omits row, CSV drops row, client interruption)"
+  },
+  {
+   "pass": true,
+   "why": "Rank 1: 'The source's end handler ends the HTTP response before the CSV transform delivers its final output.'"
+  },
+  {
+   "pass": true,
+   "why": "'Turn the minimized HTTP repro into a regression test and watch it fail before editing the handler', then run it after the fix"
+  }
+ ],
+ "debug-flaky-01": [
+  {
+   "pass": true,
+   "why": "Step 1 builds an HTTP test comparing exported IDs, 'Start with 100 requests per run', and says 'I'd stop at Phase 1 until the loop actually goes red'"
+  },
+  {
+   "pass": true,
+   "why": "Four ranked hypotheses, each with an observable (e.g. 'The missing fixture ID never reaches the CSV transform')"
+  },
+  {
+   "pass": true,
+   "why": "Hypothesis 1: 'The handler ends the response before the CSV transform finishes... A source's end does not mean a downstream transform has drained.'"
+  },
+  {
+   "pass": true,
+   "why": "'Make the minimized repro an HTTP regression test and watch it fail before editing the handler', then run the deterministic regression after the fix"
+  }
+ ],
+ "debug-flaky-02": [
+  {
+   "pass": true,
+   "why": "Phase 1 runs '100 serial requests' against /export comparing IDs, with a gate: 'If I can't get a fast, repeatable red result, I stop here'"
+  },
+  {
+   "pass": true,
+   "why": "Ranked table of 4 hypotheses with explicit 'Prediction' column"
+  },
+  {
+   "pass": true,
+   "why": "Rank 1: 'The DB stream's end callback ends the response before the CSV transform finishes emitting output.'"
+  },
+  {
+   "pass": true,
+   "why": "'Turn the minimized repro into a route-level regression test and watch it fail before changing the handler... Watch the regression test pass'"
+  }
+ ],
+ "debug-flaky-03": [
+  {
+   "pass": true,
+   "why": "First step is an HTTP test with an exact red condition run '100 serial requests' before hypotheses"
+  },
+  {
+   "pass": true,
+   "why": "Three ranked hypotheses each with a Prediction (res.end early, DB cursor ends early, downstream interruption)"
+  },
+  {
+   "pass": true,
+   "why": "Rank 1: 'The DB stream's end listener calls res.end() before the CSV transform has delivered all its output.'"
+  },
+  {
+   "pass": true,
+   "why": "'Watch the old handler fail the missing-row assertion, then delete the manual... listener... Watch the regression pass'"
+  }
+ ],
+ "debug-flaky-04": [
+  {
+   "pass": true,
+   "why": "Step 1 'Build the feedback loop': run '100 requests' and compare ID multisets, exit criterion 'one fast, rerunnable command that goes red'"
+  },
+  {
+   "pass": true,
+   "why": "Three hypotheses each with a bolded 'Prediction:' (early end, DB never yields row, downstream interruption)"
+  },
+  {
+   "pass": true,
+   "why": "Hypothesis 1: 'The extra res.end() runs on the DB stream's end, which doesn't guarantee the CSV transform has emitted all its output.'"
+  },
+  {
+   "pass": true,
+   "why": "'Before editing the handler, make the minimized repro deterministic... Watch it fail on the original handler... Watch the test pass'"
+  }
+ ],
+ "debug-flaky-05": [
+  {
+   "pass": true,
+   "why": "Phase 1 runs the HTTP test 'serially for 100 requests' with a gate: 'If the loop never goes red, stop here'"
+  },
+  {
+   "pass": true,
+   "why": "Table of 4 ranked hypotheses with 'What a failing request would show' for each"
+  },
+  {
+   "pass": true,
+   "why": "Rank 1: 'The database stream's end callback ends res before the CSV transform has delivered its final output.'"
+  },
+  {
+   "pass": true,
+   "why": "'Write the regression test first and watch it fail through /export'... 'Watch the regression pass, then rerun the original HTTP loop'"
+  }
+ ],
+ "interrogate-synthesize-00": [
+  {
+   "pass": true,
+   "why": "'Missing admin check \u2014 A and B' in Act On; Agreement Map: 'Both reviewers independently identified the authorization gap.'"
+  },
+  {
+   "pass": true,
+   "why": "'Sensitive fields may be exposed \u2014 B' in Act On: '.unscoped() removes the default scope... can expose hashes for active and deleted users'"
+  },
+  {
+   "pass": true,
+   "why": "Naming Noted ('No concrete confusing name was identified'); feature flag Dismissed ('would not fix either security issue')"
+  },
+  {
+   "pass": true,
+   "why": "Gives instructions such as 'reuse the existing admin check' and a verdict without writing replacement code."
+  }
+ ],
+ "interrogate-synthesize-01": [
+  {
+   "pass": true,
+   "why": "'Enforce admin authorization \u2014 A and B' in Act On; 'Both reviewers independently identified the missing authorization check.'"
+  },
+  {
+   "pass": true,
+   "why": "'Preserve sensitive-field exclusions \u2014 B' in Act On because '.unscoped() removes the default scope' that may exclude hashes"
+  },
+  {
+   "pass": true,
+   "why": "Both Dismissed: naming 'The diff introduces no variable', feature flag 'would not fix either security issue'"
+  },
+  {
+   "pass": true,
+   "why": "Gives instructions such as 'reuse the existing admin check' and a verdict without writing replacement code."
+  }
+ ],
+ "interrogate-synthesize-02": [
+  {
+   "pass": true,
+   "why": "'Enforce admin authorization... \u2014 A and B' single Act On item; 'Both reviewers identified the missing admin check.'"
+  },
+  {
+   "pass": true,
+   "why": "'Keep password hashes out of the response \u2014 B' in Act On; 'that finding still warrants action because it points to a specific protection .unscoped() may remove'"
+  },
+  {
+   "pass": true,
+   "why": "Naming Noted ('No concrete ambiguity'); feature flag Dismissed ('would fix neither authorization nor response-field exposure')"
+  },
+  {
+   "pass": true,
+   "why": "Gives instructions such as 'reuse the existing admin check' and a verdict without writing replacement code."
+  }
+ ],
+ "interrogate-synthesize-03": [
+  {
+   "pass": true,
+   "why": "'Enforce admin authorization (A, B)' in Act On; 'Both reviewers identified the missing admin check, making it the clearest blocker.'"
+  },
+  {
+   "pass": true,
+   "why": "'Preserve the safe field selection (B)' in Act On; 'still warrants action because the branch removes the scope reported to protect those fields'"
+  },
+  {
+   "pass": true,
+   "why": "Naming Noted ('No specific ambiguous name was identified'); feature flag Dismissed with reason"
+  },
+  {
+   "pass": true,
+   "why": "Gives instructions such as 'reuse the existing admin check' and a verdict without writing replacement code."
+  }
+ ],
+ "interrogate-synthesize-04": [
+  {
+   "pass": true,
+   "why": "Single Act On item '\u2014 A and B'; 'Both reviewers independently identified the missing branch-level authorization.'"
+  },
+  {
+   "pass": true,
+   "why": "Hash exposure in Act On; 'it warrants blocker treatment despite having only one vote' since B 'named the mechanism'"
+  },
+  {
+   "pass": true,
+   "why": "Naming Noted ('No specific ambiguous name'); feature flag Dismissed ('a flag would not fix either security issue')"
+  },
+  {
+   "pass": true,
+   "why": "Gives instructions such as 'reuse the existing admin check' and a verdict without writing replacement code."
+  }
+ ],
+ "interrogate-synthesize-05": [
+  {
+   "pass": true,
+   "why": "'Enforce admin authorization \u2014 A and B' in Act On; 'Both reviewers identified the missing local authorization check.'"
+  },
+  {
+   "pass": true,
+   "why": "'Preserve sensitive-field exclusions \u2014 B' in Act On; 'tied it to a concrete call in the diff, so it warrants verification despite having only one vote'"
+  },
+  {
+   "pass": true,
+   "why": "Both Dismissed with reasons: naming 'no concrete readability problem', feature flag 'would not fix either security issue'"
+  },
+  {
+   "pass": true,
+   "why": "Gives instructions such as 'reuse the existing admin check' and a verdict without writing replacement code."
+  }
+ ],
+ "pr-comments-00": [
+  {
+   "pass": true,
+   "why": "Thread 1 marked 'Valid \u2014 PR regression' with the fix 'Add async to retryFetch'."
+  },
+  {
+   "pass": true,
+   "why": "Thread 3 marked 'pre-existing' since fetchUser lacks a timeout on main; users.ts left unchanged and tracked separately."
+  },
+  {
+   "pass": true,
+   "why": "Thread 4 marked 'already fixed': 'The latest commit adds a tries < 1 guard, so tries = 0 now throws a RangeError'."
+  },
+  {
+   "pass": true,
+   "why": "Thread 2 called a 'Reasonable suggestion, not a merge blocker / demonstrated bug' and kept out of this PR."
+  },
+  {
+   "pass": true,
+   "why": "Each proposed reply is one to three short factual sentences."
+  }
+ ],
+ "pr-comments-01": [
+  {
+   "pass": true,
+   "why": "Thread 1 marked 'Valid \u2014 PR regression' with the fix 'Add async to retryFetch'."
+  },
+  {
+   "pass": true,
+   "why": "Thread 3 marked 'pre-existing' since fetchUser lacks a timeout on main; users.ts left unchanged and tracked separately."
+  },
+  {
+   "pass": true,
+   "why": "Thread 4 marked 'already fixed': 'The latest commit adds a tries < 1 guard, so tries = 0 now throws a RangeError'."
+  },
+  {
+   "pass": true,
+   "why": "Thread 2 called a 'Reasonable suggestion, not a merge blocker / demonstrated bug' and kept out of this PR."
+  },
+  {
+   "pass": true,
+   "why": "Each proposed reply is one to three short factual sentences."
+  }
+ ],
+ "pr-comments-02": [
+  {
+   "pass": true,
+   "why": "Thread 1 marked 'Valid \u2014 PR regression' with the fix 'Add async to retryFetch'."
+  },
+  {
+   "pass": true,
+   "why": "Thread 3 marked 'pre-existing' since fetchUser lacks a timeout on main; users.ts left unchanged and tracked separately."
+  },
+  {
+   "pass": true,
+   "why": "Thread 4 marked 'already fixed': 'The latest commit adds a tries < 1 guard, so tries = 0 now throws a RangeError'."
+  },
+  {
+   "pass": true,
+   "why": "Thread 2 called a 'Reasonable suggestion, not a merge blocker / demonstrated bug' and kept out of this PR."
+  },
+  {
+   "pass": true,
+   "why": "Each proposed reply is one to three short factual sentences."
+  }
+ ],
+ "pr-comments-03": [
+  {
+   "pass": true,
+   "why": "Thread 1 marked 'Valid \u2014 PR regression' with the fix 'Add async to retryFetch'."
+  },
+  {
+   "pass": true,
+   "why": "Thread 3 marked 'pre-existing' since fetchUser lacks a timeout on main; users.ts left unchanged and tracked separately."
+  },
+  {
+   "pass": true,
+   "why": "Thread 4 marked 'already fixed': 'The latest commit adds a tries < 1 guard, so tries = 0 now throws a RangeError'."
+  },
+  {
+   "pass": true,
+   "why": "Thread 2 called a 'Reasonable suggestion, not a merge blocker / demonstrated bug' and kept out of this PR."
+  },
+  {
+   "pass": true,
+   "why": "Each proposed reply is one to three short factual sentences."
+  }
+ ],
+ "pr-comments-04": [
+  {
+   "pass": true,
+   "why": "Thread 1 marked 'Valid \u2014 PR regression' with the fix 'Add async to retryFetch'."
+  },
+  {
+   "pass": true,
+   "why": "Thread 3 marked 'pre-existing' since fetchUser lacks a timeout on main; users.ts left unchanged and tracked separately."
+  },
+  {
+   "pass": true,
+   "why": "Thread 4 marked 'already fixed': 'The latest commit adds a tries < 1 guard, so tries = 0 now throws a RangeError'."
+  },
+  {
+   "pass": true,
+   "why": "Thread 2 called a 'Reasonable suggestion, not a merge blocker / demonstrated bug' and kept out of this PR."
+  },
+  {
+   "pass": true,
+   "why": "Each proposed reply is one to three short factual sentences."
+  }
+ ],
+ "pr-comments-05": [
+  {
+   "pass": true,
+   "why": "Thread 1 marked 'Valid \u2014 PR regression' with the fix 'Add async to retryFetch'."
+  },
+  {
+   "pass": true,
+   "why": "Thread 3 marked 'pre-existing' since fetchUser lacks a timeout on main; users.ts left unchanged and tracked separately."
+  },
+  {
+   "pass": true,
+   "why": "Thread 4 marked 'already fixed': 'The latest commit adds a tries < 1 guard, so tries = 0 now throws a RangeError'."
+  },
+  {
+   "pass": true,
+   "why": "Thread 2 called a 'Reasonable suggestion, not a merge blocker / demonstrated bug' and kept out of this PR."
+  },
+  {
+   "pass": true,
+   "why": "Each proposed reply is one to three short factual sentences."
+  }
+ ],
+ "scoper-review-00": [
+  {
+   "pass": true,
+   "why": "'The interface, factory, and unused config wrap a one-line check'"
+  },
+  {
+   "pass": true,
+   "why": "Shows code block `if '@' not in email:` inside signup"
+  }
+ ],
+ "scoper-review-01": [
+  {
+   "pass": true,
+   "why": "L1\u20139 single-implementation interface, '`config` is never read', L11\u201314 'Factory with one supported kind'"
+  },
+  {
+   "pass": true,
+   "why": "Gives the exact replacement line 'if '@' not in email:' at L17"
+  }
+ ],
+ "scoper-review-02": [
+  {
+   "pass": true,
+   "why": "L1 one-implementation interface, L6 '`config` is stored but never read', L11 '`get_validator()` has one product'"
+  },
+  {
+   "pass": true,
+   "why": "Gives the inline replacement 'use `if '@' not in email:` in `signup`'"
+  }
+ ],
+ "scoper-review-03": [
+  {
+   "pass": true,
+   "why": "'Delete the interface, factory, and unused config'"
+  },
+  {
+   "pass": true,
+   "why": "Shows code block of signup with `if '@' not in email:`"
+  }
+ ],
+ "scoper-review-04": [
+  {
+   "pass": true,
+   "why": "'Single-implementation interface, validator class, and factory... including the unread `config`'"
+  },
+  {
+   "pass": true,
+   "why": "Gives the replacement line 'if '@' not in email:' in signup"
+  }
+ ],
+ "scoper-review-05": [
+  {
+   "pass": true,
+   "why": "'drop the interface, factory, unused config, and misleading Regex class'"
+  },
+  {
+   "pass": true,
+   "why": "Shows code block of signup with `if '@' not in email:`"
+  }
+ ],
+ "ui-a11y-review-00": [
+  {
+   "pass": true,
+   "why": "16\u00d716 targets flagged against 'WCAG's minimum target-size criterion' with a '44\u00d744 CSS px minimum hit area'"
+  },
+  {
+   "pass": true,
+   "why": "Replaces the outline:none rule with `.icon-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }` plus a forced-colors fallback."
+  },
+  {
+   "pass": true,
+   "why": "Findings are in a table with a Severity column (High before Medium)."
+  }
+ ],
+ "ui-a11y-review-01": [
+  {
+   "pass": true,
+   "why": "'The 16\u00d716 px targets fall below the 24\u00d724 CSS px WCAG minimum'; fix sets 44\u00d744"
+  },
+  {
+   "pass": true,
+   "why": "Replaces the outline:none rule with `.icon-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }` plus a forced-colors fallback."
+  },
+  {
+   "pass": true,
+   "why": "Findings are in a table with a Severity column (High before Medium)."
+  }
+ ],
+ "ui-a11y-review-02": [
+  {
+   "pass": true,
+   "why": "'The original 16\u00d716 px targets are small' fixed with 'at least 44\u00d744 px' min-inline/block-size"
+  },
+  {
+   "pass": true,
+   "why": "Replaces the outline:none rule with `.icon-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }` plus a forced-colors fallback."
+  },
+  {
+   "pass": true,
+   "why": "Findings are in a table with a Severity column (High before Medium)."
+  }
+ ],
+ "ui-a11y-review-03": [
+  {
+   "pass": true,
+   "why": "'fall below the 24\u00d724 px WCAG target-size minimum'; buttons made at least 44\u00d744"
+  },
+  {
+   "pass": true,
+   "why": "Replaces the outline:none rule with `.icon-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }` plus a forced-colors fallback."
+  },
+  {
+   "pass": true,
+   "why": "Findings are in a table with a Severity column (High before Medium)."
+  }
+ ],
+ "ui-a11y-review-04": [
+  {
+   "pass": true,
+   "why": "'only 16 \u00d7 16 CSS pixels... buttons now have 44 \u00d7 44 minimum hit areas'"
+  },
+  {
+   "pass": true,
+   "why": "Replaces the outline:none rule with `.icon-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }` plus a forced-colors fallback."
+  },
+  {
+   "pass": true,
+   "why": "Findings are in a table with a Severity column (High before Medium)."
+  }
+ ],
+ "ui-a11y-review-05": [
+  {
+   "pass": true,
+   "why": "'below the 24\u00d724 CSS-pixel minimum'; fix gives 44\u00d744 minimum"
+  },
+  {
+   "pass": true,
+   "why": "Replaces the outline:none rule with `.icon-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }` plus a forced-colors fallback."
+  },
+  {
+   "pass": true,
+   "why": "Findings are in a table with a Severity column (High before Medium)."
+  }
+ ]
+}

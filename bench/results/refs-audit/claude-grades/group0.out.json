@@ -1,0 +1,662 @@
+{
+ "ambition-estimate-00": [
+  {
+   "pass": true,
+   "why": "Sizes as '10\u201320 hours of agent execution', '20\u201335 changed files', '4\u20136 verification runs'."
+  },
+  {
+   "pass": true,
+   "why": "Plans the full feature end to end (server sync path, local-first client, conflict policy, verification) with no MVP or phased rollout."
+  },
+  {
+   "pass": true,
+   "why": "Jest for merge rules, Postgres integration tests, and 'Detox for offline edits, app restart, reconnect, and a two-device conflict'."
+  },
+  {
+   "pass": true,
+   "why": "The one open product decision comes with a stated default ('My proposed default is to merge... preserve both versions'); it ends on principles, not questions."
+  }
+ ],
+ "ambition-estimate-01": [
+  {
+   "pass": true,
+   "why": "'8 to 16 elapsed agent hours', '15 to 30 changed files, three workstreams, and five verification runs'."
+  },
+  {
+   "pass": true,
+   "why": "Plans the whole feature and gates release on full verification; only deployment needs separate approval."
+  },
+  {
+   "pass": true,
+   "why": "Jest for conflict rules, real Postgres, and 'Detox on both platforms for offline edit, app kill, restart, and reconnect' plus two-instance concurrent edits."
+  },
+  {
+   "pass": true,
+   "why": "Conflict policy given as a recommendation with defaults; no closing questions."
+  }
+ ],
+ "ambition-estimate-02": [
+  {
+   "pass": true,
+   "why": "'8 to 16 hours of agent execution', files, workstreams and verification runs tabled."
+  },
+  {
+   "pass": true,
+   "why": "Proposes implementing and verifying the full sync feature; re-estimation is a checkpoint, not a phased rollout."
+  },
+  {
+   "pass": true,
+   "why": "Jest for merge rules, Postgres integration, 'Detox on iOS and Android for offline edits, app restart, reconnect, and visible conflict recovery'."
+  },
+  {
+   "pass": true,
+   "why": "States a 'Proposed conflict policy' as default; ends with principles, no questions."
+  }
+ ],
+ "ambition-estimate-03": [
+  {
+   "pass": true,
+   "why": "'6\u201312 hours of elapsed implementation and verification time' for an agent, '15\u201330 changed files... 6\u201310 verification runs'."
+  },
+  {
+   "pass": true,
+   "why": "Builds one end-to-end slice then migrates every write path; the full feature, not an MVP."
+  },
+  {
+   "pass": true,
+   "why": "Jest for merge rules, Postgres integration, 'Detox with two clients... offline edits, app restart, reconnect, and conflict recovery'."
+  },
+  {
+   "pass": true,
+   "why": "Conflict behavior given as 'My proposed default'; no closing question list."
+  }
+ ],
+ "ambition-estimate-04": [
+  {
+   "pass": true,
+   "why": "'12\u201324 hours of agent execution time', '20\u201335 changed files, three implementation workstreams, and four verification gates'."
+  },
+  {
+   "pass": true,
+   "why": "Plans the whole feature including conflicts and verification before rollout; no MVP or approval-gated phases."
+  },
+  {
+   "pass": true,
+   "why": "Jest for queue and conflict rules, Postgres integration, Detox on iOS and Android covering 'offline restart, response loss, two-device edits'."
+  },
+  {
+   "pass": true,
+   "why": "The closing product decision already has a default stated ('My default is to preserve both versions'); it is not a request for permission."
+  }
+ ],
+ "ambition-estimate-05": [
+  {
+   "pass": true,
+   "why": "'8\u201316 hours of agent execution', '15\u201330 changed files', 'three workstreams', 'two full Jest and Detox passes'."
+  },
+  {
+   "pass": true,
+   "why": "Plans the full feature, proving one loop first and then extending to 'every in-scope note workflow'."
+  },
+  {
+   "pass": true,
+   "why": "Jest for conflict rules and 'Detox and two authenticated clients to verify offline edits across app restart, reconnect, concurrent edits'."
+  },
+  {
+   "pass": true,
+   "why": "No closing questions; scope assumptions are stated as defaults."
+  }
+ ],
+ "arena-frame-00": [
+  {
+   "pass": true,
+   "why": "Sends the same quoted prompt 'verbatim to three independent candidates'; only output location differs; artifact `retry-policy.md`."
+  },
+  {
+   "pass": true,
+   "why": "Five weighted criteria in a 'Private rubric' given to the judge, not the candidates."
+  },
+  {
+   "pass": true,
+   "why": "Separate `/tmp/arena-queue-retry/candidate-1/` through `candidate-3/` or worktrees."
+  },
+  {
+   "pass": false,
+   "why": "The judge is just 'a read-only judge' with no different model family named, even though it does graft improvements onto the winner without blending."
+  }
+ ],
+ "arena-frame-01": [
+  {
+   "pass": true,
+   "why": "'The exact prompt below is identical for each seat except for {output_path}', producing `retry-policy.md`."
+  },
+  {
+   "pass": true,
+   "why": "Five weighted criteria; 'I\u2019d keep this rubric private from the candidates'."
+  },
+  {
+   "pass": true,
+   "why": "Separate worktrees with `candidate-<n>/retry-policy.md` or `/tmp/arena-job-retries/candidate-<n>/` fallback."
+  },
+  {
+   "pass": true,
+   "why": "Judge 'preferring a different model family from mine'; ports 'at most two improvements that preserve the winning model' and resolves rather than 'averaging the designs'."
+  }
+ ],
+ "arena-frame-02": [
+  {
+   "pass": true,
+   "why": "'give every seat the same prompt'; seat headers differ only in output directory; artifact DESIGN.md."
+  },
+  {
+   "pass": true,
+   "why": "Five weighted criteria in the judge brief; 'Keep the rubric private from candidates'."
+  },
+  {
+   "pass": true,
+   "why": "`/tmp/arena-queue-retry/candidate-1/`..`candidate-3/` or isolated worktrees."
+  },
+  {
+   "pass": true,
+   "why": "Judge from 'a different model family from the parent when available'; 'graft only what fits the winning model... rather than average the designs'."
+  }
+ ],
+ "arena-frame-03": [
+  {
+   "pass": false,
+   "why": "Seats get different assignments ('Develop capped exponential backoff' vs 'Develop a fixed schedule table'...) ahead of the shared contract, so candidates do not get the same prompt."
+  },
+  {
+   "pass": true,
+   "why": "Five weighted criteria in a 'Private rubric' given only to the judge."
+  },
+  {
+   "pass": true,
+   "why": "Separate worktrees or `/tmp/arena-job-retry/candidate-N/design.md`."
+  },
+  {
+   "pass": true,
+   "why": "Judge 'from a different model family if the configured pool allows'; borrows one or two ideas from losers onto the base and reruns 'rather than combine them'."
+  }
+ ],
+ "arena-frame-04": [
+  {
+   "pass": false,
+   "why": "Each seat gets a different envelope ('Start by making the strongest case for exponential backoff' / 'fixed schedule table' / 'per-error-class'), so the prompts are not identical despite the shared body."
+  },
+  {
+   "pass": true,
+   "why": "Five weighted criteria; 'The rubric stays private from candidates'."
+  },
+  {
+   "pass": true,
+   "why": "Isolated worktrees, with `/tmp/arena-job-retry/candidate-N/retry-policy.md` fallback."
+  },
+  {
+   "pass": true,
+   "why": "Judge using 'a different model family if the configured pool allows'; 'Proposed grafts' borrow specific details onto the base and it reruns 'rather than average the designs'."
+  }
+ ],
+ "arena-frame-05": [
+  {
+   "pass": true,
+   "why": "'the same brief to three independent seats, changing only <output-path>'; artifact `retry-policy.md`."
+  },
+  {
+   "pass": true,
+   "why": "Five weighted criteria; 'I\u2019d keep this rubric out of the candidate briefs'."
+  },
+  {
+   "pass": true,
+   "why": "'Each gets its own worktree, or /tmp/arena-job-retries/candidate-<n>/'."
+  },
+  {
+   "pass": true,
+   "why": "Judge prefers 'a different model family'; 'graft only what fits the chosen policy... rather than averaging the designs'."
+  }
+ ],
+ "figure-it-out-migration-00": [
+  {
+   "pass": true,
+   "why": "'Every operation in the reconciled Express inventory has a corresponding Fastify operation, and its client-visible behavior... match the frozen Express baseline'; notes it must be falsifiable."
+  },
+  {
+   "pass": true,
+   "why": "'Freeze the baseline before touching routes', Express-vs-Express run and deliberately failing the harness."
+  },
+  {
+   "pass": true,
+   "why": "'Prove the hard parts before scaling' with a hardest-flow pilot, then per-unit hypothesis and 'Keep verified work. Revert or rework a failed change'."
+  },
+  {
+   "pass": true,
+   "why": "Proposed decision-log.md with per-batch verdict, and explicit 'VERIFIED, NOT VERIFIED, or INCONCLUSIVE'; overall marked NOT VERIFIED."
+  }
+ ],
+ "figure-it-out-migration-01": [
+  {
+   "pass": true,
+   "why": "'Done is falsifiable: every externally reachable method/path... served by Fastify 5 with a passing contract check'; 'missing evidence counts as a failure'."
+  },
+  {
+   "pass": true,
+   "why": "Section 2 'Build the verification harness first': freeze Express reference and prove the check can fail."
+  },
+  {
+   "pass": true,
+   "why": "'Riskiest unknown first' pilot, batches with hypothesis/measure/decide and 'Only advance on VERIFIED... revert it'."
+  },
+  {
+   "pass": true,
+   "why": "Audit-trail decision-log.md plus VERIFIED/NOT VERIFIED/INCONCLUSIVE definitions; migration verdict NOT VERIFIED."
+  }
+ ],
+ "figure-it-out-migration-02": [
+  {
+   "pass": true,
+   "why": "'Done is a falsifiable predicate: Every method/path in the frozen inventory... maps to a verified Fastify route'; green suite with missing routes 'does not count'."
+  },
+  {
+   "pass": true,
+   "why": "'Capture the Express baseline over HTTP' and prove the gate fails before converting."
+  },
+  {
+   "pass": true,
+   "why": "'Pilot the hardest contract before scaling', one unit at a time with hypothesis, and 'fix or revert the smallest change'."
+  },
+  {
+   "pass": true,
+   "why": "Proposed decision-log with verdict per unit; VERIFIED/NOT VERIFIED/INCONCLUSIVE defined; overall INCONCLUSIVE."
+  }
+ ],
+ "figure-it-out-migration-03": [
+  {
+   "pass": true,
+   "why": "Done requires every operation in a manifest to have 'at least one passing differential case against Express 4' with 'No unexplained omissions or diffs'."
+  },
+  {
+   "pass": true,
+   "why": "'Build and validate the baseline before changing routes', including a deliberate mismatch to prove the harness fails."
+  },
+  {
+   "pass": true,
+   "why": "'Prove the hardest route family first', bounded batches, each unit a hypothesis kept only when VERIFIED, else 'revert or narrow'."
+  },
+  {
+   "pass": true,
+   "why": "decision-log.md with verdicts per batch; VERIFIED/NOT VERIFIED/INCONCLUSIVE; overall NOT VERIFIED."
+  }
+ ],
+ "figure-it-out-migration-04": [
+  {
+   "pass": true,
+   "why": "'Every route in the reconciled inventory... served by Fastify 5 with no unexplained contract or side-effect differences from the pinned Express baseline'."
+  },
+  {
+   "pass": true,
+   "why": "Section 1 pins Express and proves the harness ('Run Express against itself... confirm the comparator rejects each') before porting."
+  },
+  {
+   "pass": true,
+   "why": "'Resolve the riskiest seam before scaling', then per batch 'state the hypothesis \u2192 smallest change \u2192 ... keep or revert'."
+  },
+  {
+   "pass": true,
+   "why": "Decision-log.md trail and VERIFIED/NOT VERIFIED/INCONCLUSIVE per unit; overall INCONCLUSIVE."
+  }
+ ],
+ "figure-it-out-migration-05": [
+  {
+   "pass": true,
+   "why": "'Every operations entry in the frozen Express inventory maps to a verified Fastify operation or an explicitly approved contract change' plus other checkable gates."
+  },
+  {
+   "pass": true,
+   "why": "'Build the proof first': capture Express over HTTP and perturb to 'Make a false pass hard' before changes."
+  },
+  {
+   "pass": true,
+   "why": "'Pilot the riskiest real flow', then per group hypothesis/smallest change/measure/decide, keeping only verified batches."
+  },
+  {
+   "pass": true,
+   "why": "decision-log.md recorded per batch with verdict; VERIFIED/NOT VERIFIED/INCONCLUSIVE defined; overall INCONCLUSIVE."
+  }
+ ],
+ "motion-brief-00": [
+  {
+   "pass": true,
+   "why": "One message lists product, length/format, brand, music, on-screen copy, each with a default."
+  },
+  {
+   "pass": true,
+   "why": "'Default: 18 seconds, vertical (9:16)'."
+  },
+  {
+   "pass": true,
+   "why": "'I\u2019ll use these placeholders: \u201cRewind your database...\u201d and \u201cExplore Snapshots.\u201d'"
+  }
+ ],
+ "motion-brief-01": [
+  {
+   "pass": true,
+   "why": "Asks for product, length, aspect ratio, brand, reference, music and headline/CTA 'In the same reply', with defaults."
+  },
+  {
+   "pass": true,
+   "why": "'18-second vertical video (9:16)'."
+  },
+  {
+   "pass": true,
+   "why": "'The on-screen copy is provisional.'"
+  }
+ ],
+ "motion-brief-02": [
+  {
+   "pass": true,
+   "why": "One message with a table of inputs and their defaults."
+  },
+  {
+   "pass": true,
+   "why": "'18 seconds, vertical 9:16'."
+  },
+  {
+   "pass": true,
+   "why": "Headline and CTA listed with 'Both are placeholders.'"
+  }
+ ],
+ "motion-brief-03": [
+  {
+   "pass": true,
+   "why": "Asks for all inputs 'In the same reply' and states defaults 'Unless you specify otherwise'."
+  },
+  {
+   "pass": true,
+   "why": "'9:16, 18 seconds'."
+  },
+  {
+   "pass": true,
+   "why": "Copy column is headed 'On-screen copy (placeholder)' and defaults mention 'the placeholder copy above'."
+  }
+ ],
+ "motion-brief-04": [
+  {
+   "pass": true,
+   "why": "Asks product plus all preferences 'In the same reply', with a defaults line."
+  },
+  {
+   "pass": true,
+   "why": "'18 seconds, vertical (9:16)'."
+  },
+  {
+   "pass": true,
+   "why": "'placeholder copy: \u201cRoll back to any minute in the last 7 days.\u201d CTA: \u201cExplore Snapshots.\u201d'"
+  }
+ ],
+ "motion-brief-05": [
+  {
+   "pass": true,
+   "why": "Asks for all inputs in one reply and says it will keep the defaults if only approval is sent."
+  },
+  {
+   "pass": true,
+   "why": "'Proposed cut: 16 seconds, vertical (9:16)'."
+  },
+  {
+   "pass": true,
+   "why": "'The headline and CTA are placeholders.'"
+  }
+ ],
+ "principles-shared-state-00": [
+  {
+   "pass": true,
+   "why": "'But first check whether they need to share a writable file at all' and offers separate prices.json/stock.json before the lock."
+  },
+  {
+   "pass": true,
+   "why": "Concrete flock on catalog.json.lock covering read-modify-write, with temp file and rename."
+  },
+  {
+   "pass": true,
+   "why": "'write a temp file in the same directory and rename it over catalog.json'."
+  }
+ ],
+ "principles-shared-state-01": [
+  {
+   "pass": true,
+   "why": "Prefers 'give each job its own file (prices.json and stock.json) and join them by product ID when reading. That removes the write contention instead of managing it'; lock is the fallback."
+  },
+  {
+   "pass": true,
+   "why": "Concrete steps: same flock on catalog.json.lock across the whole read\u2013modify\u2013publish cycle."
+  },
+  {
+   "pass": true,
+   "why": "'write a temporary file in the same directory, and atomically rename it over catalog.json'."
+  }
+ ],
+ "principles-shared-state-02": [
+  {
+   "pass": true,
+   "why": "'I\u2019d give each job its own file... and merge by SKU at read time' before the lock option."
+  },
+  {
+   "pass": true,
+   "why": "Numbered lock procedure on catalog.json.lock with read-before-lock detail."
+  },
+  {
+   "pass": true,
+   "why": "'Write a temp file in the same directory and atomically rename it'; also atomic publish for split files."
+  }
+ ],
+ "principles-shared-state-03": [
+  {
+   "pass": true,
+   "why": "'give each job its own file and merge by product ID at read time. That removes the write conflict instead of serializing it.'"
+  },
+  {
+   "pass": true,
+   "why": "flock on catalog.json.lock over the whole read\u2013modify\u2013replace sequence, fetch upstream before locking."
+  },
+  {
+   "pass": true,
+   "why": "'write a temporary file in the same directory and atomically rename it over catalog.json'."
+  }
+ ],
+ "principles-shared-state-04": [
+  {
+   "pass": true,
+   "why": "'split ownership first: let each job write its own snapshot', with a single publisher merging; lock only if splitting is too costly."
+  },
+  {
+   "pass": true,
+   "why": "Gives exact flock cron commands and the read\u2192update\u2192temp\u2192rename sequence."
+  },
+  {
+   "pass": true,
+   "why": "'write a temp file in the same directory \u2192 rename over catalog.json'."
+  }
+ ],
+ "principles-shared-state-05": [
+  {
+   "pass": true,
+   "why": "Recommends 'give each job its own file (prices.json and stock.json) and merge by product ID at read time' when independent; lock only if one file must remain."
+  },
+  {
+   "pass": true,
+   "why": "Numbered flock procedure on catalog.json.lock with read-merge-replace under the lock."
+  },
+  {
+   "pass": true,
+   "why": "'Write to a temp file in the same directory, then atomically rename it over catalog.json'."
+  }
+ ],
+ "swarm-perf-00": [
+  {
+   "pass": true,
+   "why": "'Done when: Each commit has a valid p95 comparison against its parent, or an explicit BLOCKED', with a one-row-per-commit report."
+  },
+  {
+   "pass": true,
+   "why": "Each row names its SHA vs parent; protocol: '10 paired trials', alternating order, 'One latency sample is one successful request\u2019s end-to-end elapsed time', and asks to return 'full SHAs... sample counts and order'."
+  },
+  {
+   "pass": true,
+   "why": "PASS/ISSUES/BLOCKED with evidence; 'missing the SHAs or required method gets dropped and rerun once; a second miss is a gap'."
+  },
+  {
+   "pass": true,
+   "why": "'The final report will have one row per commit' with listed columns, 'not raw worker logs'."
+  }
+ ],
+ "swarm-perf-01": [
+  {
+   "pass": true,
+   "why": "'Done when: Each commit has a reproducible... verdict... or an explicit evidence gap. The final artifact is one table'."
+  },
+  {
+   "pass": true,
+   "why": "Per-worker SHA; '20 paired samples', defines one sample, alternating order; return 'full SHA pair... actual sample count and order'."
+  },
+  {
+   "pass": true,
+   "why": "ISSUES/PASS/BLOCKED defined; 'omits either SHA or the required measurement method, discard it and rerun that slice once. A second omission... is a coverage gap'."
+  },
+  {
+   "pass": true,
+   "why": "'Publish one table' with SHA pair, p95s, change, verdict; shows the table."
+  }
+ ],
+ "swarm-perf-02": [
+  {
+   "pass": true,
+   "why": "'Done when: Each commit has an evidence-backed verdict... Return one consolidated table'."
+  },
+  {
+   "pass": true,
+   "why": "Each brief names its SHA; '20 paired samples', sample defined, alternating order; 'Resolve and report both full SHAs' and return 'workload and method'."
+  },
+  {
+   "pass": true,
+   "why": "Verdicts PASS/ISSUES/BLOCKED; result missing SHAs or method rerun once, then 'a coverage gap, never a pass'."
+  },
+  {
+   "pass": true,
+   "why": "'Produce one table with commit | parent | parent p95 | commit p95 | paired change (95% CI) | verdict'."
+  }
+ ],
+ "swarm-perf-03": [
+  {
+   "pass": true,
+   "why": "'Done when: One table gives an evidence-backed verdict for each commit, with explicit gaps'."
+  },
+  {
+   "pass": true,
+   "why": "Briefs name SHA and 'Record both full resolved SHAs'; '20 paired trials', alternating, 'One measurement sample is the client-observed p95 for that trial window'; report 'actual test settings'."
+  },
+  {
+   "pass": true,
+   "why": "ISSUES/PASS/BLOCKED rules; 'Rerun a worker once if either is missing; a second miss... stays a coverage gap'."
+  },
+  {
+   "pass": true,
+   "why": "'Publish one table with commit | parent | ... | verdict', no averaging."
+  }
+ ],
+ "swarm-perf-04": [
+  {
+   "pass": true,
+   "why": "'Done when: Each commit has an evidence-backed verdict... Return one consolidated table'."
+  },
+  {
+   "pass": true,
+   "why": "Rows name SHA vs parent; '20 matched pairs', alternating, 'One sample is one client-observed request latency'; report 'full SHAs, settings, run order'."
+  },
+  {
+   "pass": true,
+   "why": "PASS/ISSUES/BLOCKED defined; 'omits the required SHAs or measurement method, discard it and rerun... once; a second miss is a coverage gap'."
+  },
+  {
+   "pass": true,
+   "why": "Shows one consolidated table, one row per commit."
+  }
+ ],
+ "swarm-perf-05": [
+  {
+   "pass": true,
+   "why": "'Done: Each commit has an evidence-backed verdict... or an explicit BLOCKED with the reason', reported as a table."
+  },
+  {
+   "pass": true,
+   "why": "Rows name SHA and ask to 'Resolve and record both full SHAs'; '10 paired trials', alternating, sample defined; deliverable includes 'the actual method (sample unit, count, and order)'."
+  },
+  {
+   "pass": true,
+   "why": "Deliverable is PASS/ISSUES/BLOCKED with evidence; 'Reject a result missing the required SHAs or method and request one rerun; a second miss is a coverage gap'."
+  },
+  {
+   "pass": true,
+   "why": "'Publish one table with commit, parent, ... verdict'; 'No raw worker dumps'."
+  }
+ ],
+ "unslop-readme-00": [
+  {
+   "pass": true,
+   "why": "Drops the vague 'potential issues' phrase: 'Never run two watchers on the same directory.'"
+  },
+  {
+   "pass": true,
+   "why": "Shorter, plain README sentences ('It retries failed jobs up to five times with backoff')."
+  }
+ ],
+ "unslop-readme-01": [
+  {
+   "pass": false,
+   "why": "Replaces 'potential issues' with 'They can interfere with each other.', which is still vague about what goes wrong."
+  },
+  {
+   "pass": true,
+   "why": "Shorter and plain technical prose."
+  }
+ ],
+ "unslop-readme-02": [
+  {
+   "pass": true,
+   "why": "States 'Never run two watchers on the same directory.' with no vague hedge."
+  },
+  {
+   "pass": true,
+   "why": "Shortest version, plain wording."
+  }
+ ],
+ "unslop-readme-03": [
+  {
+   "pass": true,
+   "why": "'Do not run two watchers on the same directory.' with no vague phrase."
+  },
+  {
+   "pass": true,
+   "why": "Shorter, plain README style."
+  }
+ ],
+ "unslop-readme-04": [
+  {
+   "pass": false,
+   "why": "'Two watchers on the same directory can cause problems.' just restates 'potential issues' vaguely."
+  },
+  {
+   "pass": true,
+   "why": "Shorter and plain, without the marketing language."
+  }
+ ],
+ "unslop-readme-05": [
+  {
+   "pass": true,
+   "why": "'Never run two watchers on the same directory.' with no vague hedge."
+  },
+  {
+   "pass": true,
+   "why": "Shorter and plain technical wording."
+  }
+ ]
+}

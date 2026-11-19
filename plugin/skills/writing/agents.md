@@ -4,19 +4,17 @@
 - Any other file: only when the agent decides to `Read`. Nothing is preloaded.
 
 ## Pointers
-- Always-loaded line naming material and when to reach it. If a must-have file is missed, sharpen the pointer first; inline only if that fails.
+- Always-loaded line naming material and when to reach it. Must-follow rules go inline: benchmark runs opened a linked file on 30 to 55% of runs and a two-hop file almost never. Links carry optional detail only.
 - Lead with the trigger word. One trigger per branch; synonyms for one branch collapse to one.
 - Say when to use it, not how it works.
 - Name the near-miss when a neighbouring skill shares its words.
 
 ## Layout
-- Inline what every branch needs; put what only some branches need in a file that `SKILL.md` names with its condition ("Read `references/x.md` before Y"). Name scripts to run, not read.
-- Link every file from `SKILL.md` directly. Chains (`SKILL.md` to a.md to b.md) get partial reads.
-- Keep `SKILL.md` under about 5,000 tokens.
-- Keep a concept’s definition, rules and caveats under one heading. One authoritative place per meaning.
+- Name scripts to run, not read. Chains (`SKILL.md` to a.md to b.md) get partial reads.
+- Keep a concept’s definition, rules and caveats under one heading.
 
 ## Steps
-- End every step on a checkable completion criterion. If the agent rushes a step, sharpen the criterion first; split only across a real context boundary (a subagent or a handoff).
+- If the agent rushes a step, sharpen its completion criterion first; split only across a real context boundary (a subagent or a handoff).
 
 ## Words
 - Use leading words; define coined words.

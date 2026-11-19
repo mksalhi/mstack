@@ -18,7 +18,7 @@ Motion: [animate](../animate/index.md); text: [typography](../typography/index.m
 
 - Stroke: 1.5/2/2.5px next to 400/500–600/700 (24px grid). One library per surface; if no variants, keep native.
 - One SVG with `currentColor`; states via CSS color/opacity. Strip hardcoded fills.
-- Outline by default; fill only when active. Animate swap in [animate](../animate/RECIPES.md).
+- Outline by default; fill only when active. Open [animate recipes](../animate/RECIPES.md) when animating the swap.
 - Size: verify at smallest (16/20/24).
 - RTL: Flip (`rtl:-scale-x-100`): arrows, text-align, volume waves, send. Don’t flip: logos, checkmarks, clocks, media playback.
 

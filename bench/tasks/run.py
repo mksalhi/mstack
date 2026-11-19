@@ -12,7 +12,7 @@ that never sees which condition produced it.
 import argparse, concurrent.futures as cf, json, os, re, statistics, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import llm
-from static import tree_at, frontmatter, skill_at
+from static import tree_at, frontmatter, skill_at, CUT
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SYSTEM = ("You are a coding agent helping a user in a chat. You cannot run commands or see their repository; "
@@ -31,8 +31,11 @@ def resolve(plugin, skill, path):
     return real
 
 
-def run_agent(model, task, plugin, max_turns=8):
+def run_agent(model, task, plugin, max_turns=8, hook=False):
     user = task["prompt"]
+    system = SYSTEM
+    if hook and plugin:  # the scoper SessionStart hook puts this body in every real session
+        system += "\n\n" + frontmatter(open(os.path.join(plugin, "skills", "scoper", "SKILL.md")).read())[1]
     tools, reads = (), []
     if plugin:
         task = {**task, "skill": skill_at(os.listdir(os.path.join(plugin, "skills")), task["skill"])}
@@ -44,7 +47,7 @@ def run_agent(model, task, plugin, max_turns=8):
     msgs = [{"role": "user", "content": user}]
     usage = {"in": 0, "out": 0}
     for _ in range(max_turns):
-        r = llm.chat(model, SYSTEM, msgs, tools, max_tokens=6000)
+        r = llm.chat(model, system, msgs, tools, max_tokens=6000)
         usage["in"] += r["usage"]["in"]; usage["out"] += r["usage"]["out"]
         if not r["tool_calls"]:
             return r["text"], usage, reads
@@ -105,9 +108,10 @@ def main():
     ap.add_argument("--runs", type=int, default=3)
     ap.add_argument("--only", default="")
     ap.add_argument("--workers", type=int, default=6)
+    ap.add_argument("--hook", action="store_true", help="add the always-loaded scoper hook text to every skill condition")
     ap.add_argument("--out")
     a = ap.parse_args()
-    tasks = [t for t in json.load(open(os.path.join(HERE, "tasks.json"))) if not a.only or t["id"] in a.only.split(",")]
+    tasks = [t for t in json.load(open(os.path.join(HERE, "tasks.json"))) if (not a.only or t["id"] in a.only.split(",")) and t["skill"] not in CUT]
     if a.refs:
         conds = {"none": None, **{r: tree_at(r) for r in a.refs.split(",")}}
     else:
@@ -124,7 +128,7 @@ def main():
         return {"task": t["id"], "cond": c, "run": r, "error": err}
 
     def score(t, c, r):
-        text, usage, reads = run_agent(a.model, t, conds[c])
+        text, usage, reads = run_agent(a.model, t, conds[c], hook=a.hook)
         checks = [check(x, text) for x in t["checks"]]
         judged = judge(a.judge, t, text)
         allv = checks + judged

@@ -1,3 +1,0 @@
-- Linear: incident, sev-*, postmortem-action-item, reliability.
-- Slack: #sev-* and #incident-* around code addition.
-- Git: "fix for incident", "add defensive check", "revert" then "re-apply with...".

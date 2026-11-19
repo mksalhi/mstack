@@ -1,0 +1,254 @@
+{
+ "ambition-scope-00": [
+  {
+   "pass": true,
+   "why": "Print dialog: a \"Save as PDF…\" button calls `window.print()` and the user chooses Save as PDF; no PDF file is generated, alongside CSV and XLSX downloads."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { Workbook } = await import(\"exceljs\")` / `new Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: separate plain functions (CSV export, XLSX export) plus a `window.print()` button; no exporter interface, registry or factory.."
+  }
+ ],
+ "ambition-scope-01": [
+  {
+   "pass": true,
+   "why": "Print dialog: a \"Print / Save as PDF\" button calls `window.print()` and the user chooses Save as PDF; no PDF file is generated, alongside CSV and XLSX downloads."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { Workbook } = await import(\"exceljs\")` / `new Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: one async function branching with `if (format === \"csv\")` and an else for XLSX, plus an inline print button; no interface, registry or factory."
+  }
+ ],
+ "ambition-scope-02": [
+  {
+   "pass": true,
+   "why": "Print dialog: a \"Export PDF\" button calls `window.print()` and the user chooses Save as PDF; no PDF file is generated, alongside CSV and XLSX downloads."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { Workbook } = await import(\"exceljs\")` / `new Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: separate plain functions (CSV export, XLSX export) plus a `window.print()` button; no exporter interface, registry or factory.."
+  }
+ ],
+ "ambition-scope-03": [
+  {
+   "pass": true,
+   "why": "Real PDF file: generates a paginated table with jspdf and jspdf-autotable (new dependencies) and downloads it via `doc.save(`${filename}.pdf`)`, alongside CSV and XLSX."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { default: ExcelJS } = await import(\"exceljs\")` / `new ExcelJS.Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: one component with a plain `switch (format)` over \"csv\", \"xlsx\" and \"pdf\"; ExportColumn is only a header/value column type, not an exporter interface."
+  }
+ ],
+ "ambition-scope-04": [
+  {
+   "pass": true,
+   "why": "Print dialog: the \"Save as PDF…\" button opens a popup, builds a table from the row data (\"Render from the data, not the DOM\") and calls `popup.print()`; no PDF file is generated, the user chooses Save as PDF in the dialog."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { Workbook } = await import(\"exceljs\")` / `new Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: `exportReport(format, headers, rows)` branches on \"csv\" with an XLSX fallthrough and the PDF view is built inline in the button handler; no interface, registry or factory."
+  }
+ ],
+ "ambition-scope-05": [
+  {
+   "pass": true,
+   "why": "Print dialog: a \"Save as PDF…\" button calls `window.print()` and the user chooses Save as PDF; no PDF file is generated, alongside CSV and XLSX downloads."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { Workbook } = await import(\"exceljs\")` / `new Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: separate plain functions (CSV export, XLSX export) plus a `window.print()` button; no exporter interface, registry or factory.."
+  }
+ ],
+ "ambition-scope-06": [
+  {
+   "pass": true,
+   "why": "Print dialog: `function exportPdf() { window.print(); // Choose \"Save as PDF\" in the browser print dialog. }` behind an \"Export PDF…\" button; no PDF file is generated, alongside CSV and XLSX downloads."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { Workbook } = await import(\"exceljs\")` / `new Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: separate plain functions (CSV export, XLSX export) plus a `window.print()` button; no exporter interface, registry or factory.."
+  }
+ ],
+ "ambition-scope-07": [
+  {
+   "pass": true,
+   "why": "Print dialog: a \"Print / Save as PDF\" button calls `window.print()` and the user chooses Save as PDF; no PDF file is generated, alongside CSV and XLSX downloads."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { Workbook } = await import(\"exceljs\")` / `new Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: one async function branching with `if (format === \"csv\")` and an else for XLSX, plus an inline print button; no interface, registry or factory."
+  }
+ ],
+ "ambition-scope-08": [
+  {
+   "pass": true,
+   "why": "Print dialog: a \"Save as PDF\" button calls `window.print()` and the user chooses Save as PDF; no PDF file is generated, alongside CSV and XLSX downloads."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { Workbook } = await import(\"exceljs\")` / `new Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: one async function branching with `if (format === \"csv\")` and an else for XLSX, plus an inline print button; no interface, registry or factory."
+  }
+ ],
+ "ambition-scope-09": [
+  {
+   "pass": true,
+   "why": "Print dialog: a \"Print / Save as PDF\" button calls `window.print()` and the user chooses Save as PDF; no PDF file is generated, alongside CSV and XLSX downloads."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { Workbook } = await import(\"exceljs\")` / `new Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: separate plain functions (CSV export, XLSX export) plus a `window.print()` button; no exporter interface, registry or factory.."
+  }
+ ],
+ "ambition-scope-10": [
+  {
+   "pass": true,
+   "why": "Real PDF file: generates a paginated table with jspdf and jspdf-autotable (new dependencies) and downloads it via `doc.save(`${filename}.pdf`)`, alongside CSV and XLSX."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { default: ExcelJS } = await import(\"exceljs\")` / `new ExcelJS.Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: one component with a plain `switch (format)` over \"csv\", \"xlsx\" and \"pdf\"; ExportColumn is only a header/value column type, not an exporter interface."
+  }
+ ],
+ "ambition-scope-11": [
+  {
+   "pass": true,
+   "why": "Real PDF file: generates a paginated table with jspdf and jspdf-autotable (new dependencies) and downloads it via `doc.save(`${filename}.pdf`)`, alongside CSV and XLSX."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { default: ExcelJS } = await import(\"exceljs\")` / `new ExcelJS.Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: one component with a plain `switch (format)` over \"csv\", \"xlsx\" and \"pdf\"; ExportColumn is only a header/value column type, not an exporter interface."
+  }
+ ],
+ "ambition-scope-12": [
+  {
+   "pass": true,
+   "why": "Print dialog: a \"Save as PDF…\" button calls `window.print()` and the user chooses Save as PDF; no PDF file is generated, alongside CSV and XLSX downloads."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { Workbook } = await import(\"exceljs\")` / `new Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: separate plain functions (CSV export, XLSX export) plus a `window.print()` button; no exporter interface, registry or factory.."
+  }
+ ],
+ "ambition-scope-13": [
+  {
+   "pass": true,
+   "why": "Real PDF file: generates a paginated table with jspdf and jspdf-autotable (new dependencies) and downloads it via `doc.save(`${filename}.pdf`)`, alongside CSV and XLSX."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { default: ExcelJS } = await import(\"exceljs\")` / `new ExcelJS.Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: one component with a plain `switch (format)` over \"csv\", \"xlsx\" and \"pdf\"; ExportColumn is only a header/value column type, not an exporter interface."
+  }
+ ],
+ "ambition-scope-14": [
+  {
+   "pass": true,
+   "why": "Print dialog: a \"Print / Save as PDF\" button calls `window.print()` and the user chooses Save as PDF; no PDF file is generated, alongside CSV and XLSX downloads."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { Workbook } = await import(\"exceljs\")` / `new Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: separate plain functions (CSV export, XLSX export) plus a `window.print()` button; no exporter interface, registry or factory.."
+  }
+ ],
+ "ambition-scope-15": [
+  {
+   "pass": true,
+   "why": "Real PDF file: generates a paginated table with jspdf and jspdf-autotable (new dependencies) and downloads it via `download(doc.output('blob'), `${filename}.pdf`)`, alongside CSV and XLSX."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const ExcelJS = (await import('exceljs')).default` / `new ExcelJS.Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: one component with a plain `switch (format)` over \"csv\", \"xlsx\" and \"pdf\"; ExportColumn is only a header/value column type, not an exporter interface."
+  }
+ ],
+ "ambition-scope-16": [
+  {
+   "pass": true,
+   "why": "Real PDF file: generates a paginated table with jspdf and jspdf-autotable (new dependencies) and downloads it via `doc.save(`${filename}.pdf`)`, alongside CSV and XLSX."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { Workbook } = await import(\"exceljs\")` / `new Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: one component with a plain `switch (format)` over \"csv\", \"xlsx\" and \"pdf\"; ExportColumn is only a header/value column type, not an exporter interface."
+  }
+ ],
+ "ambition-scope-17": [
+  {
+   "pass": true,
+   "why": "Print dialog: a \"Save as PDF…\" button calls `window.print()` and the user chooses Save as PDF; no PDF file is generated, alongside CSV and XLSX downloads."
+  },
+  {
+   "pass": true,
+   "why": "XLSX is built with the installed exceljs via `const { Workbook } = await import(\"exceljs\")` / `new Workbook()` and `workbook.xlsx.writeBuffer()`; no other spreadsheet library is added."
+  },
+  {
+   "pass": true,
+   "why": "Small and direct: separate plain functions (CSV export, XLSX export) plus a `window.print()` button; no exporter interface, registry or factory.."
+  }
+ ]
+}

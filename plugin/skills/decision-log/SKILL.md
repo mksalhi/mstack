@@ -31,7 +31,7 @@ Default: uncommitted, at `decisions.tsv` in the work dir, or `.audit/<task-slug>
 ## Before handing back
 
 ### Audit the log against the transcript
-Read this run’s transcript (per `<mstack>/skills/mstack-mode/references/transcripts.md`; never glob `~/.claude/projects/*/`) against the rows this run wrote:
+Read this run’s transcript (`~/.claude/projects/<slug>/<session-uuid>.jsonl`, where the slug is the working directory with `/` and `.` turned into `-`; never glob `~/.claude/projects/*/`) against the rows this run wrote:
 - Every row maps to a real decision or action.
 - Every evidence pointer resolves and shows what it claims.
 - Any unlogged fork, pivot, or abandoned approach that shaped the work is a gap: add it.

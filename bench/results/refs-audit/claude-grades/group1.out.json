@@ -1,0 +1,638 @@
+{
+ "ambition-game-00": [
+  {
+   "pass": true,
+   "why": "Delivers a full single-file index.html with Three.js scene, car, closed track, keyboard handlers, lap timer and best-lap HUD ending in </html>."
+  },
+  {
+   "pass": true,
+   "why": "Builds the full requested racer, not a cube-on-plane or phase-1 MVP."
+  },
+  {
+   "pass": true,
+   "why": "Verification steps drive the running game (hold throttle for full laps, cross the finish line, drive a slower lap and check the best stays, press R, reload) with concrete expected HUD results, not just 'open it'."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code immediately; no clarifying questions precede it."
+  }
+ ],
+ "ambition-game-01": [
+  {
+   "pass": true,
+   "why": "Delivers a full single-file index.html with Three.js scene, car, closed track, keyboard handlers, lap timer and best-lap HUD ending in </html>."
+  },
+  {
+   "pass": true,
+   "why": "Builds the full requested racer, not a cube-on-plane or phase-1 MVP."
+  },
+  {
+   "pass": true,
+   "why": "Verification steps drive the running game (hold throttle for full laps, cross the finish line, drive a slower lap and check the best stays, press R, reload) with concrete expected HUD results, not just 'open it'."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code immediately; no clarifying questions precede it."
+  }
+ ],
+ "ambition-game-02": [
+  {
+   "pass": true,
+   "why": "Delivers a full single-file index.html with Three.js scene, car, closed track, keyboard handlers, lap timer and best-lap HUD ending in </html>."
+  },
+  {
+   "pass": true,
+   "why": "Builds the full requested racer, not a cube-on-plane or phase-1 MVP."
+  },
+  {
+   "pass": true,
+   "why": "Verification steps drive the running game (hold throttle for full laps, cross the finish line, drive a slower lap and check the best stays, press R, reload) with concrete expected HUD results, not just 'open it'."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code immediately; no clarifying questions precede it."
+  }
+ ],
+ "ambition-game-03": [
+  {
+   "pass": true,
+   "why": "Delivers a full single-file index.html with Three.js scene, car, closed track, keyboard handlers, lap timer and best-lap HUD ending in </html>."
+  },
+  {
+   "pass": true,
+   "why": "Builds the full requested racer, not a cube-on-plane or phase-1 MVP."
+  },
+  {
+   "pass": true,
+   "why": "Verification steps drive the running game (hold throttle for full laps, cross the finish line, drive a slower lap and check the best stays, press R, reload) with concrete expected HUD results, not just 'open it'."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code immediately; no clarifying questions precede it."
+  }
+ ],
+ "ambition-game-04": [
+  {
+   "pass": true,
+   "why": "Delivers a full single-file index.html with Three.js scene, car, closed track, keyboard handlers, lap timer and best-lap HUD ending in </html>."
+  },
+  {
+   "pass": true,
+   "why": "Builds the full requested racer, not a cube-on-plane or phase-1 MVP."
+  },
+  {
+   "pass": true,
+   "why": "Verification steps drive the running game (hold throttle for full laps, cross the finish line, drive a slower lap and check the best stays, press R, reload) with concrete expected HUD results, not just 'open it'."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code immediately; no clarifying questions precede it."
+  }
+ ],
+ "ambition-game-05": [
+  {
+   "pass": true,
+   "why": "Delivers a full single-file index.html with Three.js scene, car, closed track, keyboard handlers, lap timer and best-lap HUD ending in </html>."
+  },
+  {
+   "pass": true,
+   "why": "Builds the full requested racer, not a cube-on-plane or phase-1 MVP."
+  },
+  {
+   "pass": true,
+   "why": "Verification steps drive the running game (hold throttle for full laps, cross the finish line, drive a slower lap and check the best stays, press R, reload) with concrete expected HUD results, not just 'open it'."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code immediately; no clarifying questions precede it."
+  }
+ ],
+ "automate-me-draft-00": [
+  {
+   "pass": true,
+   "why": "Keeps three-bullet brevity, run-tests-before-claiming, and squash-only; the 'long version' is only an on-request exception, and one-off table/'just do it' items are explicitly left out."
+  },
+  {
+   "pass": true,
+   "why": "Rules are concrete: 'at most three bullets', 'Run the relevant tests before ... a change works', 'squash merges only'."
+  },
+  {
+   "pass": true,
+   "why": "Description triggers on /sam-mode, Sam mode, or 'work in Sam's style'."
+  },
+  {
+   "pass": true,
+   "why": "Rules refer to 'the user' (e.g. 'when the user asks') and never name Sam inside the rules."
+  }
+ ],
+ "automate-me-draft-01": [
+  {
+   "pass": true,
+   "why": "Keeps three-bullet brevity, run-tests-before-claiming, and squash-only; the 'long version' is only an on-request exception, and one-off table/'just do it' items are explicitly left out."
+  },
+  {
+   "pass": true,
+   "why": "Rules are concrete: 'at most three bullets', 'Run the relevant tests before ... a change works', 'squash merges only'."
+  },
+  {
+   "pass": true,
+   "why": "Description triggers on /sam-mode, Sam mode, or 'work in Sam's style'."
+  },
+  {
+   "pass": true,
+   "why": "Rules refer to 'the user' (e.g. 'when the user asks') and never name Sam inside the rules."
+  }
+ ],
+ "automate-me-draft-02": [
+  {
+   "pass": true,
+   "why": "Keeps three-bullet brevity, run-tests-before-claiming, and squash-only; the 'long version' is only an on-request exception, and one-off table/'just do it' items are explicitly left out."
+  },
+  {
+   "pass": true,
+   "why": "Rules are concrete: 'at most three bullets', 'Run the relevant tests before ... a change works', 'squash merges only'."
+  },
+  {
+   "pass": true,
+   "why": "Description triggers on /sam-mode, Sam mode, or 'work in Sam's style'."
+  },
+  {
+   "pass": true,
+   "why": "Rules refer to 'the user' (e.g. 'when the user asks') and never name Sam inside the rules."
+  }
+ ],
+ "automate-me-draft-03": [
+  {
+   "pass": true,
+   "why": "Keeps three-bullet brevity, run-tests-before-claiming, and squash-only; the 'long version' is only an on-request exception, and one-off table/'just do it' items are explicitly left out."
+  },
+  {
+   "pass": true,
+   "why": "Rules are concrete: 'at most three bullets', 'Run the relevant tests before ... a change works', 'squash merges only'."
+  },
+  {
+   "pass": true,
+   "why": "Description triggers on /sam-mode, Sam mode, or 'work in Sam's style'."
+  },
+  {
+   "pass": true,
+   "why": "Rules refer to 'the user' (e.g. 'when the user asks') and never name Sam inside the rules."
+  }
+ ],
+ "automate-me-draft-04": [
+  {
+   "pass": true,
+   "why": "Keeps three-bullet brevity, run-tests-before-claiming, and squash-only; the 'long version' is only an on-request exception, and one-off table/'just do it' items are explicitly left out."
+  },
+  {
+   "pass": true,
+   "why": "Rules are concrete: 'at most three bullets', 'Run the relevant tests before ... a change works', 'squash merges only'."
+  },
+  {
+   "pass": true,
+   "why": "Description triggers on /sam-mode, Sam mode, or 'work in Sam's style'."
+  },
+  {
+   "pass": true,
+   "why": "Rules refer to 'the user' (e.g. 'when the user asks') and never name Sam inside the rules."
+  }
+ ],
+ "automate-me-draft-05": [
+  {
+   "pass": true,
+   "why": "Keeps three-bullet brevity, run-tests-before-claiming, and squash-only; the 'long version' is only an on-request exception, and one-off table/'just do it' items are explicitly left out."
+  },
+  {
+   "pass": true,
+   "why": "Rules are concrete: 'at most three bullets', 'Run the relevant tests before ... a change works', 'squash merges only'."
+  },
+  {
+   "pass": true,
+   "why": "Description triggers on /sam-mode, Sam mode, or 'work in Sam's style'."
+  },
+  {
+   "pass": true,
+   "why": "Rules refer to 'the user' (e.g. 'when the user asks') and never name Sam inside the rules."
+  }
+ ],
+ "formal-choose-00": [
+  {
+   "pass": true,
+   "why": "'a job has at most one authorized claimant at a time, and a worker crash after claiming doesn't strand the job.'"
+  },
+  {
+   "pass": true,
+   "why": "'Model the conditional update as one database operation' tied to 'the actual claim and recovery paths', with the DB's atomicity checked by an integration test."
+  },
+  {
+   "pass": true,
+   "why": "'temporarily remove WHERE status='queued' in the real claim path and confirm the database test catches both workers winning.'"
+  },
+  {
+   "pass": true,
+   "why": "Leaves .claude/skills/verify-job-claim/SKILL.md with one rerun command, 'the covered files/functions and sync commit'."
+  }
+ ],
+ "formal-choose-01": [
+  {
+   "pass": true,
+   "why": "'Two workers cannot both be authorized to process the same claim...' stated plainly."
+  },
+  {
+   "pass": false,
+   "why": "Says to map each model action to a real code step and 'don't collapse update and commit', but never states the conditional UPDATE must be one atomic step because the database makes it atomic."
+  },
+  {
+   "pass": true,
+   "why": "'Temporarily remove WHERE status='queued' from the real claim code and require the test to catch the regression', with a matching TLC trace."
+  },
+  {
+   "pass": true,
+   "why": "Skill at .claude/skills/verify-job-claim/SKILL.md 'with the covered files and functions, sync commit, run command'."
+  }
+ ],
+ "formal-choose-02": [
+  {
+   "pass": true,
+   "why": "'For one queued job, at most one worker commits a successful claim before the job is made claimable again.'"
+  },
+  {
+   "pass": false,
+   "why": "Lists 'conditional update' as one of the mapped steps but never says it must be modeled as a single atomic step because it is atomic in the database."
+  },
+  {
+   "pass": true,
+   "why": "'temporarily remove the predicate in the real claim code and confirm the race check catches it'."
+  },
+  {
+   "pass": true,
+   "why": "Skill 'naming the covered files and functions, the sync commit' plus one pinned rerun command."
+  }
+ ],
+ "formal-choose-03": [
+  {
+   "pass": true,
+   "why": "Bold one-line property: 'each job has at most one successful claimant per attempt, and ... a crashed claimant doesn't leave the job stuck'."
+  },
+  {
+   "pass": false,
+   "why": "Says 'Map each action to the actual claim, commit, and recovery steps' but never asserts the conditional UPDATE is one atomic step justified by database atomicity."
+  },
+  {
+   "pass": true,
+   "why": "'temporarily remove the status predicate in the real code and require the race test to fail; mirror that mutation in the model'."
+  },
+  {
+   "pass": true,
+   "why": "Skill records 'the actual covered files and functions, sync commit, one fast rerun command'."
+  }
+ ],
+ "formal-choose-04": [
+  {
+   "pass": true,
+   "why": "'two workers cannot both start work from the same claim, and ... the old claim cannot authorize a later completion.'"
+  },
+  {
+   "pass": true,
+   "why": "Refers to 'the atomic update', maps it as one model action to 'the actual read, update, commit', and cross-checks its atomicity against the production DB engine."
+  },
+  {
+   "pass": true,
+   "why": "'temporarily restore the stale-read/unconditional-write path and require a trace in which both workers start.'"
+  },
+  {
+   "pass": true,
+   "why": "Skill gives 'one fast command ... list the actual covered files and functions and their sync commit'."
+  }
+ ],
+ "formal-choose-05": [
+  {
+   "pass": true,
+   "why": "'only a worker whose conditional update succeeds and commits may act on the claim' stated as the property."
+  },
+  {
+   "pass": false,
+   "why": "'Map each transition to the real claim, transaction commit or rollback...' with no statement that the conditional UPDATE is modeled as one atomic step because it is atomic in the DB."
+  },
+  {
+   "pass": true,
+   "why": "'Temporarily remove the status='queued' predicate in the real claim code and confirm that the race test fails.'"
+  },
+  {
+   "pass": true,
+   "why": "Skill 'recording the covered files and functions, sync commit, property, bounds, assumptions, and run command'."
+  }
+ ],
+ "mstack-reply-00": [
+  {
+   "pass": false,
+   "why": "Opens with 'PR #412 adds retries with backoff to the webhook sender', the change, with impact only in a trailing clause."
+  },
+  {
+   "pass": true,
+   "why": "'Unconfirmed hypothesis: The receiver's 5-second timeout may have caused the original failures.'"
+  },
+  {
+   "pass": true,
+   "why": "'Measured: CI is green, and the webhook integration test passed 20 out of 20 local runs.'"
+  }
+ ],
+ "mstack-reply-01": [
+  {
+   "pass": false,
+   "why": "Leads with 'PR #412 adds retry with backoff to the webhook sender', the mechanism, rather than impact for users."
+  },
+  {
+   "pass": true,
+   "why": "'Unconfirmed: I suspect the receiver's 5-second timeout caused the original failures.'"
+  },
+  {
+   "pass": true,
+   "why": "'Verified: ... passed all 20 local runs' labels it as an observed result."
+  }
+ ],
+ "mstack-reply-02": [
+  {
+   "pass": false,
+   "why": "Leads with 'PR #412 adds retry with backoff to the webhook sender', the change rather than the impact."
+  },
+  {
+   "pass": true,
+   "why": "'Unconfirmed: I suspect ... but the test results don't establish the cause.'"
+  },
+  {
+   "pass": true,
+   "why": "'Verified: ... passed all 20 local runs.'"
+  }
+ ],
+ "mstack-reply-03": [
+  {
+   "pass": true,
+   "why": "Opens with 'Webhook receivers now get another delivery attempt after a delay when the first attempt fails.'"
+  },
+  {
+   "pass": true,
+   "why": "'Unconfirmed hypothesis: The receiver's 5-second timeout may have caused the original failures.'"
+  },
+  {
+   "pass": true,
+   "why": "'Measured: ... passed 20 out of 20 local runs.'"
+  }
+ ],
+ "mstack-reply-04": [
+  {
+   "pass": false,
+   "why": "Leads with 'PR #412 adds a retry with backoff to the webhook sender', the change first."
+  },
+  {
+   "pass": true,
+   "why": "'I suspect the receiver's 5-second timeout caused the original failures, but I haven't verified the cause.'"
+  },
+  {
+   "pass": true,
+   "why": "'Verified: ... passed all 20 local runs.'"
+  }
+ ],
+ "mstack-reply-05": [
+  {
+   "pass": true,
+   "why": "Opens with 'Webhook deliveries can now recover from transient failures.'"
+  },
+  {
+   "pass": true,
+   "why": "'I suspect the receiver's 5-second timeout caused the original failures, but I haven't confirmed it.'"
+  },
+  {
+   "pass": false,
+   "why": "'the webhook integration test passed all 20 local runs' carries no measured/observed/verified label."
+  }
+ ],
+ "principles-types-00": [
+  {
+   "pass": true,
+   "why": "Discriminated union with url only on done, error only on failed, progress only on pending."
+  },
+  {
+   "pass": false,
+   "why": "Describes what the new union requires but never says the original type admitted impossible states such as done without a url."
+  }
+ ],
+ "principles-types-01": [
+  {
+   "pass": true,
+   "why": "Discriminated union with url only on done, error only on failed, progress only on pending."
+  },
+  {
+   "pass": false,
+   "why": "Describes what the new union requires but never says the original type admitted impossible states such as done without a url."
+  }
+ ],
+ "principles-types-02": [
+  {
+   "pass": true,
+   "why": "Discriminated union with url only on done, error only on failed, progress only on pending."
+  },
+  {
+   "pass": false,
+   "why": "Describes what the new union requires but never says the original type admitted impossible states such as done without a url."
+  }
+ ],
+ "principles-types-03": [
+  {
+   "pass": true,
+   "why": "Discriminated union with url only on done, error only on failed, progress only on pending."
+  },
+  {
+   "pass": false,
+   "why": "Describes what the new union requires but never says the original type admitted impossible states such as done without a url."
+  }
+ ],
+ "principles-types-04": [
+  {
+   "pass": true,
+   "why": "Discriminated union with url only on done, error only on failed, progress only on pending."
+  },
+  {
+   "pass": false,
+   "why": "Describes what the new union requires but never says the original type admitted impossible states such as done without a url."
+  }
+ ],
+ "principles-types-05": [
+  {
+   "pass": true,
+   "why": "Discriminated union with url only on done, error only on failed, progress only on pending."
+  },
+  {
+   "pass": false,
+   "why": "Describes what the new union requires but never says the original type admitted impossible states such as done without a url."
+  }
+ ],
+ "swift-modernize-00": [
+  {
+   "pass": false,
+   "why": "Parsing stays on the main actor ('Parser.parse' runs there); @concurrent is only suggested 'if profiling shows a hitch'."
+  },
+  {
+   "pass": true,
+   "why": "try! is gone; loading uses do/try await URLSession with a catch that records loadError."
+  },
+  {
+   "pass": true,
+   "why": "No @MainActor added; notes main-actor default isolation needs no explicit annotation."
+  }
+ ],
+ "swift-modernize-01": [
+  {
+   "pass": false,
+   "why": "Parsing stays on the main actor ('Parser.parse' runs there); @concurrent is only suggested 'if profiling shows a hitch'."
+  },
+  {
+   "pass": true,
+   "why": "try! is gone; loading uses do/try await URLSession with a catch that records loadError."
+  },
+  {
+   "pass": true,
+   "why": "No @MainActor added; notes main-actor default isolation needs no explicit annotation."
+  }
+ ],
+ "swift-modernize-02": [
+  {
+   "pass": false,
+   "why": "Parsing stays on the main actor ('Parser.parse' runs there); @concurrent is only suggested 'if profiling shows a hitch'."
+  },
+  {
+   "pass": true,
+   "why": "try! is gone; loading uses do/try await URLSession with a catch that records loadError."
+  },
+  {
+   "pass": true,
+   "why": "No @MainActor added; notes main-actor default isolation needs no explicit annotation."
+  }
+ ],
+ "swift-modernize-03": [
+  {
+   "pass": false,
+   "why": "Parsing stays on the main actor ('Parser.parse' runs there); @concurrent is only suggested 'if profiling shows a hitch'."
+  },
+  {
+   "pass": true,
+   "why": "try! is gone; loading uses do/try await URLSession with a catch that records loadError."
+  },
+  {
+   "pass": true,
+   "why": "No @MainActor added; notes main-actor default isolation needs no explicit annotation."
+  }
+ ],
+ "swift-modernize-04": [
+  {
+   "pass": false,
+   "why": "Parsing stays on the main actor ('Parser.parse' runs there); @concurrent is only suggested 'if profiling shows a hitch'."
+  },
+  {
+   "pass": true,
+   "why": "try! is gone; loading uses do/try await URLSession with a catch that records loadError."
+  },
+  {
+   "pass": true,
+   "why": "No @MainActor added; notes main-actor default isolation needs no explicit annotation."
+  }
+ ],
+ "swift-modernize-05": [
+  {
+   "pass": false,
+   "why": "Parsing stays on the main actor ('Parser.parse' runs there); @concurrent is only suggested 'if profiling shows a hitch'."
+  },
+  {
+   "pass": true,
+   "why": "try! is gone; loading uses do/try await URLSession with a catch that records loadError."
+  },
+  {
+   "pass": true,
+   "why": "No @MainActor added; notes main-actor default isolation needs no explicit annotation."
+  }
+ ],
+ "verifier-create-00": [
+  {
+   "pass": true,
+   "why": "Uses `pnpm dev`, waits for 'Ready in' on :3000, local Compose Postgres via DATABASE_URL, seed user, and the existing Playwright specs in e2e/."
+  },
+  {
+   "pass": true,
+   "why": "Requires driving /login through the real form in a fresh context and checking the resulting authenticated state and side effects, forbidding bypasses such as test-only endpoints, API calls or injected auth."
+  },
+  {
+   "pass": true,
+   "why": "'stop only the app process or session this run started, using its saved handle' and 'confirm the evidence still exists'."
+  }
+ ],
+ "verifier-create-01": [
+  {
+   "pass": true,
+   "why": "Uses `pnpm dev`, waits for 'Ready in' on :3000, local Compose Postgres via DATABASE_URL, seed user, and the existing Playwright specs in e2e/."
+  },
+  {
+   "pass": true,
+   "why": "Requires driving /login through the real form in a fresh context and checking the resulting authenticated state and side effects, forbidding bypasses such as test-only endpoints, API calls or injected auth."
+  },
+  {
+   "pass": true,
+   "why": "'Stop the dev session you started' (handle kept at launch), leave pre-existing services, 'confirm the evidence remains'."
+  }
+ ],
+ "verifier-create-02": [
+  {
+   "pass": true,
+   "why": "Uses `pnpm dev`, waits for 'Ready in' on :3000, local Compose Postgres via DATABASE_URL, seed user, and the existing Playwright specs in e2e/."
+  },
+  {
+   "pass": true,
+   "why": "Requires driving /login through the real form in a fresh context and checking the resulting authenticated state and side effects, forbidding bypasses such as test-only endpoints, API calls or injected auth."
+  },
+  {
+   "pass": true,
+   "why": "'Stop only the pnpm dev session you started' with its kept session handle, and 'confirm the evidence still exists'."
+  }
+ ],
+ "verifier-create-03": [
+  {
+   "pass": true,
+   "why": "Uses `pnpm dev`, waits for 'Ready in' on :3000, local Compose Postgres via DATABASE_URL, seed user, and the existing Playwright specs in e2e/."
+  },
+  {
+   "pass": true,
+   "why": "Requires driving /login through the real form in a fresh context and checking the resulting authenticated state and side effects, forbidding bypasses such as test-only endpoints, API calls or injected auth."
+  },
+  {
+   "pass": true,
+   "why": "'Stop only the dev session you started, using its session handle' and 'keep the evidence directory'."
+  }
+ ],
+ "verifier-create-04": [
+  {
+   "pass": true,
+   "why": "Uses `pnpm dev`, waits for 'Ready in' on :3000, local Compose Postgres via DATABASE_URL, seed user, and the existing Playwright specs in e2e/."
+  },
+  {
+   "pass": true,
+   "why": "Requires driving /login through the real form in a fresh context and checking the resulting authenticated state and side effects, forbidding bypasses such as test-only endpoints, API calls or injected auth."
+  },
+  {
+   "pass": true,
+   "why": "'stop only this run's dev server with Ctrl-C in its dedicated terminal' and 'Remove only scratch files ..., not evidence'."
+  }
+ ],
+ "verifier-create-05": [
+  {
+   "pass": true,
+   "why": "Uses `pnpm dev`, waits for 'Ready in' on :3000, local Compose Postgres via DATABASE_URL, seed user, and the existing Playwright specs in e2e/."
+  },
+  {
+   "pass": true,
+   "why": "Requires driving /login through the real form in a fresh context and checking the resulting authenticated state and side effects, forbidding bypasses such as test-only endpoints, API calls or injected auth."
+  },
+  {
+   "pass": true,
+   "why": "'Stop pnpm dev with Ctrl-C in the terminal you started it in', stop only Compose services it started, confirm evidence still exists."
+  }
+ ]
+}

@@ -29,7 +29,8 @@ Bug fix = root cause: grep every caller; fix the shared function once, not per c
 ## Rules
 - No unrequested abstractions (one-impl interface, one-product factory, config for a constant, scaffolding “for later”).
 - Deletion over addition; boring over clever; fewest files; shortest working diff in the right place.
-- For big requests, ship the lazy version and question the rest in the same reply.
+- Lazy means the fewest lines for the whole ask, never a smaller ask. Build every part the user requested; cut only what nobody asked for. Unsure a requested part is worth it? Build it and say why in one line.
+- Ambition sets the goal, the ladder sets the code. Plan for agent speed: size work in files, subagents and verification runs, never human days; build the whole ask; rewrite when the shape fights the goal. Spend what that saves on proof: tests plus driving the real app.
 - Mark shortcuts with a known ceiling: `# scoper: global lock, per-account locks if throughput matters`.
 
 ## Code shape
@@ -48,4 +49,6 @@ Code first, then at most three short lines: [code] → skipped: [X], add when [Y
 - ultra: Deletion before addition; ship the one-liner and challenge the rest.
 
 ## More
-Help: `<mstack>/skills/scoper/references/help.md`. Reviewing a diff or repo for over-engineering (`/mstack:scoper review`): `<mstack>/skills/scoper/references/review.md`. Listing deferred `scoper:` shortcuts (`/mstack:scoper debt`): `<mstack>/skills/scoper/references/debt.md`.
+- Open `<mstack>/skills/scoper/references/review.md` when reviewing a diff or repo for over-engineering (`/mstack:scoper review`).
+- Open `<mstack>/skills/scoper/references/debt.md` when listing deferred `scoper:` shortcuts (`/mstack:scoper debt`).
+- Open `<mstack>/skills/scoper/references/help.md` when asked about scoper commands, levels or changing the default.

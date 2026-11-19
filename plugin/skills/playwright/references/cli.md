@@ -1,12 +1,6 @@
 # Playwright CLI reference
 
-Use the wrapper unless the CLI is installed globally:
-
-```bash
-export PWCLI="<this skill's directory>/scripts/playwright_cli.sh"
-alias pwcli="$PWCLI"   # optional
-pwcli --help
-```
+`pwcli` below aliases `"$PWCLI"` (`alias pwcli="$PWCLI"`); `pwcli --help` lists everything.
 
 ```bash
 # Core
@@ -71,4 +65,15 @@ pwcli tracing-stop
 # Sessions (isolate work), per command or once via env
 pwcli --session todo open https://demo.playwright.dev/todomvc
 export PLAYWRIGHT_CLI_SESSION=todo
+```
+
+The CLI reads `playwright-cli.json` from the current directory; `--config` points elsewhere.
+
+```json
+{
+  "browser": {
+    "launchOptions": { "headless": false },
+    "contextOptions": { "viewport": { "width": 1280, "height": 720 } }
+  }
+}
 ```

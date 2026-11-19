@@ -52,6 +52,4 @@ Write scores and the three biggest problems, with timestamps, to `docs/review_lo
 
 ## 4. Stop rule
 
-At least three rounds and until every score is 8 or higher. Only then do the full render and show the user, with the final contact sheet and scores.
-
-If a score won't move after two rounds on the same problem, replace the shot: its idea is the problem.
+After the last round, do the full render and show the user the final contact sheet and scores.

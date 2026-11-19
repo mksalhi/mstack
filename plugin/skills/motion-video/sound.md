@@ -5,7 +5,7 @@ One timeline: the same numbers place the cuts and the sounds. Needs `audio.mjs` 
 
 ## Path 1: a track is supplied
 
-Measure before animating. Don't edit the track.
+Measure before animating.
 
 ```bash
 pip install numpy librosa soundfile
@@ -41,7 +41,6 @@ node audio.mjs cues.json out/sfx.wav 15     # last argument: film length in seco
 
 Voices: `click`, `tick`, `pop`, `thump`, `whoosh`, `tone`, `chime`. New textures or melody: add a voice (one function of time) to `VOICES` in `audio.mjs`; keep the seeded noise generator.
 
-- Sound every visible cut, arrival and click; never a sound without a visible cause.
 - Sparse beats dense.
 - No generic synth pads; music is a real phrase with a start, a lift, and a landing on the logo.
 

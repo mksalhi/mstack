@@ -26,7 +26,7 @@ Review in two passes: keyboard only (complete every flow without a mouse), then 
 - Minimum 24×24 CSS px (2.5.8 AA).
 - Enlarge targets via ::after on wrapping <label>/<button>, never on <input>; expanded areas must not overlap.
 - Decorative overlays swallow clicks: add pointer-events: none and aria-hidden.
-- Gate hover styles behind (hover: hover) and (pointer: fine); see [mobile-web](../mobile-web.md).
+- Gate hover styles behind (hover: hover) and (pointer: fine).
 
 ## Forms
 

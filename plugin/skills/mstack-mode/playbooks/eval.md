@@ -17,7 +17,7 @@
 3. **Author one organic prompt**, with no leakage of what is measured.
 4. **Spawn N parallel candidates** on different models per `arena` Phase B, each in its own sanitized dir, same prompt.
 5. **Spawn one blinded judge** on a different model family per `arena` Phase C, with the rubric.
-6. **Verify the chain from transcripts, not self-report.** Read each candidate's transcript per `<mstack>/skills/mstack-mode/references/transcripts.md`; never glob ~/.claude/projects/*/. Grade chain-following from the files it actually opened plus code shape.
+6. **Verify the chain from transcripts, not self-report.** Read each candidate's transcript (location in SKILL.md). Grade chain-following from the files it actually opened plus code shape.
 7. **Read every candidate output yourself** end to end and compare to the judge. Disagreement means model bias or an ambiguous rubric. Synthesize.
 
 **Reply:** variant under test, rubric, per-candidate notes, judge's verdict, your synthesis, and whether to promote the variant.

@@ -2,17 +2,7 @@
 
 Upkeep for a project-local verification skill with a feature map. Cover every feature file from source and drive every feature live at least once; not every bullet needs its own drive.
 
-## Outcomes
-
-End on one and say which:
-
-- **clean**: every feature got source and live coverage; nothing to ship. No branch, no PR.
-- **changed**: one PR ships proven doc, harness, or map corrections.
-- **blocked**: coverage couldn't finish or a proven fix couldn't ship safely. Say exactly what blocked it.
-
-## Edit scope
-
-Edit only the verification skill's directory (SKILL.md, features/, its harness scripts). Never edit product code: behavior the map describes that the app no longer does is doc drift (fix the map) or a product regression (report it).
+The outcomes and edit scope in `SKILL.md` Maintain apply. Behavior the map describes that the app no longer does is doc drift (fix the map) or a product regression (report it).
 
 ## Pass
 

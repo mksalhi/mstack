@@ -10,7 +10,7 @@ metadata:
 
 # Automate me
 
-Create one -mode skill. Mine history with <mstack>/skills/mstack-mode/playbooks/authoring-a-skill.md, then run <mstack>/skills/writing/unslop.md>. Exception: for “how I write commit messages”, skip mining; use <mstack>/skills/writing/agents.md>.
+Create one -mode skill. Mine history with <mstack>/skills/mstack-mode/playbooks/authoring-a-skill.md, then run the Unslop pass in <mstack>/skills/writing/SKILL.md>. Exception: for “how I write commit messages”, skip mining; use <mstack>/skills/writing/agents.md>.
 
 0) Check for an existing skill
 - Search: .agents/skills/**/*-mode/SKILL.md, .claude/skills/**/*-mode/SKILL.md, ~/.agents/skills/*-mode/SKILL.md for the user’s handle.
@@ -18,7 +18,7 @@ Create one -mode skill. Mine history with <mstack>/skills/mstack-mode/playbooks/
 - To update: mine only since its last edit (`git log -1 --format=%cI <path>`), ask what changed, edit in place, add sections only for new rules.
 
 1) Mine their history
-- Read this project’s transcripts per <mstack>/skills/mstack-mode/references/transcripts.md>; never glob ~/.claude/projects/*/.
+- Read this project’s transcripts at `~/.claude/projects/<slug>/<session-uuid>.jsonl`, where the slug is the working directory with `/` and `.` turned into `-`. Never glob `~/.claude/projects/*/`.
 - Fan out subagents over time slices (e.g., last 2–4 weeks).
 - Keep only patterns in 2+ slices; treat single or contradicted prefs as noise.
 

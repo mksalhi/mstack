@@ -1,7 +1,7 @@
 Prose with type sketch. One page; sentence-case headings; no boilerplate. Replace italics with content.
 
 ## Problem
-One paragraph: goal and why constraints make shape non-obvious. Name [Phase A](../SKILL.md#phase-a-ground-the-problem) constraints: interop types, unbreakable callers, cross-boundary invariants.
+One paragraph: goal and why constraints make shape non-obvious. Name [Phase A](../SKILL.md#phase-a-ground) constraints: interop types, unbreakable callers, cross-boundary invariants.
 
 ## Usage (caller's view)
 Write first: README/quickstart + 2–3 realistic call sites. The sketch in [Shape](#shape) must derive from this; if they diverge, reconcile to usage. Caller experience is the spec.

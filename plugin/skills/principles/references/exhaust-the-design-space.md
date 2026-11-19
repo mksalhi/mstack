@@ -1,1 +1,0 @@
-When the answer is not obvious, build 2-3 competing prototypes/sketches, compare side by side, then commit. Variations of one shape don’t count. For novel UI, architectural choices with viable alternatives, and feel-dependent decisions; skip established patterns, bug fixes/refactors with a clear target, and single-approach constraints.

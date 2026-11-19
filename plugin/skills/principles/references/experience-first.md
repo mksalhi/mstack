@@ -1,4 +1,0 @@
-- Prioritize user delight over implementation convenience.
-- Ship fewer, polished features; every option must justify itself and serve the core loop or go.
-- Treat end user, importing colleague, and next maintainer as equal users; explain impact from their perspective.
-- For competing prototypes, use [Exhaust the design space](exhaust-the-design-space.md).

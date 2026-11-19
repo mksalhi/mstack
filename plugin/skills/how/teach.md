@@ -5,18 +5,17 @@ Explain what a thing is, how it works, and why it’s built that way, in one pla
 
 - Let how and why dig
   - Read the code to orient.
-  - Run the explain flow ([SKILL.md](SKILL.md)) and the why skill in parallel; combine results. Don’t redo their work.
-  - Size to the question. Keep why narrow by default; put the narrowing in the ask (scoped question, git plus a source or two) so why records skipped categories per its contract. Widen only when reasons are the point.
+  - Don’t redo the how and why work. Put why’s narrowing in the ask (scoped question, git plus a source or two) so why records skipped categories per its contract.
   - Reword freely, but keep why’s confidence language intact.
 
 - Define, then build
   - Name the thing with its common name. Tie it to the case. Then how it works, deeper reasons, edge cases.
   - For each part, give the problem it solves and the actual mechanism; walk through what happens as the person acts.
-  - Start with the smallest complete answer, then stop; add layers when asked. Never a wall of text.
+  - Add layers only when asked.
 
 - Converse
   - Offer to go deeper or move on. When you would pause, stop and let them respond.
-  - One-shot: deliver cleanly, offer depth at the end. No quizzes, pacing theater, “Pause”, say-it-back requests, or flags like “this is the tricky part”.
+  - One-shot: deliver cleanly, offer depth at the end. No pacing theater, “Pause”, or flags like “this is the tricky part”.
 
 - Show and build up
   - Open the diff, code, or debugger when that lands it fastest. With three or more moving parts, draw a series that adds one part each time. Mermaid for flows or structure with meaningful labels.

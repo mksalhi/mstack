@@ -1,6 +1,6 @@
 # Building animations
 
-Source of motion values for ui. Audit: [audit.md](audit.md); React Native: [animate-expo](../animate-expo/index.md); diff review: [review](../review/index.md); start with [RECIPES.md](RECIPES.md).
+Source of motion values for ui. Open [RECIPES.md](RECIPES.md) when building a dropdown, tooltip, toast, accordion, stagger, drag-to-dismiss, icon swap, theme switch or tab indicator. Open [audit.md](audit.md) when asked to audit a codebase's motion; an audit never edits source and writes only plans. For React Native, open [animate-expo](../animate-expo/index.md) instead.
 
 Animating something that shouldn’t move is the worst failure; zero lines is valid. Take values here, extend tokens, and ship reduced-motion + hover gating in the same change. Motion must never block input; never hijack scroll.
 
@@ -46,7 +46,7 @@ Animating something that shouldn’t move is the worst failure; zero lines is va
 ## 6. Reduced motion and hover
 - Movement is opt-in: base transitions only opacity/color; transforms inside @media (prefers-reduced-motion: no-preference). In JS, check useReducedMotion().
 - Reduced means gentler, not none; keep opacity feedback.
-- Gate hover motion per [mobile-web](../mobile-web.md#hover-sticks-after-a-tap).
+- Gate hover motion behind `@media (hover: hover) and (pointer: fine)`.
 
 ## Never ship
 - transition: all

@@ -2,7 +2,7 @@
 
 - Never report a contrast value you didn’t measure.
 - Reuse the project’s tokens and notation; never add a second notation.
-- Pass criteria: [accessibility](../accessibility/index.md). Surfaces and icon color: [polish](../polish/index.md). For palettes/tokens: [palette.md](palette.md).
+- Pass criteria: [accessibility](../accessibility/index.md). Surfaces and icon color: [polish](../polish/index.md). Open [palette.md](palette.md) when building or auditing a palette or token set. A palette audit reports the inventory before any change; consolidations stay proposals until accepted.
 
 ## Rules
 - One color, one meaning. Hues within 15° are the same. If the accent means “interactive,” don’t use it on static text; don’t render interactive elements neutral.

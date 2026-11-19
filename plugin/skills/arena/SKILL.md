@@ -40,4 +40,19 @@ Output
 
 ## Swarm
 
-For coverage. Read [references/swarm.md](references/swarm.md) and follow its four steps: Frame, Fan out, Aggregate, Report.
+Swarm todolist: Frame, Fan out, Aggregate, Report.
+
+Swarm A: Frame
+- State the done predicate and what to return. Shape is partition slices, race N workers, or mix; for a race declare first pass, rank all, or best-of before spawning.
+- Workers: the `swarm workers` line in ~/.claude/rules/mstack-models.md, else claude-opus-5-5 (also the fallback if a model is rejected; say so), effort: xhigh.
+- Each writing worker gets its own writable output. Briefs that verify or measure commits name exact SHAs; measurement briefs also name the method (sample count, what one sample is, order).
+
+Swarm B: Fan out
+- Spawn all N in one message with subagent_type: general-purpose and isolation: "worktree" for writers (omit for read-only). From a non-default pushed branch, name it and have the worker check it out first.
+- Every brief stands alone (goal, scope, slice or arm, how to verify, what to report). Reports use PASS, ISSUES (every provable issue) or BLOCKED, with evidence. If a worker drops out, continue with N-1 and note it.
+
+Swarm C: Aggregate
+- Drop a result missing the SHAs and method its brief names and rerun that worker once; a second miss is a gap, never a pass. Coverage needs a result for every required slice. Races apply the declared rule. Never paste raw worker dumps.
+
+Swarm D: Report
+- One consolidated in-chat report with the table, issue one-liners, gaps or dropouts, and the race rule when used.

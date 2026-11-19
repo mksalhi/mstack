@@ -1,0 +1,542 @@
+{
+ "ambition-overnight-00": [
+  {
+   "pass": true,
+   "why": "Runs every phase to a PR, and on approval it says \"*Never block on the human* keeps reversible fixes on the branch without waiting for approval.\""
+  },
+  {
+   "pass": true,
+   "why": "It has an explicit exit condition: \"passes the existing lint and type checks, the Vite production build, the static Storybook build, the full Jest suite, and the full Playwright suite.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Log each iteration with the change, the command and result\", combined with \"Never block on the human\", so decisions get a default and a log instead of a question."
+  },
+  {
+   "pass": true,
+   "why": "\"Playwright must exercise the built app\", and the plan says to \"Drive the built app in a browser and hunt for failures a green build would miss.\""
+  }
+ ],
+ "ambition-overnight-01": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Switch the existing app script names and CI artifact job to Vite. Remove the old app config... Open a PR\"."
+  },
+  {
+   "pass": true,
+   "why": "\"rerun the frozen install and every baseline gate after removal\", with \"an explicit pass, fail, or inconclusive result for each gate.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Keep an append-only `decisions.tsv`... with the phase, decision, reason, evidence path, and result for each fork.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Point Playwright's `webServer` and `baseURL` at a server that serves the built Vite artifact\" and \"Run the full suite.\""
+  }
+ ],
+ "ambition-overnight-02": [
+  {
+   "pass": false,
+   "why": "Not a commitment to finish: it calls this \"the first pass\" and would \"Remove Webpack config and dependencies only after staging verification\", which defers part of the migration past tonight."
+  },
+  {
+   "pass": true,
+   "why": "The cutover gate is checkable: \"Once the Vite build passes the baseline checks with no new failures\", and the baseline covers typecheck, Jest, the build, Storybook and Playwright."
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"If a check fails, leave Webpack as the default.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Run the same specs against the built Vite app using a separate `webServer` command and port.\""
+  }
+ ],
+ "ambition-overnight-03": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"switch the canonical app scripts and CI to Vite. Delete the app-only Webpack config... Run the same gates again from a clean install.\""
+  },
+  {
+   "pass": true,
+   "why": "The cutover waits on \"Jest, the static Storybook build, and the full configured Playwright matrix\" passing, run again from a clean install."
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"Stop if a broken baseline prevents a meaningful comparison.\""
+  },
+  {
+   "pass": true,
+   "why": "\"point Playwright's existing `webServer` at the **built Vite app**, not the dev server.\""
+  }
+ ],
+ "ambition-overnight-04": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Switch the canonical scripts and CI jobs to Vite. Remove Webpack 4 config and dependencies\", then repeat every exit check."
+  },
+  {
+   "pass": true,
+   "why": "It has an explicit exit condition: \"Stop only when a clean checkout... passes the repository's required CI checks... Storybook starts and builds, and the full existing Jest and Playwright suites pass.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Append one row per iteration to `decisions.tsv` with the change, evidence, and whether it moved the exit condition.\""
+  },
+  {
+   "pass": true,
+   "why": "\"point Playwright's `webServer` at the built artifact\" and \"Drive the built app and Storybook in a browser.\""
+  }
+ ],
+ "ambition-overnight-05": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"switch the default scripts and CI artifact path to Vite. Remove Webpack app dependencies and config in a separate commit.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Require a clean install, Vite production build, Jest, static Storybook build, Playwright, and any existing typecheck and lint gates to pass.\""
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"If a gate fails, leave Webpack as the default and record the exact failing command and log.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Point Playwright's `webServer` and `baseURL` at the Vite preview server... Run the full existing browser matrix.\""
+  }
+ ],
+ "ambition-overnight-06": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Remove Webpack configs and direct dependencies only after their last consumer is gone\", then a fresh-checkout final pass."
+  },
+  {
+   "pass": true,
+   "why": "Its final gate lists the build, Storybook, Jest and e2e commands, and the branch is marked \"ready only if the clean-checkout checks pass with no new failures.\""
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"Otherwise, leave it unmerged with the first reproducible blocker.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Point the production-artifact run at the Vite build\", and \"Run every configured project.\""
+  }
+ ],
+ "ambition-overnight-07": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Switch the canonical dev and build scripts... Remove the Webpack app config\" and \"Run the full exit gate from a clean checkout.\""
+  },
+  {
+   "pass": true,
+   "why": "It has an explicit exit condition: production build, static Storybook build, full Jest suite, and \"full Playwright browser matrix against the **built Vite app**.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Record decisions and evidence paths in an append-only `decisions.tsv`.\""
+  },
+  {
+   "pass": true,
+   "why": "It says \"Start Vite, load the app in a browser\" and points Playwright \"at the built Vite app.\""
+  }
+ ],
+ "ambition-overnight-08": [
+  {
+   "pass": false,
+   "why": "Defers the finish: \"Keep the Webpack scripts and config through the first verified deployment... Remove them separately\", so the migration is not taken to done tonight."
+  },
+  {
+   "pass": true,
+   "why": "Cutover waits until \"the production build, type-check if applicable, Jest, Storybook build, and Playwright pass with no new failures.\""
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"If a check is blocked or red, leave Webpack as the default and report the blocker.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Run the existing suite against the built Vite app by changing the server command and base URL.\""
+  }
+ ],
+ "ambition-overnight-09": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Remove obsolete Webpack scripts, config, loaders... repeat the full verification matrix... Open a PR.\""
+  },
+  {
+   "pass": true,
+   "why": "It has an explicit exit condition: \"The final revision installs cleanly, builds and serves the Vite production artifact... passes the Storybook, Jest, and Playwright gates.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Keep a decision log with the evidence, change, verification result, and next action for each iteration.\""
+  },
+  {
+   "pass": true,
+   "why": "Playwright runs \"against the served **production Vite artifact**\", and it saves \"representative screenshots\" for comparison."
+  }
+ ],
+ "ambition-overnight-10": [
+  {
+   "pass": false,
+   "why": "Does not commit to finishing: \"A working parallel Vite build is a useful stopping point\", and the cutover is held for staging smoke checks."
+  },
+  {
+   "pass": true,
+   "why": "\"Once the Vite build, Jest, static Storybook build, Playwright, and staging smoke checks pass, switch the default.\""
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"If any gate fails, leave the default build on Webpack and record the failing check.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Add a CI run against the built Vite app using `preview:vite` as the web server.\""
+  }
+ ],
+ "ambition-overnight-11": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"switch the canonical `dev` and `build` scripts, remove the temporary scripts and app-only Webpack config... Rerun CI.\""
+  },
+  {
+   "pass": true,
+   "why": "\"From a clean install, run the app build, Storybook build, Jest, and the full Playwright matrix\" before cutover."
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"If a gate fails, leave the Webpack scripts as the default and report the failing command.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Point Playwright's existing server setup at the Vite production build.\""
+  }
+ ],
+ "ambition-overnight-12": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Switch the normal dev/build scripts and CI to Vite. Remove the old app and Storybook Webpack configs\", then a clean-checkout rerun."
+  },
+  {
+   "pass": true,
+   "why": "Its clean-checkout gate repeats \"production build, static Storybook build and smoke test, full Jest suite, and full Playwright matrix.\""
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"Keep the change on the branch if any gate fails.\""
+  },
+  {
+   "pass": true,
+   "why": "\"drive the real app: load the entry route... navigate to and reload a deep link\", and run Playwright \"against built output.\""
+  }
+ ],
+ "ambition-overnight-13": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Switch the canonical app scripts and CI build to Vite. Delete the temporary scripts, app-only Webpack config\", then verify from a clean install."
+  },
+  {
+   "pass": true,
+   "why": "The gate is \"Run the baseline checks again\": the build, typecheck, Jest, Storybook and all Playwright projects, and cutover happens only if they are green."
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"leave the Webpack build as the default and report the exact blocker.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Point Playwright at the **built Vite artifact**... Run all configured projects.\""
+  }
+ ],
+ "ambition-overnight-14": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"switch the existing dev/build scripts to Vite\" and \"Remove Webpack, then verify from scratch.\""
+  },
+  {
+   "pass": true,
+   "why": "The ship gate is \"No new failures, no missing tests or browser projects\", with the build, Storybook, Jest and e2e commands listed."
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"If a gate fails, leave the branch unmerged and undeployed; record the failing command.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Run the full existing browser matrix against the built app\", after it says to \"Drive the actual app through a direct route load.\""
+  }
+ ],
+ "ambition-overnight-15": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Remove obsolete Webpack config\", rerun the full gate, and \"open a PR with the evidence.\""
+  },
+  {
+   "pass": true,
+   "why": "It has an explicit exit condition: \"passes the app build, Storybook build, full Jest suite, and all existing Playwright projects in CI.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Log each iteration with the command, result, decision, and whether it advanced the exit condition.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Drive the production build in a browser\", and \"Playwright must exercise the production Vite build.\""
+  }
+ ],
+ "ambition-overnight-16": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Remove the app's Webpack configs... Repeat the full exit check\", using `/loop` to resume after CI."
+  },
+  {
+   "pass": true,
+   "why": "It has an explicit exit condition: lint and type checks, \"Vite production build, Storybook static build, full Jest suite, and full Playwright browser matrix must pass.\""
+  },
+  {
+   "pass": true,
+   "why": "\"I'd record the decision, evidence, and result in `decisions.tsv`\", and it states defaults up front (\"My default would be...\")."
+  },
+  {
+   "pass": true,
+   "why": "\"Point Playwright at the built app\", and it says to \"Drive a representative route.\""
+  }
+ ],
+ "ambition-overnight-17": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Switch the app's default dev/build scripts and CI to Vite, then rerun the full checks... Remove only Webpack config\" nothing uses."
+  },
+  {
+   "pass": true,
+   "why": "The parity gate lists the production build, Playwright against the artifact, Jest, the Storybook build, and type-check and lint."
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"leave the Webpack defaults intact and report the failing command.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Point Playwright at that artifact... Check direct navigation and refresh on a nested route.\""
+  }
+ ],
+ "ambition-overnight-18": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"switch the standard scripts and CI/deploy references to Vite... remove only the configs... rerun\" every suite."
+  },
+  {
+   "pass": true,
+   "why": "From a clean install it reruns \"the production app build, static Storybook build, full Jest suite, full Playwright suite, and existing lint/type checks.\""
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"If a parity check is unresolved, leave the branch unmerged and report the failing command.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Point the existing `webServer` command at a server for the **built Vite artifact**.\""
+  }
+ ],
+ "ambition-overnight-19": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"switch the default scripts and deployment artifact path in a dedicated commit\" after the gates, with no human approval step."
+  },
+  {
+   "pass": true,
+   "why": "\"require the Vite production build, full Jest suite, static Storybook build, and production-build Playwright suite to pass.\""
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"If any gate fails, leave Webpack as the default.\""
+  },
+  {
+   "pass": true,
+   "why": "\"run it against the Vite production output, using the actual deployment server where possible.\""
+  }
+ ],
+ "ambition-overnight-20": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Switch the existing app script names to Vite... Remove the old **app** Webpack config and dependencies.\""
+  },
+  {
+   "pass": true,
+   "why": "Each step has a gate, and verification requires \"No new failures, and the artifact works with the hosting contract.\""
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"I'd leave Webpack as the default and hand off the Vite branch with the failing command.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Run Playwright against the actual Vite build using the existing production-like serving setup.\""
+  }
+ ],
+ "ambition-overnight-21": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"switch the default scripts and CI to Vite. Remove Webpack and its loaders\" once nothing uses them."
+  },
+  {
+   "pass": true,
+   "why": "\"From a fresh install, require the production build, Jest, the static Storybook build, and the full Playwright matrix to pass.\""
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"If a gate fails, leave Webpack as the default and hand off the branch.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Point Playwright at the **built Vite app**... Run the same browser projects.\""
+  }
+ ],
+ "ambition-overnight-22": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: cutover, \"remove app-owned Webpack scripts\", and a clean-checkout verify, with \"Never block on the human\" stated."
+  },
+  {
+   "pass": true,
+   "why": "It repeats \"the locked install, app build, Storybook build, full Jest suite, and Playwright gates from a clean checkout\" and adds that \"A green build alone doesn't count.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Keep an append-only `decisions.tsv` with the phase, decision, reason, evidence, and result\", and it works \"without requiring an overnight decision.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Run the full suite against the production build\", plus it says to \"Review production browser errors, failed network requests.\""
+  }
+ ],
+ "ambition-overnight-23": [
+  {
+   "pass": true,
+   "why": "Runs to a review-ready branch: \"*Never block on the human* keeps reversible work on an isolated branch without a sign-off between phases.\""
+  },
+  {
+   "pass": true,
+   "why": "It has an explicit exit condition: \"full Jest suite, static Storybook build, and full Playwright matrix against the **served Vite production build**.\""
+  },
+  {
+   "pass": true,
+   "why": "\"After each verified change, record the commit, commands, results, and any reverted attempt\", and it adds that there is no sign-off between phases."
+  },
+  {
+   "pass": true,
+   "why": "\"Run the full Playwright matrix against the Vite artifact\" and \"Check browser errors and failed requests.\""
+  }
+ ],
+ "ambition-overnight-24": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Retire the old app build after parity\", it rerun the gate, and \"Never block on the human by defaulting to reversible branch work.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Re-run the full gate from a clean checkout\", which covers the type check, build, Storybook, Jest and Playwright, with \"A green compile is not a substitute for green browser tests.\""
+  },
+  {
+   "pass": true,
+   "why": "\"I would keep an append-only `decisions.tsv` with each material choice, its reason, evidence, and result.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Run the full configured suite against the Vite production artifact with the repo's production serving rules.\""
+  }
+ ],
+ "ambition-overnight-25": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Switch the canonical dev and build scripts to Vite... remove the temporary scripts... repeat the baseline checks.\""
+  },
+  {
+   "pass": true,
+   "why": "It reruns the baseline checks (lint and typecheck, Jest, build, Storybook, Playwright) from a clean checkout and won't \"call it done\" on a regression."
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"I'd leave the cutover unmerged and report the blocker.\""
+  },
+  {
+   "pass": true,
+   "why": "It says to \"drive the app in a browser: initial load, direct navigation and refresh\", and also to \"Run the full existing suite.\""
+  }
+ ],
+ "ambition-overnight-26": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Once the checks pass, switch the canonical `dev` and `build` scripts to Vite... remove only Webpack files... proven to be app-only.\""
+  },
+  {
+   "pass": true,
+   "why": "The parity section requires the production build, Jest, the Storybook static build and the full Playwright matrix to pass before cutover."
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"If any required check is still red or unverified, leave the PR in draft and keep Webpack as the default.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Run the full existing browser matrix against the **Vite production artifact**.\""
+  }
+ ],
+ "ambition-overnight-27": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Remove the old app path and rerun from clean state... Open a PR\", with no approval step between phases."
+  },
+  {
+   "pass": true,
+   "why": "It has an explicit exit condition: CI checks pass, \"Storybook runs and builds statically. The full Jest and Playwright suites pass.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Keep a migration ledger\" (behavior, consumer, Vite replacement, parity check), and \"After each verified change, record what changed, what passed, and what was reverted.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Point Playwright at the Vite-built artifact\", and it says to \"Drive the current app in a browser and capture representative routes.\""
+  }
+ ],
+ "ambition-overnight-28": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"Point the existing dev, build, and CI entry points at Vite... Remove the app's Webpack config... leave the branch ready for review.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Run the full baseline checks again from a fresh frozen install\", covering the build, Storybook, Jest and Playwright, then \"say whether the cutover gate passed.\""
+  },
+  {
+   "pass": true,
+   "why": "\"keep an append-only `decisions.tsv` with each decision, its reason, an evidence pointer, and the result.\""
+  },
+  {
+   "pass": true,
+   "why": "It runs Playwright against the production build and says to \"Compare test and story counts, screenshots, and browser errors.\""
+  }
+ ],
+ "ambition-overnight-29": [
+  {
+   "pass": true,
+   "why": "The described run goes from baseline through cutover and Webpack removal to a review-ready branch with no approval stop: \"switch the app's dev and build scripts\", then \"Remove Webpack and verify again.\""
+  },
+  {
+   "pass": true,
+   "why": "The gate after cleanup lists `npm ci`, the build, build-storybook, the Jest tests and test:e2e, plus lint and typecheck."
+  },
+  {
+   "pass": false,
+   "why": "It states some defaults but keeps no decision log, and on a failing gate it says to stop and report instead of choosing a logged default: \"If a required check fails, leave the branch unmerged and report the failing command and blocker.\""
+  },
+  {
+   "pass": true,
+   "why": "\"Run the full suite against the built artifact\", after it says to \"drive the dev server: load the app, navigate to a lazy route.\""
+  }
+ ]
+}

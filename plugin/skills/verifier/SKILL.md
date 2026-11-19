@@ -40,7 +40,7 @@ Write `.claude/skills/verify-<app>/SKILL.md` with YAML frontmatter (`name: verif
 
 ### 3. Seed the feature map
 
-Create `.claude/skills/verify-<app>/features/README.md` plus one file per user-facing feature (top 3-5 to start, from routes, commands, menus, or docs), following [`references/feature-map-example/README.md`](references/feature-map-example/README.md) and its sample feature file [`search.md`](references/feature-map-example/search.md). Each file says, from the user's POV, what the feature is, how to reach it, how to drive it, and what observable end state proves it. The four H2s: `Sub-features`, `How to get to it (user POV)`, `Driving it with <harness>`, `Gotchas`. The map is the verification source of truth: a proof driving one convenient entry point is incomplete when the map lists others.
+Create `.claude/skills/verify-<app>/features/README.md` plus one file per user-facing feature (top 3-5 to start, from routes, commands, menus, or docs). Open [`references/feature-map-example/README.md`](references/feature-map-example/README.md) and its sample feature file [`search.md`](references/feature-map-example/search.md) when writing the map's README and first feature file. Each feature file says, from the user's POV, what the feature is, how to reach it, how to drive it, and what observable end state proves it. The four H2s: `Sub-features`, `How to get to it (user POV)`, `Driving it with <harness>`, `Gotchas`. The map is the verification source of truth: a proof driving one convenient entry point is incomplete when the map lists others.
 
 ### 4. Prove the generated skill before handing it over
 
@@ -52,4 +52,8 @@ Point the user at `/mstack:verifier maintain`.
 
 ## Maintain
 
-Read [references/maintain.md](references/maintain.md) and follow its pass (steps 0 to 6), then end on clean, changed or blocked.
+- Edit only the verification skill's directory. Never edit product code. Report a product regression instead of fixing it.
+- Cover every feature file from source, then drive every feature live at least once, even when source looks clean. Doctor before the first drive and after any failed drive.
+- Evidence survives every cleanup. Call a feature unreachable only with the concrete prerequisite and the route attempted.
+- End on one outcome and say which: clean (no branch, no PR), changed (one PR of proven corrections), or blocked (say exactly what blocked it).
+- Open [references/maintain.md](references/maintain.md) before starting and follow its pass, steps 0 to 6.

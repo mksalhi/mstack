@@ -21,13 +21,16 @@ metadata:
 - Launch all reviewers in one message: one per “interrogate reviewers” in `~/.claude/rules/mstack-models.md`; else two on `claude-opus-5-5`.
 - For each: `subagent_type: "general-purpose"`, brief forbids edits, `effort: high`, `model` = its entry (omit if `auto` or `inherit-parent`).
 - If a model is rejected, use its family alias (`opus`, `fable`, `sonnet`, `haiku`) and note this.
-- Fill `references/reviewer-prompt.md` identically for every reviewer with the intent, the diff or contents, and `references/rubric.md`.
+- Open `references/reviewer-prompt.md` and `references/rubric.md` when writing the reviewer briefs. Fill the prompt identically for every reviewer with the intent, the diff or contents, and the rubric.
 
 ## Step 4, Synthesize
 - Merge duplicates; attribute models; weight multi-model agreement; downweight lone findings; note contradictions.
 
 ## Step 5, Lead judgment
-- Apply `references/lead-judgment.md`. Bucket each finding with model(s) and a one-line reason: Act on, Consider, Noted, Dismissed.
+- Bucket each finding with model(s) and a one-line reason: Act on, Consider, Noted, Dismissed.
+- Count a hypothetical only if a caller can hit it. Trace call sites and types, and dismiss it if upstream prevents it.
+- Dismiss premature abstraction unless a second change is expected, "I'd do it differently" without a concrete problem, and items outside the changed code, consistent with codebase patterns, or against known constraints.
+- Trust a finding more when several models agree, it names a concrete execution path, or it shows a gap in your model. Scrutinize security and correctness findings harder, even from one model.
 
 ## Output format
 

@@ -2,7 +2,7 @@
 
 - No hover. Two runtimes: keep motion on UI runtime (worklets). Finger on element: support interruption and velocity handoff.
 - Use Reanimated 4; never core `Animated`. Judge feel on a release build on the slowest supported device.
-- Start from [RECIPES.md](RECIPES.md).
+- Open [RECIPES.md](RECIPES.md) when building a drag-to-dismiss sheet, swipe to delete, collapsing header, list entrance, keyboard-following footer, tab indicator, screen transition, toast or threshold haptic.
 - Worst failures: animating what shouldn’t move; running on the wrong thread.
 
 ## 1) Should it animate?

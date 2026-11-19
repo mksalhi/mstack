@@ -12,7 +12,7 @@ The first action decides the pick; no tool call means NONE.
 import argparse, concurrent.futures as cf, hashlib, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import llm
-from static import tree_at, frontmatter, skill_at
+from static import tree_at, frontmatter, skill_at, CUT
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 AGENT = ("You are a coding agent working in the user's git repository. Use the tools when they help; "
@@ -81,6 +81,8 @@ def main():
     qs = []
     for l in open(os.path.join(HERE, "queries.jsonl")):
         q = json.loads(l)
+        if q["accept"] and set(q["accept"]) <= CUT:
+            continue
         acc = [n for n in q["accept"] if skill_at(mstack | user_only, n) not in user_only]
         if q["accept"] and not acc:
             continue  # only a user-only skill answers it: the user types the command

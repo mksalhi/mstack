@@ -16,10 +16,10 @@ Tailwind: v4 `hover:` only checks `(hover: hover)`; v3 needs `future.hoverOnlyWh
 ```
 - Wrong height: `100vh` overflows under URL bar. Use `100dvh` for app shells/drawers; `100svh` for heroes.
 - Page zooms into an input:
-  - Apply the 16px rule in [typography](typography/index.md).
+  - Keep inputs at 16px per [typography](typography/index.md).
   - Use `inputmode` numeric/decimal, `type` email/tel, `enterkeyhint` send/search/done.
   - `autocapitalize="none" autocorrect="off"` on codes/usernames.
-- Taps feel laggy: `touch-action: manipulation` on controls. Feedback on `:active` or `pointerdown`, not `click` (see [animate](animate/index.md)).
+- Taps feel laggy: `touch-action: manipulation` on controls. Feedback on `:active` or `pointerdown`, not `click`.
 - Pull-to-refresh fights the app: `overscroll-behavior: none` on root; `contain` on inner scrollers. Never `touchmove` with `preventDefault()`.
 - Content stops at the notch: need `viewport-fit=cover`. Pad fixed UI with `env(safe-area-inset-*, 0px)`.
 - Long-press selects button text: `user-select: none; -webkit-user-select: none; -webkit-touch-callout: none` on buttons/tabs/chips/drag handles only (never on `body`).

@@ -4,39 +4,39 @@
   "model": "gpt-6.2-sol",
   "runs": 3,
   "all": {
-   "n": 116,
-   "accuracy": 0.574712643678161,
-   "pass@0.5": 0.5431034482758621,
-   "wrong_mstack_pick": 0.03160919540229885
+   "n": 108,
+   "accuracy": 0.632716049382716,
+   "pass@0.5": 0.6666666666666666,
+   "wrong_mstack_pick": 0.040123456790123455
   },
   "positives": {
-   "n": 101,
-   "accuracy": 0.5478547854785478,
-   "pass@0.5": 0.5148514851485149,
-   "wrong_mstack_pick": 0.0066006600660066
+   "n": 93,
+   "accuracy": 0.6164874551971327,
+   "pass@0.5": 0.6559139784946236,
+   "wrong_mstack_pick": 0.010752688172043012
   },
   "negatives": {
    "n": 15,
-   "accuracy": 0.7555555555555556,
+   "accuracy": 0.7333333333333333,
    "pass@0.5": 0.7333333333333333,
-   "wrong_mstack_pick": 0.2
+   "wrong_mstack_pick": 0.22222222222222224
   },
   "train": {
-   "n": 74,
-   "accuracy": 0.581081081081081,
-   "pass@0.5": 0.5540540540540541,
-   "wrong_mstack_pick": 0.036036036036036036
+   "n": 68,
+   "accuracy": 0.6470588235294118,
+   "pass@0.5": 0.6911764705882353,
+   "wrong_mstack_pick": 0.049019607843137254
   },
   "val": {
-   "n": 42,
-   "accuracy": 0.5634920634920635,
-   "pass@0.5": 0.5238095238095238,
-   "wrong_mstack_pick": 0.023809523809523808
+   "n": 40,
+   "accuracy": 0.6083333333333333,
+   "pass@0.5": 0.625,
+   "wrong_mstack_pick": 0.025
   },
-  "system_prompt_tokens_per_call": 2780.560344827586,
+  "system_prompt_tokens_per_call": 2638.6203703703704,
   "usage": {
-   "in": 967635,
-   "out": 12773
+   "in": 854913,
+   "out": 11998
   }
  },
  "rows": [
@@ -46,13 +46,13 @@
     "architect"
    ],
    "picks": [
-    "NONE",
-    "NONE",
+    "architect",
+    "architect",
     "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -77,12 +77,12 @@
    ],
    "picks": [
     "NONE",
-    "NONE",
-    "NONE"
+    "architect",
+    "architect"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -103,8 +103,8 @@
   {
    "q": "I'm worried a single attempt will lock us into a bad schema for the event store. have several agents each propose one and pick the strongest",
    "accept": [
-    "arena",
-    "architect"
+    "architect",
+    "arena"
    ],
    "picks": [
     "arena",
@@ -129,51 +129,6 @@
    "split": "train",
    "positive": true,
    "rate": 1.0,
-   "false_mstack": 0.0
-  },
-  {
-   "q": "turn the way I like to work into a reusable skill, mine my past sessions for my preferences",
-   "accept": [
-    "automate-me"
-   ],
-   "picks": [
-    "NONE",
-    "skill-creator",
-    "automate-me"
-   ],
-   "split": "train",
-   "positive": true,
-   "rate": 0.3333333333333333,
-   "false_mstack": 0.0
-  },
-  {
-   "q": "update my mode skill with the stuff I've been correcting you on this week",
-   "accept": [
-    "automate-me"
-   ],
-   "picks": [
-    "automate-me",
-    "automate-me",
-    "automate-me"
-   ],
-   "split": "train",
-   "positive": true,
-   "rate": 1.0,
-   "false_mstack": 0.0
-  },
-  {
-   "q": "can you make a skill that captures my coding style and review habits so other agents follow it",
-   "accept": [
-    "automate-me"
-   ],
-   "picks": [
-    "NONE",
-    "NONE",
-    "NONE"
-   ],
-   "split": "train",
-   "positive": true,
-   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -243,12 +198,12 @@
    ],
    "picks": [
     "NONE",
-    "NONE",
-    "NONE"
+    "debug",
+    "debug"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -260,11 +215,11 @@
    "picks": [
     "NONE",
     "NONE",
-    "debug"
+    "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -287,8 +242,8 @@
    "q": "I'm going to bed, run the migration autonomously and keep a record of every call you make with evidence so I can audit it tomorrow",
    "accept": [
     "decision-log",
-    "mstack-mode",
-    "figure-it-out"
+    "figure-it-out",
+    "mstack-mode"
    ],
    "picks": [
     "decision-log",
@@ -391,63 +346,18 @@
    "false_mstack": 0.0
   },
   {
-   "q": "grill me on this plan to split the monolith into four services",
-   "accept": [
-    "grilling"
-   ],
-   "picks": [
-    "grilling",
-    "grilling",
-    "grilling"
-   ],
-   "split": "train",
-   "positive": true,
-   "rate": 1.0,
-   "false_mstack": 0.0
-  },
-  {
-   "q": "here's my design doc for the new onboarding flow. poke holes in it by interviewing me until we agree on every decision",
-   "accept": [
-    "grilling"
-   ],
-   "picks": [
-    "grilling",
-    "grilling",
-    "grilling"
-   ],
-   "split": "val",
-   "positive": true,
-   "rate": 1.0,
-   "false_mstack": 0.0
-  },
-  {
-   "q": "stress-test my decision to drop Postgres for DynamoDB by asking me hard questions",
-   "accept": [
-    "grilling"
-   ],
-   "picks": [
-    "grilling",
-    "NONE",
-    "NONE"
-   ],
-   "split": "val",
-   "positive": true,
-   "rate": 0.3333333333333333,
-   "false_mstack": 0.0
-  },
-  {
    "q": "write a handoff so the next chat can pick this up without rereading everything",
    "accept": [
     "handoff"
    ],
    "picks": [
     "NONE",
-    "NONE",
+    "handoff",
     "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.3333333333333333,
    "false_mstack": 0.0
   },
   {
@@ -471,13 +381,13 @@
     "handoff"
    ],
    "picks": [
+    "handoff",
     "NONE",
-    "NONE",
-    "NONE"
+    "handoff"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -486,13 +396,13 @@
     "how"
    ],
    "picks": [
-    "NONE",
     "how",
-    "NONE"
+    "how",
+    "how"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
@@ -502,12 +412,12 @@
    ],
    "picks": [
     "how",
-    "NONE",
-    "NONE"
+    "how",
+    "how"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
@@ -518,11 +428,11 @@
    "picks": [
     "NONE",
     "how",
-    "NONE"
+    "how"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -541,48 +451,18 @@
    "false_mstack": 0.0
   },
   {
-   "q": "before you start, tell me in your own words what you think I'm trying to achieve here",
-   "accept": [
-    "in-your-own-words"
-   ],
-   "picks": [
-    "in-your-own-words",
-    "in-your-own-words",
-    "in-your-own-words"
-   ],
-   "split": "train",
-   "positive": true,
-   "rate": 1.0,
-   "false_mstack": 0.0
-  },
-  {
-   "q": "what do you think I actually want from this ticket?",
-   "accept": [
-    "in-your-own-words"
-   ],
-   "picks": [
-    "in-your-own-words",
-    "in-your-own-words",
-    "in-your-own-words"
-   ],
-   "split": "train",
-   "positive": true,
-   "rate": 1.0,
-   "false_mstack": 0.0
-  },
-  {
    "q": "interrogate this diff with multiple models and find blind spots",
    "accept": [
     "interrogate"
    ],
    "picks": [
-    "NONE",
-    "NONE",
-    "NONE"
+    "interrogate",
+    "interrogate",
+    "interrogate"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.0,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
@@ -591,13 +471,13 @@
     "interrogate"
    ],
    "picks": [
-    "interrogate",
     "NONE",
-    "interrogate"
+    "NONE",
+    "NONE"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -618,12 +498,12 @@
   {
    "q": "ketchup",
    "accept": [
-    "ketchup"
+    "handoff"
    ],
    "picks": [
-    "ketchup",
-    "ketchup",
-    "ketchup"
+    "handoff",
+    "handoff",
+    "handoff"
    ],
    "split": "train",
    "positive": true,
@@ -633,12 +513,12 @@
   {
    "q": "back from lunch, what did I miss in here and what needs me?",
    "accept": [
-    "ketchup"
+    "handoff"
    ],
    "picks": [
-    "ketchup",
-    "ketchup",
-    "ketchup"
+    "handoff",
+    "handoff",
+    "handoff"
    ],
    "split": "val",
    "positive": true,
@@ -648,16 +528,16 @@
   {
    "q": "I stepped away for a couple hours. what changed in this chat and which decisions are waiting on me?",
    "accept": [
-    "ketchup"
+    "handoff"
    ],
    "picks": [
-    "ketchup",
-    "ketchup",
-    "ketchup"
+    "NONE",
+    "handoff",
+    "handoff"
    ],
    "split": "train",
    "positive": true,
-   "rate": 1.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -739,7 +619,7 @@
    "q": "babysit PR 5120 until it's green, address the bugbot comments",
    "accept": [
     "mstack-mode",
-    "pr-comments"
+    "pr"
    ],
    "picks": [
     "NONE",
@@ -784,8 +664,8 @@
   {
    "q": "the signup form submit button does nothing in Chrome, drive the flow and see what's happening",
    "accept": [
-    "playwright",
-    "debug"
+    "debug",
+    "playwright"
    ],
    "picks": [
     "NONE",
@@ -846,12 +726,12 @@
   {
    "q": "CodeRabbit left 14 comments on my PR, go through them, fix the real ones and reject the noise",
    "accept": [
-    "pr-comments"
+    "pr"
    ],
    "picks": [
-    "pr-comments",
-    "pr-comments",
-    "pr-comments"
+    "pr",
+    "pr",
+    "pr"
    ],
    "split": "val",
    "positive": true,
@@ -861,27 +741,27 @@
   {
    "q": "triage the Cursor bugbot threads on #902 and resolve the false positives with a reply",
    "accept": [
-    "pr-comments"
+    "pr"
    ],
    "picks": [
-    "pr-comments",
-    "NONE",
-    "NONE"
+    "pr",
+    "pr",
+    "pr"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
    "q": "Copilot review flagged a bunch of stuff, which of these are actually valid?",
    "accept": [
-    "pr-comments"
+    "pr"
    ],
    "picks": [
-    "pr-comments",
-    "pr-comments",
-    "pr-comments"
+    "pr",
+    "pr",
+    "pr"
    ],
    "split": "val",
    "positive": true,
@@ -906,8 +786,7 @@
   {
    "q": "I keep giving you the same correction about import order. what's the right way to stop this happening?",
    "accept": [
-    "principles",
-    "retro"
+    "principles"
    ],
    "picks": [
     "principles",
@@ -926,57 +805,12 @@
    ],
    "picks": [
     "principles",
-    "NONE",
+    "principles",
     "principles"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.6666666666666666,
-   "false_mstack": 0.0
-  },
-  {
-   "q": "retro on this session: what went wrong and what should change in the environment",
-   "accept": [
-    "retro"
-   ],
-   "picks": [
-    "NONE",
-    "NONE",
-    "NONE"
-   ],
-   "split": "val",
-   "positive": true,
-   "rate": 0.0,
-   "false_mstack": 0.0
-  },
-  {
-   "q": "that took way too long. look back at this session and suggest checks or docs that would've helped the agent",
-   "accept": [
-    "retro"
-   ],
-   "picks": [
-    "NONE",
-    "NONE",
-    "retro"
-   ],
-   "split": "train",
-   "positive": true,
-   "rate": 0.3333333333333333,
-   "false_mstack": 0.0
-  },
-  {
-   "q": "lessons from this session?",
-   "accept": [
-    "retro"
-   ],
-   "picks": [
-    "retro",
-    "retro",
-    "NONE"
-   ],
-   "split": "val",
-   "positive": true,
-   "rate": 0.6666666666666666,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
@@ -1026,84 +860,24 @@
    "false_mstack": 0.0
   },
   {
-   "q": "set up which models mstack uses for each role, I want a cheaper mix",
-   "accept": [
-    "setup-mstack"
-   ],
-   "picks": [
-    "setup-mstack",
-    "setup-mstack",
-    "setup-mstack"
-   ],
-   "split": "train",
-   "positive": true,
-   "rate": 1.0,
-   "false_mstack": 0.0
-  },
-  {
-   "q": "/setup-mstack",
-   "accept": [
-    "setup-mstack"
-   ],
-   "picks": [
-    "setup-mstack",
-    "setup-mstack",
-    "setup-mstack"
-   ],
-   "split": "train",
-   "positive": true,
-   "rate": 1.0,
-   "false_mstack": 0.0
-  },
-  {
-   "q": "show the PM what the user sees during checkout as a statechart, checked against the TLA+ model",
-   "accept": [
-    "statechart"
-   ],
-   "picks": [
-    "NONE",
-    "NONE",
-    "NONE"
-   ],
-   "split": "train",
-   "positive": true,
-   "rate": 0.0,
-   "false_mstack": 0.0
-  },
-  {
-   "q": "the PM doesn't get why users see a double charge. draw the states the user sees and highlight the bug",
-   "accept": [
-    "statechart"
-   ],
-   "picks": [
-    "NONE",
-    "NONE",
-    "NONE"
-   ],
-   "split": "val",
-   "positive": true,
-   "rate": 0.0,
-   "false_mstack": 0.0
-  },
-  {
    "q": "swarm this: check all 40 API endpoints for missing auth in parallel and give me one report",
    "accept": [
-    "swarm"
+    "arena"
    ],
    "picks": [
-    "NONE",
-    "swarm",
+    "arena",
+    "arena",
     "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
    "q": "fan out workers to try the flaky test under 20 different seeds and merge the results",
    "accept": [
-    "swarm"
+    "arena"
    ],
    "picks": [
     "NONE",
@@ -1118,16 +892,16 @@
   {
    "q": "explore these 6 candidate libraries in parallel and give me one consolidated comparison",
    "accept": [
-    "swarm"
+    "arena"
    ],
    "picks": [
-    "swarm",
-    "NONE",
+    "arena",
+    "arena",
     "NONE"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -1182,12 +956,12 @@
    ],
    "picks": [
     "ui",
-    "ui",
+    "NONE",
     "ui"
    ],
    "split": "train",
    "positive": true,
-   "rate": 1.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -1241,13 +1015,13 @@
     "verifier"
    ],
    "picks": [
-    "verifier",
     "NONE",
-    "NONE"
+    "NONE",
+    "skill-creator"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 0.0,
    "false_mstack": 0.0
   },
   {
@@ -1271,13 +1045,13 @@
     "why"
    ],
    "picks": [
-    "NONE",
     "why",
-    "NONE"
+    "why",
+    "why"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 1.0,
    "false_mstack": 0.0
   },
   {
@@ -1303,11 +1077,11 @@
    "picks": [
     "why",
     "why",
-    "why"
+    "NONE"
    ],
    "split": "val",
    "positive": true,
-   "rate": 1.0,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
@@ -1317,8 +1091,8 @@
    ],
    "picks": [
     "NONE",
-    "NONE",
-    "write-swift"
+    "write-swift",
+    "NONE"
    ],
    "split": "val",
    "positive": true,
@@ -1373,8 +1147,8 @@
   {
    "q": "write an RFC for moving our feature flags to a new provider",
    "accept": [
-    "writing",
-    "documentation"
+    "documentation",
+    "writing"
    ],
    "picks": [
     "NONE",
@@ -1392,9 +1166,9 @@
     "writing"
    ],
    "picks": [
-    "NONE",
     "writing",
-    "writing"
+    "writing",
+    "NONE"
    ],
    "split": "val",
    "positive": true,
@@ -1419,25 +1193,25 @@
   {
    "q": "edit the AGENTS.md so it's shorter and actually useful to agents",
    "accept": [
-    "writing",
-    "documentation"
+    "documentation",
+    "writing"
    ],
    "picks": [
-    "NONE",
-    "NONE",
-    "writing"
+    "writing",
+    "writing",
+    "NONE"
    ],
    "split": "val",
    "positive": true,
-   "rate": 0.3333333333333333,
+   "rate": 0.6666666666666666,
    "false_mstack": 0.0
   },
   {
    "q": "create a new skill that teaches agents our deploy process",
    "accept": [
     "mstack-mode",
-    "writing",
-    "skill-creator"
+    "skill-creator",
+    "writing"
    ],
    "picks": [
     "NONE",
@@ -1530,14 +1304,14 @@
     "NONE"
    ],
    "picks": [
-    "NONE",
+    "writing",
     "NONE",
     "NONE"
    ],
    "split": "train",
    "positive": false,
-   "rate": 1.0,
-   "false_mstack": 0.0
+   "rate": 0.6666666666666666,
+   "false_mstack": 0.3333333333333333
   },
   {
    "q": "make me a Word document with the quarterly results table",
@@ -1587,8 +1361,8 @@
   {
    "q": "do a security review of the pending changes on this branch",
    "accept": [
-    "security-review",
-    "interrogate"
+    "interrogate",
+    "security-review"
    ],
    "picks": [
     "security-review",
@@ -1619,8 +1393,8 @@
   {
    "q": "what button label should I use for the destructive confirm dialog?",
    "accept": [
-    "ux-copy",
-    "ui"
+    "ui",
+    "ux-copy"
    ],
    "picks": [
     "NONE",
@@ -1635,8 +1409,8 @@
   {
    "q": "make a bar chart of signups per week from this CSV",
    "accept": [
-    "dataviz",
-    "NONE"
+    "NONE",
+    "dataviz"
    ],
    "picks": [
     "dataviz",
@@ -1651,8 +1425,8 @@
   {
    "q": "write a commit message for the staged changes",
    "accept": [
-    "writing",
-    "NONE"
+    "NONE",
+    "writing"
    ],
    "picks": [
     "writing",
@@ -1736,18 +1510,18 @@
    "picks": [
     "how",
     "how",
-    "ui"
+    "how"
    ],
    "split": "train",
    "positive": true,
-   "rate": 0.3333333333333333,
-   "false_mstack": 0.6666666666666666
+   "rate": 0.0,
+   "false_mstack": 1.0
   },
   {
    "q": "schedule this script to run every 5 minutes",
    "accept": [
-    "loop",
-    "NONE"
+    "NONE",
+    "loop"
    ],
    "picks": [
     "loop",
@@ -1766,8 +1540,8 @@
    ],
    "picks": [
     "NONE",
-    "standup",
-    "NONE"
+    "NONE",
+    "standup"
    ],
    "split": "val",
    "positive": false,
@@ -1802,6 +1576,111 @@
    "split": "train",
    "positive": false,
    "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "council this diff: get reviewers from a few model families, fix what they find, and keep going until they all approve",
+   "accept": [
+    "council"
+   ],
+   "picks": [
+    "council",
+    "council",
+    "council"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "sol loop on my branch before I open the PR",
+   "accept": [
+    "council"
+   ],
+   "picks": [
+    "council",
+    "council",
+    "council"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "review this change in rounds with different models and put their scores in the PR description",
+   "accept": [
+    "council"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "take over Priya's PR #812, she's on leave; finish it but keep her as the author",
+   "accept": [
+    "takeover"
+   ],
+   "picks": [
+    "takeover",
+    "takeover",
+    "takeover"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "this PR from March is way behind main, rebase it and tell me if it should even still exist",
+   "accept": [
+    "takeover"
+   ],
+   "picks": [
+    "takeover",
+    "takeover",
+    "takeover"
+   ],
+   "split": "train",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "modernize PR #455",
+   "accept": [
+    "takeover"
+   ],
+   "picks": [
+    "takeover",
+    "takeover",
+    "takeover"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 1.0,
+   "false_mstack": 0.0
+  },
+  {
+   "q": "full stop: fix the flaky export test, open the PR and get it green, I'm not watching",
+   "accept": [
+    "mstack-mode"
+   ],
+   "picks": [
+    "NONE",
+    "NONE",
+    "NONE"
+   ],
+   "split": "val",
+   "positive": true,
+   "rate": 0.0,
    "false_mstack": 0.0
   }
  ]

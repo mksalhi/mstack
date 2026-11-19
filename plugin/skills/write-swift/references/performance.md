@@ -11,7 +11,7 @@ Levers:
 - InlineArray<N, T> (6.2): inline fixed storage; poor if copied/shared. Span/RawSpan/OutputSpan (6.2): non‑escapable buffer access.
 - Move stored properties from nested class into parent struct to remove exclusivity checks.
 - 6.3: @inline(always) with final; @specialized(where T == ...). 6.4: borrow/mutate accessors; UniqueArray/UniqueBox; Ref/MutableRef.
-- Don’t make functions async with nothing to await; batch main‑actor hops.
+- Batch main‑actor hops.
 
 ARC/lifetime:
 - Lifetime ends at last use; don’t rely on deinit. weak/unowned only break cycles; reading weak after last use may be nil.

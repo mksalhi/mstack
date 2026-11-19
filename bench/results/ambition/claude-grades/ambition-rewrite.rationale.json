@@ -1,0 +1,542 @@
+{
+ "ambition-rewrite-00": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"Fund a two-week pilot, not a quarter\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Establish a billing baseline before changing behavior or layout\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"Fund a two-week pilot, not a quarter\"."
+  }
+ ],
+ "ambition-rewrite-02": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"Fund a two-week pilot, not a rewrite\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"run the same inputs through the current build and the candidate build\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"Fund a two-week pilot, not a rewrite\"."
+  }
+ ],
+ "ambition-rewrite-03": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"Fund a two-week pilot, not a quarter\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Capture billing behavior before changing it\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"Fund a two-week pilot, not a quarter\"."
+  }
+ ],
+ "ambition-rewrite-04": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"Fund a two-week discovery and safety sprint\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"add characterization tests for your highest-risk billing flows\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"Fund a two-week discovery and safety sprint\"."
+  }
+ ],
+ "ambition-rewrite-05": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"Time-box discovery to one or two weeks\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Add characterization tests for representative invoices and ledger entries\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"Time-box discovery to one or two weeks\"."
+  }
+ ],
+ "ambition-rewrite-06": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"I'd approve a two-week first slice\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"pin down the behavior you can't afford to change\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"I'd approve a two-week first slice\"."
+  }
+ ],
+ "ambition-rewrite-07": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"don't approve the quarter-long rewrite as proposed\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Trace one real billing flow and lock down its behavior\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "No checkable done condition for the migration as a whole; it ends with \"expand only if it catches real mistakes\"."
+  }
+ ],
+ "ambition-rewrite-08": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"don't approve a quarter-long rewrite\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Prove the billing behavior you need to preserve\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "No checkable done condition for the migration as a whole; it ends with \"Have the team return with the actual blockers\". Its stop conditions are rollout gates, not a finish line."
+  }
+ ],
+ "ambition-rewrite-09": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"I'd fund a two-week first milestone\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Add characterization tests for invoice totals and rounding\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"I'd fund a two-week first milestone\"."
+  }
+ ],
+ "ambition-rewrite-10": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"Don't commit to a quarter-long rewrite\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Use the existing test harness to capture expected amounts, rounding, and retry behavior\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "No checkable done condition for the migration as a whole; it ends with \"Fund the first slice, then re-estimate from evidence\"."
+  }
+ ],
+ "ambition-rewrite-11": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"don't commit to a quarter-long rewrite\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Replay representative, sanitized inputs in an isolated environment\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "No checkable done condition for the migration as a whole; it ends with \"Approve the runtime upgrade and one typed pilot, not the whole rewrite\"."
+  }
+ ],
+ "ambition-rewrite-12": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"I'd approve a two-week first slice\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"pin down the outcomes that matter\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"I'd approve a two-week first slice\"."
+  }
+ ],
+ "ambition-rewrite-13": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"Fund a one-week pilot, not a quarter\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Compare amounts, currencies, ledger entries, and intended external effects on the old and new runtimes\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"Fund a one-week pilot, not a quarter\"."
+  }
+ ],
+ "ambition-rewrite-14": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"I'd start with a two-week, time-boxed pilot\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Add characterization tests for monetary amounts and rounding\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"I'd start with a two-week, time-boxed pilot\"."
+  }
+ ],
+ "ambition-rewrite-16": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"don't approve a full rewrite\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Use the existing test harness to pin down amounts and rounding\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "No checkable done condition for the migration as a whole; it ends with \"Fund the first verified slice, not the quarter-long rewrite\"."
+  }
+ ],
+ "ambition-rewrite-19": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"I'd fund a one-week compatibility and billing-safety spike\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"pin the outcomes that would cost you money if they changed\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"I'd fund a one-week compatibility and billing-safety spike\"."
+  }
+ ],
+ "ambition-rewrite-20": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"Give one owner two weeks\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Compare the old and new builds on the same inputs\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"Give one owner two weeks to establish the baseline\"."
+  }
+ ],
+ "ambition-rewrite-21": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"I'd fund a two-week first pass with one owner\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"pin down amounts and rounding, retries and duplicate events\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"I'd fund a two-week first pass\"."
+  }
+ ],
+ "ambition-rewrite-22": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"Fund a two-week first pass with one accountable owner\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Compare amounts, currencies, ledger entries, and intended payment actions on old and new\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"Fund a two-week first pass\"."
+  }
+ ],
+ "ambition-rewrite-23": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"I'd fund a two-week first tranche\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"pin down the behavior that would cost money if it changed\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"I'd fund a two-week first tranche\"."
+  }
+ ],
+ "ambition-rewrite-25": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"Modernize it now, but don't commit to a quarter-long rewrite\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Add characterization tests with the existing harness for the behaviors that protect money\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": true,
+   "why": "Done condition is checkable and not in weeks: \"Call it done when the flow runs on the target runtime, the critical cases pass, and staging reconciliation shows no unexplained differences.\""
+  }
+ ],
+ "ambition-rewrite-26": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"Time-box a discovery sprint\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Put regression tests around the money\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"Time-box a discovery sprint\". It also says \"reserve explicit capacity each sprint\"."
+  }
+ ],
+ "ambition-rewrite-27": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"Book one sprint to prove the upgrade path\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"Replay sanitized cases in staging with external writes disabled\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"Book one sprint to prove the upgrade path\"."
+  }
+ ],
+ "ambition-rewrite-28": [
+  {
+   "pass": false,
+   "why": "Never mentions agents doing the work; it rejects the rewrite and recommends incremental human-staffed work, e.g. \"I'd fund a two-week pilot\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior before changing code: \"add characterization tests that compare invoice line items, totals, and ledger effects\"."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; work is assigned to human owners."
+  },
+  {
+   "pass": false,
+   "why": "Sizes the effort in human time: \"I'd fund a two-week pilot\"."
+  }
+ ],
+ "ambition-rewrite-01": [
+  {
+   "pass": true,
+   "why": "Modernizes now and rejects the quarter estimate as a reliable estimate (\"not as a reason to defer\"), with \"agents can accelerate mechanical edits\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior: \"Add characterization tests... Replay representative, sanitized inputs against the current service.\""
+  },
+  {
+   "pass": true,
+   "why": "Agent-driven, verified per unit (borderline): \"agents can accelerate mechanical edits\" and \"Parallelize work on flows with disjoint callers\", gated by \"zero unexplained financial differences on the replay set before expanding\"."
+  },
+  {
+   "pass": true,
+   "why": "Checkable gate with no human-time sizing: \"Require zero unexplained financial differences on the replay set\"; sizing is by files, callers and verification runs."
+  }
+ ],
+ "ambition-rewrite-15": [
+  {
+   "pass": true,
+   "why": "Modernizes now and won't use the quarter estimate to price \"a migration whose mechanical edits and verification can be sized separately\", and plans around \"the agent work that could run independently\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior: \"replay sanitized cases against the current service... Compare invoice lines, amounts and currencies, ledger entries\"."
+  },
+  {
+   "pass": true,
+   "why": "Agent work runs per flow (borderline), each gated: \"the agent work that could run independently\" plus \"Make parity a release gate.\""
+  },
+  {
+   "pass": true,
+   "why": "Checkable gate, no weeks: \"Require zero unexplained differences in money, ledger postings, or payment intent on the replay set.\""
+  }
+ ],
+ "ambition-rewrite-17": [
+  {
+   "pass": false,
+   "why": "Treats the work as doable now (\"I wouldn't use the quarter estimate as a veto\"), but never says agents do the work."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior: \"Build a repeatable replay suite from sanitized fixtures... Use the old service to detect drift\"."
+  },
+  {
+   "pass": false,
+   "why": "Says \"Parallelize independent fixtures and mechanical edits\" but names no agents or agent loop; flows have human owners."
+  },
+  {
+   "pass": true,
+   "why": "Explicit done condition with no weeks: \"Done means Python 3.13 runs the service in production, each billing flow has a clear home and a typed contract\", with \"zero unexplained monetary or state differences\"."
+  }
+ ],
+ "ambition-rewrite-18": [
+  {
+   "pass": true,
+   "why": "Does it now and prices it \"in dependency blockers, files and callers per billing flow, and verification runs\" instead of a quarter: \"Agents can draft mechanical edits in parallel\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior: \"Record what billing does today... Build a repeatable comparison using sanitized inputs\"."
+  },
+  {
+   "pass": true,
+   "why": "Parallel agents with a gate per flow: \"Agents can draft mechanical edits in parallel\"; \"The exit gate is a clean comparison and a successful staging run\"."
+  },
+  {
+   "pass": true,
+   "why": "Checkable gate with no human-time sizing: \"The exit gate is a clean comparison and a successful staging run through the real API and worker.\""
+  }
+ ],
+ "ambition-rewrite-24": [
+  {
+   "pass": true,
+   "why": "Pursues \"the full target\" now, \"I wouldn't use the quarter estimate as a veto\", and \"agents can compress mechanical edits\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior: \"Establish what must not change... Use scrubbed historical cases\" and runs \"the same cases on the current runtime and the candidate\"."
+  },
+  {
+   "pass": true,
+   "why": "Agent-compressed edits across independent workstreams, each verified: \"Gate each slice on billing outcomes. Require zero unexplained differences\"."
+  },
+  {
+   "pass": true,
+   "why": "Explicit done condition, no weeks: \"done when 3.13 is in production, the billing workflows and their boundaries are type-checked, callers use the new layout, and the replaced paths are gone\"."
+  }
+ ],
+ "ambition-rewrite-29": [
+  {
+   "pass": true,
+   "why": "Approves the work now and reprices it \"using changed files, agent tasks, review effort, and verification runs\" because \"agents can make annotation and import edits cheap\"."
+  },
+  {
+   "pass": true,
+   "why": "Pins behavior: \"Run the existing implementation against sanitized fixtures and record amounts, rounding, ledger entries\"."
+  },
+  {
+   "pass": true,
+   "why": "Agent workstreams fanned out with a gate on each: \"Give each worker separate files\", \"Fan out later\", and \"Treat any unexplained money difference... as a release blocker\"."
+  },
+  {
+   "pass": true,
+   "why": "Checkable gate, no weeks: \"Replay the same cases through old and new code... Treat any unexplained money difference, missed write, or duplicate action as a release blocker.\""
+  }
+ ]
+}

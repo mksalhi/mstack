@@ -1,8 +1,7 @@
 - Only for code the compiler could derive.
 - Freestanding `#foo`; attached `@Foo` roles: member, peer, accessor, member-attribute, conformance (composable).
 - When it doesn't apply, throw or `context.addDiagnostic`. Never silently emit uncompilable code.
-- `Logger` from `os`, never `print`.
-- `privacy: .public` only for non-personal data; `.private(mask: .hash)` to correlate.
+- `.private(mask: .hash)` to correlate private values across log lines.
 - Unsafe = precondition violations are undefined behavior.
 - `Span` over `Unsafe*Pointer`; raw pointers only for C interop. Then: smallest region, buffer pointers, never escape the closure, run Address Sanitizer.
 - Strict memory safety in security-critical modules.

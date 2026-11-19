@@ -48,8 +48,16 @@ Good next step:
 
 ## Resume
 
-Read [references/resume.md](references/resume.md) and follow it: route, lock scope, fan out over chat history, sweep the shared record, verify, reply to its output contract.
+- Route first. This chat since the user's last message: Catch up. One prior chat: mstack-mode's `session-pickup` playbook. A full state capsule from the user: use it, skip mining.
+- Lock scope before searching (default last 7 days, active workspace) and state it back. Never quietly turn "all" into "recent N".
+- Reply with capsule (at most 5 bullets), threads (one tagged line each, such as [merged #N] or [in flight <branch>]), problems (at most 5), then the single next move.
+- Open [references/resume.md](references/resume.md) before searching, for the fan-out, sweep, verification and tags.
 
 ## Catch up
 
-For 'ketchup', 'what did I miss', 'what needs me': this chat only. Read [references/catch-up.md](references/catch-up.md) and follow it: gather read-only, then reply with what waits on the user first.
+This chat only, read-only.
+- Check the current state of every PR, CI run or agent this chat touched, and every number against its source.
+- An action item is a call only the user can make, including ones raised before their last message. Never invent one.
+- Reply in order. 1) One sentence on what waits on the user, or that nothing does (if nothing happened either, stop). 2) What happened, under 100 words, one bullet per user ask with its status. 3) Action items, about 30 words each, never dropped: the call, your pick, anything irreversible, the risk even if low, and the PR or agent number. Riskiest first.
+- Embed screenshots for visible changes, else say "No screenshot yet". Never show a number or screen you did not check.
+- Open [references/catch-up.md](references/catch-up.md) when the reply needs a drawing or several action items share one call.

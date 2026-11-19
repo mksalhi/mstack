@@ -1,9 +1,7 @@
-- XCTest only for UI automation (`XCUIApplication`), `XCTMetric`, and Objective-C tests/exceptions.
 - `#expect(a == b)`; `try #require(...)` stops and unwraps.
 - Suites are `struct`s; `class`/`actor` only for `deinit`.
 - `@Test(arguments: [...])`; two collections = cross product; `zip()` for pairs.
 - `withKnownIssue { }` for external failures. `confirmation` for multi-callbacks; `withCheckedContinuation` for one-shot.
-- Tests run parallel and randomized; fix dependencies, avoid `.serialized`.
 - `#expect(processExitsWith: .failure) { ... }` for precondition/fatalError.
 - Migration interop (ST-0021): use complete or strict; never limited/none; issues to `Issue.record`.
 - Prefer `@available` over `#available`.

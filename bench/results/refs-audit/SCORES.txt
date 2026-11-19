@@ -1,0 +1,41 @@
+task                             old      new
+ambition-estimate                 12/12   12/12 
+ambition-game                     12/12   12/12 
+ambition-overnight                12/12   12/12 
+ambition-rewrite                  10/12    8/12   <
+ambition-scope                     9/9     9/9  
+architect-sketch                   8/12   12/12   >
+arena-frame                       12/12    9/12   <
+automate-me-draft                 12/12   12/12 
+blast-radius                      12/12   12/12 
+council-round                     12/12   12/12 
+debug-flaky                       12/12   12/12 
+decision-log                       6/6     6/6  
+figure-it-out-migration           12/12   12/12 
+formal-choose                     10/12   10/12 
+handoff-write                      9/9     9/9  
+how-explain                        9/9     7/9    <
+interrogate-synthesize            12/12   12/12 
+ketchup                           11/12   12/12   >
+motion-brief                       9/9     9/9  
+mstack-reply                       6/9     7/9    >
+playwright-script                  3/9     4/9    >
+pr-body                           12/12   12/12 
+pr-comments                       15/15   15/15 
+principles-new-requirement         7/9     8/9    >
+principles-shared-state            9/9     9/9  
+principles-types                   3/6     3/6  
+retro-session                     12/12   12/12 
+scoper-cache                       0/3     2/3    >
+scoper-review                      6/6     6/6  
+setup-mstack-mixed                 6/6     6/6  
+swarm-perf                        12/12   12/12 
+swift-modernize                    6/9     6/9  
+takeover-modernize                 9/9     9/9  
+test-audit                        12/12   12/12 
+ui-a11y-review                     9/9     9/9  
+ui-copy                            9/9     9/9  
+unslop-readme                      5/6     5/6  
+verifier-create                    9/9     9/9  
+why-timeout                       12/12   12/12 
+TOTAL                            363/393 (92.4%)  366/393 (93.1%)

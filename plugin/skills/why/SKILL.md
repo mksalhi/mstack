@@ -17,12 +17,12 @@ Keep facts separate from inferences.
 - Seed context: files/line ranges/key symbols; commits: git blame -L a,b <file>, git log --follow -p -- <file>, git log --oneline -20 -- <file>; PRs: (#1234) from merge subjects via gh pr view <n> --json title,body,comments,reviews,closingIssuesReferences; linked ticket IDs.
 
 2) Investigate in parallel
-- Map all MCP servers (incl. deferred) to categories; spawn one investigator per category, in one message, on the why investigators model. Each gets [references/investigator-prompt.md](references/investigator-prompt.md) and its source playbook, adapted to the user’s MCP:
-  - Source control (always): [code-archaeology](references/sources/code-archaeology.md)
-  - Tickets: [linear](references/sources/linear.md) • Docs: [notion](references/sources/notion.md) • Chat: [slack](references/sources/slack.md) • Observability: [datadog](references/sources/datadog.md) • Errors: [sentry](references/sources/sentry.md) • Warehouse: [databricks](references/sources/databricks.md)
-- Defensive targets also get [incident-postmortem](references/sources/incident-postmortem.md).
+- Map all MCP servers (incl. deferred) to categories; spawn one investigator per category, in one message, on the why investigators model. Always include source control.
+- Build each spawn prompt by filling [references/investigator-prompt.md](references/investigator-prompt.md) and appending that category's playbook, adapted to the user's MCP. Open `references/sources/<category>.md` when writing that investigator's prompt (code-archaeology, linear, notion, slack, datadog, sentry, databricks).
+- Every investigator searches only its source, returns evidence not conclusions, quotes verbatim with exact location, logs every query including empty ones, and puts cross-source pointers under Leads.
+- Defensive target (null checks, retries, timeouts, rate limits, feature flags, egress guards, OOM handlers)? Also have investigators search incident terms: Linear incident, sev-*, postmortem-action-item labels; Slack #sev-* and #incident-* near the code's addition; git "fix for incident", "add defensive check", revert then re-apply.
 - Skip a category only with a written reason (no MCP or provably irrelevant). Empty results are findings.
 - Answer inline only for trivial single-commit targets whose PR fully answers, after confirming other searches add nothing.
 
 3) Synthesize and present
-- Spawn one synthesizer on the why synthesizer model with findings (nulls/skips), the anchor, the question, and [references/synthesizer-prompt.md](references/synthesizer-prompt.md). Present with light edits only; never rewrite its confidence language. If asked before changing code, add Preserve, Change, Avoid, Risk constraints after Sources Consulted.
+- Spawn one synthesizer on the why synthesizer model with findings (nulls/skips), the anchor, the question, filled into [references/synthesizer-prompt.md](references/synthesizer-prompt.md). Every claim carries a cited tier (Direct, Supported, Inferred, Speculative, Unknown), contradictions shown, open questions left open. Present with light edits only; never rewrite its confidence language. If asked before changing code, add Preserve, Change, Avoid, Risk constraints after Sources Consulted.

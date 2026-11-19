@@ -9,7 +9,7 @@ Rules
 
 Steps
 1. Map every rendered value: field | source | type | limit | optional. Include header counts, relative times, badge text, data-driven labels, tooltips, avatars, list length. Find limits in Zod/Yup, migrations, API types, maxLength. Note frontend vs backend disagreements.
-2. Build a worst-case fixture next to the demo data (same shape) using [CATALOG.md](CATALOG.md). Also make empty, one-item, and huge (1,000+ rows) fixtures.
+2. Build a worst-case fixture next to the demo data (same shape); open [CATALOG.md](CATALOG.md) for the worst-case values. Also make empty, one-item, and huge (1,000+ rows) fixtures.
 3. Add a bottom-center segmented control (Demo, Worst case, Empty, One, 1,000 rows) with instant switching. Swap fixtures at the data boundary; support ?data=worst. Standalone: one HTML file.
 4. Test at real container width, 320px, widest, 200% zoom, plus dark/RTL if supported. Screenshot. State what you saw vs inferred from CSS.
 
