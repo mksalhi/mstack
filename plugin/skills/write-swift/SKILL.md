@@ -61,7 +61,7 @@ nonisolated struct PhotoProcessor {
 }
 ```
 
-- Profile (Time Profiler, hangs) before offloading; make code faster without concurrency first. No tasks for trivial work.
+- Profile (Time Profiler, hangs) before offloading; make code faster without concurrency first. No tasks for trivial work, and no `async` on a function with nothing to await.
 - One task per end-to-end ordered operation; separate tasks for independent ones.
 - `await` breaks atomicity: re-check state after it; never hold a lock or rely on thread-locals across it.
 
@@ -156,14 +156,19 @@ Start concrete. Concrete types → repeated code → protocol → generic code. 
 | Manually parsing binary formats with pointers                         | **Swift Binary Parsing** (`ParserSpan`, overflow-checked parsing initializers)                           | 6.2   |
 | Awkward test function names                                           | **raw identifiers**: `` @Test func `fruits have a tropical climate`() ``                                 | 6.0   |
 
+Log with `Logger` from `os`, never `print`; `privacy: .public` only for non-personal data.
+
 Regex: compose Foundation parsers (`.date(...)`, `.currency(...)`), never hand-roll; explicit locale; `NegativeLookahead` or `Local` to stop backtracking.
+
+## Tests and migration
+
+- Swift Testing by default (`@Test`, `#expect`, `try #require`); XCTest only for UI automation, `XCTMetric` and Objective-C tests.
+- Tests run in parallel and random order; fix shared state instead of adding `.serialized`.
+- For a Swift 6 migration, enable Approachable Concurrency (and main-actor-by-default for apps) while still in Swift 5, then per target, UI first, turn on complete checking, fix the warnings and switch to Swift 6.
+- Never combine the language-mode switch with refactoring; refactor afterwards.
 
 ## More
 
-Read the matching file before working on:
-
-- performance, allocation, copies, ARC, `deinit` or retain cycles: [references/performance.md](references/performance.md);
-- macros, `Logger` and LLDB, `Unsafe*` pointers or C/C++ interop: [references/macros-logging-unsafe.md](references/macros-logging-unsafe.md);
-- writing or migrating tests (Swift Testing, XCTest interop): [references/testing.md](references/testing.md);
-- moving a target to Swift 6 language mode: [references/migrating-to-swift-6.md](references/migrating-to-swift-6.md).
-
+- Open `references/performance.md` when profiling or fixing allocation, copies, ARC, `deinit` or a retain cycle.
+- Open `references/macros-logging-unsafe.md` when writing a macro, adding logging, or touching `Unsafe*` pointers or C/C++ interop.
+- Open `references/testing.md` when writing parameterized tests, known issues, confirmations, exit tests or XCTest interop.

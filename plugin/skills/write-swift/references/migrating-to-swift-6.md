@@ -1,3 +1,0 @@
-- Enable Approachable Concurrency and main-actor-by-default (app); build in Swift 5.
-- Per target: enable complete concurrency checking (UI first); fix warnings (var→let, @MainActor, Sendable); switch to Swift 6.
-- Repeat; refactor afterwards—never combine with data-race safety.

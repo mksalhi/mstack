@@ -24,7 +24,8 @@ Done when the diff is fixed, the intent is written, and checks have run.
 - Members: the `council members` line in `~/.claude/rules/mstack-models.md`, else `claude-opus-5-5`, `fable`, `sonnet`. A member the user names wins. `auto` or `inherit-parent` means omit `model`.
 - One read-only reviewer per member, all in one message, in the background, `effort: high`. Members never edit, commit, push, comment on the PR or start their own subagents.
 - A member the harness can't run is reported, never swapped for another model. Fewer than two distinct families means it is not a council: say so and offer `interrogate`.
-- Brief each member from [references/reviewer-brief.md](references/reviewer-brief.md) with the rubric at `<mstack>/skills/interrogate/references/rubric.md`.
+- Members get no chat history. Send every member the same filled brief, which demands a `VERDICT`, a `SCORE` and numbered `S1` findings.
+- Open `references/reviewer-brief.md` when writing a round's brief, and fill it with the rubric at `<mstack>/skills/interrogate/references/rubric.md`.
 
 ## 3. Answer the findings
 
@@ -46,7 +47,7 @@ Keep a ledger with one row per finding: stable id (`S1`, `S2`...), member, sever
 
 - Budget: 3 rounds. Up to 5 only for security, auth, data loss or concurrency while a blocker or should stays open with evidence, or when the user asks.
 - Start another round only if budget remains and a blocker or should is open, or behavior code changed since the last approval. A round that returns only nits ends the loop; doc, comment or format-only fixes need no new round.
-- A new round uses fresh reviewers with the round 1 brief, the ledger, the same base diff and the change since last round. They check open ids and changed code only, marking each old id `resolved` or `still open: <reason>`.
+- Save the change since last round with `git diff` before each round. A new round uses fresh reviewers with the round 1 brief, the ledger, the same base diff and the change since last round. They check open ids and changed code only, marking each old id `resolved` or `still open: <reason>`.
 
 ## 5. Stop
 

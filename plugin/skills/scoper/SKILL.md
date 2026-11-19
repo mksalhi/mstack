@@ -49,4 +49,6 @@ Code first, then at most three short lines: [code] → skipped: [X], add when [Y
 - ultra: Deletion before addition; ship the one-liner and challenge the rest.
 
 ## More
-Help: `<mstack>/skills/scoper/references/help.md`. Reviewing a diff or repo for over-engineering (`/mstack:scoper review`): `<mstack>/skills/scoper/references/review.md`. Listing deferred `scoper:` shortcuts (`/mstack:scoper debt`): `<mstack>/skills/scoper/references/debt.md`.
+- Open `<mstack>/skills/scoper/references/review.md` when reviewing a diff or repo for over-engineering (`/mstack:scoper review`).
+- Open `<mstack>/skills/scoper/references/debt.md` when listing deferred `scoper:` shortcuts (`/mstack:scoper debt`).
+- Open `<mstack>/skills/scoper/references/help.md` when asked about scoper commands, levels or changing the default.

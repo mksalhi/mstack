@@ -9,10 +9,11 @@ metadata:
 
 # Writing
 
-Write so a tired engineer understands on the first read. Apply every section. Then run an unslop pass in [unslop.md](unslop.md). For a whole document, pick its mode with [diataxis.md](diataxis.md).
+Write so a tired engineer understands on the first read. Apply every section, then the Unslop pass.
 
-- Agent docs: also read [agents.md](agents.md).
-- Plain words: restate your last message in the voice set by the Voice paragraph of <mstack>/skills/how/teach.md.
+- Whole document: give it one Diátaxis mode (tutorial, how-to, reference, explanation) and never mix modes. Open [diataxis.md](diataxis.md) when choosing the mode.
+- Agent docs: apply Agent docs below.
+- Plain words: restate your last message in plain spoken English. State the concrete mechanism. Use sentence case, short sentences and few commas. No framing labels, mirror sentences or tidy closers.
 - Sharpen a prompt: see Sharpen a prompt.
 
 ## Rules
@@ -29,8 +30,24 @@ Write so a tired engineer understands on the first read. Apply every section. Th
 ## Repo specifics
 
 - PR descriptions and commit messages skip the Diátaxis mode choice. A PR body is a briefing readable in under a minute. Link swarm logs, SHA lists, and metric tables. Do not paste them.
-- Product UI strings: the ui skill’s copy area, <mstack>/skills/ui/references/copy.md.
+- Open <mstack>/skills/ui/references/copy.md when writing product UI strings.
 - Indent code snippets with tabs. Write real paths. Every count or tree claim must be true at the landing commit, with the command that regenerates it.
+
+## Unslop pass
+
+Scan the draft, then rewrite it. Keep the meaning and tone.
+- Cut filler -ing phrases, vague attributions, chatbot lines, flattery, generic conclusions, and adverbs without a number. Collapse hedges to "may".
+- Say "is" or "has", not "serves as" or "boasts". Say "to", not "in order to". Use no AI vocabulary (additionally, crucial, delve, enhance, pivotal, showcase, underscore) and no abstract metaphor nouns (substrate, vector, surface, north star).
+- No "not just X, but Y". No "from X to Y" without a real scale. Use a colon only before a list or example. Use straight quotes.
+- Use active voice and whole sentences. Spell out arrows and abbreviations.
+- Open [unslop.md](unslop.md) when you need the full word lists.
+
+## Agent docs
+
+- Inline what every branch needs. Put what only some branches need in a file that `SKILL.md` links directly, as "Open `x.md` when <situation>". No chains of links.
+- Keep `SKILL.md` under about 5,000 tokens. Keep one authoritative place per meaning.
+- End every step on a checkable completion criterion.
+- Open [agents.md](agents.md) when deciding what loads when, wording a description or trigger, or choosing invocation settings.
 
 ## Sharpen a prompt
 

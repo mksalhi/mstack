@@ -22,8 +22,8 @@ node render.mjs         # renders the starter film to out/silent.mp4
 | `index.html` | The film. `SCENES` is a list of `{ from, to, draw(t) }`; `window.seek(t)` paints second `t`. |
 | `motion.js` | `spring`, `track`, `smoother`, `swapAlpha`, `rng`, `beatGrid`, `loopT`, and the `SPRING` presets. |
 | `render.mjs` | Seeks the page frame by frame and pipes screenshots to ffmpeg. |
-| `audio.mjs`, `beats.py` | Sound. See `sound.md`. |
-| `sheets.sh` | Review images. See `critique.md`. |
+| `audio.mjs`, `beats.py` | Sound (`sound.md`). |
+| `sheets.sh` | Review images (`critique.md`). |
 | `AGENTS.md` (+ `CLAUDE.md` shim) | House rules for every film in the project. |
 
 ## The contract

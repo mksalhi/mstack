@@ -28,7 +28,7 @@
 Radix steps name roles and stay the same in dark mode. Tailwind steps name lightness and invert in dark mode; mapping lives in the semantic tier. If hover and subtle border must differ, use Radix’s 12 steps.
 
 ## Tokens
-- Two tiers: primitives (values, e.g. `--blue-500`) and semantics (roles, e.g. `--color-text-secondary`). Components use only semantics. Themes repoint only semantics. Add a component tier only for deliberate divergence.
+- Two tiers: primitives (values, e.g. `--blue-500`) and semantics (roles, e.g. `--color-text-secondary`). Themes repoint only semantics. Add a component tier only for deliberate divergence.
 - Shape: `--color-{role}-{variant}-{state}`. `primary` means “most prominent”, not the brand.
 - Roles: Surfaces (page, surface, raised, sunken, scrim). Text (primary, secondary, disabled, inverse, on-accent). Borders (subtle, default, strong, focus, separator). Accent and each status: subtle background, border, solid, text.
 - Tailwind v4: declare both tiers in `@theme`. Avoid opacity utilities (`bg-accent/50`) under text; use solid tokens.
@@ -37,4 +37,3 @@ Radix steps name roles and stay the same in dark mode. Tailwind steps name light
 1. Grep every color literal and utility, plus SVG/chart/email uses.
 2. Within each hue, sort by perceived lightness. Merge colors less than a step apart; keep the most-used, never average.
 3. Assign each survivor a role from the table. No-role = missing token or mistake.
-4. Report inventory before any changes; consolidations are proposals until accepted.

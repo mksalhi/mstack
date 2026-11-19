@@ -10,7 +10,7 @@ metadata:
 
 # mstack mode
 
-`<mstack>` is `${CLAUDE_SKILL_DIR}/../..`. When this file names a skill, Read `<mstack>/skills/<name>/SKILL.md` and follow it. Playbook and reference paths are relative to `${CLAUDE_SKILL_DIR}`. The mstack store is `~/.claude/mstack/<slug>/`, where the slug is the working directory with `/` and `.` turned into `-`. "A different model family" means a different Agent alias (`opus`, `fable`, `sonnet`, `haiku`).
+`<mstack>` is `${CLAUDE_SKILL_DIR}/../..`. When this file names a skill, Read `<mstack>/skills/<name>/SKILL.md` and follow it. Playbook and reference paths are relative to `${CLAUDE_SKILL_DIR}`. The mstack store is `~/.claude/mstack/<slug>/`, where the slug is the working directory with `/` and `.` turned into `-`. This project's transcripts are `~/.claude/projects/<slug>/<session-uuid>.jsonl` (subagents in `<session-uuid>/subagents/`, current id `${CLAUDE_SESSION_ID}`); never glob `~/.claude/projects/*/`, which reads other projects' private chats. "A different model family" means a different Agent alias (`opus`, `fable`, `sonnet`, `haiku`).
 
 ## Routing
 
@@ -25,7 +25,7 @@ In your reply, name each principle that changed a decision, and cite only princi
 | Parallel work | `arena` in swarm mode for coverage, races and exploration; `arena` to pick the best of several designs |
 | Contested design | `interrogate` before shipping |
 | Nontrivial multi-step work | Write the throughput checkpoint (Feature step 3) |
-| Any prose, your reply included | The unslop pass (`<mstack>/skills/writing/unslop.md`). Docs, PR text and agent docs go through `writing`. |
+| Any prose, your reply included | Unslop it: cut filler, hedges, flattery and AI vocabulary (delve, crucial, showcase); "is" not "serves as"; no "not just X, but Y"; active voice, whole sentences. Docs, PR text and agent docs go through `writing`. |
 | UI | Read the repo's design contract (`DESIGN.md`, or whatever AGENTS.md names), then the `ui` skill: `review`, `polish`, `animate` or `animate-expo`, and `break` before calling a screen done |
 | Before commit | Deslop the diff: `/deslop` if installed, otherwise unslop for prose and `scoper` for code |
 | Before review | Cut comments with `pr` |
@@ -95,7 +95,7 @@ Open the playbook's file and copy its steps verbatim as the first todos. Mark a 
 - [**Full stop**](playbooks/full-stop.md). One PR from change to merge-ready with nobody watching ("full stop"); "full send" also merges.
 - [**Autopilot-full**](playbooks/autopilot-full.md). A queue of independent PRs run to merged, one owner per PR.
 - [**Autopilot-stack**](playbooks/autopilot-stack.md). A queue built into one verified linear stack that the operator lands.
-- [**Session pickup**](playbooks/session-pickup.md). Resume another agent's work from a transcript (`references/transcripts.md`), a handoff or a branch.
+- [**Session pickup**](playbooks/session-pickup.md). Resume another agent's work from a transcript, a handoff or a branch.
 - [**Pause safely**](playbooks/pause-safely.md). Suspend work so it can resume: a pause, going offline, a restart, compaction.
 - [**Multi-phase or multi-PR plan**](playbooks/multi-phase-plan.md).
 - [**Worktree and simulator cleanup**](playbooks/worktree-cleanup.md). Reclaim disk from merged worktrees and stale simulators.

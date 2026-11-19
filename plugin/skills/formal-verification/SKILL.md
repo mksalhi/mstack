@@ -54,4 +54,13 @@ Two modes:
 
 ## Maintain
 
-Read [references/maintain.md](references/maintain.md) and follow its six-step pass, then report each check as in sync, updated, bug or blocked.
+End each check as in sync (nothing since the sync commit alters it, passes), updated (now describes the changed code, passes), bug (describes current code, which breaks the property) or blocked (couldn't align or run; say exactly why).
+
+1. Find the checks (usually under `.claude/skills/`) with each one's property, covered code, bounds, run command and sync commit. No verify skill means switch to Create. No recorded sync commit means use the last commit that changed the verification files, and say so.
+2. Run each once and record the result. Judge failures only at step 5.
+3. Diff covered code from the sync commit to now, including moved, renamed or split code and new code touching guarded state. Classify each change as no effect, verification stale, promise changed on purpose (cite evidence), or promise may be broken.
+4. Update from the code, not from the result. Change a property only for an intended promise change and record old wording, new wording and evidence. Keep bounds unless wrong; report any reduction.
+5. Rerun and judge. On a pass, break the new code the way the property guards, confirm the check catches it, and drop the break. On a fail, replay the counterexample against real code. A step that can't happen means the verification is wrong, so fix it and say what was wrong. All steps possible means a bug, so name the introducing commit, give the steps in the code's words and the harm in one sentence.
+6. Update the verify skill's covered code, commands, bounds and sync commit (the commit you checked; never move it for a blocked check). Then follow the skill once to confirm its steps run.
+
+Report per check the outcome, commits read, what changed in the verification and why, the break that proved it can still fail, each bug in plain words, what stays uncovered, and which failures were drift versus code bugs. Put verification updates in their own change, apart from any product fix.

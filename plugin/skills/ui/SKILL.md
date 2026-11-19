@@ -9,20 +9,18 @@ metadata:
 
 # UI
 
-Read the file for the area the task touches and follow it; a task can touch several.
-`/mstack:ui <area>` opens that area directly.
-Relative paths in an area file resolve against its own folder.
+Open the area file for each area the task touches and follow it; `/mstack:ui <area>` opens one directly. Paths in an area file resolve against its folder. Each area's core line below applies even unopened.
 
-- [review](references/review/index.md) — Start here; it pulls in the other areas as it goes.
-- [accessibility](references/accessibility/index.md)
-- [layout](references/layout/index.md)
-- [copy](references/copy.md)
-- [typography](references/typography/index.md)
-- [colors](references/colors/index.md)
-- [polish](references/polish/index.md)
-- [animate](references/animate/index.md)
-- [animate-expo](references/animate-expo/index.md)
-- [mobile-web](references/mobile-web.md)
-- [break](references/break/index.md)
-- [sonner](references/sonner/index.md)
-- [prototype](references/prototype/index.md) — Only when asked.
+- [review](references/review/index.md). Open first for any review; it runs the other areas in order. Cite file:line per finding, one row per root cause, max 15. Block if any HIGH remains, else Approve; read-only unless asked to fix.
+- [accessibility](references/accessibility/index.md). Native elements before ARIA. Every control has a name, visible focus and keyboard reach. Never disable submit until valid.
+- [layout](references/layout/index.md). Logical properties for RTL. One primary action. Never fix text box sizes.
+- [copy](references/copy.md). Match the surrounding voice. Buttons start with a verb. Errors say how to fix. Never concatenate around a variable.
+- [typography](references/typography/index.md). Keep the project typeface and scale. Tabular figures on changing numbers. Never disable zoom.
+- [colors](references/colors/index.md). Never report contrast you did not measure. Components use semantic tokens only.
+- [polish](references/polish/index.md). Concentric radius. Shadows for depth, borders for structure.
+- [animate](references/animate/index.md). Never animate keyboard actions or 100+/day UI. Transform and opacity only, UI 300ms or less. Never `transition: all`, `scale(0)` or ease-in. Movement only inside `prefers-reduced-motion: no-preference`.
+- [animate-expo](references/animate-expo/index.md). Reanimated 4 on the UI thread; never core `Animated` or `setState` per frame. Screen transitions come from the native stack.
+- [mobile-web](references/mobile-web.md). Gate on `hover`, `pointer` and `dvh`, never user agent or width.
+- [break](references/break/index.md). Worst-case values from real limits, injected as data. Report, then stop unless asked to fix.
+- [sonner](references/sonner/index.md). One `<Toaster />` near the root; `toast()` only from client code.
+- [prototype](references/prototype/index.md). Only when asked. Fully working variants behind the verbatim picker; never pick the winner.

@@ -1,4 +1,4 @@
-Fill in placeholders. Append sources/<source>.md. If target looks defensive (null checks, retries, timeouts, rate limits, feature flags, egress guards, OOM handlers), also append sources/incident-postmortem.md.
+Fill in placeholders and append the source playbook. For a defensive target, also append the incident search terms from SKILL.md step 2.
 
 Investigate code shape, search only {SOURCE_NAME}. Evidence only; no conclusions. One verbatim quote with exact citation beats summary.
 

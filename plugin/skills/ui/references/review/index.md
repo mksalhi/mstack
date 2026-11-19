@@ -2,7 +2,7 @@
 
 Route scope through each domain area, then merge into one ranked verdict. Report evidence, not taste.
 
-If reviewing a branch, PR, commit range or uncommitted changes, resolve it with [change-review.md](change-review.md) first.
+For a branch, PR, commit range or uncommitted changes, diff against the merge base, never change the checkout, never pick `HEAD~1` yourself, never Approve an empty scope. Give each finding a Status (Introduced, Regression, Pre-existing); only the first two count toward the cap and verdict. Open [change-review.md](change-review.md) when resolving that target, its exclusions and consumers.
 
 ## Steps
 

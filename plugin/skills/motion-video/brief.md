@@ -14,10 +14,9 @@ Pick the smallest brief that fits. Copy its template from `templates/` to `docs/
 
 - **A genre with known rules** ("a launch film" beats adjectives).
 - **A length.** 15 s fits six to eight shots in one pass.
-- **A reference.** See `reference.md`.
+- **A reference.** Open `reference.md` when the user has none or gives a video, image set or URL.
 - **States, not vibes:** what is on screen at each beat ("the button becomes the loader at beat 3", not "feel premium").
 - **Bans.** Defaults are in the house rules.
-- **A gate:** shot list before code.
 
 A showreel has no idea in it: use it once to prove the setup, then write a real brief.
 
@@ -32,7 +31,7 @@ For a long film, the brief casts the model as the crew and gives the film in one
 - **Beat sheet** with timestamps: hook in the first 2 s, something new every 2 to 4 s.
 - **Text on screen:** when words go huge vs sit as captions, with room left in the composition.
 - **Gates:** plan, rig, stills, animatic, full pass, polish, sound, render. None skipped.
-- **Critique loop:** `critique.md`.
+- **Critique loop:** the one in SKILL.md step 6.
 - **Deliverables**.
 
 Long-film patterns:
@@ -41,7 +40,3 @@ Long-film patterns:
 - **Generate, then trace.** A video model renders base shots (physics, character motion), then the film is redrawn in code on top so only the code layer is seen. Needs a user-provided video API key and budget.
 
 For an unattended run, say so in the brief: show the shot list, then continue if there is no answer after a stated time.
-
-## Keys
-
-Keys go in `.env`; the brief names the variable ("the voice key is `ELEVENLABS_API_KEY` in `.env`"). Never write a real key into a brief.

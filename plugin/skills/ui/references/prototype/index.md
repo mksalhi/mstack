@@ -7,7 +7,7 @@ Rules
 - State one named axis before building; secondary choices follow. Variants that differ only in accent color or copy count as one.
 - Every variant fully works: real interactions, product-shaped copy, realistic data. No lorem ipsum; no dead buttons.
 - Each variant clears: the [review](../review/index.md) “Always HIGH” list and the [animate](../animate/index.md) never-ship list.
-- Copy the picker from [PICKER.md](PICKER.md) verbatim.
+- Open [PICKER.md](PICKER.md) when building the harness and copy its picker verbatim.
 
 Steps
 - Scope one piece per run; if the brief is broad, name the anchor component.

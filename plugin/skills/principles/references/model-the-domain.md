@@ -1,7 +1,13 @@
-# Model the domain
+# Model the domain: structure catalog
 
-- Encode the domain in data structures that make invalid states unrepresentable; choose the data shape before logic and fit it to dominant access paths.
-- Prefer: state machine (over booleans/phases), typed/discriminated unions (over loose params), maps/registries/lookups (over spread branching), reducer/command/event (over ad hoc mutation), a module that owns domain rules (execution order is not ownership), small boundaries to gather invariants, and queues/caches/indexes/graphs/trees/normalized collections when access patterns demand.
-- Derive structures from “what must never happen” and “how data is read.”
-- Don’t force abstractions; prefer boring code when shape is clear/local; avoid indirection that removes no branches or risks.
-- Smells you skipped this: growing if/else chains, booleans that must stay in sync, phase-named modules repeating rules.
+Derive the shape from "what must never happen" and "how data is read".
+
+- State machine over booleans or phase flags.
+- Discriminated unions over loose optional params.
+- Maps, registries and lookups over branching spread across files.
+- Reducer, command or event over ad hoc mutation.
+- One module owns each domain rule; execution order is not ownership.
+- Small boundaries that gather invariants in one place.
+- Queues, caches, indexes, graphs, trees or normalized collections when the access pattern demands them.
+
+Prefer boring code when the shape is clear and local. Skip indirection that removes no branch or risk.

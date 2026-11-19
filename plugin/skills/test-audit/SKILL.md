@@ -12,7 +12,7 @@ metadata:
 Read the repo’s AGENTS.md files first; they win over this skill. Three modes, one bar:
 - Authoring: gate every new or changed test at write time.
 - Audit: sweep for restatement, duplication, coupling, or test-only hooks. Split broad audits; aim for confidence.
-- Campaign: prune every test a workspace or subsystem owns. Read [CAMPAIGN.md](CAMPAIGN.md) first.
+- Campaign: prune every test a workspace or subsystem owns in one PR. Open [CAMPAIGN.md](CAMPAIGN.md) before step 1 of a campaign and finish each of its steps before the next.
 
 ## Authoring gate
 

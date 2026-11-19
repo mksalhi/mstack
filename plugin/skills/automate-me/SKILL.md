@@ -10,7 +10,7 @@ metadata:
 
 # Automate me
 
-Create one -mode skill. Mine history with <mstack>/skills/mstack-mode/playbooks/authoring-a-skill.md, then run <mstack>/skills/writing/unslop.md>. Exception: for “how I write commit messages”, skip mining; use <mstack>/skills/writing/agents.md>.
+Create one -mode skill. Mine history with <mstack>/skills/mstack-mode/playbooks/authoring-a-skill.md, then run the Unslop pass in <mstack>/skills/writing/SKILL.md>. Exception: for “how I write commit messages”, skip mining; use <mstack>/skills/writing/agents.md>.
 
 0) Check for an existing skill
 - Search: .agents/skills/**/*-mode/SKILL.md, .claude/skills/**/*-mode/SKILL.md, ~/.agents/skills/*-mode/SKILL.md for the user’s handle.
