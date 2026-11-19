@@ -12,7 +12,7 @@ that never sees which condition produced it.
 import argparse, concurrent.futures as cf, json, os, re, statistics, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import llm
-from static import tree_at, frontmatter, skill_at
+from static import tree_at, frontmatter, skill_at, CUT
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SYSTEM = ("You are a coding agent helping a user in a chat. You cannot run commands or see their repository; "
@@ -107,7 +107,7 @@ def main():
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--out")
     a = ap.parse_args()
-    tasks = [t for t in json.load(open(os.path.join(HERE, "tasks.json"))) if not a.only or t["id"] in a.only.split(",")]
+    tasks = [t for t in json.load(open(os.path.join(HERE, "tasks.json"))) if (not a.only or t["id"] in a.only.split(",")) and t["skill"] not in CUT]
     if a.refs:
         conds = {"none": None, **{r: tree_at(r) for r in a.refs.split(",")}}
     else:

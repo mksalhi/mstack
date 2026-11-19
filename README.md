@@ -47,11 +47,11 @@ You can also call a skill directly. For example, `/mstack:how` gives a subsystem
 | Group | Skills |
 |---|---|
 | Understand | `how` (walkthroughs, teaching, research), `why` |
-| Plan | `architect`, `blast-radius`, `figure-it-out`, `grilling` |
+| Plan | `architect`, `blast-radius`, `figure-it-out` |
 | Parallel | `arena` (best-of and swarm), `interrogate`, `council` (review rounds until agreement) |
-| Verify | `debug`, `test-audit`, `playwright`, `verifier`, `formal-verification`, `statechart` |
+| Verify | `debug`, `test-audit`, `playwright`, `verifier`, `formal-verification` |
 | Ship | `pr` (body, cutting comments, bot review threads), `takeover` (finish someone's PR, modernize an old one), `scoper` (always on; `/mstack:scoper lite\|full\|ultra\|review\|debt`), `writing` (prose, unslop, plain, sharpen) |
-| Session | `handoff` (write, resume, catch up), `grilling` (and play-back), `decision-log`, `retro`, `automate-me` |
+| Session | `handoff` (write, resume, catch up), `decision-log`, `retro`, `automate-me` |
 | Design | `ui`, `principles` |
 | Other | `mstack-mode` (playbooks), `setup-mstack`, `motion-video` (with the `motion-critic` agent), `write-swift` |
 

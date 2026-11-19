@@ -12,7 +12,9 @@ ROOT = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=Tru
 
 
 # Skills merged into another. A ref that lacks the old skill is scored against its new home.
-MERGED = {"in-your-own-words": "grilling", "ketchup": "handoff", "pr-comments": "pr", "swarm": "arena"}
+MERGED = {"ketchup": "handoff", "pr-comments": "pr", "swarm": "arena"}
+# Skills cut outright. Their queries and tasks drop out of every ref, so before and after stay comparable.
+CUT = {"statechart", "grilling", "in-your-own-words"}
 
 
 def skill_at(names, name):
