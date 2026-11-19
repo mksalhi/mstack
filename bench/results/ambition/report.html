@@ -1,0 +1,157 @@
+<title>mstack Ambition Benchmark</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;600&display=swap">
+<style>
+/* Layout: summary table on top, then a task rail + response reader; methods at the end. */
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --fg:#1b1f27; --muted:#5d6675; --line:#dde1e8;
+  --accent:#2f5bd3; --pass:#1d7a46; --pass-bg:#e3f3ea; --fail:#b3261e; --fail-bg:#fbe6e4;
+  --code:#eef1f5;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12151b; --panel:#1a1e26; --fg:#e6e9ef; --muted:#9aa3b2; --line:#2c323d;
+  --accent:#86a6ff; --pass:#6fd39b; --pass-bg:#173326; --fail:#ff8a80; --fail-bg:#3a1c1a; --code:#222833; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12151b; --panel:#1a1e26; --fg:#e6e9ef; --muted:#9aa3b2; --line:#2c323d;
+  --accent:#86a6ff; --pass:#6fd39b; --pass-bg:#173326; --fail:#ff8a80; --fail-bg:#3a1c1a; --code:#222833; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:30px} h2{font-size:21px} h3{font-size:16px}
+p{margin:0;max-width:72ch} .muted{color:var(--muted)}
+.lede{display:grid;gap:10px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:14px;min-width:0}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500}
+td.num{text-align:right} th.num{text-align:right}
+tr.click{cursor:pointer} tr.click:hover td{background:var(--code)} tr.sel td{background:var(--code)}
+.main{display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:start}
+@media (max-width:820px){.main{grid-template-columns:1fr}}
+.rail{display:grid;gap:6px;position:sticky;top:env(safe-area-inset-top,0px)}
+.rail button{all:unset;cursor:pointer;padding:9px 12px;border-radius:8px;border:1px solid transparent;display:grid;gap:2px}
+.rail button:hover{background:var(--panel)} .rail button[aria-current="true"]{background:var(--panel);border-color:var(--line)}
+.rail button:focus-visible,.chip:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.rail .t{font-family:var(--mono);font-size:13px} .rail .s{font-size:12px;color:var(--muted)}
+.prompt{white-space:pre-wrap;background:var(--code);border-radius:8px;padding:12px 14px;font-size:14px}
+ol.asserts{margin:0;padding-left:22px;display:grid;gap:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{all:unset;cursor:pointer;font-size:13px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+.chip[aria-pressed="true"]{color:var(--fg);border-color:var(--accent);background:var(--code)}
+.resp{border:1px solid var(--line);border-radius:8px;background:var(--panel);min-width:0}
+.resp summary{cursor:pointer;padding:10px 14px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;list-style:none}
+.resp summary::-webkit-details-marker{display:none}
+.rid{font-family:var(--mono);font-size:13px} .cond{font-size:12px;padding:2px 8px;border-radius:6px;background:var(--code)}
+.marks{display:flex;gap:4px} .mk{width:22px;height:22px;border-radius:5px;display:grid;place-items:center;font-size:12px;font-weight:600;font-family:var(--mono)}
+.mk.p{background:var(--pass-bg);color:var(--pass)} .mk.f{background:var(--fail-bg);color:var(--fail)}
+.score{margin-left:auto;font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted)}
+.body{padding:0 14px 14px;display:grid;gap:12px;min-width:0}
+.why{display:grid;gap:6px;font-size:14px} .why div{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start}
+.answer{white-space:pre-wrap;font-family:var(--mono);font-size:12.5px;background:var(--code);border-radius:8px;padding:12px;max-height:560px;overflow:auto;min-width:0}
+.kv{font-size:13px;color:var(--muted)} code{font-family:var(--mono);font-size:.92em}
+.methods{display:grid;gap:12px} .methods li{max-width:80ch}
+details.skill pre{white-space:pre-wrap;font-family:var(--mono);font-size:12px;background:var(--code);padding:12px;border-radius:8px;max-height:420px;overflow:auto}
+#status{color:var(--muted)}
+</style>
+
+<div class="wrap">
+  <header class="lede">
+    <h1>mstack ambition benchmark</h1>
+    <p class="muted">Does telling the model "code is cheap, proof is not" change how it sizes and scopes work? GPT answers each task; Claude grades every answer blind against the task's assertions. Every prompt, answer and grade is below.</p>
+  </header>
+
+  <section class="panel">
+    <h2>Score by condition</h2>
+    <p class="muted">Share of assertions Claude marked as passed, averaged over 6 runs per cell. Click a row to read that task's answers.</p>
+    <div class="scroll"><table id="summary"></table></div>
+    <p id="status">Loading data…</p>
+  </section>
+
+  <section class="main">
+    <nav class="rail" id="rail" aria-label="Tasks"></nav>
+    <div class="panel" id="task"></div>
+  </section>
+
+  <section class="panel methods" id="methods">
+    <h2>Method</h2>
+  </section>
+</div>
+
+<script>
+const COND=['none','old','new','scoper-old','scoper-new'];
+const COND_LABEL={'none':'No skill','old':'Old skills','new':'New skills','scoper-old':'Scoper only, old','scoper-new':'Scoper only, new'};
+let D, cur=null, filter='all';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pct=a=>a.length?Math.round(100*a.reduce((x,y)=>x+y,0)/a.length)+'%':'–';
+const rscore=r=>r.claude_judge.filter(x=>x.pass).length/r.claude_judge.length;
+
+fetch('data.json').then(r=>r.json()).then(d=>{D=d;document.getElementById('status').hidden=true;render();}).catch(e=>{document.getElementById('status').textContent='Could not load data.json: '+e.message});
+
+function render(){
+  const tb=['<thead><tr><th>Task</th>'+COND.map(c=>`<th class="num">${COND_LABEL[c]}</th>`).join('')+'</tr></thead><tbody>'];
+  const all={}; COND.forEach(c=>all[c]=[]);
+  D.tasks.forEach(t=>{
+    tb.push(`<tr class="click" data-t="${t.id}"><td><code>${t.id}</code></td>`+COND.map(c=>{const s=t.responses.filter(r=>r.cond===c).map(rscore);all[c].push(...s);return `<td class="num">${pct(s)}</td>`}).join('')+'</tr>');
+  });
+  tb.push('<tr><td><strong>All</strong></td>'+COND.map(c=>`<td class="num"><strong>${pct(all[c])}</strong></td>`).join('')+'</tr></tbody>');
+  const S=document.getElementById('summary'); S.innerHTML=tb.join('');
+  S.querySelectorAll('tr.click').forEach(tr=>tr.onclick=()=>{show(tr.dataset.t);document.getElementById('task').scrollIntoView({behavior:'smooth'})});
+  document.getElementById('rail').innerHTML=D.tasks.map(t=>`<button data-t="${t.id}"><span class="t">${t.id}</span><span class="s">loaded skill: ${t.skill} · ${t.responses.length} answers</span></button>`).join('');
+  document.querySelectorAll('#rail button').forEach(b=>b.onclick=()=>show(b.dataset.t));
+  methods();
+  const h=location.hash.slice(1); show(D.tasks.some(t=>t.id===h)?h:D.tasks[0].id);
+}
+
+function show(id){
+  cur=D.tasks.find(t=>t.id===id); filter='all';
+  try{history.replaceState(null,'','#'+id)}catch(e){}
+  document.querySelectorAll('#rail button').forEach(b=>b.setAttribute('aria-current',b.dataset.t===id));
+  document.querySelectorAll('#summary tr.click').forEach(r=>r.classList.toggle('sel',r.dataset.t===id));
+  drawTask();
+}
+
+function drawTask(){
+  const t=cur, conds=COND.filter(c=>t.responses.some(r=>r.cond===c));
+  const rs=t.responses.filter(r=>filter==='all'||r.cond===filter).slice().sort((a,b)=>COND.indexOf(a.cond)-COND.indexOf(b.cond)||a.run-b.run);
+  const regex=t.regex_checks.length?`<p class="kv">Regex checks (not part of the Claude score): ${t.regex_checks.map(c=>`${esc(c.name)} <code>${esc(c.type)} ${esc(c.pattern)}</code>`).join('; ')}</p>`:'';
+  document.getElementById('task').innerHTML=`
+    <h2><code>${t.id}</code></h2>
+    <p class="kv">Skill injected after the prompt: <code>${t.skill}</code></p>
+    <h3>Prompt</h3><div class="prompt">${esc(t.prompt)}</div>
+    <h3>Assertions</h3><ol class="asserts">${t.assertions.map(a=>`<li>${esc(a)}</li>`).join('')}</ol>${regex}
+    <h3>Answers</h3>
+    <div class="chips" role="group" aria-label="Filter by condition">
+      ${['all',...conds].map(c=>`<button class="chip" data-c="${c}" aria-pressed="${filter===c}">${c==='all'?'All':COND_LABEL[c]} ${c==='all'?'':'· '+pct(t.responses.filter(r=>r.cond===c).map(rscore))}</button>`).join('')}
+    </div>
+    <div style="display:grid;gap:8px">${rs.map(resp).join('')}</div>`;
+  document.querySelectorAll('#task .chip').forEach(b=>b.onclick=()=>{filter=b.dataset.c;drawTask()});
+}
+
+function resp(r){
+  const marks=r.claude_judge.map((g,i)=>`<span class="mk ${g.pass?'p':'f'}" title="Assertion ${i+1}: ${g.pass?'pass':'fail'}">${i+1}</span>`).join('');
+  const why=r.claude_judge.map((g,i)=>`<div><span class="mk ${g.pass?'p':'f'}">${i+1}</span><span>${g.why?esc(g.why):'<span class="muted">No rationale recorded.</span>'}</span></div>`).join('');
+  const gpt=r.gpt_judge?`GPT judge: ${r.gpt_judge.map((p,i)=>`${i+1} ${p?'pass':'fail'}`).join(', ')}`:'GPT judge: not run';
+  return `<details class="resp"><summary><span class="rid">${r.id}</span><span class="cond">${COND_LABEL[r.cond]}</span><span class="marks">${marks}</span><span class="score">${Math.round(100*rscore(r))}%</span></summary>
+    <div class="body"><div class="why">${why}</div>
+    <p class="kv">${gpt}. Files the model opened: ${r.files_read.length?r.files_read.map(f=>`<code>${esc(f)}</code>`).join(', '):'none'}.</p>
+    <div class="answer">${esc(r.answer)}</div></div></details>`;
+}
+
+function methods(){
+  const m=D.meta;
+  document.getElementById('methods').innerHTML=`<h2>Method</h2>
+  <ul>
+    <li><strong>Runner.</strong> ${esc(m.runner)}, ${m.runs_per_condition} runs per task and condition. Each run is a fresh single-turn agent that can call <code>read_file</code> on the plugin tree.</li>
+    <li><strong>System prompt.</strong> <code>${esc(m.system_prompt)}</code></li>
+    <li><strong>Judge.</strong> ${esc(m.judge)}. A response passes an assertion only with concrete evidence in it. Graders were told the model could not run commands, so they grade the plan it describes.</li>
+    <li><strong>Conditions.</strong><ul>${Object.entries(m.conditions).map(([k,v])=>`<li><code>${k}</code>: ${esc(v)}</li>`).join('')}</ul></li>
+    <li><strong>Nested references.</strong> Across 177 GPT runs on the new skills, <code>principles/references/code-is-cheap.md</code> was opened twice, both in the final run below. The gains come from text that is always injected, which is why the core line now lives in scoper.</li>
+    <li><strong>Grader judgment calls.</strong> <code>ambition-estimate</code>: assertion 2 failed every answer that sized work in human weeks, so it tracks assertion 1 (five borderline answers, 00, 14, 16, 20 and 26, could pass under a looser reading). <code>ambition-game</code>: the grader ran all 30 games in headless Chrome; 29 completed a scored lap, and six have mirrored steering but still pass as complete. Assertion 3 accepted a detailed manual playtest plan, since no answer wrote a Playwright script. <code>ambition-scope</code>: 12 of 18 deliver PDF through the print dialog, counted as a pass; only 6 produce a real PDF file.</li>
+    <li><strong>Limits.</strong> The tasks are single-turn and cannot execute code, so "drive the app" is graded as a described plan. The ambition tasks were written by the same session that edited the skills, though committed before any edit.</li>
+  </ul>
+  <h3>Skill text each condition saw</h3>
+  ${Object.entries(m.skill_text).map(([k,v])=>`<details class="skill"><summary><code>${esc(k)}</code></summary><pre>${esc(v)}</pre></details>`).join('')}`;
+}
+</script>

@@ -1,0 +1,7 @@
+Runs that opened files beyond the injected SKILL.md (GPT, tasks benchmark)
+tasks-gpt-6.2-sol.json old: runs=117 any_file=42 nested_ref_or_playbook=31 principles/SKILL.md=13 code-is-cheap.md=0
+tasks-gpt-6.2-sol.json new: runs=117 any_file=49 nested_ref_or_playbook=37 principles/SKILL.md=14 code-is-cheap.md=0
+tasks-gpt-6.2-sol-recheck.json old: runs=60 any_file=30 nested_ref_or_playbook=27 principles/SKILL.md=13 code-is-cheap.md=0
+tasks-gpt-6.2-sol-recheck.json new: runs=60 any_file=35 nested_ref_or_playbook=33 principles/SKILL.md=17 code-is-cheap.md=0
+hook.json old: runs=30 any_file=24 nested_ref_or_playbook=22 principles/SKILL.md=23 code-is-cheap.md=0
+hook.json new: runs=30 any_file=24 nested_ref_or_playbook=21 principles/SKILL.md=24 code-is-cheap.md=2

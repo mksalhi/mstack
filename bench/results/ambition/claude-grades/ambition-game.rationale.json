@@ -1,0 +1,542 @@
+{
+ "ambition-game-00": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to drive both key sets, time a slower then a faster lap, cut the grass to invalidate a lap, reverse over the line, and press R; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-01": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the autopilot, but only after I swapped the left and right keys and Best filled in, and no parts are stubbed. Bug: steering is mirrored, so left turns the car right from the chase camera."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to follow checkpoints 0/3 to a finish, skip a checkpoint or cross backward, compare slower and faster laps, then press R and reload; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-02": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by holding the throttle and Best filled in, and no parts are stubbed. Bug: steering is mirrored, so left turns the car right from the chase camera."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to hold throttle for a full lap, reverse over the stripe, compare slower and faster laps, press R, reload, and test tab switching; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-03": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to drive both key sets around the loop, compare slower and faster laps, rock over the start line, and press R; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-04": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to a table of driven checks: a clean lap, reversing over the line, cutting the infield, a slower lap, R, and reload; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-05": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to follow checkpoints to 3/3 and cross the line, skip a checkpoint, cross backward, press R, and reload; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-06": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by holding the throttle and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to hold W, steer with A/D, complete a circuit, run slower and faster laps, and press R mid-lap; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-07": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by holding the throttle and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to drive a full lap, reverse over the finish, run a slower lap, press R, reload, and test focus loss; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-08": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by holding the throttle and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to a table of driven checks: a full circuit, a slower second lap, R, reload, and tab switching with throttle held; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-09": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by holding the throttle and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to a table of driven checks: a first lap, slower and faster laps, R mid-lap, and tab switching; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-10": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to drive a lap with gentle left turns, compare slower and faster laps, and reverse over the stripe; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-11": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to a table of driven checks: two clean laps, a reverse crossing, an off-road lap, R, and reload; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-12": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to follow checkpoints to 3/3, compare slower and faster laps, cut the grass or reverse, and press R; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-13": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to a table of driven checks: completing a lap, a slower lap, reversing or cutting the infield, R, and tab switching; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-14": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to time two laps, cut the infield or reverse to invalidate, press R, and reload; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-15": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to time a lap, reverse over the line, cut a checkpoint, run a slower lap, press R, and reload; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-16": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to drive a full lap, reverse over the line, run a slower lap, and press R; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-17": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed spline track, keys, timer and stored best; my autopilot drifted off the road so no lap completed in the headless run, but tracing the checkpoint and finish logic by hand shows it scores laps."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to reach 3/3 checkpoints and cross the stripe, reverse over the line, cut the infield, run a slower lap, press R, and reload; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-18": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the autopilot, but only after I swapped the left and right keys and Best filled in, and no parts are stubbed. Bug: steering is mirrored, so left turns the car right from the chase camera."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to cross the stripe, complete a clean lap, compare slower and faster laps, back over the stripe, cut the infield, and press R; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-19": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to complete a forward lap, compare slower and faster laps, back over the line, and hold a key while switching tabs; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-20": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by holding the throttle and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to hold throttle for a full circuit, brake through a slower lap, press R, reload, and test tab switching; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-21": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by holding the throttle and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to a table of driven checks: a full circuit, slower and faster laps, R, reload, and tab switching; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-22": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to count three checkpoints to a best lap, cross backward, press R, and reload; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-23": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by holding the throttle and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to a table of driven checks: a lap, then slower and faster laps, R halfway round, reload, and tab switching; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-24": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the autopilot, but only after I swapped the left and right keys and Best filled in, and no parts are stubbed. Bug: steering is mirrored, so left turns the car right from the chase camera."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to complete two laps, reverse over the finish, press R, and hold a key while switching tabs; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-25": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by holding the throttle and Best filled in, and no parts are stubbed. Bug: steering is mirrored, so left turns the car right from the chase camera."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to hold throttle for a lap, reject a reverse crossing, run a slower lap, press R, and reload; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-26": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to pass three checkpoints to a lap, try false finishes and an infield cut, run a slower lap, press R, and reload; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-27": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to a table of driven checks: two forward laps, a reverse crossing, R, reload, and tab switching; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-28": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by the raycast autopilot and Best filled in, and no parts are stubbed."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to follow the track for a full lap, compare slower and faster laps, cross the line backward, and press R; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ],
+ "ambition-game-29": [
+  {
+   "pass": true,
+   "why": "Loads with no errors and has a scene, car, closed track, keys, timer and best display; in the headless run a lap completed by holding the throttle and Best filled in, and no parts are stubbed. Bug: steering is mirrored, so left turns the car right from the chase camera."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the full single-file racer that was asked for, with no MVP, phase-1 or reduced scope."
+  },
+  {
+   "pass": true,
+   "why": "Describes driving the running game to cross the checkered line to watch the lap counter and Best update, brake through a slower lap, and test focus loss; this is a manual playtest, not a script or screenshots."
+  },
+  {
+   "pass": true,
+   "why": "Delivers the code straight away without asking any questions first."
+  }
+ ]
+}

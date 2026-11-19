@@ -1,0 +1,7 @@
+task | none | old | new | scoper-old | scoper-new
+ambition-estimate 46% (n=6) | 46% (n=6) | 100% (n=6) | 50% (n=6) | 92% (n=6)
+ambition-game 100% (n=6) | 100% (n=6) | 100% (n=6) | 100% (n=6) | 100% (n=6)
+ambition-overnight 62% (n=6) | 100% (n=6) | 100% (n=6) | 75% (n=6) | 75% (n=6)
+ambition-rewrite 25% (n=6) | 25% (n=6) | 92% (n=6) | 25% (n=6) | 29% (n=6)
+ambition-scope 100% (n=6) | 100% (n=6) | 100% (n=6) | - | -
+ALL 67% | 74% | 98% | 62% | 74%

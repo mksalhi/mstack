@@ -1,0 +1,542 @@
+{
+ "ambition-estimate-00": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"8–12 engineering days for one developer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans a phased 2–3 calendar-week \"first release for text notes\"."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"edit/delete conflicts\" plus Detox \"offline edit → app restart → reconnect, plus a conflict flow\"."
+  },
+  {
+   "pass": true,
+   "why": "Its closing scope question comes with a default: \"I’d ship conflict copies first\"."
+  }
+ ],
+ "ambition-estimate-01": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"3–5 weeks for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans to \"start with one note-editing flow end to end\" before \"migrating the rest of the app\", over 3–5 weeks with a feature-flag rollout."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"merge, retry, and deletion rules\" and a first flow with \"an offline edit, an app restart, and a conflicting edit from a second device\"."
+  },
+  {
+   "pass": true,
+   "why": "Ends on a plan to start, not a question."
+  }
+ ],
+ "ambition-estimate-02": [
+  {
+   "pass": true,
+   "why": "sizes the work in agent terms: \"8 to 16 hours of agent execution time\" and \"20 to 35 changed files... four verification passes\"."
+  },
+  {
+   "pass": true,
+   "why": "builds the whole feature now: plans the full sync in parallel workstreams with no MVP or phased rollout."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Detox on both platforms will \"drive offline edits across a restart, then reconnect and check that conflicting edits... don't cause data loss\"."
+  },
+  {
+   "pass": true,
+   "why": "The open decision has a default: \"My default is to keep both visible\"."
+  }
+ ],
+ "ambition-estimate-03": [
+  {
+   "pass": true,
+   "why": "sizes the work in agent terms: \"12–20 files and three verification passes\"."
+  },
+  {
+   "pass": true,
+   "why": "builds the whole feature now: plans the whole feature in one plan with three verification passes."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"merges, duplicate retries, and edit/delete conflicts\" plus Detox through \"offline edits, a force-quit, and reconnection after a second client changes the same note\"."
+  },
+  {
+   "pass": false,
+   "why": "Ends with \"I’d confirm that scope and the conflict-copy behavior before implementation\", which waits on approval."
+  }
+ ],
+ "ambition-estimate-04": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"4 to 6 weeks for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans 4–6 weeks with a \"First checkpoint\" at \"the end of week two\" and a staged rollout."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"revision checks, retries, and conflict rules\" plus Detox for \"offline edits, app restart, reconnect, and conflict recovery\"."
+  },
+  {
+   "pass": true,
+   "why": "Ends with a stated default: \"I'd keep automatic merging out of v1\"."
+  }
+ ],
+ "ambition-estimate-05": [
+  {
+   "pass": true,
+   "why": "sizes the work in agent terms: \"12–20 changed files, two implementation tracks, and three verification passes\"."
+  },
+  {
+   "pass": true,
+   "why": "builds the whole feature now: plans the whole feature across two tracks with no MVP or phased rollout."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Postgres-backed tests for \"revisions, retries, deletes\" plus Detox through \"a conflict induced by a second writer\"."
+  },
+  {
+   "pass": true,
+   "why": "Ends with scope limits and \"I’d revise the file estimate\", not a question."
+  }
+ ],
+ "ambition-estimate-06": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"3 to 5 weeks for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans to \"prove one round trip\" and \"Re-estimate after this\", then stage the rollout."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"conflict rules\" plus Detox for \"conflicts triggered by a second writer\"."
+  },
+  {
+   "pass": true,
+   "why": "The product decision comes with a default: \"I'd use that default for the first release\"."
+  }
+ ],
+ "ambition-estimate-07": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"3–5 weeks for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans a 3–5 week phased build with \"a staged rollout\"."
+  },
+  {
+   "pass": false,
+   "why": "verification falls short: names only \"Add Jest and Detox coverage\"; no test of the conflict logic itself is named, although it would \"cover concurrent edits on two devices\"."
+  },
+  {
+   "pass": true,
+   "why": "Ends with what it would check first, not a question."
+  }
+ ],
+ "ambition-estimate-08": [
+  {
+   "pass": true,
+   "why": "sizes the work in agent terms: \"10 to 18 hours in a repo-enabled agent session\" and \"20 to 35 changed files\"."
+  },
+  {
+   "pass": true,
+   "why": "builds the whole feature now: plans the full feature in three parallel workstreams."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest and Postgres tests for edit-versus-delete plus iOS/Android Detox covering \"two devices editing the same note\"."
+  },
+  {
+   "pass": true,
+   "why": "Ends with the principles applied; the conflict policy is a stated default."
+  }
+ ],
+ "ambition-estimate-09": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"3 to 5 weeks for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans an \"Audit and vertical slice\", says \"Re-estimate after this slice\", then stages the rollout."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"conflict rules\" plus Detox for \"offline edit, restart, reconnect, and conflict display\"."
+  },
+  {
+   "pass": true,
+   "why": "The closing decision has a default: \"conflict copies are a safer first release\"."
+  }
+ ],
+ "ambition-estimate-10": [
+  {
+   "pass": true,
+   "why": "sizes the work in agent terms: \"12–20 changed files and three verification passes\"."
+  },
+  {
+   "pass": true,
+   "why": "builds the whole feature now: plans the whole sync path in one five-step plan."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"conflict rules\" plus Detox to \"edit offline, kill and relaunch, reconnect, and verify that two clients converge\"."
+  },
+  {
+   "pass": true,
+   "why": "Ends with its scope exclusions, not a question."
+  }
+ ],
+ "ambition-estimate-11": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"2–3 weeks for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans a multi-week phased build that says \"Re-estimate here\"."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"conflicts, and delete/edit races\" plus Detox for \"offline edit → restart → reconnect and one two-device conflict flow\"."
+  },
+  {
+   "pass": true,
+   "why": "The scope question comes with a default: \"I’d ship conflict copies first\"."
+  }
+ ],
+ "ambition-estimate-12": [
+  {
+   "pass": true,
+   "why": "sizes the work in agent terms: \"10–16 changed files\" and \"three verification passes\"."
+  },
+  {
+   "pass": true,
+   "why": "builds the whole feature now: plans the whole feature in two parallel tracks."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"edit/delete races\" plus Detox through \"a competing edit from a second client\"."
+  },
+  {
+   "pass": true,
+   "why": "Ends with scope assumptions, not a question."
+  }
+ ],
+ "ambition-estimate-13": [
+  {
+   "pass": true,
+   "why": "sizes the work in agent terms: \"12 to 24 agent-hours\" and \"three agents\"."
+  },
+  {
+   "pass": true,
+   "why": "builds the whole feature now: plans the full feature split across three agents."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest and API tests for failure cases, plus Detox and checks of \"two-device convergence\" and \"edit-versus-delete conflicts\"."
+  },
+  {
+   "pass": true,
+   "why": "The open decision has a default in its conflict table: \"I'd use this by default\"."
+  }
+ ],
+ "ambition-estimate-14": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"10–15 engineering days (2–3 weeks for one engineer)\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans a phased 2–3 week \"release-ready first version\" that defers features to later."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"edit/delete races\" plus Detox for \"a conflict that preserves both versions\"."
+  },
+  {
+   "pass": true,
+   "why": "Its question comes with a default: \"The estimate assumes copies\"."
+  }
+ ],
+ "ambition-estimate-15": [
+  {
+   "pass": true,
+   "why": "sizes the work in agent terms: \"10–16 changed files and 3 verification passes\"."
+  },
+  {
+   "pass": true,
+   "why": "builds the whole feature now: plans the whole feature in one plan."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest and Postgres tests for stale revisions plus Detox for \"two clients editing the same note\"."
+  },
+  {
+   "pass": false,
+   "why": "Ends with \"Confirm the conflict behavior before implementation\", which waits on approval."
+  }
+ ],
+ "ambition-estimate-16": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"8–12 working days for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans a phased multi-week first release that says \"Re-estimate after this pass\"."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"edit/delete races\" plus Detox on iOS and Android to \"preserve both versions after a conflict\"."
+  },
+  {
+   "pass": true,
+   "why": "Its question comes with a default: \"The estimate assumes copies are acceptable\"."
+  }
+ ],
+ "ambition-estimate-17": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"3 to 5 weeks for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans an \"Audit and one-note prototype\" with \"Re-estimate after this slice\"."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"edit-versus-delete\" plus Detox for \"offline edits, restart, reconnect, and conflict recovery\"."
+  },
+  {
+   "pass": true,
+   "why": "It recommends a conflict policy, so the closing decision has a default."
+  }
+ ],
+ "ambition-estimate-18": [
+  {
+   "pass": true,
+   "why": "sizes the work in agent terms: \"4 to 8 hours of agent implementation and verification time\" and \"15 to 30 changed files\"."
+  },
+  {
+   "pass": true,
+   "why": "builds the whole feature now: plans the full feature in three workstreams."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest and Postgres tests for \"update-versus-delete conflicts\" plus Detox to \"exercise a two-client conflict\"."
+  },
+  {
+   "pass": true,
+   "why": "The open decision has a default: it recommends conflict copies."
+  }
+ ],
+ "ambition-estimate-19": [
+  {
+   "pass": true,
+   "why": "sizes the work in agent terms: \"12–20 files across three implementation passes and four verification runs\"."
+  },
+  {
+   "pass": true,
+   "why": "builds the whole feature now: plans the whole feature in three passes."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: integration tests for stale writes plus Detox for \"airplane-mode edits, app restart, reconnect, and a two-client conflict\"."
+  },
+  {
+   "pass": true,
+   "why": "Ends with what would change the scope, not a question."
+  }
+ ],
+ "ambition-estimate-20": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"8–12 engineering days for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans 2–3 calendar weeks and leaves features \"out of v1\"."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"concurrent edits, and edit-vs-delete\" plus Detox with \"a deterministic API fixture to exercise the conflict path\"."
+  },
+  {
+   "pass": true,
+   "why": "Its closing question has a stated default under \"Conflict policy I’d ship first\"."
+  }
+ ],
+ "ambition-estimate-21": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"3–5 weeks for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans an \"Audit and prove one path\" phase before migrating screens, then \"a staged rollout\"."
+  },
+  {
+   "pass": false,
+   "why": "verification falls short: Detox covers only \"offline edits, app restart, and reconnect\"; no real-app conflict is driven."
+  },
+  {
+   "pass": true,
+   "why": "The open decision has a default: \"I'd budget for copies\"."
+  }
+ ],
+ "ambition-estimate-22": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"3–5 weeks for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans to validate \"on one screen before wiring up the rest\", rolling out behind a flag."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"conflict rules\" plus a milestone to reconnect \"after another device has edited the same note and verify that neither edit is lost\"."
+  },
+  {
+   "pass": true,
+   "why": "Ends with a milestone, not a question."
+  }
+ ],
+ "ambition-estimate-23": [
+  {
+   "pass": true,
+   "why": "sizes the work in agent terms: \"8–16 agent-hours\" and \"15–30 changed files\"."
+  },
+  {
+   "pass": true,
+   "why": "builds the whole feature now: plans the full feature in two workstreams."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"conflict rules\" plus Detox and \"two app instances\" checked for lost edits."
+  },
+  {
+   "pass": true,
+   "why": "The open decision has a default: \"My default would be...\"."
+  }
+ ],
+ "ambition-estimate-24": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"3–5 weeks for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans a 3–5 week phased build with a \"staged rollout\" behind a flag."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"conflict rules\" plus Detox for \"offline edit, restart, reconnect, and conflict flows\"."
+  },
+  {
+   "pass": true,
+   "why": "Ends with a milestone, not a question."
+  }
+ ],
+ "ambition-estimate-25": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"3–5 weeks for one experienced engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans to start with \"one end-to-end path\" and roll out behind a flag."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"conflict rules\" plus a real-app path to \"resolve a competing server edit without losing either version\"."
+  },
+  {
+   "pass": true,
+   "why": "Ends with what would move the estimate, not a question."
+  }
+ ],
+ "ambition-estimate-26": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"8–12 engineering days for one developer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans a phased \"first release\" with a \"First-release limit\"."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"conflict rules\" plus Detox for \"reconnecting after a conflicting server edit\"."
+  },
+  {
+   "pass": true,
+   "why": "The decision comes with its default, \"conflicts preserve both versions\"."
+  }
+ ],
+ "ambition-estimate-27": [
+  {
+   "pass": true,
+   "why": "sizes the work in agent terms: \"20–35 changed files, one feature owner with three parallel workstreams, and 6–10 verification runs\"."
+  },
+  {
+   "pass": true,
+   "why": "builds the whole feature now: plans the full feature across three workstreams."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"delete-versus-edit behavior\" plus Detox proving \"two devices converge after reconnecting without losing either edit\"."
+  },
+  {
+   "pass": true,
+   "why": "The conflict policy is a stated default; it does not end with questions."
+  }
+ ],
+ "ambition-estimate-28": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"2–3 weeks (10–15 engineering days) for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans to \"start with one end-to-end path\" before \"the rest of the app\", rolling out behind a flag."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"conflict cases\" plus Detox for \"offline edit → app restart → reconnect and conflict recovery\"."
+  },
+  {
+   "pass": true,
+   "why": "Ends with what it would check first, not a question."
+  }
+ ],
+ "ambition-estimate-29": [
+  {
+   "pass": false,
+   "why": "sizes the work in human time: \"4–6 weeks for one engineer\"."
+  },
+  {
+   "pass": false,
+   "why": "fails because it plans to \"Build one end-to-end flow\" before other screens, with rollout \"behind a flag\"."
+  },
+  {
+   "pass": true,
+   "why": "names concrete verification: Jest for \"conflict rules\" plus a check of \"concurrent changes with two clients against the same backend\"."
+  },
+  {
+   "pass": true,
+   "why": "The decision to confirm comes with a recommended v1 conflict rule."
+  }
+ ]
+}
