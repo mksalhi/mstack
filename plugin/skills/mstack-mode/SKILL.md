@@ -31,6 +31,7 @@ In your reply, name each principle that changed a decision, and cite only princi
 | Before review | Cut comments with `pr` |
 | Shipping UI, IDE or CLI work | Drive the real surface: a project `verify-*` skill (see `verifier`), `playwright`, or Bash. Reproduce bugs on that surface yourself. |
 | Any PR-status request ("babysit", "get it green", "address the bugbot comments") | The Babysit playbook, declaring its mode first. Opening a PR doesn't trigger it. Never use `drive` inside a phase agent. |
+| "full stop" or "full send" | The Full stop playbook. "full send" adds its merge step; "full stop" never merges. |
 | Landing a green stack | The Shipping playbook. Green is not safe: arm nothing before an independent per-PR verdict. |
 | Bot review comments | `pr` |
 | A broken skill mid-task | Fix it in its own PR; don't silently work around it |
@@ -71,28 +72,29 @@ Keep a comment only for a non-obvious *why*, in delegates' diffs too. Test and v
 
 ## Playbooks
 
-Open `playbooks/<kebab-title>.md` and copy its steps verbatim as the first todos. Mark a skipped step `skip: <reason>`. A large or cross-cutting effort, work the user will audit later, or a task no playbook fits goes to `figure-it-out`.
+Open the playbook's file and copy its steps verbatim as the first todos. Mark a skipped step `skip: <reason>`. A large or cross-cutting effort, work the user will audit later, or a task no playbook fits goes to `figure-it-out`.
 
-- **Investigation.** A read-only question: how, why, are we sure, X or Y.
-- **Bug fix.** Reproduce, find the root cause, fix, with runtime evidence.
-- **Perf issue.** One-off slowness, measured against a baseline.
-- **Hillclimb.** Sustained work on one metric toward a target, with one commit per accepted win.
-- **Runtime forensics.** Diagnose a live symptom (leak, idle CPU, glitch) from instrumentation. No fix.
-- **Trace forensics.** Diagnose a captured profile, trace, spindump or heap snapshot. No fix.
-- **Feature.** New behavior, built from a named data shape.
-- **Refactoring.** A change to structure that preserves behavior.
-- **Prototype.** A throwaway sketch to settle a design or empirical fork.
-- **Visual parity.** Pixel-exact equivalence between implementations or styling systems.
-- **Authoring or modifying a skill.** `playbooks/authoring-a-skill.md`.
-- **Eval.** Measure how a skill or prompt change affects behavior before promoting it.
-- **Babysit.** Drive a PR or stack to merge-ready.
-- **Shipping.** After Babysit: verify a green stack independently, then land the verified run bottom-up.
-- **Autonomous run.** One long task driven to completion ("run until done", "/loop until X").
-- **Orchestrate.** A standing multi-day program with many stacked PRs and subagents. Work one agent could finish goes to Autonomous run.
-- **Autopilot-full.** A queue of independent PRs run to merged, one owner per PR.
-- **Autopilot-stack.** A queue built into one verified linear stack that the operator lands.
-- **Session pickup.** Resume another agent's work from a transcript (`references/transcripts.md`), a handoff or a branch.
-- **Pause safely.** Suspend work so it can resume: a pause, going offline, a restart, compaction.
-- **Multi-phase or multi-PR plan.** `playbooks/multi-phase-plan.md`.
-- **Worktree and simulator cleanup.** Reclaim disk from merged worktrees and stale simulators. `playbooks/worktree-cleanup.md`.
-- **Opening a PR.** Runs at the end of every other playbook.
+- [**Investigation**](playbooks/investigation.md). A read-only question: how, why, are we sure, X or Y.
+- [**Bug fix**](playbooks/bug-fix.md). Reproduce, find the root cause, fix, with runtime evidence.
+- [**Perf issue**](playbooks/perf-issue.md). One-off slowness, measured against a baseline.
+- [**Hillclimb**](playbooks/hillclimb.md). Sustained work on one metric toward a target, with one commit per accepted win.
+- [**Runtime forensics**](playbooks/runtime-forensics.md). Diagnose a live symptom (leak, idle CPU, glitch) from instrumentation. No fix.
+- [**Trace forensics**](playbooks/trace-forensics.md). Diagnose a captured profile, trace, spindump or heap snapshot. No fix.
+- [**Feature**](playbooks/feature.md). New behavior, built from a named data shape.
+- [**Refactoring**](playbooks/refactoring.md). A change to structure that preserves behavior.
+- [**Prototype**](playbooks/prototype.md). A throwaway sketch to settle a design or empirical fork.
+- [**Visual parity**](playbooks/visual-parity.md). Pixel-exact equivalence between implementations or styling systems.
+- [**Authoring or modifying a skill**](playbooks/authoring-a-skill.md).
+- [**Eval**](playbooks/eval.md). Measure how a skill or prompt change affects behavior before promoting it.
+- [**Babysit**](playbooks/babysit.md). Drive a PR or stack to merge-ready.
+- [**Shipping**](playbooks/shipping.md). After Babysit: verify a green stack independently, then land the verified run bottom-up.
+- [**Autonomous run**](playbooks/autonomous-run.md). One long task driven to completion ("run until done", "/loop until X").
+- [**Orchestrate**](playbooks/orchestrate.md). A standing multi-day program with many stacked PRs and subagents. Work one agent could finish goes to Autonomous run.
+- [**Full stop**](playbooks/full-stop.md). One PR from change to merge-ready with nobody watching ("full stop"); "full send" also merges.
+- [**Autopilot-full**](playbooks/autopilot-full.md). A queue of independent PRs run to merged, one owner per PR.
+- [**Autopilot-stack**](playbooks/autopilot-stack.md). A queue built into one verified linear stack that the operator lands.
+- [**Session pickup**](playbooks/session-pickup.md). Resume another agent's work from a transcript (`references/transcripts.md`), a handoff or a branch.
+- [**Pause safely**](playbooks/pause-safely.md). Suspend work so it can resume: a pause, going offline, a restart, compaction.
+- [**Multi-phase or multi-PR plan**](playbooks/multi-phase-plan.md).
+- [**Worktree and simulator cleanup**](playbooks/worktree-cleanup.md). Reclaim disk from merged worktrees and stale simulators.
+- [**Opening a PR**](playbooks/opening-a-pr.md). Runs at the end of every other playbook.

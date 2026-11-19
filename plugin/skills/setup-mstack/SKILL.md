@@ -50,6 +50,7 @@ arena cross-judge pool: claude-opus-5-5, claude-opus-5-5
 swarm workers: claude-opus-5-5
 architect runners: claude-opus-5-5, claude-opus-5-5
 interrogate reviewers: claude-opus-5-5, claude-opus-5-5
+council members: claude-opus-5-5, fable, sonnet
 ```
 
 6) Confirm

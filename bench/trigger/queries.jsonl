@@ -114,3 +114,10 @@
 {"q": "give me a standup update from yesterday's commits", "accept": ["standup"]}
 {"q": "make an animated GIF for Slack celebrating the launch", "accept": ["slack-gif-creator"]}
 {"q": "what's the price per token of Claude Sonnet?", "accept": ["claude-api"]}
+{"q": "council this diff: get reviewers from a few model families, fix what they find, and keep going until they all approve", "accept": ["council"]}
+{"q": "sol loop on my branch before I open the PR", "accept": ["council"]}
+{"q": "review this change in rounds with different models and put their scores in the PR description", "accept": ["council"]}
+{"q": "take over Priya's PR #812, she's on leave; finish it but keep her as the author", "accept": ["takeover"]}
+{"q": "this PR from March is way behind main, rebase it and tell me if it should even still exist", "accept": ["takeover"]}
+{"q": "modernize PR #455", "accept": ["takeover"]}
+{"q": "full stop: fix the flaky export test, open the PR and get it green, I'm not watching", "accept": ["mstack-mode"]}

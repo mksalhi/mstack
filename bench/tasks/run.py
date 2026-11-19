@@ -36,6 +36,7 @@ def run_agent(model, task, plugin, max_turns=8):
     tools, reads = (), []
     if plugin:
         task = {**task, "skill": skill_at(os.listdir(os.path.join(plugin, "skills")), task["skill"])}
+    if plugin and os.path.exists(os.path.join(plugin, "skills", task["skill"], "SKILL.md")):  # a skill added after this ref runs as "none"
         body = frontmatter(open(os.path.join(plugin, "skills", task["skill"], "SKILL.md")).read())[1]
         user += (f"\n\n<skill name=\"{task['skill']}\">\nBase directory for this skill: /plugin/skills/{task['skill']} "
                  f"(`<mstack>` is /plugin). Follow it for this request.\n\n{body}\n</skill>")

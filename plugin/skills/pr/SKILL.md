@@ -11,8 +11,21 @@ metadata:
 
 ## Write the body
 
+Before writing: check whether this branch already has a PR (update it instead of opening a second), and read the diff against the base to confirm it matches the goal.
+
+### Title
+
+The title usually becomes the squash commit, so follow the repo's convention (check recent merged PRs). State what changes for the user, not the mechanism:
+
+- Bad: `perf(server): negotiate permessage-deflate on the websocket`
+- Good: `perf(server): cut websocket frame size by 70%+ with gzipping`
+
+### Body
+
 ```markdown
 ## Summary
+
+<one or two sentences: the problem, in the user's words, then the fix>
 
 <diagram, diff-sketch, or tree>
 
@@ -40,7 +53,7 @@ No preamble, brief prose, and use domain words from GLOSSARY.md if present.
 
 ### Summary
 
-Pick the smallest view that proves the point (one only):
+Open with the problem as the user hit it, not an inventory of what changed. Then pick the smallest view that proves the point (one only):
 - Logic/algorithm: pseudocode.
 - Runtime control flow: call tree.
 - UI: component tree with key state and module boundaries, e.g. <SessionPage> (apps/example/src/routes/session.tsx).
@@ -63,6 +76,10 @@ Show proof: screenshots for visuals; else the exact test that failed before and 
 
 One or two lines about the change; punch at code, never people. Skip on incidents, reverts, security, patient data, billing, or tight repos.
 
+### Submit
+
+Before submitting, check the title, body and attachments for secrets and private details. Open a real PR, not a draft, so review bots run. If `gh pr create` fails because the GraphQL rate limit is spent, use REST: `gh api repos/<owner>/<repo>/pulls -f title=... -f head=... -f base=... -F body=@<file>`.
+
 ## Cut comments before review
 
 Scope: caller’s files or diff; else current diff vs base (main by default), working tree included.
@@ -82,38 +99,4 @@ Scope: caller’s files or diff; else current diff vs base (main by default), wo
 
 ## Triage bot review threads
 
-A bot comment is a claim, not an instruction. Reject noise with evidence; fix real issues at the smallest shared root cause.
-
-### Scope
-
-- Default: unresolved AI-reviewer threads only. --author adds another AI reviewer; --all-authors only if the user expands scope.
-- Replying, resolving, committing, pushing are separate; do only what’s requested.
-- Under Babysit/Autopilot owners, their push step authorizes pushing; their loop replaces the one-push rule.
-
-### Workflow
-
-1. Resolve the PR; capture base and head SHAs. List threads: scripts/pr_review_threads.py list [PR] --json (no PR = current branch).
-2. Build a ledger: thread, author, file/line, claim, classification, evidence, action. Group duplicates by root cause.
-3. Inspect current code and relevant callers; compare against base. Did the PR introduce/worsen it, or just expose it?
-4. Classify: pr-regression, already-fixed, duplicate, pre-existing, stale, not-an-issue, needs-user-judgment.
-5. Fix only pr-regression. Prefer deletion, existing helpers, stdlib/platform behavior, and one shared fix. No tests written just to satisfy the bot.
-6. Run the smallest checks proving the change; re-evaluate the ledger. Never push with a valid actionable thread unaddressed.
-7. Only if authorized: push once, after the whole batch is fixed and verified.
-8. Reply and resolve only when supported and any fix is visible on the PR. Re-list unresolved AI threads once at the end.
-
-Severe pre-existing security/privacy/data-loss/billing/migration/healthcare issues stay open for user judgment unless policy requires fixing now.
-
-### Replies
-
-One to three factual sentences:
-- Yes: why valid, how root cause was fixed, and the passing check.
-- No: why false/stale/duplicate/pre-existing, citing decisive code or base comparison.
-Never resolve a valid unfixed thread, resolve because a line is outdated, submit a broad review, or close the PR.
-
-### Helper
-
-```bash
-python3 scripts/pr_review_threads.py list OWNER/REPO#123 --json
-python3 scripts/pr_review_threads.py list --author cursor --json
-python3 scripts/pr_review_threads.py reply-and-resolve THREAD_ID --body "Yes. ..."
-```
+A bot comment is a claim, not an instruction. Read [references/bot-threads.md](references/bot-threads.md) and follow its workflow: ledger every thread, fix only PR regressions, push once, then reply and resolve.
