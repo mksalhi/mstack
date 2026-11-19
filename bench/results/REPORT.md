@@ -1,20 +1,20 @@
 # Skill benchmark
 
-## Static (origin/main → a0ef016)
+## Static (origin/main → HEAD)
 
 | Metric | Before | After | Delta |
 |---|---|---|---|
-| scoper_hook_tokens | 1132 | 897 | -236 (-21%) |
-| listing_chars | 5673 | 5570 | -103 (-2%) |
-| desc_tokens | 2189 | 2149 | -40 (-2%) |
-| skill_tokens_total | 55109 | 43704 | -11405 (-21%) |
-| skill_tokens_median | 1430 | 1099 | -331 (-23%) |
-| ref_tokens_total | 103521 | 63592 | -39929 (-39%) |
-| files_at_depth>=2 | 40 | 11 | -29 (-72%) |
-| orphan_files | 5 | 4 | -1 (-20%) |
-| broken_links | 1 | 0 | -1 (-100%) |
-| lint_failures | 1 | 0 | -1 (-100%) |
-| shared_8grams | 280 | 285 | +5 (+2%) |
+| scoper_hook_tokens | 576 | 607 | +32 (+6%) |
+| listing_chars | 5414 | 5018 | -396 (-7%) |
+| desc_tokens | 1262 | 1170 | -92 (-7%) |
+| skill_tokens_total | 22127 | 21150 | -978 (-4%) |
+| skill_tokens_median | 529 | 530 | +1 (+0%) |
+| ref_tokens_total | 52018 | 52425 | +406 (+1%) |
+| files_at_depth>=2 | 11 | 11 | +0 (+0%) |
+| orphan_files | 2 | 2 | +0 (+0%) |
+| broken_links | 0 | 0 | +0 |
+| lint_failures | 0 | 0 | +0 |
+| shared_8grams | 194 | 185 | -9 (-5%) |
 
 ## Trigger accuracy
 
@@ -22,66 +22,62 @@ Share of runs where the model picked an accepted skill (or none, for queries no 
 
 | Model | Slice | Before | After | Delta |
 |---|---|---|---|---|
-| claude-sonnet-5-5 | all (n=116) | 100.0% | 99.4% | -0.6% |
-| claude-sonnet-5-5 | positives (n=101) | 100.0% | 99.3% | -0.7% |
-| claude-sonnet-5-5 | negatives (n=15) | 100.0% | 100.0% | +0.0% |
-| claude-sonnet-5-5 | val (n=42) | 100.0% | 100.0% | +0.0% |
-| claude-sonnet-5-5 | wrong mstack pick | 0.0% | 0.6% | +0.6% |
-| claude-sonnet-5-5 | input tokens per call | 3702 | 3662 | -40 |
-| gpt-6.2-sol | all (n=116) | 57.5% | 60.9% | +3.4% |
-| gpt-6.2-sol | positives (n=101) | 54.8% | 59.7% | +5.0% |
-| gpt-6.2-sol | negatives (n=15) | 75.6% | 68.9% | -6.7% |
-| gpt-6.2-sol | val (n=42) | 56.3% | 57.9% | +1.6% |
-| gpt-6.2-sol | wrong mstack pick | 3.2% | 3.4% | +0.3% |
-| gpt-6.2-sol | input tokens per call | 2781 | 2759 | -22 |
+| gpt-6.2-sol | all (n=108) | 63.3% | 63.0% | -0.3% |
+| gpt-6.2-sol | positives (n=93) | 61.6% | 61.6% | +0.0% |
+| gpt-6.2-sol | negatives (n=15) | 73.3% | 71.1% | -2.2% |
+| gpt-6.2-sol | val (n=40) | 60.8% | 57.5% | -3.3% |
+| gpt-6.2-sol | wrong mstack pick | 4.0% | 3.4% | -0.6% |
+| gpt-6.2-sol | input tokens per call | 2639 | 2511 | -128 |
 
-## Task outcomes, claude-sonnet-5-5 (3 runs per task, judge claude-opus-5-5)
+## Task outcomes, gpt-6.2-sol (3 runs per task, judge gpt-6.2-sol)
 
 | | No skill | Old skill | New skill |
 |---|---|---|---|
-| Assertion pass rate | 65.8% ± 1.4% | 90.4% ± 0.4% | 91.1% ± 0.6% |
-| Every assertion passed | 30.6% | 63.9% | 66.7% |
-| Input tokens per task | 248 | 3949 | 3028 |
-| Output tokens per task | 1241 | 1468 | 1408 |
-| Skill files read | 0.0 | 0.3 | 0.2 |
+| Assertion pass rate | 58.5% ± 0.8% | 87.5% ± 0.9% | 86.6% ± 0.9% |
+| Every assertion passed | 15.4% | 60.7% | 57.3% |
+| Input tokens per task | 139 | 2078 | 2285 |
+| Output tokens per task | 462 | 625 | 627 |
+| Skill files read | 0.0 | 0.8 | 0.9 |
 
 | Task | No skill | Old | New |
 |---|---|---|---|
-| unslop-readme | 76% | 81% | 76% |
-| pr-body | 41% | 100% | 100% |
-| test-audit | 100% | 100% | 100% |
-| pr-comments | 100% | 100% | 100% |
-| debug-flaky | 42% | 100% | 100% |
-| grill-plan | 58% | 67% | 75% |
-| handoff-write | 90% | 100% | 100% |
-| decision-log | 25% | 100% | 100% |
-| scoper-cache | 50% | 100% | 100% |
-| swift-modernize | 100% | 67% | 67% |
-| ketchup | 57% | 95% | 100% |
-| blast-radius | 50% | 75% | 75% |
-
-## Task outcomes, gpt-6.2-sol (3 runs per task, judge claude-opus-5-5)
-
-| | No skill | Old skill | New skill |
-|---|---|---|---|
-| Assertion pass rate | 73.3% ± 1.8% | 93.8% ± 1.1% | 95.1% ± 1.0% |
-| Every assertion passed | 25.0% | 69.4% | 77.8% |
-| Input tokens per task | 170 | 2012 | 1614 |
-| Output tokens per task | 279 | 369 | 370 |
-| Skill files read | 0.0 | 0.1 | 0.1 |
-
-| Task | No skill | Old | New |
-|---|---|---|---|
-| unslop-readme | 86% | 90% | 100% |
+| unslop-readme | 71% | 95% | 90% |
 | pr-body | 44% | 100% | 100% |
-| test-audit | 92% | 100% | 100% |
-| pr-comments | 100% | 93% | 100% |
-| debug-flaky | 83% | 100% | 100% |
-| grill-plan | 75% | 75% | 83% |
-| handoff-write | 90% | 100% | 100% |
+| test-audit | 83% | 100% | 100% |
+| pr-comments | 100% | 100% | 100% |
+| debug-flaky | 67% | 83% | 75% |
+| handoff-write | 95% | 100% | 100% |
 | decision-log | 25% | 100% | 100% |
-| scoper-cache | 92% | 100% | 100% |
-| swift-modernize | 72% | 83% | 83% |
-| ketchup | 62% | 100% | 100% |
-| blast-radius | 58% | 83% | 75% |
+| scoper-cache | 75% | 75% | 75% |
+| swift-modernize | 78% | 83% | 83% |
+| ketchup | 67% | 95% | 100% |
+| blast-radius | 67% | 75% | 75% |
+| ui-a11y-review | 83% | 100% | 100% |
+| ui-copy | 93% | 87% | 60% |
+| principles-types | 80% | 80% | 80% |
+| architect-sketch | 40% | 80% | 67% |
+| how-explain | 93% | 100% | 87% |
+| mstack-reply | 83% | 100% | 94% |
+| formal-choose | 40% | 87% | 80% |
+| playwright-script | 87% | 53% | 53% |
+| motion-brief | 0% | 100% | 100% |
+| arena-frame | 50% | 92% | 100% |
+| automate-me-draft | 17% | 89% | 83% |
+| figure-it-out-migration | 42% | 100% | 100% |
+| interrogate-synthesize | 52% | 100% | 100% |
+| principles-shared-state | 67% | 89% | 89% |
+| principles-new-requirement | 0% | 67% | 44% |
+| retro-session | 83% | 100% | 100% |
+| setup-mstack-mixed | 0% | 100% | 100% |
+| swarm-perf | 33% | 100% | 100% |
+| verifier-create | 29% | 100% | 100% |
+| why-timeout | 58% | 100% | 100% |
+| scoper-review | 40% | 60% | 67% |
+| council-round | 62% | 100% | 100% |
+| takeover-modernize | 80% | 100% | 100% |
+| ambition-estimate | 33% | 33% | 100% |
+| ambition-game | 100% | 89% | 78% |
+| ambition-rewrite | 25% | 33% | 50% |
+| ambition-overnight | 40% | 67% | 47% |
+| ambition-scope | 100% | 100% | 100% |
 
