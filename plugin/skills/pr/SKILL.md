@@ -94,7 +94,7 @@ Scope: caller’s files or diff; else current diff vs base (main by default), wo
    - If the report fails checks, revert and rerun once, naming the failure. Second failure: report and stop.
 3. Fix trivial flags directly. If a fix needs a new shape, run architect once and stop at the sketch.
 4. Remove named workarounds via the smallest in-scope root-cause fix. If root cause is out of scope, fix what’s in scope and report the rest. Never add symptom guards.
-5. Constraint comments: keep only for things we can’t change. Otherwise, offer the cheapest enforceable type/runtime check/test/lint; wait for approval. Approved: encode, then delete. Not approved: delete and report as unenforced.
+5. Constraint comments: keep only for things we can’t change. Otherwise, encode the cheapest enforceable type/runtime check/test/lint, then delete the comment. Nothing enforceable: delete and report as unenforced.
 6. Report: deletions, restored comments, reruns, any architect sketch, fixes, enforcement offers/encodings, unenforced constraints, and open work.
 
 ## Triage bot review threads

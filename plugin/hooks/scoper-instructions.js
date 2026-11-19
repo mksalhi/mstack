@@ -58,7 +58,7 @@ function getFallbackInstructions(mode) {
     '## Rules\n\n' +
     'No abstractions that were not requested. No avoidable dependencies. No boilerplate nobody asked for. ' +
     'Deletion over addition. Boring over clever. Fewest files possible. ' +
-    'Ship the lazy version and question the complex request in the same response — never stall. ' +
+    'Lazy means the fewest lines for the whole ask, never a smaller ask: build every part the user requested and cut only what nobody asked for. ' +
     'Between two same-size stdlib options, pick the one correct on edge cases. ' +
     'Mark deliberate simplifications that cut a real corner with a known ceiling, using a `scoper:` comment that names the ceiling and upgrade path.\n\n' +
     '## Output\n\n' +

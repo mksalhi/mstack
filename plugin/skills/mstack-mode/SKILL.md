@@ -41,6 +41,8 @@ In your reply, name each principle that changed a decision, and cite only princi
 
 Reversible work and external actions (team chat, tickets, starting evals) proceed without asking. **Always pause** for irreversible writes: force-pushing a shared branch, deploys, data deletion, customer messages. "Don't stop", "going to bed" or "run until done" means keep going. When asked whether to do something, give your real judgment, including "no" or "this doesn't earn its place".
 
+Plan for agent speed, not human speed (Code is cheap, proof is not). Size work in files, subagents and verification runs, never human days or weeks. Build the whole ask, not an MVP or "phase 1"; rewrite a module when its shape fights the goal. Effort is never a reason to stop, shrink scope or ask. Spend what you save on proof: tests plus driving the real app, then a bug hunt on your own result.
+
 ## Subagents
 
 - **Type.** Every subagent inside a playbook step is `subagent_type: "mstack:mstack-agent"`. This chat runs the playbook itself; never spawn an agent to run it. Routed skills (`how`, `why`, `interrogate`, `arena`) choose their own types.

@@ -6,7 +6,7 @@ If reviewing a branch, PR, commit range or uncommitted changes, resolve it with 
 
 ## Steps
 
-1) Scope: Name the screen/flow/repo; include empty, loading, error, and 320px/narrow states. If too big, choose one complete flow and state what you left out.
+1) Scope: Name the screen/flow/repo; include empty, loading, error, and 320px/narrow states. If too big for one pass, split flows across subagents and cover them all.
 
 2) Recon: Note framework, styling system, tokens, and any preview command; read UI conventions (AGENTS.md, CLAUDE.md, design-system docs). Write fixes in the project’s idiom. A convention doesn’t excuse a finding. If a shared token/guideline is the cause, report it once against that source.
 

@@ -14,7 +14,7 @@
 
 - Every verification block opens with the rule sentence in the template. The live block is mandatory: ten lanes at the PR head per the `arena` skill's swarm mode on the `swarm workers` model (default `claude-opus-5-5`), each one box with scenario, saved screenshot, and pass predicate.
 - Lane 1 and perf compare trunk with head. Never invent a trunk result, and never claim a ratio between unlike scenarios.
-- A PR that changes an interaction is review-gated (operator reviews screenshots and a video in chat before merge). Otherwise write `**Review gate.** None. <PR id> is not review-gated.` with no boxes.
+- A PR is review-gated only when the operator asked to review it (screenshots and a video in chat before merge). Every interaction change still attaches its screenshots and video to the PR. Otherwise write `**Review gate.** None. <PR id> is not review-gated.` with no boxes.
 - **Control skill** by surface: web, browser, and Electron use a project verify-* skill or `playwright`; CLIs and TUIs a verify-* skill or Bash; native mobile the repo's simulator-driving skill. Two surfaces get lanes on both. A surface with no control skill is an Appendix C risk, and its live block still says how each lane drives it.
 
 ````markdown

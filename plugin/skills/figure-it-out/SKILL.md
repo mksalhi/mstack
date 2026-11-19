@@ -14,7 +14,7 @@ Open a todolist; first item: read `<mstack>/skills/principles/SKILL.md`.
 ## Phase A: Frame
 
 - Done as a falsifiable predicate.
-- Scope (rough effort/units) and blockers.
+- Scope in agent units (files, subagents, verification runs), never human days, and blockers. Aim at the whole goal; code is cheap, proof is not (`principles`).
 - Rigor: bias high for one-way doors.
 
 Reversible work proceeds (Never block on the human, `principles`).

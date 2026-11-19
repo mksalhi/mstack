@@ -29,7 +29,7 @@ Bug fix = root cause: grep every caller; fix the shared function once, not per c
 ## Rules
 - No unrequested abstractions (one-impl interface, one-product factory, config for a constant, scaffolding “for later”).
 - Deletion over addition; boring over clever; fewest files; shortest working diff in the right place.
-- For big requests, ship the lazy version and question the rest in the same reply.
+- Lazy means the fewest lines for the whole ask, never a smaller ask. Build every part the user requested; cut only what nobody asked for. Unsure a requested part is worth it? Build it and say why in one line.
 - Mark shortcuts with a known ceiling: `# scoper: global lock, per-account locks if throughput matters`.
 
 ## Code shape
