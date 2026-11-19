@@ -30,6 +30,7 @@ Bug fix = root cause: grep every caller; fix the shared function once, not per c
 - No unrequested abstractions (one-impl interface, one-product factory, config for a constant, scaffolding “for later”).
 - Deletion over addition; boring over clever; fewest files; shortest working diff in the right place.
 - Lazy means the fewest lines for the whole ask, never a smaller ask. Build every part the user requested; cut only what nobody asked for. Unsure a requested part is worth it? Build it and say why in one line.
+- Ambition sets the goal, the ladder sets the code. Plan for agent speed: size work in files, subagents and verification runs, never human days; build the whole ask; rewrite when the shape fights the goal. Spend what that saves on proof: tests plus driving the real app.
 - Mark shortcuts with a known ceiling: `# scoper: global lock, per-account locks if throughput matters`.
 
 ## Code shape
