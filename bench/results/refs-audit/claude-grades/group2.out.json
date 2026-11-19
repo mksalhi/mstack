@@ -1,0 +1,686 @@
+{
+ "ambition-overnight-00": [
+  {
+   "pass": true,
+   "why": "Run order goes end to end through 'Cut over and verify from scratch' with no approval stop; saying it can't run here is allowed."
+  },
+  {
+   "pass": true,
+   "why": "Explicit up-front 'Exit condition': app and Storybook build, full Jest and Playwright pass 'against the actual Vite production output', Webpack removed."
+  },
+  {
+   "pass": true,
+   "why": "Logs per iteration to `decisions.tsv` with 'change, evidence, and gate result' and picks defaults like 'Keep Jest and its existing transforms'; a blocked baseline gets reported, not escalated as a question."
+  },
+  {
+   "pass": true,
+   "why": "'Playwright must also pass against the actual Vite production output', plus a check of baseline screenshots and console/network errors."
+  }
+ ],
+ "ambition-overnight-01": [
+  {
+   "pass": true,
+   "why": "'Unattended loop' runs to completion and cites 'Never block on the human'; it stops only on a genuine blocker."
+  },
+  {
+   "pass": true,
+   "why": "'Exit condition' section comes before execution: clean checkout passes CI, Storybook builds and renders, full Jest and Playwright pass, no Webpack path."
+  },
+  {
+   "pass": true,
+   "why": "'If native Vite behavior and a plugin are both plausible, test both... keep the smaller', and 'Append the decision, evidence, and result to decisions.tsv'."
+  },
+  {
+   "pass": true,
+   "why": "'drive the built app through cold start, direct navigation and refresh...' and runs the full Playwright browser matrix."
+  }
+ ],
+ "ambition-overnight-02": [
+  {
+   "pass": true,
+   "why": "Six steps run through cutover and a reviewable branch with no approval stop; it stops only on a genuine blocker."
+  },
+  {
+   "pass": true,
+   "why": "Gives a concrete 'Exit condition': clean install, Vite as the only build path, Storybook loads, Jest and Playwright pass with no skips, CI green on the same commit."
+  },
+  {
+   "pass": true,
+   "why": "'Default to native Vite behavior and add a plugin only when a verified contract needs it' and 'Keep a decision log with the command, result, evidence location'."
+  },
+  {
+   "pass": true,
+   "why": "'make Playwright exercise the served production artifact' and check cold load, deep links, and browser errors."
+  }
+ ],
+ "ambition-overnight-03": [
+  {
+   "pass": true,
+   "why": "Plan goes from baseline to cutover, with 'Never block on the human keeps reversible work moving'."
+  },
+  {
+   "pass": true,
+   "why": "'Exit condition' section at the top: frozen install, build, Storybook build, Jest and Playwright against the built app, no Webpack path."
+  },
+  {
+   "pass": true,
+   "why": "'Log each iteration with the change, command, result', with stated defaults such as keeping the Jest runner and taking the Storybook builder the installed version supports."
+  },
+  {
+   "pass": true,
+   "why": "'Point Playwright's webServer at the built app... Compare representative app screens and Storybook stories with the baseline'."
+  }
+ ],
+ "ambition-overnight-04": [
+  {
+   "pass": true,
+   "why": "Five steps through 'Switch the default and remove the old app build' and handoff, with no approval gate."
+  },
+  {
+   "pass": true,
+   "why": "The opening 'Exit condition' covers lockfile install, Playwright against the artifact, Storybook, Jest without coverage regression, and no Webpack 4."
+  },
+  {
+   "pass": true,
+   "why": "'append one row per iteration to decisions.tsv with the change, why it was made', with defaults such as 'Keep Jest rather than introducing Vitest'."
+  },
+  {
+   "pass": true,
+   "why": "'full Playwright suite passes against it' and 'Drive the built app in a real browser... compare representative screens'."
+  }
+ ],
+ "ambition-overnight-05": [
+  {
+   "pass": true,
+   "why": "The runbook runs through cutover and a PR with no approval step, and the morning handoff lists what landed."
+  },
+  {
+   "pass": true,
+   "why": "'Exit condition' section up front: clean checkout, Vite dev and prod work, CI passes lint/typecheck/Jest/Storybook/Playwright against the production artifact, Webpack removed."
+  },
+  {
+   "pass": true,
+   "why": "States defaults ('Keep Jest rather than moving to Vitest', 'Upgrade Storybook only if compatibility requires it') and logs 'each iteration with the change, exact command, result'."
+  },
+  {
+   "pass": true,
+   "why": "'The full Playwright suite must exercise the Vite production artifact' and 'Drive the app in the browser... Check the browser console and network log'."
+  }
+ ],
+ "blast-radius-00": [
+  {
+   "pass": true,
+   "why": "'This is a breaking API rename', with the table showing `created` missing for iOS, web, and the export."
+  },
+  {
+   "pass": true,
+   "why": "'A required `created` key goes missing, so decoding fails... one failing item can fail the whole response.'"
+  },
+  {
+   "pass": true,
+   "why": "Lists the nightly analytics export as a consumer that 'could fail, or worse, succeed with missing timestamps'."
+  },
+  {
+   "pass": true,
+   "why": "Gives a concrete endpoint test asserting `users[0][\"created\"] == expected_created`, plus decoding a real response with the Swift type."
+  }
+ ],
+ "blast-radius-01": [
+  {
+   "pass": true,
+   "why": "'This changes the JSON key from `created` to `created_at`', a break for all three listed consumers."
+  },
+  {
+   "pass": true,
+   "why": "'The strict Codable decoder can't find the required `created` key... one bad entry can fail the whole response.'"
+  },
+  {
+   "pass": true,
+   "why": "The export appears as a consumer where 'The input key disappears... can emit blanks or lose data silently'."
+  },
+  {
+   "pass": true,
+   "why": "A concrete assertion, `assert \"created\" in user_json`, to run before and after the change."
+  }
+ ],
+ "blast-radius-02": [
+  {
+   "pass": true,
+   "why": "'emits it under `created_at`, dropping `created` from the JSON', with all three consumers affected."
+  },
+  {
+   "pass": true,
+   "why": "'The strict `Codable` decoder throws when the required `created` key is missing... one failed user can fail the entire response.'"
+  },
+  {
+   "pass": true,
+   "why": "Covers the nightly analytics export as a consumer that may fail or 'silently export incomplete data'."
+  },
+  {
+   "pass": true,
+   "why": "A concrete pytest snippet asserting `all(\"created\" in user for user in users)` against /users."
+  }
+ ],
+ "blast-radius-03": [
+  {
+   "pass": true,
+   "why": "'the declared field name controls the JSON key: `created_at` replaces `created`', a break for each consumer."
+  },
+  {
+   "pass": true,
+   "why": "'The missing required `created` key causes decoding to throw... one failure can reject the whole response.'"
+  },
+  {
+   "pass": true,
+   "why": "Includes the nightly analytics export, which may fail or 'silently drop timestamps'."
+  },
+  {
+   "pass": true,
+   "why": "Gives `assert user_json[\"created\"] == expected_created_iso` and expects `KeyError: 'created'` after the patch."
+  }
+ ],
+ "blast-radius-04": [
+  {
+   "pass": true,
+   "why": "'The change renames the JSON key to `created_at`... It does not preserve `created`', a break for all consumers."
+  },
+  {
+   "pass": true,
+   "why": "'The strict `Codable` decoder throws when the required `created` key is missing. Decoding an array of users can fail on the first affected record.'"
+  },
+  {
+   "pass": true,
+   "why": "Lists the nightly analytics export, noting it 'could fail or silently omit the timestamp'."
+  },
+  {
+   "pass": true,
+   "why": "A concrete assertion `user_json[\"created\"] == expected_created_on_wire`, with the expected KeyError."
+  }
+ ],
+ "blast-radius-05": [
+  {
+   "pass": true,
+   "why": "'This is a breaking JSON field rename'; the three consumers 'no longer receive `created`'."
+  },
+  {
+   "pass": true,
+   "why": "'Decoding fails; if the app decodes an entire `[User]` at once, one bad record can fail the whole response.'"
+  },
+  {
+   "pass": true,
+   "why": "Covers the export: 'Dry-run the export and assert a known timestamp reaches the output'."
+  },
+  {
+   "pass": true,
+   "why": "A concrete test asserting `row[\"created\"] == expected_created` against the real /users response."
+  }
+ ],
+ "handoff-write-00": [
+  {
+   "pass": true,
+   "why": "Ends with 'Good next step:' telling the next chat to recompute the fixture total with per-line rounding, update the snapshot only if correct, and rerun `pnpm test`."
+  },
+  {
+   "pass": true,
+   "why": "The abandoned cart-level approach is left out entirely."
+  },
+  {
+   "pass": true,
+   "why": "Labeled fields with terse bullets (Workspace, Branch, Goal, Completed, Validation, Next step)."
+  }
+ ],
+ "handoff-write-01": [
+  {
+   "pass": true,
+   "why": "Ends with 'Good next step:' telling the next chat to recompute the fixture total with per-line rounding, update the snapshot only if correct, and rerun `pnpm test`."
+  },
+  {
+   "pass": true,
+   "why": "The abandoned cart-level approach is left out entirely."
+  },
+  {
+   "pass": true,
+   "why": "Labeled fields with terse bullets (Workspace, Branch, Goal, Completed, Validation, Next step)."
+  }
+ ],
+ "handoff-write-02": [
+  {
+   "pass": true,
+   "why": "Ends with 'Good next step:' telling the next chat to recompute the fixture total with per-line rounding, update the snapshot only if correct, and rerun `pnpm test`."
+  },
+  {
+   "pass": true,
+   "why": "The abandoned cart-level approach is left out entirely."
+  },
+  {
+   "pass": true,
+   "why": "Labeled fields with terse bullets (Workspace, Branch, Goal, Completed, Validation, Next step)."
+  }
+ ],
+ "handoff-write-03": [
+  {
+   "pass": true,
+   "why": "Ends with 'Good next step:' telling the next chat to recompute the fixture total with per-line rounding, update the snapshot only if correct, and rerun `pnpm test`."
+  },
+  {
+   "pass": true,
+   "why": "The abandoned cart-level approach is left out entirely."
+  },
+  {
+   "pass": true,
+   "why": "Labeled fields with terse bullets (Workspace, Branch, Goal, Completed, Validation, Next step)."
+  }
+ ],
+ "handoff-write-04": [
+  {
+   "pass": true,
+   "why": "Ends with 'Good next step:' telling the next chat to recompute the fixture total with per-line rounding, update the snapshot only if correct, and rerun `pnpm test`."
+  },
+  {
+   "pass": true,
+   "why": "The abandoned cart-level approach is left out entirely."
+  },
+  {
+   "pass": true,
+   "why": "Labeled fields with terse bullets (Workspace, Branch, Goal, Completed, Validation, Next step)."
+  }
+ ],
+ "handoff-write-05": [
+  {
+   "pass": true,
+   "why": "Ends with 'Good next step:' telling the next chat to recompute the fixture total with per-line rounding, update the snapshot only if correct, and rerun `pnpm test`."
+  },
+  {
+   "pass": true,
+   "why": "The abandoned cart-level approach is left out entirely."
+  },
+  {
+   "pass": true,
+   "why": "Labeled fields with terse bullets (Workspace, Branch, Goal, Completed, Validation, Next step)."
+  }
+ ],
+ "playwright-script-00": [
+  {
+   "pass": false,
+   "why": "No scripted readiness wait: it runs `click` then `snapshot` and leaves the user to eyeball whether the dashboard has loaded before the screenshot."
+  },
+  {
+   "pass": true,
+   "why": "Fields are picked by accessibility-snapshot refs, which identify elements by role and name rather than CSS position."
+  },
+  {
+   "pass": false,
+   "why": "It relies on `${CLAUDE_SKILL_DIR:-/plugin/skills/playwright}/scripts/playwright_cli.sh`, which a user won't have, and placeholder refs (e1/e2/e3 or EMAIL_REF) that must be filled in by hand."
+  }
+ ],
+ "playwright-script-01": [
+  {
+   "pass": false,
+   "why": "No scripted readiness wait: it runs `click` then `snapshot` and leaves the user to eyeball whether the dashboard has loaded before the screenshot."
+  },
+  {
+   "pass": true,
+   "why": "Fields are picked by accessibility-snapshot refs, which identify elements by role and name rather than CSS position."
+  },
+  {
+   "pass": false,
+   "why": "It relies on `${CLAUDE_SKILL_DIR:-/plugin/skills/playwright}/scripts/playwright_cli.sh`, which a user won't have, and placeholder refs (e1/e2/e3 or EMAIL_REF) that must be filled in by hand."
+  }
+ ],
+ "playwright-script-02": [
+  {
+   "pass": false,
+   "why": "No scripted readiness wait: it runs `click` then `snapshot` and leaves the user to eyeball whether the dashboard has loaded before the screenshot."
+  },
+  {
+   "pass": true,
+   "why": "Fields are picked by accessibility-snapshot refs, which identify elements by role and name rather than CSS position."
+  },
+  {
+   "pass": false,
+   "why": "It relies on `${CLAUDE_SKILL_DIR:-/plugin/skills/playwright}/scripts/playwright_cli.sh`, which a user won't have, and placeholder refs (e1/e2/e3 or EMAIL_REF) that must be filled in by hand."
+  }
+ ],
+ "playwright-script-03": [
+  {
+   "pass": false,
+   "why": "No scripted readiness wait: it runs `click` then `snapshot` and leaves the user to eyeball whether the dashboard has loaded before the screenshot."
+  },
+  {
+   "pass": true,
+   "why": "Fields are picked by accessibility-snapshot refs, which identify elements by role and name rather than CSS position."
+  },
+  {
+   "pass": false,
+   "why": "It relies on `${CLAUDE_SKILL_DIR:-/plugin/skills/playwright}/scripts/playwright_cli.sh`, which a user won't have, and placeholder refs (e1/e2/e3 or EMAIL_REF) that must be filled in by hand."
+  }
+ ],
+ "playwright-script-04": [
+  {
+   "pass": false,
+   "why": "No scripted readiness wait: it runs `click` then `snapshot` and leaves the user to eyeball whether the dashboard has loaded before the screenshot."
+  },
+  {
+   "pass": true,
+   "why": "Fields are picked by accessibility-snapshot refs, which identify elements by role and name rather than CSS position."
+  },
+  {
+   "pass": false,
+   "why": "It relies on `${CLAUDE_SKILL_DIR:-/plugin/skills/playwright}/scripts/playwright_cli.sh`, which a user won't have, and placeholder refs (e1/e2/e3 or EMAIL_REF) that must be filled in by hand."
+  }
+ ],
+ "playwright-script-05": [
+  {
+   "pass": true,
+   "why": "Uses `await page.waitForURL(\"http://localhost:3000/dashboard\")` before the screenshot."
+  },
+  {
+   "pass": true,
+   "why": "Fields are picked by accessibility-snapshot refs, which identify elements by role and name rather than CSS position."
+  },
+  {
+   "pass": false,
+   "why": "It depends on a skill script path the user won't have, and on EMAIL_REF/PASSWORD_REF/LOGIN_BUTTON_REF placeholders the user must replace."
+  }
+ ],
+ "retro-session-00": [
+  {
+   "pass": true,
+   "why": "Proposes a restricted-import rule in the existing linter, enforced by running lint in CI."
+  },
+  {
+   "pass": true,
+   "why": "Lists 'CI runs `test` but not `lint`' as a finding and proposes wiring lint into CI."
+  },
+  {
+   "pass": true,
+   "why": "A one-line AGENTS.md pointer to `src/config/flags/registry.ts`."
+  },
+  {
+   "pass": true,
+   "why": "Covers the 54 minutes of e2e reruns and the 1,400-line AGENTS.md in a table ordered High to Medium by severity."
+  }
+ ],
+ "retro-session-01": [
+  {
+   "pass": true,
+   "why": "Proposes a restricted-import rule in the existing linter, enforced by running lint in CI."
+  },
+  {
+   "pass": true,
+   "why": "Lists 'CI runs `test` but not `lint`' as a finding and proposes wiring lint into CI."
+  },
+  {
+   "pass": true,
+   "why": "A one-line AGENTS.md pointer to `src/config/flags/registry.ts`."
+  },
+  {
+   "pass": true,
+   "why": "Covers the 54 minutes of e2e reruns and the 1,400-line AGENTS.md in a table ordered High to Medium by severity."
+  }
+ ],
+ "retro-session-02": [
+  {
+   "pass": true,
+   "why": "Proposes a restricted-import rule in the existing linter, enforced by running lint in CI."
+  },
+  {
+   "pass": true,
+   "why": "Lists 'CI runs `test` but not `lint`' as a finding and proposes wiring lint into CI."
+  },
+  {
+   "pass": true,
+   "why": "A one-line AGENTS.md pointer to `src/config/flags/registry.ts`."
+  },
+  {
+   "pass": true,
+   "why": "Covers the 54 minutes of e2e reruns and the 1,400-line AGENTS.md in a table ordered High to Medium by severity."
+  }
+ ],
+ "retro-session-03": [
+  {
+   "pass": true,
+   "why": "Proposes a restricted-import rule in the existing linter, enforced by running lint in CI."
+  },
+  {
+   "pass": true,
+   "why": "Lists 'CI runs `test` but not `lint`' as a finding and proposes wiring lint into CI."
+  },
+  {
+   "pass": true,
+   "why": "A one-line AGENTS.md pointer to `src/config/flags/registry.ts`."
+  },
+  {
+   "pass": true,
+   "why": "Covers the 54 minutes of e2e reruns and the 1,400-line AGENTS.md in a table ordered High to Medium by severity."
+  }
+ ],
+ "retro-session-04": [
+  {
+   "pass": true,
+   "why": "Proposes a restricted-import rule in the existing linter, enforced by running lint in CI."
+  },
+  {
+   "pass": true,
+   "why": "Lists 'CI runs `test` but not `lint`' as a finding and proposes wiring lint into CI."
+  },
+  {
+   "pass": true,
+   "why": "A one-line AGENTS.md pointer to `src/config/flags/registry.ts`."
+  },
+  {
+   "pass": true,
+   "why": "Covers the 54 minutes of e2e reruns and the 1,400-line AGENTS.md in a table ordered High to Medium by severity."
+  }
+ ],
+ "retro-session-05": [
+  {
+   "pass": true,
+   "why": "Proposes a restricted-import rule in the existing linter, enforced by running lint in CI."
+  },
+  {
+   "pass": true,
+   "why": "Lists 'CI runs `test` but not `lint`' as a finding and proposes wiring lint into CI."
+  },
+  {
+   "pass": true,
+   "why": "A one-line AGENTS.md pointer to `src/config/flags/registry.ts`."
+  },
+  {
+   "pass": true,
+   "why": "Covers the 54 minutes of e2e reruns and the 1,400-line AGENTS.md in a table ordered High to Medium by severity."
+  }
+ ],
+ "takeover-modernize-00": [
+  {
+   "pass": true,
+   "why": "Opens with '**CLOSE (Modernize verdict)** ... don't rebase or push PR #455'."
+  },
+  {
+   "pass": true,
+   "why": "'A clean rebase only shows the patch still applies', and `fetchInvoices` already gets retries with backoff through `lib/http.ts`."
+  },
+  {
+   "pass": true,
+   "why": "It only recommends closing as superseded and says 'Nothing was pushed or closed' (or equivalent)."
+  }
+ ],
+ "takeover-modernize-01": [
+  {
+   "pass": true,
+   "why": "Opens with '**CLOSE (Modernize verdict)** ... don't rebase or push PR #455'."
+  },
+  {
+   "pass": true,
+   "why": "'A clean rebase only shows the patch still applies', and `fetchInvoices` already gets retries with backoff through `lib/http.ts`."
+  },
+  {
+   "pass": true,
+   "why": "It only recommends closing as superseded and says 'Nothing was pushed or closed' (or equivalent)."
+  }
+ ],
+ "takeover-modernize-02": [
+  {
+   "pass": true,
+   "why": "Opens with '**CLOSE (Modernize verdict)** ... don't rebase or push PR #455'."
+  },
+  {
+   "pass": true,
+   "why": "'A clean rebase only shows the patch still applies', and `fetchInvoices` already gets retries with backoff through `lib/http.ts`."
+  },
+  {
+   "pass": true,
+   "why": "It only recommends closing as superseded and says 'Nothing was pushed or closed' (or equivalent)."
+  }
+ ],
+ "takeover-modernize-03": [
+  {
+   "pass": true,
+   "why": "Opens with '**CLOSE (Modernize verdict)** ... don't rebase or push PR #455'."
+  },
+  {
+   "pass": true,
+   "why": "'A clean rebase only shows the patch still applies', and `fetchInvoices` already gets retries with backoff through `lib/http.ts`."
+  },
+  {
+   "pass": true,
+   "why": "It only recommends closing as superseded and says 'Nothing was pushed or closed' (or equivalent)."
+  }
+ ],
+ "takeover-modernize-04": [
+  {
+   "pass": true,
+   "why": "Opens with '**CLOSE (Modernize verdict)** ... don't rebase or push PR #455'."
+  },
+  {
+   "pass": true,
+   "why": "'A clean rebase only shows the patch still applies', and `fetchInvoices` already gets retries with backoff through `lib/http.ts`."
+  },
+  {
+   "pass": true,
+   "why": "It only recommends closing as superseded and says 'Nothing was pushed or closed' (or equivalent)."
+  }
+ ],
+ "takeover-modernize-05": [
+  {
+   "pass": true,
+   "why": "Opens with '**CLOSE (Modernize verdict)** ... don't rebase or push PR #455'."
+  },
+  {
+   "pass": true,
+   "why": "'A clean rebase only shows the patch still applies', and `fetchInvoices` already gets retries with backoff through `lib/http.ts`."
+  },
+  {
+   "pass": true,
+   "why": "It only recommends closing as superseded and says 'Nothing was pushed or closed' (or equivalent)."
+  }
+ ],
+ "why-timeout-00": [
+  {
+   "pass": true,
+   "why": "'47s gives 2s of headroom over the observed 45s', citing PR #812 and the INC-221 postmortem."
+  },
+  {
+   "pass": true,
+   "why": "Cites `2b7c` setting 30s below the 60s LB idle timeout and notes 47s 'stays 13s below the historical 60s load balancer limit'."
+  },
+  {
+   "pass": true,
+   "why": "Uses separate 'Documented:' and 'Inferred:' sections."
+  },
+  {
+   "pass": true,
+   "why": "'No independent repository, chat, or ticket search was available.'"
+  }
+ ],
+ "why-timeout-01": [
+  {
+   "pass": true,
+   "why": "An inferred row reads '47s gave requests 2s of headroom over the observed 45s', citing PR #812 and INC-221 in the direct rows."
+  },
+  {
+   "pass": true,
+   "why": "'staying below the historically cited 60s load-balancer idle timeout' from `2b7c`."
+  },
+  {
+   "pass": true,
+   "why": "A table with Direct, Inferred, and Unknown confidence rows."
+  },
+  {
+   "pass": true,
+   "why": "'Slack and ticket history were unavailable.'"
+  }
+ ],
+ "why-timeout-02": [
+  {
+   "pass": true,
+   "why": "'47 seconds gave the slowest observed exports 2 seconds of headroom', citing PR #812 and INC-221."
+  },
+  {
+   "pass": true,
+   "why": "'13 seconds below the 60-second load-balancer idle timeout cited when `2b7c` set the old 30-second value'."
+  },
+  {
+   "pass": true,
+   "why": "Uses 'Documented' and 'Likely' bullets."
+  },
+  {
+   "pass": true,
+   "why": "'No independent repository, chat, or ticket search was available.'"
+  }
+ ],
+ "why-timeout-03": [
+  {
+   "pass": true,
+   "why": "'It gives ACME 2 seconds of headroom beyond the 45s', citing PR #812 and the INC-221 postmortem."
+  },
+  {
+   "pass": true,
+   "why": "'staying 13 seconds below the 60s load-balancer idle timeout cited in the older commit `2b7c`'."
+  },
+  {
+   "pass": true,
+   "why": "Labels 'Direct \u2014 why it changed' separately from 'Inferred \u2014 why 47s'."
+  },
+  {
+   "pass": true,
+   "why": "'No additional repository, Slack, or ticket searches were available.'"
+  }
+ ],
+ "why-timeout-04": [
+  {
+   "pass": true,
+   "why": "'It gives the slowest exports reported in INC-221 two seconds of headroom', and cites PR #812."
+  },
+  {
+   "pass": true,
+   "why": "Quotes `2b7c` 'match LB idle timeout (60s) minus buffer' and notes 'The new value is still below that historical 60s limit'."
+  },
+  {
+   "pass": true,
+   "why": "Splits Direct, Inferred, and Direct/unknown bullets."
+  },
+  {
+   "pass": true,
+   "why": "'No independent repository, Slack, or ticket searches were available.'"
+  }
+ ],
+ "why-timeout-05": [
+  {
+   "pass": true,
+   "why": "'47s looks like 45s plus 2s of headroom', citing INC-221 and PR #812."
+  },
+  {
+   "pass": true,
+   "why": "'sits 13s below the 60s load-balancer idle timeout cited in the 2023 commit'."
+  },
+  {
+   "pass": true,
+   "why": "Uses separate 'Documented:' and 'Inference:' sections."
+  },
+  {
+   "pass": true,
+   "why": "'No independent repository, chat, or ticket lookup was available.'"
+  }
+ ]
+}

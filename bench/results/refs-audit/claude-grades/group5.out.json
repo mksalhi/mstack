@@ -1,0 +1,506 @@
+{
+ "architect-sketch-00": [
+  {
+   "pass": true,
+   "why": "'Caller's view' section precedes the type sketch: guard 'calls acquire once' and maps limited to 429."
+  },
+  {
+   "pass": true,
+   "why": "Compares a 'Redis-backed HTTP middleware' with a single acquire operation and picks the latter because it 'keeps quota policy in one place'."
+  },
+  {
+   "pass": true,
+   "why": "Exposes only createApiKeyRateLimiter returning AcquireApiKeyPermit; 'The module owns the key format, window bookkeeping, and expiry.'"
+  },
+  {
+   "pass": true,
+   "why": "'All four use the same Redis deployment' and refuses 'an instance-local quota, which would break the shared limit.'"
+  }
+ ],
+ "architect-sketch-01": [
+  {
+   "pass": true,
+   "why": "'After authentication, call checkRateLimit(redis, apiKeyId) once per request' with 429/503 mapping."
+  },
+  {
+   "pass": false,
+   "why": "Only alternative is 'A fixed-minute Redis counter', an algorithm variant behind the same API, not a structurally different design."
+  },
+  {
+   "pass": true,
+   "why": "Single function checkRateLimit; 'Keep the limit, Redis key format, and window bookkeeping private.'"
+  },
+  {
+   "pass": true,
+   "why": "One atomic Redis operation 'so concurrent requests across all four instances share one quota', failing closed rather than relaxing the limit."
+  }
+ ],
+ "architect-sketch-02": [
+  {
+   "pass": true,
+   "why": "'Caller flow' describes passing Redis to createRateLimiter at startup and calling consume after auth."
+  },
+  {
+   "pass": false,
+   "why": "Only contrasts fixed-window vs rolling-window counting, which it says stays 'out of the API contract' - not structurally different shapes."
+  },
+  {
+   "pass": true,
+   "why": "createRateLimiter returns one consume method; Redis is bound once at startup."
+  },
+  {
+   "pass": true,
+   "why": "'Redis is the shared source of truth... rather than falling back to independent per-instance quotas.'"
+  }
+ ],
+ "architect-sketch-03": [
+  {
+   "pass": true,
+   "why": "'Caller's view' section shows consume use and 429/503 handling before the shape."
+  },
+  {
+   "pass": true,
+   "why": "Rejects a fixed-window counter and 'A separate check / record API [that] would also expose a race between instances', choosing single consume."
+  },
+  {
+   "pass": true,
+   "why": "createRateLimiter returns a single ConsumeRateLimit; 'callers only see the consume operation.'"
+  },
+  {
+   "pass": true,
+   "why": "'an API key gets 100 requests total, not 100 per instance' and 'Don't fall back to a per-instance quota.'"
+  }
+ ],
+ "architect-sketch-04": [
+  {
+   "pass": true,
+   "why": "'Caller usage' covers startup, middleware passing the verified ID, and 429/503."
+  },
+  {
+   "pass": true,
+   "why": "Alternative is 'middleware that owns the policy and calls a Redis counter module', rejected because it 'would also expose window and expiry details to the middleware'."
+  },
+  {
+   "pass": true,
+   "why": "Single RateLimiter function type; 'Redis is visible at startup but not to request handlers.'"
+  },
+  {
+   "pass": true,
+   "why": "Middleware 'does not fall back to per-instance counters, which would break the shared limit.'"
+  }
+ ],
+ "architect-sketch-05": [
+  {
+   "pass": true,
+   "why": "'Caller flow' describes calling checkRateLimit(redis, apiKeyId) and mapping results to 429/503."
+  },
+  {
+   "pass": false,
+   "why": "Alternatives are only fixed-window vs sliding-window algorithms with the same contract, not structurally different designs."
+  },
+  {
+   "pass": true,
+   "why": "One checkRateLimit function; 'keep the Redis details private to this one module.'"
+  },
+  {
+   "pass": false,
+   "why": "Says 'shared across all four instances. Redis is the source of truth' but never ties Redis to the multi-instance need or contrasts it with an in-memory counter."
+  }
+ ],
+ "decision-log-00": [
+  {
+   "pass": true,
+   "why": "Evidence cells are pointers like 'commit a1b2c3d' and '.audit/lag.png', not sentences."
+  },
+  {
+   "pass": true,
+   "why": "Timestamps are '2026-11-18T10:02:00Z' and '2026-11-18T10:40:00Z'."
+  }
+ ],
+ "decision-log-01": [
+  {
+   "pass": true,
+   "why": "Evidence cells 'commit a1b2c3d' and 'Grafana screenshot: .audit/lag.png' are short labeled pointers, not sentences."
+  },
+  {
+   "pass": true,
+   "why": "Timestamps are '2026-11-18T10:02:00Z' and '2026-11-18T10:40:00Z'."
+  }
+ ],
+ "decision-log-02": [
+  {
+   "pass": true,
+   "why": "Evidence cells are pointers like 'commit a1b2c3d' and '.audit/lag.png', not sentences."
+  },
+  {
+   "pass": true,
+   "why": "Timestamps are '2026-11-18T10:02:00Z' and '2026-11-18T10:40:00Z'."
+  }
+ ],
+ "decision-log-03": [
+  {
+   "pass": true,
+   "why": "Evidence cells 'commit a1b2c3d' and 'Grafana screenshot: .audit/lag.png' are short labeled pointers, not sentences."
+  },
+  {
+   "pass": true,
+   "why": "Timestamps are '2026-11-18T10:02:00Z' and '2026-11-18T10:40:00Z'."
+  }
+ ],
+ "decision-log-04": [
+  {
+   "pass": true,
+   "why": "Evidence cells are pointers like 'commit a1b2c3d' and '.audit/lag.png', not sentences."
+  },
+  {
+   "pass": true,
+   "why": "Timestamps are '2026-11-18T10:02:00Z' and '2026-11-18T10:40:00Z'."
+  }
+ ],
+ "decision-log-05": [
+  {
+   "pass": true,
+   "why": "Evidence cells are pointers like 'commit a1b2c3d' and '.audit/lag.png', not sentences."
+  },
+  {
+   "pass": true,
+   "why": "Timestamps are '2026-11-18T10:02:00Z' and '2026-11-18T10:40:00Z'."
+  }
+ ],
+ "ketchup-00": [
+  {
+   "pass": true,
+   "why": "'Two things wait on you: whether to pin the Stripe SDK or update the webhook verifier, and whether to merge the login-test fix.'"
+  },
+  {
+   "pass": true,
+   "why": "'I'd keep the old SDK pinned for now... a wrong change could reject valid webhooks or weaken verification. The pin is reversible.'"
+  },
+  {
+   "pass": true,
+   "why": "Stripe: verifier change could reject valid webhooks; login: 'a fixed clock masks behavior that depends on time advancing.'"
+  },
+  {
+   "pass": true,
+   "why": "Plain words, no hashes, commands or test counts; even says 'every audited icon passed'."
+  }
+ ],
+ "ketchup-01": [
+  {
+   "pass": true,
+   "why": "'Two calls are waiting on you: whether to pin the Stripe SDK or update the webhook verifier, and whether to merge the login-test fix.'"
+  },
+  {
+   "pass": true,
+   "why": "'I'd pin the old SDK for now. The pin is reversible and delays the upgrade; changing the verifier before confirming the cause could reject valid webhooks.'"
+  },
+  {
+   "pass": true,
+   "why": "Both items carry a risk: rejected webhooks / delayed upgrade, and 'a fixed clock could mask a timing issue.'"
+  },
+  {
+   "pass": true,
+   "why": "Plain prose; only user-supplied PR numbers and counts, no hashes or commands."
+  }
+ ],
+ "ketchup-02": [
+  {
+   "pass": true,
+   "why": "'Two things need you: merge PR #311 and decide whether PR #312 should pin the old Stripe SDK or update the webhook verifier.'"
+  },
+  {
+   "pass": true,
+   "why": "'pin the old SDK for now. That defers the upgrade but avoids changing signature verification on a hunch.'"
+  },
+  {
+   "pass": true,
+   "why": "Stripe: defers the upgrade; login: 'Risk is low: the change is limited to the test clock.'"
+  },
+  {
+   "pass": true,
+   "why": "Plain words without hashes, commands or test-run counts."
+  }
+ ],
+ "ketchup-03": [
+  {
+   "pass": true,
+   "why": "'Two things need your call: whether to pin the old Stripe SDK or update the webhook verifier, and whether to merge the login-test fix.'"
+  },
+  {
+   "pass": true,
+   "why": "'I'd pin the old SDK for now... Pinning is reversible and delays the upgrade; a verifier regression could reject valid webhooks.'"
+  },
+  {
+   "pass": true,
+   "why": "Each item has a risk, e.g. 'clock pinning masks a timing issue the test should catch.'"
+  },
+  {
+   "pass": true,
+   "why": "Plain words; no hashes, commands or extraneous test counts."
+  }
+ ],
+ "ketchup-04": [
+  {
+   "pass": true,
+   "why": "'Two calls are waiting on you: merge PR #311 and decide whether PR #312 should pin the old Stripe SDK or update the webhook verifier.'"
+  },
+  {
+   "pass": true,
+   "why": "Picks 'Pin the old SDK for now' because 'Updating the verifier before confirming the cause risks rejecting valid webhooks', with a plan to revisit the bump."
+  },
+  {
+   "pass": true,
+   "why": "Stripe: risk of rejecting valid webhooks; login: 'Risk is low: pinning the clock... doesn't exercise behavior at other times.'"
+  },
+  {
+   "pass": true,
+   "why": "Plain words; no hashes or commands."
+  }
+ ],
+ "ketchup-05": [
+  {
+   "pass": true,
+   "why": "'Two calls need you: merge PR #311 and decide how to handle the Stripe SDK bump in PR #312.'"
+  },
+  {
+   "pass": false,
+   "why": "Gives a conditional answer ('update the verifier if the header change is confirmed... If it isn't confirmed, keep the old SDK pinned') without weighing pin's cost or committing to a pick."
+  },
+  {
+   "pass": true,
+   "why": "#312: 'The risk is rejecting valid webhooks'; #311: 'Low risk: the fixed-clock test no longer exercises behavior as time advances.'"
+  },
+  {
+   "pass": true,
+   "why": "Plain words; no hashes or commands."
+  }
+ ],
+ "principles-new-requirement-00": [
+  {
+   "pass": false,
+   "why": "Explicitly rejects a single status type and models payment and fulfillment as independent states, so 'shipped but unpaid' stays representable; no type given."
+  },
+  {
+   "pass": true,
+   "why": "'I'd skip isRefunded and the compatibility adapter' and 'remove the old fields and callers in the same change.'"
+  },
+  {
+   "pass": true,
+   "why": "'Inventory reads and writes with a rerunnable search or AST check... then codemod only the patterns whose meaning is clear.'"
+  }
+ ],
+ "principles-new-requirement-01": [
+  {
+   "pass": false,
+   "why": "OrderState is two independent fields, so { paymentStatus: 'unpaid', fulfillmentStatus: 'shipped' } is representable."
+  },
+  {
+   "pass": true,
+   "why": "'Don't add isRefunded or a permanent adapter... Migrate them by intent in one wave, then delete the old fields.'"
+  },
+  {
+   "pass": true,
+   "why": "'Inventory the callers with rg '\\b(isPaid|isShipped)\\b''."
+  }
+ ],
+ "principles-new-requirement-02": [
+  {
+   "pass": true,
+   "why": "Union type excludes unpaid+shipped: '{ payment: 'unpaid'; shipment: 'not_shipped' } | { payment: 'paid' | 'refunded'; ... }', with transitions in one module."
+  },
+  {
+   "pass": true,
+   "why": "'Don't add isRefunded or an adapter' and 'Migrate all 30 callers in the same change', making the check fail on legacy access."
+  },
+  {
+   "pass": true,
+   "why": "'Use a rerunnable, type-aware check to inventory the reads and writes... automate the unambiguous rewrites.'"
+  }
+ ],
+ "principles-new-requirement-03": [
+  {
+   "pass": false,
+   "why": "Order type is two independent fields, leaving 'unpaid' + 'shipped' representable."
+  },
+  {
+   "pass": true,
+   "why": "'I'd skip isRefunded and the adapter' and 'Migrate the callers and delete the old fields in the same change.'"
+  },
+  {
+   "pass": true,
+   "why": "'Use TypeScript's Find All References to inventory the reads and writes' plus a CI check against retired fields."
+  }
+ ],
+ "principles-new-requirement-04": [
+  {
+   "pass": true,
+   "why": "Union '{ kind: \"unpaid\" } | { kind: \"paid\" | \"refunded\"; fulfillment: ... }' makes shipped-unpaid and refunded-unpaid unrepresentable."
+  },
+  {
+   "pass": true,
+   "why": "'Don't add isRefunded or a compatibility adapter' and 'Migrate the ~30 callers and delete the flags in the same change.'"
+  },
+  {
+   "pass": true,
+   "why": "'use a rerunnable codemod for unambiguous cases. Use compiler errors to find the rest.'"
+  }
+ ],
+ "principles-new-requirement-05": [
+  {
+   "pass": true,
+   "why": "Union type with unpaid only unshipped; notes 'Three booleans... allow contradictions'."
+  },
+  {
+   "pass": true,
+   "why": "'Don't add isRefunded or keep a compatibility adapter' and 'remove the old fields in the same migration.'"
+  },
+  {
+   "pass": true,
+   "why": "'Use compiler errors and a repository search to inventory callers' plus 'a rerunnable check for remaining legacy field references.'"
+  }
+ ],
+ "setup-mstack-mixed-00": [
+  {
+   "pass": true,
+   "why": "Code roles, swarm workers, 'how explorer: sonnet', 'why investigators: sonnet'; judgment, hardest tasks, how explainer, why synthesizer on opus."
+  },
+  {
+   "pass": true,
+   "why": "'Once saved, it applies to new sessions.'"
+  }
+ ],
+ "setup-mstack-mixed-01": [
+  {
+   "pass": true,
+   "why": "Code roles, swarm workers, 'how explorer: sonnet', 'why investigators: sonnet'; judgment, hardest tasks, how explainer, why synthesizer on opus."
+  },
+  {
+   "pass": true,
+   "why": "'Once saved, it applies to new sessions.'"
+  }
+ ],
+ "setup-mstack-mixed-02": [
+  {
+   "pass": true,
+   "why": "Code roles, swarm workers, 'how explorer: sonnet', 'why investigators: sonnet'; judgment, hardest tasks, how explainer, why synthesizer on opus."
+  },
+  {
+   "pass": true,
+   "why": "'Once saved, it applies to new sessions.'"
+  }
+ ],
+ "setup-mstack-mixed-03": [
+  {
+   "pass": true,
+   "why": "Code roles, swarm workers, 'how explorer: sonnet', 'why investigators: sonnet'; judgment, hardest tasks, how explainer, why synthesizer on opus."
+  },
+  {
+   "pass": true,
+   "why": "'Once saved, it applies to new sessions.'"
+  }
+ ],
+ "setup-mstack-mixed-04": [
+  {
+   "pass": true,
+   "why": "Code roles, swarm workers, 'how explorer: sonnet', 'why investigators: sonnet'; judgment, hardest tasks, how explainer, why synthesizer on opus."
+  },
+  {
+   "pass": true,
+   "why": "'Once saved, it applies to new sessions.'"
+  }
+ ],
+ "setup-mstack-mixed-05": [
+  {
+   "pass": true,
+   "why": "Code roles, swarm workers, 'how explorer: sonnet', 'why investigators: sonnet'; judgment, hardest tasks, how explainer, why synthesizer on opus."
+  },
+  {
+   "pass": true,
+   "why": "'Once saved, it applies to new sessions.'"
+  }
+ ],
+ "ui-copy-00": [
+  {
+   "pass": true,
+   "why": "Confirm button is a verb naming the action: 'Delete / Cancel', replacing 'Yes'."
+  },
+  {
+   "pass": true,
+   "why": "Title 'Delete this item?' names the object being deleted rather than 'Are you sure?'."
+  },
+  {
+   "pass": true,
+   "why": "Toast 'Couldn't delete the item. Try again.' states the failure and recovery calmly, with no 'we' or blame."
+  }
+ ],
+ "ui-copy-01": [
+  {
+   "pass": true,
+   "why": "Confirm button is a verb naming the action: 'Cancel / Delete', replacing 'Yes'."
+  },
+  {
+   "pass": true,
+   "why": "Title 'Delete this item?' names the object being deleted rather than 'Are you sure?'."
+  },
+  {
+   "pass": true,
+   "why": "Toast 'Couldn't delete the item. Try again.' states the failure and recovery calmly, with no 'we' or blame."
+  }
+ ],
+ "ui-copy-02": [
+  {
+   "pass": true,
+   "why": "Confirm button is a verb naming the action: 'Delete / Cancel', replacing 'Yes'."
+  },
+  {
+   "pass": true,
+   "why": "Title 'Delete this item?' names the object being deleted rather than 'Are you sure?'."
+  },
+  {
+   "pass": true,
+   "why": "Toast 'Couldn't delete the item. Try again.' states the failure and recovery calmly, with no 'we' or blame."
+  }
+ ],
+ "ui-copy-03": [
+  {
+   "pass": true,
+   "why": "Confirm button is a verb naming the action: 'Cancel / Delete', replacing 'Yes'."
+  },
+  {
+   "pass": true,
+   "why": "Title 'Delete this item?' names the object being deleted rather than 'Are you sure?'."
+  },
+  {
+   "pass": true,
+   "why": "Toast 'Couldn't delete the item. Try again.' states the failure and recovery calmly, with no 'we' or blame."
+  }
+ ],
+ "ui-copy-04": [
+  {
+   "pass": true,
+   "why": "Confirm button is a verb naming the action: 'Cancel / Delete item', replacing 'Yes'."
+  },
+  {
+   "pass": true,
+   "why": "Title 'Delete this item?' names the object being deleted rather than 'Are you sure?'."
+  },
+  {
+   "pass": true,
+   "why": "Toast 'Couldn't delete the item. Try again.' states the failure and recovery calmly, with no 'we' or blame."
+  }
+ ],
+ "ui-copy-05": [
+  {
+   "pass": true,
+   "why": "Confirm button is a verb naming the action: 'Confirm button: Delete', replacing 'Yes'."
+  },
+  {
+   "pass": true,
+   "why": "Title 'Delete this item?' names the object being deleted rather than 'Are you sure?'."
+  },
+  {
+   "pass": true,
+   "why": "Toast 'Couldn't delete the item. Try again.' states the failure and recovery calmly, with no 'we' or blame."
+  }
+ ]
+}

@@ -1,0 +1,554 @@
+{
+ "ambition-rewrite-00": [
+  {
+   "pass": true,
+   "why": "Recommends proceeding now, rejects the quarter as 'the approval unit', and says 'Use agents for mechanical edits after proving the recipe on one unit.'"
+  },
+  {
+   "pass": true,
+   "why": "Builds a replay/characterization baseline of current billing outputs before changing code. ('Build a billing comparison before changing behavior... Replay against an isolated database')."
+  },
+  {
+   "pass": true,
+   "why": "'Use agents for mechanical edits after proving the recipe on one unit' with per-cutover gates of zero unexplained financial differences."
+  },
+  {
+   "pass": true,
+   "why": "Requires 'zero unexplained financial differences' before each cutover and sizes by modules/verification runs, not human weeks."
+  }
+ ],
+ "ambition-rewrite-01": [
+  {
+   "pass": true,
+   "why": "Replaces the quarter estimate with evidence from a verified migration including 'independent agent assignments'; proceeds now rather than deferring."
+  },
+  {
+   "pass": true,
+   "why": "Builds a replay/characterization baseline of current billing outputs before changing code. ('Use the current service to capture expected results... Replay sanitized inputs')."
+  },
+  {
+   "pass": true,
+   "why": "Splits implementation into 'independent agent assignments' by capabilities with disjoint files, each 'capability and its callers' verified end to end."
+  },
+  {
+   "pass": true,
+   "why": "Explicit done: 'all production entry points run on the target runtime... type-checked in CI... reconcile with expected results and have no old callers'; no human-time sizing."
+  }
+ ],
+ "ambition-rewrite-02": [
+  {
+   "pass": false,
+   "why": "Recommends modernizing and resizing the estimate but never frames the work as agent-driven; agents are not mentioned at all."
+  },
+  {
+   "pass": true,
+   "why": "Builds a replay/characterization baseline of current billing outputs before changing code. ('Capture billing behavior before changing it... Build a repeatable replay')."
+  },
+  {
+   "pass": false,
+   "why": "Parallel 'workstreams' are described but nothing assigns the bulk of the work to agents or an agent loop."
+  },
+  {
+   "pass": true,
+   "why": "Gate 'Require no unexplained financial differences' on old/new replay; no sizing in human weeks."
+  }
+ ],
+ "ambition-rewrite-03": [
+  {
+   "pass": true,
+   "why": "Reprices the quarter estimate by changes and verification runs and says 'I would expect agents to speed up repetitive edits'; proceeds now."
+  },
+  {
+   "pass": true,
+   "why": "Builds a replay/characterization baseline of current billing outputs before changing code. ('pin billing outcomes... Compare old and new results on approved, sanitized cases')."
+  },
+  {
+   "pass": false,
+   "why": "Work is split among human 'owners'; agents are only said to 'speed up repetitive edits', not to drive the bulk of the migration."
+  },
+  {
+   "pass": true,
+   "why": "Finish line: 'every production billing flow has typed boundaries and regression proof, and CI enforces the checks'; no human-time sizing."
+  }
+ ],
+ "ambition-rewrite-04": [
+  {
+   "pass": false,
+   "why": "Says only 'Automate repeatable edits'; never frames the rewrite as feasible because agents do the work."
+  },
+  {
+   "pass": true,
+   "why": "Builds a replay/characterization baseline of current billing outputs before changing code. ('Build the billing safety net first... capture what it does today')."
+  },
+  {
+   "pass": false,
+   "why": "No parallel agents or agent-driven loop; only a generic 'Automate repeatable edits'."
+  },
+  {
+   "pass": true,
+   "why": "Explicit end state: target runtime, type-checked billing rules, repeatable reconciliation checks, superseded paths gone; no human weeks."
+  }
+ ],
+ "ambition-rewrite-05": [
+  {
+   "pass": true,
+   "why": "'Modernize the billing service now' and treats the quarter as not 'the price of modernization' since 'mechanical edits can move faster with automation and agents'."
+  },
+  {
+   "pass": true,
+   "why": "Builds a replay/characterization baseline of current billing outputs before changing code. ('Record what billing does today. Build a repeatable replay')."
+  },
+  {
+   "pass": false,
+   "why": "Assigns flows to 'separate owners'; agents are only mentioned as speeding mechanical edits, not running the bulk of the work."
+  },
+  {
+   "pass": true,
+   "why": "Release gates 'replay parity... halt on unexplained monetary differences' and type checks in CI; no human-time sizing."
+  }
+ ],
+ "council-round-00": [
+  {
+   "pass": true,
+   "why": "Fixes S1 by changing '<' to '<=' at cache.ts:14 with a fixed-clock regression test at expiresAt === now."
+  },
+  {
+   "pass": true,
+   "why": "Declines S2 (observability, not correctness) and S3 (sweeper reclaims memory, not needed to stop serving expired sessions) as follow-ups."
+  },
+  {
+   "pass": true,
+   "why": "Round 2 reviewers 'review only the changed code and open findings', marking S1 resolved or still open."
+  },
+  {
+   "pass": true,
+   "why": "Records opus 6/10, fable 7/10, sonnet 8/10 and states sonnet's round-1 approval does not cover the fix."
+  }
+ ],
+ "council-round-01": [
+  {
+   "pass": true,
+   "why": "Fixes S1 by changing '<' to '<=' at cache.ts:14 with a fixed-clock regression test at expiresAt === now."
+  },
+  {
+   "pass": true,
+   "why": "Declines S2 (observability, not correctness) and S3 (sweeper reclaims memory, not needed to stop serving expired sessions) as follow-ups."
+  },
+  {
+   "pass": true,
+   "why": "Round 2 reviewers 'review only the changed code and open findings', marking S1 resolved or still open."
+  },
+  {
+   "pass": true,
+   "why": "Records opus 6/10, fable 7/10, sonnet 8/10 and states sonnet's round-1 approval does not cover the fix."
+  }
+ ],
+ "council-round-02": [
+  {
+   "pass": true,
+   "why": "Fixes S1 by changing '<' to '<=' at cache.ts:14 with a fixed-clock regression test at expiresAt === now."
+  },
+  {
+   "pass": true,
+   "why": "Declines S2 (observability, not correctness) and S3 (sweeper reclaims memory, not needed to stop serving expired sessions) as follow-ups."
+  },
+  {
+   "pass": true,
+   "why": "Round 2 reviewers 'review only the changed code and open findings', marking S1 resolved or still open."
+  },
+  {
+   "pass": true,
+   "why": "Records opus 6/10, fable 7/10, sonnet 8/10 and states sonnet's round-1 approval does not cover the fix."
+  }
+ ],
+ "council-round-03": [
+  {
+   "pass": true,
+   "why": "Fixes S1 by changing '<' to '<=' at cache.ts:14 with a fixed-clock regression test at expiresAt === now."
+  },
+  {
+   "pass": true,
+   "why": "Declines S2 (observability, not correctness) and S3 (sweeper reclaims memory, not needed to stop serving expired sessions) as follow-ups."
+  },
+  {
+   "pass": true,
+   "why": "Round 2 reviewers 'review only the changed code and open findings', marking S1 resolved or still open."
+  },
+  {
+   "pass": true,
+   "why": "Records opus 6/10, fable 7/10, sonnet 8/10 and states sonnet's round-1 approval does not cover the fix."
+  }
+ ],
+ "council-round-04": [
+  {
+   "pass": true,
+   "why": "Fixes S1 by changing '<' to '<=' at cache.ts:14 with a fixed-clock regression test at expiresAt === now."
+  },
+  {
+   "pass": true,
+   "why": "Declines S2 (observability, not correctness) and S3 (sweeper reclaims memory, not needed to stop serving expired sessions) as follow-ups."
+  },
+  {
+   "pass": true,
+   "why": "Round 2 reviewers 'review S1 and the changed code only, marking S1 resolved or still open'."
+  },
+  {
+   "pass": true,
+   "why": "Records opus 6/10, fable 7/10, sonnet 8/10 and states sonnet's round-1 approval does not cover the fix."
+  }
+ ],
+ "council-round-05": [
+  {
+   "pass": true,
+   "why": "Fixes S1 by changing '<' to '<=' at cache.ts:14 with a fixed-clock regression test at expiresAt === now."
+  },
+  {
+   "pass": true,
+   "why": "Declines S2 (observability, not correctness) and S3 (sweeper reclaims memory, not needed to stop serving expired sessions) as follow-ups."
+  },
+  {
+   "pass": true,
+   "why": "Round 2 reviewers 'review only the changed code and open findings', marking S1 resolved or still open."
+  },
+  {
+   "pass": true,
+   "why": "Records opus 6/10, fable 7/10, sonnet 8/10 and states sonnet's round-1 approval does not cover the fix."
+  }
+ ],
+ "how-explain-00": [
+  {
+   "pass": true,
+   "why": "'send a request, read the complete response, and then send another request on that same connection.'"
+  },
+  {
+   "pass": true,
+   "why": "'Server closes connection #42 after its idle timeout'."
+  },
+  {
+   "pass": true,
+   "why": "Explains in literal terms (TCP connection, Content-Length framing, connection IDs) without metaphors standing in for the mechanism."
+  }
+ ],
+ "how-explain-01": [
+  {
+   "pass": true,
+   "why": "'reusing an open connection for more than one HTTP request' with the same-connection diagram."
+  },
+  {
+   "pass": false,
+   "why": "Only says 'Either side can also close an idle connection'; no idle timeout or connection limit is named."
+  },
+  {
+   "pass": true,
+   "why": "Explains in literal terms (TCP connection, Content-Length framing, connection IDs) without metaphors standing in for the mechanism."
+  }
+ ],
+ "how-explain-02": [
+  {
+   "pass": true,
+   "why": "'request B uses the same TCP connection' after response A."
+  },
+  {
+   "pass": true,
+   "why": "'idle timeouts can close a connection before the next request arrives'."
+  },
+  {
+   "pass": true,
+   "why": "Explains in literal terms (TCP connection, Content-Length framing, connection IDs) without metaphors standing in for the mechanism."
+  }
+ ],
+ "how-explain-03": [
+  {
+   "pass": true,
+   "why": "'reads the complete response, and leaves the connection open so it can send another request later'."
+  },
+  {
+   "pass": true,
+   "why": "Lists 'an idle timeout between calls' as preventing reuse and says either side can close an idle connection."
+  },
+  {
+   "pass": true,
+   "why": "Explains in literal terms (TCP connection, Content-Length framing, connection IDs) without metaphors standing in for the mechanism."
+  }
+ ],
+ "how-explain-04": [
+  {
+   "pass": true,
+   "why": "'the next request can reuse the same connection' without repeating TCP/TLS handshakes."
+  },
+  {
+   "pass": false,
+   "why": "Only 'Either side can also close an idle connection'; no idle timeout or connection limit is mentioned."
+  },
+  {
+   "pass": true,
+   "why": "Explains in literal terms (TCP connection, Content-Length framing, connection IDs) without metaphors standing in for the mechanism."
+  }
+ ],
+ "how-explain-05": [
+  {
+   "pass": true,
+   "why": "'the connection stays open after a response so the client can reuse it for another request'."
+  },
+  {
+   "pass": true,
+   "why": "'Does the next request arrive before the idle timeout?'"
+  },
+  {
+   "pass": true,
+   "why": "Explains in literal terms (TCP connection, Content-Length framing, connection IDs) without metaphors standing in for the mechanism."
+  }
+ ],
+ "pr-body-00": [
+  {
+   "pass": true,
+   "why": "Summary includes a text code block sketching the get() lookup logic."
+  },
+  {
+   "pass": true,
+   "why": "Evidence: 'Before: session expires at expiresAt failed. After: ... passes.'"
+  },
+  {
+   "pass": true,
+   "why": "Starts directly with '## Summary' and the user-facing problem; no 'This PR' preamble."
+  },
+  {
+   "pass": true,
+   "why": "No joke present, so nothing targets people."
+  }
+ ],
+ "pr-body-01": [
+  {
+   "pass": true,
+   "why": "Summary includes a text code block sketching the get() lookup logic."
+  },
+  {
+   "pass": true,
+   "why": "Evidence: 'Before: session expires at expiresAt failed. After: ... passes.'"
+  },
+  {
+   "pass": true,
+   "why": "Starts directly with '## Summary' and the user-facing problem; no 'This PR' preamble."
+  },
+  {
+   "pass": true,
+   "why": "No joke present, so nothing targets people."
+  }
+ ],
+ "pr-body-02": [
+  {
+   "pass": true,
+   "why": "Summary includes a text code block sketching the get() lookup logic."
+  },
+  {
+   "pass": true,
+   "why": "Evidence: 'Before: session expires at expiresAt failed. After: ... passes.'"
+  },
+  {
+   "pass": true,
+   "why": "Starts directly with '## Summary' and the user-facing problem; no 'This PR' preamble."
+  },
+  {
+   "pass": true,
+   "why": "No joke present, so nothing targets people."
+  }
+ ],
+ "pr-body-03": [
+  {
+   "pass": true,
+   "why": "Summary includes a text code block sketching the get() lookup logic."
+  },
+  {
+   "pass": true,
+   "why": "Evidence: 'Before: session expires at expiresAt failed. After: ... passes.'"
+  },
+  {
+   "pass": true,
+   "why": "Starts directly with '## Summary' and the user-facing problem; no 'This PR' preamble."
+  },
+  {
+   "pass": true,
+   "why": "No joke present, so nothing targets people."
+  }
+ ],
+ "pr-body-04": [
+  {
+   "pass": true,
+   "why": "Summary includes a text code block sketching the get() lookup logic."
+  },
+  {
+   "pass": true,
+   "why": "Evidence: 'Before: session expires at expiresAt failed. After: ... passes.'"
+  },
+  {
+   "pass": true,
+   "why": "Starts directly with '## Summary' and the user-facing problem; no 'This PR' preamble."
+  },
+  {
+   "pass": true,
+   "why": "No joke present, so nothing targets people."
+  }
+ ],
+ "pr-body-05": [
+  {
+   "pass": true,
+   "why": "Summary includes a text code block sketching the get() lookup logic."
+  },
+  {
+   "pass": true,
+   "why": "Evidence: 'Before: session expires at expiresAt failed. After: ... passes.'"
+  },
+  {
+   "pass": true,
+   "why": "Starts directly with '## Summary' and the user-facing problem; no 'This PR' preamble."
+  },
+  {
+   "pass": true,
+   "why": "No joke present, so nothing targets people."
+  }
+ ],
+ "scoper-cache-00": [
+  {
+   "pass": true,
+   "why": "'No automatic expiry; ... or add a TTL if freshness matters.'"
+  }
+ ],
+ "scoper-cache-01": [
+  {
+   "pass": false,
+   "why": "Notes 'Entries have no TTL' but never says when to add one."
+  }
+ ],
+ "scoper-cache-02": [
+  {
+   "pass": false,
+   "why": "Says entries 'don't expire on a timer' but gives no condition for adding expiry."
+  }
+ ],
+ "scoper-cache-03": [
+  {
+   "pass": true,
+   "why": "'# scoper: process-local cache with no TTL; add expiry if freshness matters.'"
+  }
+ ],
+ "scoper-cache-04": [
+  {
+   "pass": false,
+   "why": "States 'Entries have no TTL' but not when to add one."
+  }
+ ],
+ "scoper-cache-05": [
+  {
+   "pass": false,
+   "why": "Says 'no time-based expiration' with no trigger for adding it."
+  }
+ ],
+ "test-audit-00": [
+  {
+   "pass": true,
+   "why": "Marks 'slugify exists' Delete: it only checks the export is defined, already covered by the behavior test."
+  },
+  {
+   "pass": true,
+   "why": "Flags 'max tools limit' as pinning 8 without testing enforcement; delete or test 8 accepted / 9 rejected."
+  },
+  {
+   "pass": true,
+   "why": "Rewrite 'notify sends' to assert the recipient and message in the mailer payload, since it passes with wrong recipient/message."
+  },
+  {
+   "pass": true,
+   "why": "Keeps the slugify behavior test and both parsePrice tests (at most refining the error matcher)."
+  }
+ ],
+ "test-audit-01": [
+  {
+   "pass": true,
+   "why": "Marks 'slugify exists' Delete: it only checks the export is defined, already covered by the behavior test."
+  },
+  {
+   "pass": true,
+   "why": "Flags 'max tools limit' as pinning 8 without testing enforcement; delete or test 8 accepted / 9 rejected."
+  },
+  {
+   "pass": true,
+   "why": "Rewrite 'notify sends' to assert the recipient and message in the mailer payload, since it passes with wrong recipient/message."
+  },
+  {
+   "pass": true,
+   "why": "Keeps the slugify behavior test and both parsePrice tests (at most refining the error matcher)."
+  }
+ ],
+ "test-audit-02": [
+  {
+   "pass": true,
+   "why": "Marks 'slugify exists' Delete: it only checks the export is defined, already covered by the behavior test."
+  },
+  {
+   "pass": true,
+   "why": "Flags 'max tools limit' as pinning 8 without testing enforcement; delete or test 8 accepted / 9 rejected."
+  },
+  {
+   "pass": true,
+   "why": "Rewrite 'notify sends' to assert the recipient and message in the mailer payload, since it passes with wrong recipient/message."
+  },
+  {
+   "pass": true,
+   "why": "Keeps the slugify behavior test and both parsePrice tests (at most refining the error matcher)."
+  }
+ ],
+ "test-audit-03": [
+  {
+   "pass": true,
+   "why": "Marks 'slugify exists' Delete: it only checks the export is defined, already covered by the behavior test."
+  },
+  {
+   "pass": true,
+   "why": "Flags 'max tools limit' as pinning 8 without testing enforcement; delete or test 8 accepted / 9 rejected."
+  },
+  {
+   "pass": true,
+   "why": "Rewrite 'notify sends' to assert the recipient and message in the mailer payload, since it passes with wrong recipient/message."
+  },
+  {
+   "pass": true,
+   "why": "Keeps the slugify behavior test and both parsePrice tests (at most refining the error matcher)."
+  }
+ ],
+ "test-audit-04": [
+  {
+   "pass": true,
+   "why": "Marks 'slugify exists' Delete: it only checks the export is defined, already covered by the behavior test."
+  },
+  {
+   "pass": true,
+   "why": "Flags 'max tools limit' as pinning 8 without testing enforcement; delete or test 8 accepted / 9 rejected."
+  },
+  {
+   "pass": true,
+   "why": "Rewrite 'notify sends' to assert the recipient and message in the mailer payload, since it passes with wrong recipient/message."
+  },
+  {
+   "pass": true,
+   "why": "Keeps the slugify behavior test and both parsePrice tests (at most refining the error matcher)."
+  }
+ ],
+ "test-audit-05": [
+  {
+   "pass": true,
+   "why": "Marks 'slugify exists' Delete: it only checks the export is defined, already covered by the behavior test."
+  },
+  {
+   "pass": true,
+   "why": "Flags 'max tools limit' as pinning 8 without testing enforcement; delete or test 8 accepted / 9 rejected."
+  },
+  {
+   "pass": true,
+   "why": "Rewrite 'notify sends' to assert the recipient and message in the mailer payload, since it passes with wrong recipient/message."
+  },
+  {
+   "pass": true,
+   "why": "Keeps the slugify behavior test and both parsePrice tests (at most refining the error matcher)."
+  }
+ ]
+}
