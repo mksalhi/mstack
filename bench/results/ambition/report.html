@@ -87,7 +87,7 @@ const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 const pct=a=>a.length?Math.round(100*a.reduce((x,y)=>x+y,0)/a.length)+'%':'–';
 const rscore=r=>r.claude_judge.filter(x=>x.pass).length/r.claude_judge.length;
 
-fetch('data.json').then(r=>r.json()).then(d=>{D=d;document.getElementById('status').hidden=true;render();}).catch(e=>{document.getElementById('status').textContent='Could not load data.json: '+e.message});
+fetch('data.json').then(r=>r.ok?r:fetch('dataset.json')).then(r=>r.json()).then(d=>{D=d;document.getElementById('status').hidden=true;render();}).catch(e=>{document.getElementById('status').textContent='Could not load data.json: '+e.message});
 
 function render(){
   const tb=['<thead><tr><th>Task</th>'+COND.map(c=>`<th class="num">${COND_LABEL[c]}</th>`).join('')+'</tr></thead><tbody>'];
